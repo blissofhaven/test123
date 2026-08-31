@@ -3,7 +3,7 @@
 
 Модуль намеренно не зависит ни от pytest, ни от Qt: его используют и
 регрессионный тест `test_calculation_baseline.py`, и утилита обновления
-эталона `tools_update_baseline.py`. Одна реализация снимка на оба применения —
+эталона `tools/update_baseline.py`. Одна реализация снимка на оба применения —
 иначе тест и утилита могли бы разойтись, и эталон обновлялся бы не тем, что
 проверяется.
 
@@ -265,7 +265,7 @@ def format_report(differences: list[Difference], limit: int = 40) -> str:
         lines.append(f"… ещё {len(differences) - limit} расхождений")
     lines += [
         "",
-        "Эталон обновляется ТОЛЬКО командой tools_update_baseline.py с указанием",
+        "Эталон обновляется ТОЛЬКО командой tools/update_baseline.py с указанием",
         "этапа и причины и записью в docs/calculation-audit/baseline-log.md.",
         "Если причина расхождения не объяснена — это дефект, а не повод обновить эталон.",
     ]

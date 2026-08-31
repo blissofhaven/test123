@@ -12,7 +12,7 @@
 
 Использование::
 
-    python tools_update_baseline.py --stage A5 --reason "перенос ТТ в объект" \\
+    python tools/update_baseline.py --stage A5 --reason "перенос ТТ в объект" \\
         --evidence "контрольный пример 6, ручной расчёт в о.е."
 
 Без ``--yes`` показывает отчёт и останавливается — это штатный способ
@@ -25,7 +25,8 @@ import sys
 from datetime import date, timezone, datetime
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "tests"))
 
 import baseline_snapshot as snapshot  # noqa: E402
@@ -37,7 +38,7 @@ LOG_HEADER = """# Журнал эталона расчётных чисел
 Каждая запись отвечает на четыре вопроса: **когда**, **каким этапом**,
 **почему** изменились числа и **чем подтверждено** новое значение.
 
-Правило: эталон обновляется только командой `tools_update_baseline.py`.
+Правило: эталон обновляется только командой `tools/update_baseline.py`.
 Обновление без записи в этом журнале — нарушение правил дорожной карты
 (`docs/roadmap/collaboration.md`, п. 5).
 

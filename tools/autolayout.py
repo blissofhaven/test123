@@ -13,14 +13,18 @@
 
 Использование:
 
-    python tools_autolayout.py rza_calc/examples/energoraion.json
+    python tools/autolayout.py rza_calc/examples/energoraion.json
 """
 from __future__ import annotations
 
+import argparse
 import sys
 from collections import defaultdict, deque
 from dataclasses import replace
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 
 from rza_calc.domain.diagram import (
     DiagramDocument,
@@ -601,4 +605,9 @@ def main(path: str) -> None:
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "rza_calc/examples/energoraion.json")
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "path", nargs="?", default=str(ROOT / "rza_calc/examples/energoraion.json"),
+        help="Проект для раскладки; относительный путь — от текущей папки",
+    )
+    main(parser.parse_args().path)

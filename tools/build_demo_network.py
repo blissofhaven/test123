@@ -5,7 +5,7 @@
 загрузчик, поэтому результат — обычный проект текущего формата, ничем не
 отличимый от созданного пользователем. Запускать из корня проекта:
 
-    python tools_build_demo_network.py
+    python tools/build_demo_network.py
 
 Состав сети описан в docs/roadmap/stages/B1-demo-and-analysis.md.
 Параметры оборудования правдоподобны и взяты из типовых справочных рядов, но
@@ -13,13 +13,18 @@
 """
 from __future__ import annotations
 
+import argparse
 import json
+import sys
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 
 from rza_calc.io.project import load_project, save_project
 
-V1_PATH = Path("rza_calc/examples/energoraion_v1.json")
-V7_PATH = Path("rza_calc/examples/energoraion.json")
+V1_PATH = ROOT / "rza_calc/examples/energoraion_v1.json"
+V7_PATH = ROOT / "rza_calc/examples/energoraion.json"
 
 PROT_FULL = {"mtz": True, "to": True, "ozz": True}      # линия с ОЗЗ
 PROT_LINE = {"mtz": True, "to": True, "ozz": False}     # линия без ОЗЗ
@@ -376,10 +381,16 @@ project = {
     "modes": modes,
 }
 
-V1_PATH.write_text(
-    json.dumps(project, ensure_ascii=False, indent=1), encoding="utf-8"
-)
-save_project(V7_PATH, load_project(V1_PATH))
-print(f"узлов: {len(nodes)}, ветвей: {len(branches)}, 3W: {len(tr3w)}, "
-      f"нагрузок: {len(loads)}, режимов: {len(modes)}")
-print(f"сохранено: {V1_PATH} и {V7_PATH}")
+def main(argv: list[str] | None = None) -> None:
+    argparse.ArgumentParser(description=__doc__).parse_args(argv)
+    V1_PATH.write_text(
+        json.dumps(project, ensure_ascii=False, indent=1), encoding="utf-8"
+    )
+    save_project(V7_PATH, load_project(V1_PATH))
+    print(f"узлов: {len(nodes)}, ветвей: {len(branches)}, 3W: {len(tr3w)}, "
+          f"нагрузок: {len(loads)}, режимов: {len(modes)}")
+    print(f"сохранено: {V1_PATH} и {V7_PATH}")
+
+
+if __name__ == "__main__":
+    main()

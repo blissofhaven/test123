@@ -19,7 +19,7 @@
 - `rza_calc/editor/symbols.py` существует, `build_symbol()` строит 14 символов;
 - `rza_calc/gui/svg_scheme.py` существует и используется во вкладке «Анализ»;
 - `rza_calc/examples/` содержит `ps_severnaya.json` и `gtes_sever.json`;
-- `tools_rebuild_demo.py` показывает рабочий способ собрать проект: собрать
+- `tools/rebuild_demo.py` показывает рабочий способ собрать проект: собрать
   legacy-словарь формата v1 и сохранить через `save_project(load_project(...))`;
 - полный прогон тестов зелёный, кроме известного артефакта мини-раннера.
 

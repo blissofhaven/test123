@@ -7,7 +7,7 @@
 
 Правило, действующее для обоих исполнителей: **покрасневший тест — это повод
 искать причину, а не обновлять эталон.** Обновление разрешено только командой
-`tools_update_baseline.py` с указанием этапа и причины и записью в
+`tools/update_baseline.py` с указанием этапа и причины и записью в
 `docs/calculation-audit/baseline-log.md`.
 """
 from pathlib import Path
@@ -19,7 +19,7 @@ BASELINE = snapshot.BASELINE_PATH
 
 def test_baseline_file_exists_and_is_readable():
     assert BASELINE.exists(), (
-        f"Эталон {BASELINE} отсутствует. Создать: python tools_update_baseline.py "
+        f"Эталон {BASELINE} отсутствует. Создать: python tools/update_baseline.py "
         "--stage <этап> --reason <причина> --yes"
     )
     data = snapshot.load_baseline()
@@ -79,7 +79,8 @@ def test_report_shows_the_cause_without_a_debugger():
     report = snapshot.format_report(snapshot.compare(expected, actual))
     for fragment in ("L1|МТЗ", "i_primary_a", "100", "101", "1"):
         assert fragment in report, report
-    assert "tools_update_baseline.py" in report, "отчёт обязан называть штатный путь"
+    assert "tools/update_baseline.py" in report, "отчёт обязан называть штатный путь"
+    assert (Path(__file__).resolve().parents[1] / "tools" / "update_baseline.py").is_file()
 
 
 def test_comparison_does_not_depend_on_key_order():

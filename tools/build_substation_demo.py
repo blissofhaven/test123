@@ -13,21 +13,27 @@
 
 Запускать из корня проекта:
 
-    python tools_build_substation_demo.py
-    python tools_build_substation_demo.py --layout
+    python tools/build_substation_demo.py
+    python tools/build_substation_demo.py --layout
 
 Параметры оборудования правдоподобны и взяты из типовых справочных рядов, но
 к реальному объекту не относятся.
 """
 from __future__ import annotations
 
+import argparse
 import json
+import sys
 from pathlib import Path
 
-from rza_calc.io.project import load_project, save_project
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 
-V1_PATH = Path("rza_calc/examples/ps_promyshlennaya_v1.json")
-V7_PATH = Path("rza_calc/examples/ps_promyshlennaya.json")
+from rza_calc.io.project import load_project, save_project
+from tools import autolayout
+
+V1_PATH = ROOT / "rza_calc/examples/ps_promyshlennaya_v1.json"
+V7_PATH = ROOT / "rza_calc/examples/ps_promyshlennaya.json"
 
 PROT_FULL = {"mtz": True, "to": True, "ozz": True}
 PROT_LINE = {"mtz": True, "to": True, "ozz": False}
@@ -240,21 +246,28 @@ project = {
     "modes": modes,
 }
 
-V1_PATH.write_text(json.dumps(project, ensure_ascii=False, indent=1),
-                   encoding="utf-8")
-data = load_project(V1_PATH)
+def main(argv: list[str] | None = None) -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--layout", action="store_true",
+                        help="Совместимый флаг: раскладка выполняется всегда")
+    parser.parse_args(argv)
+    V1_PATH.write_text(json.dumps(project, ensure_ascii=False, indent=1),
+                       encoding="utf-8")
+    data = load_project(V1_PATH)
 
-#  Линии рисуются ТРАССАМИ, а не объектами в рамке: ровно так их теперь
-#  создаёт протяжка от вывода, и на схеме не должно быть двух разных видов
-#  одной и той же линии.
-import tools_autolayout
+    #  Линии рисуются ТРАССАМИ, а не объектами в рамке: ровно так их теперь
+    #  создаёт протяжка от вывода, и на схеме не должно быть двух разных видов
+    #  одной и той же линии.
+    data.diagram = autolayout.build_layout(data, lines_as_routes=True)
+    problems = data.diagram.validate_targets(data.electrical_model)
+    if problems:
+        raise SystemExit("Ошибки ссылок схемы:\n- " + "\n- ".join(problems))
+    save_project(V7_PATH, data)
+    switches = sum(1 for row in branches if row["kind"] == "tie")
+    print(f"узлов: {len(nodes)}, ветвей: {len(branches)} (из них выключателей: "
+          f"{switches}), нагрузок: {len(loads)}, режимов: {len(modes)}")
+    print(f"сохранено: {V1_PATH} и {V7_PATH}")
 
-data.diagram = tools_autolayout.build_layout(data, lines_as_routes=True)
-problems = data.diagram.validate_targets(data.electrical_model)
-if problems:
-    raise SystemExit("Ошибки ссылок схемы:\n- " + "\n- ".join(problems))
-save_project(V7_PATH, data)
-switches = sum(1 for row in branches if row["kind"] == "tie")
-print(f"узлов: {len(nodes)}, ветвей: {len(branches)} (из них выключателей: "
-      f"{switches}), нагрузок: {len(loads)}, режимов: {len(modes)}")
-print(f"сохранено: {V1_PATH} и {V7_PATH}")
+
+if __name__ == "__main__":
+    main()

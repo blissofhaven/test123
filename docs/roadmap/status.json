@@ -1,6 +1,27 @@
 {
   "schema": "rza-roadmap-status/1",
-  "updated": "2026-08-31",
+  "updated": "2026-09-01",
+  "repository_layout": {
+    "updated": "2026-09-01",
+    "tools": "tools/README.md",
+    "historical_root_materials": "docs/archive/README.md",
+    "report": "docs/work-verification/repository-layout-report.md",
+    "verification": {
+      "targeted_passed": 42,
+      "targeted_failed": 0,
+      "full_suite_collected": 1962,
+      "full_suite_completed": false,
+      "full_suite_note": "Прогон остановлен после прекращения продвижения в GUI-наборе. Полная приёмка не заявлена.",
+      "observed_failures_reproduced_before_cleanup": 11,
+      "before_cleanup_commit": "60b9f9434d1970827084d6af98445ea3ba3fd7bf",
+      "affected_modules_before_and_after": "11 failed, 41 passed",
+      "baseline_output": "Расхождений с эталоном нет.",
+      "native_windows_launcher_exit_code": 0,
+      "protected_files_unchanged": 95,
+      "historical_files_byte_identical": 9
+    },
+    "note": "Организационный перенос без изменения приложения, схем и эталона. Прежние handover/журналы остаются историческими; актуальные команды — в tools/README.md. Git-копию не заменять прежним архивом."
+  },
   "roadmap_version": "3.8",
   "application_version": "0.3.1-safe-hardening",
   "kernel_version": "legacy-positive-sequence-2",
@@ -9,7 +30,7 @@
     "frozen": true,
     "file": "tests/baseline/calculation_baseline.json",
     "test": "tests/test_calculation_baseline.py",
-    "tool": "tools_update_baseline.py",
+    "tool": "tools/update_baseline.py",
     "log": "docs/calculation-audit/baseline-log.md",
     "tolerance": {
       "relative": 1e-09,
@@ -21,7 +42,7 @@
       "selectivity_pairs": 760
     },
     "verified_by": "независимый ручной расчёт в относительных единицах; внешней промышленной сверки нет — ограничение указано в отчёте A1",
-    "note": "Покрасневший тест — повод искать причину, а не обновлять эталон. Обновление только tools_update_baseline.py с записью в журнале. Ревизия DemoSubstation: добавлен четвёртый демо-проект ps_promyshlennaya (открывается при запуске). Числа трёх прежних проектов не изменились.",
+    "note": "Покрасневший тест — повод искать причину, а не обновлять эталон. Обновление только tools/update_baseline.py с записью в журнале. Ревизия DemoSubstation: добавлен четвёртый демо-проект ps_promyshlennaya (открывается при запуске). Числа трёх прежних проектов не изменились.",
     "revision": "DemoSubstation"
   },
   "tests": {
@@ -712,8 +733,8 @@
       "fail": 3,
       "unresolved": 0,
       "fingerprint": "ac7fc6a31eefc060",
-      "builder": "tools_build_demo_network.py",
-      "layout": "tools_autolayout.py",
+      "builder": "tools/build_demo_network.py",
+      "layout": "tools/autolayout.py",
       "note": "было 114 ✓ / 5 ✗ до A2: два нарушения Kч были ложными и создавались дефектом AUD-PROT-010"
     },
     "gtes_sever": {
@@ -740,8 +761,8 @@
       "fail": 4,
       "unresolved": 0,
       "selectivity_pairs_ok": "47 из 47",
-      "builder": "tools_build_substation_demo.py",
-      "layout": "tools_autolayout.py",
+      "builder": "tools/build_substation_demo.py",
+      "layout": "tools/autolayout.py",
       "note": "Образцовая схема: выключатели с обеих сторон обоих трансформаторов, на вводах 10 кВ, на секционном и на каждом фидере. Четыре ✗ — Kч ОЗЗ кабельных фидеров: структурное ограничение при четырёх сопоставимых фидерах на секцию, объяснено программой в протоколе."
     }
   },
@@ -768,7 +789,7 @@
       "rza_calc/io/**",
       "rza_calc/data/**",
       "tests/baseline/**",
-      "tools_update_baseline.py"
+      "tools/update_baseline.py"
     ],
     "may_take_track_A": "только по готовому ТЗ из docs/roadmap/stages/, когда у Max кончается лимит",
     "self_check": "Sol проверяет себя сам по разделу 5 брифа"
