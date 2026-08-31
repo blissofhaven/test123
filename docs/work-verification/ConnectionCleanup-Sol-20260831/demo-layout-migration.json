@@ -1,0 +1,33 @@
+{
+  "changed_routes": [
+    "route_62eb8f93a06d4322b6e0a244cf43d09e",
+    "route_647306beb96747b08e61ff9f855b78fd",
+    "route_6a646afa7f0941e1a166140d5d31188d",
+    "route_88b99523acbb4ac3b8427c1cb429f295",
+    "route_91388bf9dba045b2a38b72e6d61cf718",
+    "route_917ff3ed884c4c3a9c91f047c2eaec29",
+    "route_9ec409010f96444d90517ae1e5dae76b",
+    "route_a3b753e6ed5548a29305f003cfe00adb",
+    "route_affff359d41448aba177188ab8f8b415",
+    "route_b1b2b0c7eb5e4f13807d19a623f689b7",
+    "route_b9f5f52702454c4ab31df8f516b7328e",
+    "route_ba5a7aa3ce9f49e181b89e6dc6bd0604",
+    "route_c05c1ba9a6584a05aa95377ce64ab366",
+    "route_c08320f73dbb4c35bc3c1081f7694e2d",
+    "route_c0ee5b4e9c2d492986f7b59393a88ba4",
+    "route_cddc0a0f7c4f425e92b8d22c8776af03",
+    "route_d4965d1f389b4ca195b9275402e24a60",
+    "route_dcb47c85ac2f4f56a102c2a9aa4d74dc",
+    "route_de41add261c848ed98161242bdbf450c",
+    "route_e089c65618794a6fb66c22ae5ddbad54",
+    "route_ea97f48490f3499d8684b2580fb4c479",
+    "route_f07f05f3feac4dd8bf8921e16c1b1c3f",
+    "route_ff46ef232b1a4fc7bc2b368c3c85ce42"
+  ],
+  "fingerprint": "b275e47230495c199e8c4ad0158838af0f3a3c14a2767fc85a98bbe7a1164445",
+  "only_diagram_changed": true,
+  "before_sha256": "898d808dff3dbf13bea28ee9fa6d2e21bcc91bb29c5f1e8aa5d11744f69f75af",
+  "prepared_text_sha256": "c9b5d7c673436afa0c26f353c917a333f86dac83c8ef605127e04a36600814ca",
+  "after_sha256": "6bebd1052a76a17070393bf46ceaa776141d0bc58a3c6884f6e993547bee2215",
+  "hash_note": "after_sha256 is the actual apply_patch-written file; prepared_text_sha256 was the in-memory JSON serialization before apply_patch preserved file formatting. The actual file was independently compared to the checkpoint: only diagram routes/revision differ."
+}

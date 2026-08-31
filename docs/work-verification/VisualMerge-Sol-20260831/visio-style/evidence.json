@@ -1,0 +1,82 @@
+{
+  "platform": "offscreen",
+  "automated_not_manual": true,
+  "uses_real_application_scene": true,
+  "example_file_unchanged": true,
+  "rendering_mutated_models": false,
+  "crossing_electrical_nodes": 4,
+  "independent_crossing_components": true,
+  "main_window": {
+    "framing_updates_camera_metadata_in_memory": true,
+    "painting_and_tab_selection_changed_document": false,
+    "electrical_model_changed": false
+  },
+  "records": [
+    {
+      "file": "01-real-demo-edit.png",
+      "width": 1800,
+      "height": 1100,
+      "sha256": "d71ac35ee1568ad6791231f521c510ba8ccd708de1fe2ead0eaacb991d8a85b8"
+    },
+    {
+      "file": "01-real-demo-analysis.png",
+      "width": 1800,
+      "height": 1100,
+      "sha256": "d71ac35ee1568ad6791231f521c510ba8ccd708de1fe2ead0eaacb991d8a85b8"
+    },
+    {
+      "file": "02-voltage-state-color.png",
+      "width": 1800,
+      "height": 1100,
+      "sha256": "df35b66cedd3e8fe4d6d0500f286e97d9acaa7ccdb67887c1017123e60687781"
+    },
+    {
+      "file": "02-voltage-state-monochrome.png",
+      "width": 1800,
+      "height": 1100,
+      "sha256": "68b379ee1926c73f5ca69459f9170e1c10a26fbcce39690d02702136eb9eb25b"
+    },
+    {
+      "file": "03-crossing-no-node.png",
+      "width": 1600,
+      "height": 950,
+      "sha256": "9c1bb13bad59526794b9392cf1e76ddec3b73cd7e5969ae03fc16a90e9646e9b"
+    },
+    {
+      "file": "04-switch-rotation-closeup.png",
+      "width": 1800,
+      "height": 1000,
+      "sha256": "1cbd7401be0ebb6adc8e4f585e43c36d2e2bcea9ac6acb6be270e1b442cb4831"
+    },
+    {
+      "file": "04-switch-unknown-state.png",
+      "width": 1800,
+      "height": 1000,
+      "sha256": "30b73e8b4c72fe4f217da465724ce4e0b8d37a0a8c7efbb681e5fe2ec49a0582"
+    },
+    {
+      "file": "04-bus-bridges-two-directions.png",
+      "width": 1800,
+      "height": 1000,
+      "sha256": "0186a32e874cfdecb1fab7e877e6d4d9fbbb340799a1baeaadc403718c5bd46e"
+    },
+    {
+      "file": "05-main-window-editor.png",
+      "width": 1800,
+      "height": 1100,
+      "sha256": "c8139f289af073ef7028e4755c7f35b6b49730b8d4ea02588afbdf539cc11136"
+    },
+    {
+      "file": "05-main-window-analysis.png",
+      "width": 1800,
+      "height": 1100,
+      "sha256": "21c42fefae9343d9e6019962688d743426e490939ba8c91352878bcc5a806fc0"
+    },
+    {
+      "file": "05-main-window-editor-closeup.png",
+      "width": 1800,
+      "height": 1100,
+      "sha256": "ac8cbd381ebece5230e69e33204cb5427297c3829ad7e54a362d41c07cb2d5ee"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "existing_test_files_changed": [
+    {
+      "file": "tests/test_rotation_route_safety.py",
+      "assertion_changes": []
+    },
+    {
+      "file": "tests/test_stage4_domain_connections.py",
+      "assertion_changes": []
+    },
+    {
+      "file": "tests/test_stage4_editor_interaction.py",
+      "assertion_changes": []
+    },
+    {
+      "file": "tests/test_stage4_requirements.py",
+      "assertion_changes": [
+        {
+          "old": "test_03_unknown_port_inherits_effective_node_voltage",
+          "new": "test_03_explicit_unknown_port_connection_is_rejected_atomically",
+          "reason": "Explicit user policy: reject existing unknown endpoint"
+        }
+      ]
+    },
+    {
+      "file": "tests/test_stage4_saved_route_editing.py",
+      "assertion_changes": []
+    },
+    {
+      "file": "tests/test_two_position_palette.py",
+      "assertion_changes": []
+    },
+    {
+      "file": "tests/test_ui_interaction_orientation.py",
+      "assertion_changes": []
+    },
+    {
+      "file": "tests/test_ui_line_direction.py",
+      "assertion_changes": []
+    },
+    {
+      "file": "tests/test_visio_crossings.py",
+      "assertion_changes": []
+    }
+  ],
+  "all_other_preexisting_assertions_identical": true
+}

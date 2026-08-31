@@ -1,0 +1,4 @@
+{
+  "exception": "Traceback (most recent call last):\n  File \"C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native_crossings_probe.py\", line 25, in <module>\n    wires = canvas.scene._bridge_wires()\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: 'DiagramGraphicsScene' object has no attribute '_bridge_wires'\n",
+  "errors": []
+}

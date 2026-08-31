@@ -1,0 +1,40 @@
+{
+  "basis": "rza-A2-1-before-Sol-20260831-120252.zip",
+  "original_files": 334,
+  "unchanged": 323,
+  "changed": [
+    "docs/roadmap/BRIEF-FOR-SOL.md",
+    "docs/roadmap/current-state.md",
+    "docs/roadmap/ROADMAP.md",
+    "docs/roadmap/status.json",
+    "docs/roadmap/stages/A2-methodology.md",
+    "rza_calc/cli.py",
+    "rza_calc/core/context.py",
+    "rza_calc/core/engine.py",
+    "rza_calc/core/methodology.py",
+    "rza_calc/core/protections/to.py",
+    "rza_calc/io/project.py"
+  ],
+  "missing": [],
+  "added": [
+    "docs/roadmap/ПЕРЕДАЧА-A2.1-для-Max.md",
+    "docs/work-verification/A2-1-report.md",
+    "docs/work-verification/A2-1-Sol-20260831/01-editor-final.png",
+    "docs/work-verification/A2-1-Sol-20260831/02-analysis-final.png",
+    "docs/work-verification/A2-1-Sol-20260831/demo-table-output.txt",
+    "docs/work-verification/A2-1-Sol-20260831/final-reproduction-output.txt",
+    "docs/work-verification/A2-1-Sol-20260831/final-verification-output.txt",
+    "docs/work-verification/A2-1-Sol-20260831/integrity-comparison.json",
+    "docs/work-verification/A2-1-Sol-20260831/qt_smoke.py",
+    "docs/work-verification/A2-1-Sol-20260831/reproduction-output.txt",
+    "docs/work-verification/A2-1-Sol-20260831/verification-output.txt",
+    "tests/test_a2_calculation_case.py",
+    "tests/test_a2_calculation_regressions.py",
+    "tests/test_a2_cli_regressions.py",
+    "tests/test_a2_methodology_override.py",
+    "tests/test_a2_methodology_regressions.py"
+  ],
+  "protected_files_unchanged": true,
+  "baseline_sha256": "eb117b54e6117a4c83f612215b6ef7126f1bd303bae524e73fc60649b671f9d0",
+  "baseline_log_sha256": "b291569479a64b59da895da2ba4a8761acce64b2e04fbe89b9d5997e2ad745e9"
+}

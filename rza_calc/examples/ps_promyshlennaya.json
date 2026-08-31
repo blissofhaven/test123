@@ -1,0 +1,6286 @@
+{
+  "format_version": 7,
+  "project": {
+    "name": "ПС 110/10 кВ «Промышленная» — образцовая схема",
+    "note": "Два трансформатора 16 МВ·А, две секции 10 кВ, восемь фидеров. Выключатели стоят с обеих сторон каждого трансформатора, на вводах 10 кВ, на секционном и на каждом фидере — их можно отключать в режимах. Демонстрационный проект: параметры правдоподобны, но к реальному объекту не относятся. Коэффициенты методики — типовые и требуют утверждения."
+  },
+  "structure": {
+    "facilities": [],
+    "voltage_levels": [],
+    "bus_sections": [],
+    "bays": [],
+    "equipment": [],
+    "placements": []
+  },
+  "electrical_model": {
+    "name": "ПС 110/10 кВ «Промышленная» — образцовая схема",
+    "revision": 127,
+    "neutral": {
+      "110": "earthed",
+      "10": "isolated"
+    },
+    "extensions": {
+      "legacy_calculation": {
+        "schema_version": 1,
+        "source": "core.Network",
+        "generated_node_ids": [],
+        "generated_branch_ids": []
+      }
+    },
+    "voltage_classes": [
+      {
+        "id": "builtin.voltage.ac.220kv",
+        "nominal_voltage_v": 220000,
+        "display_name": "220 кВ",
+        "system_kind": "ac",
+        "extensions": {}
+      },
+      {
+        "id": "builtin.voltage.ac.110kv",
+        "nominal_voltage_v": 110000,
+        "display_name": "110 кВ",
+        "system_kind": "ac",
+        "extensions": {}
+      },
+      {
+        "id": "builtin.voltage.ac.35kv",
+        "nominal_voltage_v": 35000,
+        "display_name": "35 кВ",
+        "system_kind": "ac",
+        "extensions": {}
+      },
+      {
+        "id": "builtin.voltage.ac.10kv",
+        "nominal_voltage_v": 10000,
+        "display_name": "10 кВ",
+        "system_kind": "ac",
+        "extensions": {}
+      },
+      {
+        "id": "builtin.voltage.ac.6kv",
+        "nominal_voltage_v": 6000,
+        "display_name": "6 кВ",
+        "system_kind": "ac",
+        "extensions": {}
+      },
+      {
+        "id": "builtin.voltage.ac.0_4kv",
+        "nominal_voltage_v": 400,
+        "display_name": "0,4 кВ",
+        "system_kind": "ac",
+        "extensions": {}
+      }
+    ],
+    "equipment_types": [
+      {
+        "id": "builtin.external_grid",
+        "schema_version": 1,
+        "display_name": "Внешняя энергосистема",
+        "behavior_key": "source",
+        "port_definitions": [
+          {
+            "role": "terminal",
+            "display_name": "Вывод",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [],
+        "capabilities": [
+          "equipment.availability",
+          "placement.branch_attachment"
+        ],
+        "allow_additional_properties": true,
+        "extensions": {}
+      },
+      {
+        "id": "builtin.generator",
+        "schema_version": 1,
+        "display_name": "Генератор",
+        "behavior_key": "generator",
+        "port_definitions": [
+          {
+            "role": "terminal",
+            "display_name": "Вывод",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [],
+        "capabilities": [
+          "equipment.availability",
+          "placement.branch_attachment"
+        ],
+        "allow_additional_properties": true,
+        "extensions": {}
+      },
+      {
+        "id": "builtin.busbar",
+        "schema_version": 1,
+        "display_name": "Шина",
+        "behavior_key": "bus",
+        "port_definitions": [
+          {
+            "role": "terminal",
+            "display_name": "Электрический узел",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [],
+        "capabilities": [
+          "placement.node_representation"
+        ],
+        "allow_additional_properties": true,
+        "extensions": {}
+      },
+      {
+        "id": "builtin.connection_point",
+        "schema_version": 1,
+        "display_name": "Точка подключения",
+        "behavior_key": "bus",
+        "port_definitions": [
+          {
+            "role": "terminal",
+            "display_name": "Электрический узел",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [],
+        "capabilities": [
+          "placement.node_representation"
+        ],
+        "allow_additional_properties": true,
+        "extensions": {}
+      },
+      {
+        "id": "builtin.line",
+        "schema_version": 1,
+        "display_name": "Воздушная линия",
+        "behavior_key": "line",
+        "port_definitions": [
+          {
+            "role": "from",
+            "display_name": "Начало",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "to",
+            "display_name": "Конец",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [],
+        "capabilities": [
+          "equipment.availability"
+        ],
+        "allow_additional_properties": true,
+        "extensions": {}
+      },
+      {
+        "id": "builtin.cable",
+        "schema_version": 1,
+        "display_name": "Кабельная линия",
+        "behavior_key": "line",
+        "port_definitions": [
+          {
+            "role": "from",
+            "display_name": "Начало",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "to",
+            "display_name": "Конец",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [],
+        "capabilities": [
+          "equipment.availability"
+        ],
+        "allow_additional_properties": true,
+        "extensions": {}
+      },
+      {
+        "id": "builtin.circuit_breaker",
+        "schema_version": 1,
+        "display_name": "Выключатель",
+        "behavior_key": "switch",
+        "port_definitions": [
+          {
+            "role": "a",
+            "display_name": "A",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "b",
+            "display_name": "B",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [],
+        "capabilities": [
+          "equipment.availability",
+          "placement.inline_series",
+          "switch.position"
+        ],
+        "allow_additional_properties": true,
+        "extensions": {}
+      },
+      {
+        "id": "builtin.transformer_2w",
+        "schema_version": 1,
+        "display_name": "Двухобмоточный трансформатор",
+        "behavior_key": "transformer_2w",
+        "port_definitions": [
+          {
+            "role": "hv",
+            "display_name": "ВН",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "hv",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "lv",
+            "display_name": "НН",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "lv",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [],
+        "capabilities": [
+          "equipment.availability",
+          "placement.branch_attachment"
+        ],
+        "allow_additional_properties": true,
+        "extensions": {}
+      },
+      {
+        "id": "builtin.transformer_3w",
+        "schema_version": 1,
+        "display_name": "Трёхобмоточный трансформатор",
+        "behavior_key": "transformer_3w",
+        "port_definitions": [
+          {
+            "role": "hv",
+            "display_name": "ВН",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "hv",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "mv",
+            "display_name": "СН",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "mv",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "lv",
+            "display_name": "НН",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "lv",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [],
+        "capabilities": [
+          "equipment.availability",
+          "placement.branch_attachment"
+        ],
+        "allow_additional_properties": true,
+        "extensions": {}
+      },
+      {
+        "id": "builtin.load",
+        "schema_version": 1,
+        "display_name": "Нагрузка",
+        "behavior_key": "load",
+        "port_definitions": [
+          {
+            "role": "terminal",
+            "display_name": "Вывод",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [],
+        "capabilities": [
+          "equipment.availability",
+          "placement.branch_attachment"
+        ],
+        "allow_additional_properties": true,
+        "extensions": {}
+      },
+      {
+        "id": "builtin.line_section.overhead",
+        "schema_version": 1,
+        "display_name": "Участок воздушной линии",
+        "behavior_key": "line_section",
+        "port_definitions": [
+          {
+            "role": "from",
+            "display_name": "Начало",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "to",
+            "display_name": "Конец",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [
+          {
+            "key": "conductor_mark",
+            "value_kind": "string",
+            "required": false,
+            "unit": "",
+            "default": null
+          },
+          {
+            "key": "cross_section_mm2",
+            "value_kind": "number",
+            "required": false,
+            "unit": "mm2",
+            "default": null
+          },
+          {
+            "key": "material",
+            "value_kind": "string",
+            "required": false,
+            "unit": "",
+            "default": null
+          },
+          {
+            "key": "parallel_count",
+            "value_kind": "integer",
+            "required": false,
+            "unit": "",
+            "default": 1
+          },
+          {
+            "key": "r1_ohm_per_km",
+            "value_kind": "number",
+            "required": false,
+            "unit": "ohm/km",
+            "default": null
+          },
+          {
+            "key": "x1_ohm_per_km",
+            "value_kind": "number",
+            "required": false,
+            "unit": "ohm/km",
+            "default": null
+          },
+          {
+            "key": "r2_ohm_per_km",
+            "value_kind": "number",
+            "required": false,
+            "unit": "ohm/km",
+            "default": null
+          },
+          {
+            "key": "x2_ohm_per_km",
+            "value_kind": "number",
+            "required": false,
+            "unit": "ohm/km",
+            "default": null
+          },
+          {
+            "key": "r0_ohm_per_km",
+            "value_kind": "number",
+            "required": false,
+            "unit": "ohm/km",
+            "default": null
+          },
+          {
+            "key": "x0_ohm_per_km",
+            "value_kind": "number",
+            "required": false,
+            "unit": "ohm/km",
+            "default": null
+          },
+          {
+            "key": "capacitive_current_a_per_km",
+            "value_kind": "number",
+            "required": false,
+            "unit": "A/km",
+            "default": 0.0
+          },
+          {
+            "key": "custom_parameters",
+            "value_kind": "object",
+            "required": false,
+            "unit": "",
+            "default": {}
+          }
+        ],
+        "capabilities": [
+          "equipment.availability",
+          "line.physical_section"
+        ],
+        "allow_additional_properties": false,
+        "extensions": {
+          "line_kind": "overhead",
+          "diagram_symbol_key": "line_section"
+        }
+      },
+      {
+        "id": "builtin.line_section.cable",
+        "schema_version": 1,
+        "display_name": "Участок кабельной линии",
+        "behavior_key": "line_section",
+        "port_definitions": [
+          {
+            "role": "from",
+            "display_name": "Начало",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "to",
+            "display_name": "Конец",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [
+          {
+            "key": "conductor_mark",
+            "value_kind": "string",
+            "required": false,
+            "unit": "",
+            "default": null
+          },
+          {
+            "key": "cross_section_mm2",
+            "value_kind": "number",
+            "required": false,
+            "unit": "mm2",
+            "default": null
+          },
+          {
+            "key": "material",
+            "value_kind": "string",
+            "required": false,
+            "unit": "",
+            "default": null
+          },
+          {
+            "key": "parallel_count",
+            "value_kind": "integer",
+            "required": false,
+            "unit": "",
+            "default": 1
+          },
+          {
+            "key": "r1_ohm_per_km",
+            "value_kind": "number",
+            "required": false,
+            "unit": "ohm/km",
+            "default": null
+          },
+          {
+            "key": "x1_ohm_per_km",
+            "value_kind": "number",
+            "required": false,
+            "unit": "ohm/km",
+            "default": null
+          },
+          {
+            "key": "r2_ohm_per_km",
+            "value_kind": "number",
+            "required": false,
+            "unit": "ohm/km",
+            "default": null
+          },
+          {
+            "key": "x2_ohm_per_km",
+            "value_kind": "number",
+            "required": false,
+            "unit": "ohm/km",
+            "default": null
+          },
+          {
+            "key": "r0_ohm_per_km",
+            "value_kind": "number",
+            "required": false,
+            "unit": "ohm/km",
+            "default": null
+          },
+          {
+            "key": "x0_ohm_per_km",
+            "value_kind": "number",
+            "required": false,
+            "unit": "ohm/km",
+            "default": null
+          },
+          {
+            "key": "capacitive_current_a_per_km",
+            "value_kind": "number",
+            "required": false,
+            "unit": "A/km",
+            "default": 0.0
+          },
+          {
+            "key": "custom_parameters",
+            "value_kind": "object",
+            "required": false,
+            "unit": "",
+            "default": {}
+          }
+        ],
+        "capabilities": [
+          "equipment.availability",
+          "line.physical_section"
+        ],
+        "allow_additional_properties": false,
+        "extensions": {
+          "line_kind": "cable",
+          "diagram_symbol_key": "line_section"
+        }
+      },
+      {
+        "id": "builtin.line_section.busduct",
+        "schema_version": 1,
+        "display_name": "Участок шинопровода",
+        "behavior_key": "line_section",
+        "port_definitions": [
+          {
+            "role": "from",
+            "display_name": "Начало",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "to",
+            "display_name": "Конец",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [
+          {
+            "key": "conductor_mark",
+            "value_kind": "string",
+            "required": false,
+            "unit": "",
+            "default": null
+          },
+          {
+            "key": "cross_section_mm2",
+            "value_kind": "number",
+            "required": false,
+            "unit": "mm2",
+            "default": null
+          },
+          {
+            "key": "material",
+            "value_kind": "string",
+            "required": false,
+            "unit": "",
+            "default": null
+          },
+          {
+            "key": "parallel_count",
+            "value_kind": "integer",
+            "required": false,
+            "unit": "",
+            "default": 1
+          },
+          {
+            "key": "r1_ohm_per_km",
+            "value_kind": "number",
+            "required": false,
+            "unit": "ohm/km",
+            "default": null
+          },
+          {
+            "key": "x1_ohm_per_km",
+            "value_kind": "number",
+            "required": false,
+            "unit": "ohm/km",
+            "default": null
+          },
+          {
+            "key": "r2_ohm_per_km",
+            "value_kind": "number",
+            "required": false,
+            "unit": "ohm/km",
+            "default": null
+          },
+          {
+            "key": "x2_ohm_per_km",
+            "value_kind": "number",
+            "required": false,
+            "unit": "ohm/km",
+            "default": null
+          },
+          {
+            "key": "r0_ohm_per_km",
+            "value_kind": "number",
+            "required": false,
+            "unit": "ohm/km",
+            "default": null
+          },
+          {
+            "key": "x0_ohm_per_km",
+            "value_kind": "number",
+            "required": false,
+            "unit": "ohm/km",
+            "default": null
+          },
+          {
+            "key": "capacitive_current_a_per_km",
+            "value_kind": "number",
+            "required": false,
+            "unit": "A/km",
+            "default": 0.0
+          },
+          {
+            "key": "custom_parameters",
+            "value_kind": "object",
+            "required": false,
+            "unit": "",
+            "default": {}
+          }
+        ],
+        "capabilities": [
+          "equipment.availability",
+          "line.physical_section"
+        ],
+        "allow_additional_properties": false,
+        "extensions": {
+          "line_kind": "busduct",
+          "diagram_symbol_key": "line_section"
+        }
+      },
+      {
+        "id": "builtin.recloser",
+        "schema_version": 1,
+        "display_name": "Реклоузер",
+        "behavior_key": "recloser",
+        "port_definitions": [
+          {
+            "role": "a",
+            "display_name": "A",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "b",
+            "display_name": "B",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [
+          {
+            "key": "manufacturer",
+            "value_kind": "string",
+            "required": false,
+            "unit": "",
+            "default": ""
+          },
+          {
+            "key": "model",
+            "value_kind": "string",
+            "required": false,
+            "unit": "",
+            "default": ""
+          },
+          {
+            "key": "rated_voltage_v",
+            "value_kind": "integer",
+            "required": false,
+            "unit": "V",
+            "default": null
+          },
+          {
+            "key": "rated_current_a",
+            "value_kind": "number",
+            "required": true,
+            "unit": "A",
+            "default": null
+          },
+          {
+            "key": "rated_breaking_current_a",
+            "value_kind": "number",
+            "required": false,
+            "unit": "A",
+            "default": null
+          },
+          {
+            "key": "short_circuit_limit_a",
+            "value_kind": "number",
+            "required": false,
+            "unit": "A",
+            "default": null
+          },
+          {
+            "key": "thermal_short_time_current_a",
+            "value_kind": "number",
+            "required": false,
+            "unit": "A",
+            "default": null
+          },
+          {
+            "key": "thermal_duration_s",
+            "value_kind": "number",
+            "required": false,
+            "unit": "s",
+            "default": null
+          },
+          {
+            "key": "dynamic_peak_current_a",
+            "value_kind": "number",
+            "required": false,
+            "unit": "A",
+            "default": null
+          },
+          {
+            "key": "full_opening_time_s",
+            "value_kind": "number",
+            "required": false,
+            "unit": "s",
+            "default": 0.0
+          },
+          {
+            "key": "protection_settings",
+            "value_kind": "object",
+            "required": false,
+            "unit": "",
+            "default": {}
+          },
+          {
+            "key": "auto_reclose_settings",
+            "value_kind": "object",
+            "required": false,
+            "unit": "",
+            "default": {}
+          },
+          {
+            "key": "directional_settings",
+            "value_kind": "object",
+            "required": false,
+            "unit": "",
+            "default": {}
+          },
+          {
+            "key": "control_settings",
+            "value_kind": "object",
+            "required": false,
+            "unit": "",
+            "default": {}
+          },
+          {
+            "key": "scada_settings",
+            "value_kind": "object",
+            "required": false,
+            "unit": "",
+            "default": {}
+          },
+          {
+            "key": "custom_parameters",
+            "value_kind": "object",
+            "required": false,
+            "unit": "",
+            "default": {}
+          }
+        ],
+        "capabilities": [
+          "equipment.availability",
+          "placement.inline_series",
+          "protection.auto_reclose",
+          "switch.interrupting",
+          "switch.position"
+        ],
+        "allow_additional_properties": false,
+        "extensions": {
+          "catalog_category_id": "reclosers",
+          "diagram_symbol_key": "recloser"
+        }
+      },
+      {
+        "id": "builtin.disconnector",
+        "schema_version": 1,
+        "display_name": "Разъединитель",
+        "behavior_key": "switch",
+        "port_definitions": [
+          {
+            "role": "a",
+            "display_name": "A",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "b",
+            "display_name": "B",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [],
+        "capabilities": [
+          "equipment.availability",
+          "placement.inline_series",
+          "switch.position"
+        ],
+        "allow_additional_properties": true,
+        "extensions": {
+          "diagram_symbol_key": "disconnector",
+          "default_normal_position": "CLOSED"
+        }
+      },
+      {
+        "id": "compat.rza_calc.source",
+        "schema_version": 1,
+        "display_name": "Legacy: источник",
+        "behavior_key": "legacy.source",
+        "port_definitions": [
+          {
+            "role": "terminal",
+            "display_name": "Вывод",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [
+          {
+            "key": "legacy_payload",
+            "value_kind": "json",
+            "required": true,
+            "unit": "",
+            "default": null
+          }
+        ],
+        "capabilities": [
+          "equipment.availability",
+          "legacy.calculation",
+          "legacy.switch.position"
+        ],
+        "allow_additional_properties": false,
+        "extensions": {
+          "compatibility_only": true,
+          "diagram_symbol_key": "source"
+        }
+      },
+      {
+        "id": "compat.rza_calc.generator",
+        "schema_version": 1,
+        "display_name": "Legacy: генератор",
+        "behavior_key": "legacy.generator",
+        "port_definitions": [
+          {
+            "role": "terminal",
+            "display_name": "Вывод",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [
+          {
+            "key": "legacy_payload",
+            "value_kind": "json",
+            "required": true,
+            "unit": "",
+            "default": null
+          }
+        ],
+        "capabilities": [
+          "equipment.availability",
+          "legacy.calculation",
+          "legacy.switch.position"
+        ],
+        "allow_additional_properties": false,
+        "extensions": {
+          "compatibility_only": true,
+          "diagram_symbol_key": "generator"
+        }
+      },
+      {
+        "id": "compat.rza_calc.line",
+        "schema_version": 1,
+        "display_name": "Legacy: линия",
+        "behavior_key": "legacy.line",
+        "port_definitions": [
+          {
+            "role": "from",
+            "display_name": "Начало",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "to",
+            "display_name": "Конец",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [
+          {
+            "key": "legacy_payload",
+            "value_kind": "json",
+            "required": true,
+            "unit": "",
+            "default": null
+          }
+        ],
+        "capabilities": [
+          "equipment.availability",
+          "legacy.calculation",
+          "legacy.switch.position"
+        ],
+        "allow_additional_properties": false,
+        "extensions": {
+          "compatibility_only": true,
+          "diagram_symbol_key": "line_section"
+        }
+      },
+      {
+        "id": "compat.rza_calc.transformer_2w",
+        "schema_version": 1,
+        "display_name": "Legacy: трансформатор 2W",
+        "behavior_key": "legacy.transformer_2w",
+        "port_definitions": [
+          {
+            "role": "from",
+            "display_name": "Начало",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "to",
+            "display_name": "Конец",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [
+          {
+            "key": "legacy_payload",
+            "value_kind": "json",
+            "required": true,
+            "unit": "",
+            "default": null
+          }
+        ],
+        "capabilities": [
+          "equipment.availability",
+          "legacy.calculation",
+          "legacy.switch.position"
+        ],
+        "allow_additional_properties": false,
+        "extensions": {
+          "compatibility_only": true,
+          "diagram_symbol_key": "transformer_2w"
+        }
+      },
+      {
+        "id": "compat.rza_calc.tie",
+        "schema_version": 1,
+        "display_name": "Legacy: нулевая связь",
+        "behavior_key": "legacy.tie",
+        "port_definitions": [
+          {
+            "role": "from",
+            "display_name": "Начало",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "to",
+            "display_name": "Конец",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [
+          {
+            "key": "legacy_payload",
+            "value_kind": "json",
+            "required": true,
+            "unit": "",
+            "default": null
+          }
+        ],
+        "capabilities": [
+          "equipment.availability",
+          "legacy.calculation",
+          "legacy.switch.position"
+        ],
+        "allow_additional_properties": false,
+        "extensions": {
+          "compatibility_only": true,
+          "diagram_symbol_key": "circuit_breaker"
+        }
+      },
+      {
+        "id": "compat.rza_calc.branch",
+        "schema_version": 1,
+        "display_name": "Legacy: ветвь",
+        "behavior_key": "legacy.branch",
+        "port_definitions": [
+          {
+            "role": "from",
+            "display_name": "Начало",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "to",
+            "display_name": "Конец",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [
+          {
+            "key": "legacy_payload",
+            "value_kind": "json",
+            "required": true,
+            "unit": "",
+            "default": null
+          }
+        ],
+        "capabilities": [
+          "equipment.availability",
+          "legacy.calculation",
+          "legacy.switch.position"
+        ],
+        "allow_additional_properties": false,
+        "extensions": {
+          "compatibility_only": true,
+          "diagram_symbol_key": "line_section"
+        }
+      },
+      {
+        "id": "compat.rza_calc.transformer_3w",
+        "schema_version": 1,
+        "display_name": "Legacy: трансформатор 3W",
+        "behavior_key": "legacy.transformer_3w",
+        "port_definitions": [
+          {
+            "role": "hv",
+            "display_name": "ВН",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "mv",
+            "display_name": "СН",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "lv",
+            "display_name": "НН",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [
+          {
+            "key": "legacy_payload",
+            "value_kind": "json",
+            "required": true,
+            "unit": "",
+            "default": null
+          }
+        ],
+        "capabilities": [
+          "equipment.availability",
+          "legacy.calculation",
+          "legacy.switch.position"
+        ],
+        "allow_additional_properties": false,
+        "extensions": {
+          "compatibility_only": true,
+          "diagram_symbol_key": "transformer_3w"
+        }
+      },
+      {
+        "id": "compat.rza_calc.load",
+        "schema_version": 1,
+        "display_name": "Legacy: нагрузка",
+        "behavior_key": "legacy.load",
+        "port_definitions": [
+          {
+            "role": "terminal",
+            "display_name": "Вывод",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [
+          {
+            "key": "legacy_payload",
+            "value_kind": "json",
+            "required": true,
+            "unit": "",
+            "default": null
+          }
+        ],
+        "capabilities": [
+          "equipment.availability",
+          "legacy.calculation"
+        ],
+        "allow_additional_properties": false,
+        "extensions": {
+          "compatibility_only": true,
+          "diagram_symbol_key": "load"
+        }
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eq_a4d7b5142f2655f6aeb9b3adfffc7d5d",
+        "type_id": "compat.rza_calc.source",
+        "type_version": 1,
+        "name": "Система 110 кВ",
+        "port_ids": [
+          "port_b8f303357b7857498c5d2b9b7525d55d"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "source",
+            "switchable": false,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": null,
+            "ct_node": null,
+            "ct_accuracy": "",
+            "breaker_t_off": null,
+            "terminal": "",
+            "prot": {
+              "mtz": true,
+              "to": true,
+              "ozz": false,
+              "t_mtz": null,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            },
+            "s_kz_max": 2500000.0,
+            "s_kz_min": 1400000.0,
+            "i_kz_max": null,
+            "i_kz_min": null,
+            "x_r_ratio": 12.0,
+            "input_mode_max": "power",
+            "input_mode_min": "power",
+            "voltage_kv": null
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "SYS",
+            "legacy_class": "SourceBranch",
+            "source_order": 0
+          }
+        }
+      },
+      {
+        "id": "eq_dd66e489ba105d52b4d6577828b985e5",
+        "type_id": "compat.rza_calc.line",
+        "type_version": 1,
+        "name": "ВЛ-110 питающая",
+        "port_ids": [
+          "port_89f206e57fee523d86b37ed087ec299e",
+          "port_d6be42c54dd855a9adbce62ab3ca03d0"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "line",
+            "switchable": false,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              300,
+              5
+            ],
+            "ct_node": "sys110",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "Бреслер ТОР-300",
+            "prot": {
+              "mtz": true,
+              "to": false,
+              "ozz": false,
+              "t_mtz": 1.3,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            },
+            "line_type": "overhead",
+            "length_km": 12.0,
+            "brand": "АС-120",
+            "section_mm2": 120,
+            "material": "Al",
+            "n_parallel": 1,
+            "r0": 0.249,
+            "x0": 0.427,
+            "ic_per_km": null,
+            "calculation_block_reason": null
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "VL110",
+            "legacy_class": "LineBranch",
+            "source_order": 1
+          }
+        }
+      },
+      {
+        "id": "eq_424f4652d0fa53928823f4d3bf8279ac",
+        "type_id": "compat.rza_calc.tie",
+        "type_version": 1,
+        "name": "Q1 · выключатель ВН Т1",
+        "port_ids": [
+          "port_769d94275a115abe9c5344cb1cff63d9",
+          "port_c2dd86ddf1d25cd28ac06b70c901dc86"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "tie",
+            "switchable": true,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              200,
+              5
+            ],
+            "ct_node": "ou110",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ-100",
+            "prot": {
+              "mtz": false,
+              "to": false,
+              "ozz": false,
+              "t_mtz": null,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            }
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": "CLOSED",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "Q1",
+            "legacy_class": "TieBranch",
+            "source_order": 2
+          }
+        }
+      },
+      {
+        "id": "eq_7639d35369075892b02118a60e11c365",
+        "type_id": "compat.rza_calc.tie",
+        "type_version": 1,
+        "name": "Q2 · выключатель ВН Т2",
+        "port_ids": [
+          "port_d342b75eab855dfb8353ae8606888994",
+          "port_f794dcf6aa5450fd9c0caa2cb5ab4cb4"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "tie",
+            "switchable": true,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              200,
+              5
+            ],
+            "ct_node": "ou110",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ-100",
+            "prot": {
+              "mtz": false,
+              "to": false,
+              "ozz": false,
+              "t_mtz": null,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            }
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": "CLOSED",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "Q2",
+            "legacy_class": "TieBranch",
+            "source_order": 3
+          }
+        }
+      },
+      {
+        "id": "eq_c21aa366334c5165b39fbc9c2c8e60f8",
+        "type_id": "compat.rza_calc.transformer_2w",
+        "type_version": 1,
+        "name": "Т1 · 16 МВ·А 110/10",
+        "port_ids": [
+          "port_2e49dd0db3df5403a8278ac55933393e",
+          "port_377d53eb1f1154d2a97c04bd14d76643"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "transformer",
+            "switchable": false,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              100,
+              5
+            ],
+            "ct_node": "t1_hv",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "Бреслер ТОР-300",
+            "prot": {
+              "mtz": true,
+              "to": false,
+              "ozz": false,
+              "t_mtz": 0.9,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            },
+            "s_nom": 16000,
+            "u_hv": 115.0,
+            "u_lv": 11.0,
+            "uk": 10.5,
+            "p_k": 85.0,
+            "group": "Д/Ун-11",
+            "z_loop": null,
+            "i_inrush_ratio": 5.0,
+            "internal_star_leg": false
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "T1",
+            "legacy_class": "TransformerBranch",
+            "source_order": 4
+          }
+        }
+      },
+      {
+        "id": "eq_15a7852ddb1258a18197303b61eaf9b6",
+        "type_id": "compat.rza_calc.transformer_2w",
+        "type_version": 1,
+        "name": "Т2 · 16 МВ·А 110/10",
+        "port_ids": [
+          "port_c901ac581c5758019e4c6dc279dbddaa",
+          "port_241e14fd5eed53d29220e372817975d8"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "transformer",
+            "switchable": false,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              100,
+              5
+            ],
+            "ct_node": "t2_hv",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "Бреслер ТОР-300",
+            "prot": {
+              "mtz": true,
+              "to": false,
+              "ozz": false,
+              "t_mtz": 0.9,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            },
+            "s_nom": 16000,
+            "u_hv": 115.0,
+            "u_lv": 11.0,
+            "uk": 10.5,
+            "p_k": 85.0,
+            "group": "Д/Ун-11",
+            "z_loop": null,
+            "i_inrush_ratio": 5.0,
+            "internal_star_leg": false
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "T2",
+            "legacy_class": "TransformerBranch",
+            "source_order": 5
+          }
+        }
+      },
+      {
+        "id": "eq_ade001fc320c558e8bdc2f70e5a1daa8",
+        "type_id": "compat.rza_calc.tie",
+        "type_version": 1,
+        "name": "Q3 · ввод-1 10 кВ",
+        "port_ids": [
+          "port_096c4508f5b85653b0c91e41ae6a9abb",
+          "port_5577103d6b7f57a7815dd1e51fc2688f"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "tie",
+            "switchable": true,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              1000,
+              5
+            ],
+            "ct_node": "t1_lv",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ-100",
+            "prot": {
+              "mtz": false,
+              "to": false,
+              "ozz": false,
+              "t_mtz": null,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            }
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": "CLOSED",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "Q3",
+            "legacy_class": "TieBranch",
+            "source_order": 6
+          }
+        }
+      },
+      {
+        "id": "eq_ace04c8a21b05e1e9fb3dc70fdf4900a",
+        "type_id": "compat.rza_calc.tie",
+        "type_version": 1,
+        "name": "Q4 · ввод-2 10 кВ",
+        "port_ids": [
+          "port_c5ee96cf86555acdbef4c3aad8219d23",
+          "port_0692a694980a5048b6bb4bfcead36404"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "tie",
+            "switchable": true,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              1000,
+              5
+            ],
+            "ct_node": "t2_lv",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ-100",
+            "prot": {
+              "mtz": false,
+              "to": false,
+              "ozz": false,
+              "t_mtz": null,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            }
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": "CLOSED",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "Q4",
+            "legacy_class": "TieBranch",
+            "source_order": 7
+          }
+        }
+      },
+      {
+        "id": "eq_05e8b7851ceb5453be69597946b63604",
+        "type_id": "compat.rza_calc.tie",
+        "type_version": 1,
+        "name": "QB · секционный 10 кВ",
+        "port_ids": [
+          "port_ae2c972e2a0250599351d8364d357445",
+          "port_6b4c56798d6e5afea0ccd246d58b263d"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "tie",
+            "switchable": true,
+            "normally_closed": false,
+            "switch_with": null,
+            "ct_ratio": [
+              1000,
+              5
+            ],
+            "ct_node": "sh1",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ-100",
+            "prot": {
+              "mtz": false,
+              "to": false,
+              "ozz": false,
+              "t_mtz": null,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            }
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": "OPEN",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "QB",
+            "legacy_class": "TieBranch",
+            "source_order": 8
+          }
+        }
+      },
+      {
+        "id": "eq_c616b15c5b125a218b7dcd7c47851cf5",
+        "type_id": "compat.rza_calc.tie",
+        "type_version": 1,
+        "name": "QF1 · выключатель Ф-1",
+        "port_ids": [
+          "port_225440f1053e5404a4f1d99356456d82",
+          "port_376ff78d471952fbad70730ba06514d6"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "tie",
+            "switchable": true,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              400,
+              5
+            ],
+            "ct_node": "sh1",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ-100",
+            "prot": {
+              "mtz": false,
+              "to": false,
+              "ozz": false,
+              "t_mtz": null,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            }
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": "CLOSED",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "QF1",
+            "legacy_class": "TieBranch",
+            "source_order": 9
+          }
+        }
+      },
+      {
+        "id": "eq_0644dbdc84fa5998817782d6756fbc82",
+        "type_id": "compat.rza_calc.line",
+        "type_version": 1,
+        "name": "Ф-1 · КЛ на РП-1",
+        "port_ids": [
+          "port_5428cdb3c6f459eb8500476b176ba690",
+          "port_1bdeaa514880529dacb5e5cc794ddaab"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "line",
+            "switchable": false,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              400,
+              5
+            ],
+            "ct_node": "f1_cell",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ-100",
+            "prot": {
+              "mtz": true,
+              "to": false,
+              "ozz": true,
+              "t_mtz": 0.5,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            },
+            "line_type": "cable",
+            "length_km": 1.1,
+            "brand": "АПвПу-10",
+            "section_mm2": 120,
+            "material": "Al",
+            "n_parallel": 1,
+            "r0": 0.258,
+            "x0": 0.081,
+            "ic_per_km": 0.9,
+            "calculation_block_reason": null
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "F1",
+            "legacy_class": "LineBranch",
+            "source_order": 10
+          }
+        }
+      },
+      {
+        "id": "eq_5cb68a5487f053c0968df2612f187e21",
+        "type_id": "compat.rza_calc.tie",
+        "type_version": 1,
+        "name": "QF2 · выключатель Ф-2",
+        "port_ids": [
+          "port_d6eee1fa7dad5d7c861647c7c385098f",
+          "port_8664588c492852b0ab51789a886ccc52"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "tie",
+            "switchable": true,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              400,
+              5
+            ],
+            "ct_node": "sh1",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ-100",
+            "prot": {
+              "mtz": false,
+              "to": false,
+              "ozz": false,
+              "t_mtz": null,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            }
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": "CLOSED",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "QF2",
+            "legacy_class": "TieBranch",
+            "source_order": 11
+          }
+        }
+      },
+      {
+        "id": "eq_136e2e8c9a725af1b9ad2b4a2a09e545",
+        "type_id": "compat.rza_calc.line",
+        "type_version": 1,
+        "name": "Ф-2 · КЛ на ЦРП",
+        "port_ids": [
+          "port_26d1e23af8df5005b6ce277c970946a6",
+          "port_a5fe3593c61950c6bc33e10165878075"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "line",
+            "switchable": false,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              400,
+              5
+            ],
+            "ct_node": "f2_cell",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ-100",
+            "prot": {
+              "mtz": true,
+              "to": true,
+              "ozz": true,
+              "t_mtz": 0.5,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            },
+            "line_type": "cable",
+            "length_km": 5.2,
+            "brand": "АПвПу-10",
+            "section_mm2": 120,
+            "material": "Al",
+            "n_parallel": 1,
+            "r0": 0.258,
+            "x0": 0.081,
+            "ic_per_km": 0.9,
+            "calculation_block_reason": null
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "F2",
+            "legacy_class": "LineBranch",
+            "source_order": 12
+          }
+        }
+      },
+      {
+        "id": "eq_0cb75861854e55b587599895e9d5a96f",
+        "type_id": "compat.rza_calc.tie",
+        "type_version": 1,
+        "name": "QF3 · выключатель Ф-3",
+        "port_ids": [
+          "port_750b349368565003922847ac6f6bf168",
+          "port_a5e8f51156935664a34829ede99bf921"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "tie",
+            "switchable": true,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              300,
+              5
+            ],
+            "ct_node": "sh1",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ-100",
+            "prot": {
+              "mtz": false,
+              "to": false,
+              "ozz": false,
+              "t_mtz": null,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            }
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": "CLOSED",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "QF3",
+            "legacy_class": "TieBranch",
+            "source_order": 13
+          }
+        }
+      },
+      {
+        "id": "eq_5465b63471355dbd8e594b1e73c04db4",
+        "type_id": "compat.rza_calc.line",
+        "type_version": 1,
+        "name": "Ф-3 · КЛ на ЦТП-4",
+        "port_ids": [
+          "port_87586ae2bb5058759d1754aff40c1a58",
+          "port_34d9bd2564f251ef97758fc171952bd6"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "line",
+            "switchable": false,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              300,
+              5
+            ],
+            "ct_node": "f3_cell",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ-100",
+            "prot": {
+              "mtz": true,
+              "to": true,
+              "ozz": true,
+              "t_mtz": 0.5,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            },
+            "line_type": "cable",
+            "length_km": 6.4,
+            "brand": "АПвПу-10",
+            "section_mm2": 120,
+            "material": "Al",
+            "n_parallel": 1,
+            "r0": 0.258,
+            "x0": 0.081,
+            "ic_per_km": 0.9,
+            "calculation_block_reason": null
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "F3",
+            "legacy_class": "LineBranch",
+            "source_order": 14
+          }
+        }
+      },
+      {
+        "id": "eq_75b923cf8eee5f6b82842fa0be90964a",
+        "type_id": "compat.rza_calc.tie",
+        "type_version": 1,
+        "name": "QF4 · выключатель Ф-4",
+        "port_ids": [
+          "port_08d792ed5d4f58fc98aea6b6139195cc",
+          "port_3b83a495bc2b54b0bd84a0c2f6337f02"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "tie",
+            "switchable": true,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              300,
+              5
+            ],
+            "ct_node": "sh1",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ-100",
+            "prot": {
+              "mtz": false,
+              "to": false,
+              "ozz": false,
+              "t_mtz": null,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            }
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": "CLOSED",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "QF4",
+            "legacy_class": "TieBranch",
+            "source_order": 15
+          }
+        }
+      },
+      {
+        "id": "eq_054d66ed593b50d1abc6dcd844dc9a47",
+        "type_id": "compat.rza_calc.line",
+        "type_version": 1,
+        "name": "Ф-4 · ВЛ на насосную",
+        "port_ids": [
+          "port_3534967158d25a9e8623453a19adfbc4",
+          "port_1e49aa34560a54b68a736b9f6697d554"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "line",
+            "switchable": false,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              300,
+              5
+            ],
+            "ct_node": "f4_cell",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "Бреслер ТОР-300",
+            "prot": {
+              "mtz": true,
+              "to": true,
+              "ozz": false,
+              "t_mtz": 0.5,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            },
+            "line_type": "overhead",
+            "length_km": 4.2,
+            "brand": "АС-95",
+            "section_mm2": 95,
+            "material": "Al",
+            "n_parallel": 1,
+            "r0": 0.315,
+            "x0": 0.363,
+            "ic_per_km": 0.02,
+            "calculation_block_reason": null
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "F4",
+            "legacy_class": "LineBranch",
+            "source_order": 16
+          }
+        }
+      },
+      {
+        "id": "eq_38d5335be1c65e08b87289926461ce12",
+        "type_id": "compat.rza_calc.tie",
+        "type_version": 1,
+        "name": "QF5 · выключатель Ф-5",
+        "port_ids": [
+          "port_1e609b8b4d595d6b91d755aa5581429a",
+          "port_ba5ff5135fa859ceb67839b7fe8b7f10"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "tie",
+            "switchable": true,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              400,
+              5
+            ],
+            "ct_node": "sh2",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ-100",
+            "prot": {
+              "mtz": false,
+              "to": false,
+              "ozz": false,
+              "t_mtz": null,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            }
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": "CLOSED",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "QF5",
+            "legacy_class": "TieBranch",
+            "source_order": 17
+          }
+        }
+      },
+      {
+        "id": "eq_da2c645dc5c35b58816899b1d02c7714",
+        "type_id": "compat.rza_calc.line",
+        "type_version": 1,
+        "name": "Ф-5 · КЛ на компрессорную",
+        "port_ids": [
+          "port_81ad6989bf28525eaac242e6d43a9d6a",
+          "port_27eeda51af1250ec808a88804654bcf5"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "line",
+            "switchable": false,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              400,
+              5
+            ],
+            "ct_node": "f5_cell",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ-100",
+            "prot": {
+              "mtz": true,
+              "to": false,
+              "ozz": true,
+              "t_mtz": 0.5,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            },
+            "line_type": "cable",
+            "length_km": 1.3,
+            "brand": "АПвПу-10",
+            "section_mm2": 240,
+            "material": "Al",
+            "n_parallel": 1,
+            "r0": 0.129,
+            "x0": 0.075,
+            "ic_per_km": 1.3,
+            "calculation_block_reason": null
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "F5",
+            "legacy_class": "LineBranch",
+            "source_order": 18
+          }
+        }
+      },
+      {
+        "id": "eq_6e1ad967f337598d819cea815cbd34ed",
+        "type_id": "compat.rza_calc.tie",
+        "type_version": 1,
+        "name": "QF6 · выключатель Ф-6",
+        "port_ids": [
+          "port_2a9f8460e9eb59bc9f6a831cccdf49cb",
+          "port_9d2e58c0300459babb1a1401fcf1a41b"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "tie",
+            "switchable": true,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              400,
+              5
+            ],
+            "ct_node": "sh2",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ-100",
+            "prot": {
+              "mtz": false,
+              "to": false,
+              "ozz": false,
+              "t_mtz": null,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            }
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": "CLOSED",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "QF6",
+            "legacy_class": "TieBranch",
+            "source_order": 19
+          }
+        }
+      },
+      {
+        "id": "eq_47ceccd522385dea83c2dc3f61643285",
+        "type_id": "compat.rza_calc.line",
+        "type_version": 1,
+        "name": "Ф-6 · КЛ на РП-2",
+        "port_ids": [
+          "port_a8668711dd71573bb4ae902010663531",
+          "port_94288587fe01572aa35cfcf331bfa59b"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "line",
+            "switchable": false,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              400,
+              5
+            ],
+            "ct_node": "f6_cell",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ-100",
+            "prot": {
+              "mtz": true,
+              "to": true,
+              "ozz": true,
+              "t_mtz": 0.5,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            },
+            "line_type": "cable",
+            "length_km": 5.6,
+            "brand": "АПвПу-10",
+            "section_mm2": 120,
+            "material": "Al",
+            "n_parallel": 1,
+            "r0": 0.258,
+            "x0": 0.081,
+            "ic_per_km": 0.9,
+            "calculation_block_reason": null
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "F6",
+            "legacy_class": "LineBranch",
+            "source_order": 20
+          }
+        }
+      },
+      {
+        "id": "eq_935cbbc46b155d16951255fd3afc9d09",
+        "type_id": "compat.rza_calc.tie",
+        "type_version": 1,
+        "name": "QF7 · выключатель Ф-7",
+        "port_ids": [
+          "port_eb62230963be50a6a7a73ddc12a027f9",
+          "port_2b28dadc4f97529fa4eb20479dc0f008"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "tie",
+            "switchable": true,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              300,
+              5
+            ],
+            "ct_node": "sh2",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ-100",
+            "prot": {
+              "mtz": false,
+              "to": false,
+              "ozz": false,
+              "t_mtz": null,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            }
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": "CLOSED",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "QF7",
+            "legacy_class": "TieBranch",
+            "source_order": 21
+          }
+        }
+      },
+      {
+        "id": "eq_6322f5cee2755a4888ae05398f10b943",
+        "type_id": "compat.rza_calc.line",
+        "type_version": 1,
+        "name": "Ф-7 · КЛ на очистные",
+        "port_ids": [
+          "port_b7cd45bb2b79580299bd8acbb1708d21",
+          "port_8616489c6d515345952f9c4dca19f4e6"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "line",
+            "switchable": false,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              300,
+              5
+            ],
+            "ct_node": "f7_cell",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ-100",
+            "prot": {
+              "mtz": true,
+              "to": true,
+              "ozz": true,
+              "t_mtz": 0.5,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            },
+            "line_type": "cable",
+            "length_km": 6.8,
+            "brand": "АПвПу-10",
+            "section_mm2": 120,
+            "material": "Al",
+            "n_parallel": 1,
+            "r0": 0.258,
+            "x0": 0.081,
+            "ic_per_km": 0.9,
+            "calculation_block_reason": null
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "F7",
+            "legacy_class": "LineBranch",
+            "source_order": 22
+          }
+        }
+      },
+      {
+        "id": "eq_f331c6f6592d5117802cb525ad09bb52",
+        "type_id": "compat.rza_calc.tie",
+        "type_version": 1,
+        "name": "QF8 · выключатель Ф-8",
+        "port_ids": [
+          "port_3d69f1931c3f5d5a862e37e1c600d956",
+          "port_9a7903afe3115534aed8c53b3f15c957"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "tie",
+            "switchable": true,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              300,
+              5
+            ],
+            "ct_node": "sh2",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ-100",
+            "prot": {
+              "mtz": false,
+              "to": false,
+              "ozz": false,
+              "t_mtz": null,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            }
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": "CLOSED",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "QF8",
+            "legacy_class": "TieBranch",
+            "source_order": 23
+          }
+        }
+      },
+      {
+        "id": "eq_5aa365877ada589ca442702e8a81f634",
+        "type_id": "compat.rza_calc.line",
+        "type_version": 1,
+        "name": "Ф-8 · ВЛ на карьер",
+        "port_ids": [
+          "port_c3f6869a7d1653418b2098b88234c0a0",
+          "port_211c1141acd855d5a6bb222218d8077a"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "line",
+            "switchable": false,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              300,
+              5
+            ],
+            "ct_node": "f8_cell",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "Бреслер ТОР-300",
+            "prot": {
+              "mtz": true,
+              "to": true,
+              "ozz": false,
+              "t_mtz": 0.5,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            },
+            "line_type": "overhead",
+            "length_km": 4.6,
+            "brand": "АС-95",
+            "section_mm2": 95,
+            "material": "Al",
+            "n_parallel": 1,
+            "r0": 0.315,
+            "x0": 0.363,
+            "ic_per_km": 0.02,
+            "calculation_block_reason": null
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "F8",
+            "legacy_class": "LineBranch",
+            "source_order": 24
+          }
+        }
+      },
+      {
+        "id": "eq_a3f043e883bb5b41b438ec2fd6b26ad0",
+        "type_id": "compat.rza_calc.load",
+        "type_version": 1,
+        "name": "Нагрузка Ф-1",
+        "port_ids": [
+          "port_e446105fce455df9af21207286452877"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "p_kw": 1800,
+            "cos_phi": 0.9,
+            "k_use": 1.0,
+            "k_szp": null,
+            "motor_share": null
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "load",
+            "legacy_id": "L1",
+            "legacy_class": "Load",
+            "source_order": 0
+          }
+        }
+      },
+      {
+        "id": "eq_200afc10c5255800a70b5b810d237e51",
+        "type_id": "compat.rza_calc.load",
+        "type_version": 1,
+        "name": "Нагрузка Ф-2",
+        "port_ids": [
+          "port_4cb5ea05731f5068aa0bd176494e99b9"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "p_kw": 1250,
+            "cos_phi": 0.9,
+            "k_use": 1.0,
+            "k_szp": null,
+            "motor_share": null
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "load",
+            "legacy_id": "L2",
+            "legacy_class": "Load",
+            "source_order": 1
+          }
+        }
+      },
+      {
+        "id": "eq_883df9c684a2587b81ba0a5300430f1b",
+        "type_id": "compat.rza_calc.load",
+        "type_version": 1,
+        "name": "Нагрузка Ф-3",
+        "port_ids": [
+          "port_a0bd8f12717458aa83478be7e5ad0538"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "p_kw": 1100,
+            "cos_phi": 0.9,
+            "k_use": 1.0,
+            "k_szp": null,
+            "motor_share": null
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "load",
+            "legacy_id": "L3",
+            "legacy_class": "Load",
+            "source_order": 2
+          }
+        }
+      },
+      {
+        "id": "eq_86eff7a6dee157b4ba9d3292579003e6",
+        "type_id": "compat.rza_calc.load",
+        "type_version": 1,
+        "name": "Нагрузка Ф-4",
+        "port_ids": [
+          "port_bf39fdf877a956c8a8fdf1f74b2e5451"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "p_kw": 780,
+            "cos_phi": 0.9,
+            "k_use": 1.0,
+            "k_szp": null,
+            "motor_share": null
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "load",
+            "legacy_id": "L4",
+            "legacy_class": "Load",
+            "source_order": 3
+          }
+        }
+      },
+      {
+        "id": "eq_1a4cacc59d115a9c96e6ef08d48be62b",
+        "type_id": "compat.rza_calc.load",
+        "type_version": 1,
+        "name": "Нагрузка Ф-5",
+        "port_ids": [
+          "port_b1752729ed61507da421f50c4e042a91"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "p_kw": 2400,
+            "cos_phi": 0.9,
+            "k_use": 1.0,
+            "k_szp": null,
+            "motor_share": null
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "load",
+            "legacy_id": "L5",
+            "legacy_class": "Load",
+            "source_order": 4
+          }
+        }
+      },
+      {
+        "id": "eq_68d8caecc0375cc081c9cdc8ebfe997d",
+        "type_id": "compat.rza_calc.load",
+        "type_version": 1,
+        "name": "Нагрузка Ф-6",
+        "port_ids": [
+          "port_e336dc7989e458749fde641bad598a70"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "p_kw": 1600,
+            "cos_phi": 0.9,
+            "k_use": 1.0,
+            "k_szp": null,
+            "motor_share": null
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "load",
+            "legacy_id": "L6",
+            "legacy_class": "Load",
+            "source_order": 5
+          }
+        }
+      },
+      {
+        "id": "eq_702b3f0afbea5c9fb8c3336264855397",
+        "type_id": "compat.rza_calc.load",
+        "type_version": 1,
+        "name": "Нагрузка Ф-7",
+        "port_ids": [
+          "port_4985904d15bb55a99c05cdcd5fa8e0f9"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "p_kw": 1050,
+            "cos_phi": 0.9,
+            "k_use": 1.0,
+            "k_szp": null,
+            "motor_share": null
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "load",
+            "legacy_id": "L7",
+            "legacy_class": "Load",
+            "source_order": 6
+          }
+        }
+      },
+      {
+        "id": "eq_ff55943eb7eb54b8bd3d13aa219c6e07",
+        "type_id": "compat.rza_calc.load",
+        "type_version": 1,
+        "name": "Нагрузка Ф-8",
+        "port_ids": [
+          "port_e1222b7db1dd5f6fa383116d0107094c"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "p_kw": 690,
+            "cos_phi": 0.9,
+            "k_use": 1.0,
+            "k_szp": null,
+            "motor_share": null
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "load",
+            "legacy_id": "L8",
+            "legacy_class": "Load",
+            "source_order": 7
+          }
+        }
+      }
+    ],
+    "ports": [
+      {
+        "id": "port_b8f303357b7857498c5d2b9b7525d55d",
+        "equipment_id": "eq_a4d7b5142f2655f6aeb9b3adfffc7d5d",
+        "role": "terminal"
+      },
+      {
+        "id": "port_89f206e57fee523d86b37ed087ec299e",
+        "equipment_id": "eq_dd66e489ba105d52b4d6577828b985e5",
+        "role": "from"
+      },
+      {
+        "id": "port_d6be42c54dd855a9adbce62ab3ca03d0",
+        "equipment_id": "eq_dd66e489ba105d52b4d6577828b985e5",
+        "role": "to"
+      },
+      {
+        "id": "port_769d94275a115abe9c5344cb1cff63d9",
+        "equipment_id": "eq_424f4652d0fa53928823f4d3bf8279ac",
+        "role": "from"
+      },
+      {
+        "id": "port_c2dd86ddf1d25cd28ac06b70c901dc86",
+        "equipment_id": "eq_424f4652d0fa53928823f4d3bf8279ac",
+        "role": "to"
+      },
+      {
+        "id": "port_d342b75eab855dfb8353ae8606888994",
+        "equipment_id": "eq_7639d35369075892b02118a60e11c365",
+        "role": "from"
+      },
+      {
+        "id": "port_f794dcf6aa5450fd9c0caa2cb5ab4cb4",
+        "equipment_id": "eq_7639d35369075892b02118a60e11c365",
+        "role": "to"
+      },
+      {
+        "id": "port_2e49dd0db3df5403a8278ac55933393e",
+        "equipment_id": "eq_c21aa366334c5165b39fbc9c2c8e60f8",
+        "role": "from"
+      },
+      {
+        "id": "port_377d53eb1f1154d2a97c04bd14d76643",
+        "equipment_id": "eq_c21aa366334c5165b39fbc9c2c8e60f8",
+        "role": "to"
+      },
+      {
+        "id": "port_c901ac581c5758019e4c6dc279dbddaa",
+        "equipment_id": "eq_15a7852ddb1258a18197303b61eaf9b6",
+        "role": "from"
+      },
+      {
+        "id": "port_241e14fd5eed53d29220e372817975d8",
+        "equipment_id": "eq_15a7852ddb1258a18197303b61eaf9b6",
+        "role": "to"
+      },
+      {
+        "id": "port_096c4508f5b85653b0c91e41ae6a9abb",
+        "equipment_id": "eq_ade001fc320c558e8bdc2f70e5a1daa8",
+        "role": "from"
+      },
+      {
+        "id": "port_5577103d6b7f57a7815dd1e51fc2688f",
+        "equipment_id": "eq_ade001fc320c558e8bdc2f70e5a1daa8",
+        "role": "to"
+      },
+      {
+        "id": "port_c5ee96cf86555acdbef4c3aad8219d23",
+        "equipment_id": "eq_ace04c8a21b05e1e9fb3dc70fdf4900a",
+        "role": "from"
+      },
+      {
+        "id": "port_0692a694980a5048b6bb4bfcead36404",
+        "equipment_id": "eq_ace04c8a21b05e1e9fb3dc70fdf4900a",
+        "role": "to"
+      },
+      {
+        "id": "port_ae2c972e2a0250599351d8364d357445",
+        "equipment_id": "eq_05e8b7851ceb5453be69597946b63604",
+        "role": "from"
+      },
+      {
+        "id": "port_6b4c56798d6e5afea0ccd246d58b263d",
+        "equipment_id": "eq_05e8b7851ceb5453be69597946b63604",
+        "role": "to"
+      },
+      {
+        "id": "port_225440f1053e5404a4f1d99356456d82",
+        "equipment_id": "eq_c616b15c5b125a218b7dcd7c47851cf5",
+        "role": "from"
+      },
+      {
+        "id": "port_376ff78d471952fbad70730ba06514d6",
+        "equipment_id": "eq_c616b15c5b125a218b7dcd7c47851cf5",
+        "role": "to"
+      },
+      {
+        "id": "port_5428cdb3c6f459eb8500476b176ba690",
+        "equipment_id": "eq_0644dbdc84fa5998817782d6756fbc82",
+        "role": "from"
+      },
+      {
+        "id": "port_1bdeaa514880529dacb5e5cc794ddaab",
+        "equipment_id": "eq_0644dbdc84fa5998817782d6756fbc82",
+        "role": "to"
+      },
+      {
+        "id": "port_d6eee1fa7dad5d7c861647c7c385098f",
+        "equipment_id": "eq_5cb68a5487f053c0968df2612f187e21",
+        "role": "from"
+      },
+      {
+        "id": "port_8664588c492852b0ab51789a886ccc52",
+        "equipment_id": "eq_5cb68a5487f053c0968df2612f187e21",
+        "role": "to"
+      },
+      {
+        "id": "port_26d1e23af8df5005b6ce277c970946a6",
+        "equipment_id": "eq_136e2e8c9a725af1b9ad2b4a2a09e545",
+        "role": "from"
+      },
+      {
+        "id": "port_a5fe3593c61950c6bc33e10165878075",
+        "equipment_id": "eq_136e2e8c9a725af1b9ad2b4a2a09e545",
+        "role": "to"
+      },
+      {
+        "id": "port_750b349368565003922847ac6f6bf168",
+        "equipment_id": "eq_0cb75861854e55b587599895e9d5a96f",
+        "role": "from"
+      },
+      {
+        "id": "port_a5e8f51156935664a34829ede99bf921",
+        "equipment_id": "eq_0cb75861854e55b587599895e9d5a96f",
+        "role": "to"
+      },
+      {
+        "id": "port_87586ae2bb5058759d1754aff40c1a58",
+        "equipment_id": "eq_5465b63471355dbd8e594b1e73c04db4",
+        "role": "from"
+      },
+      {
+        "id": "port_34d9bd2564f251ef97758fc171952bd6",
+        "equipment_id": "eq_5465b63471355dbd8e594b1e73c04db4",
+        "role": "to"
+      },
+      {
+        "id": "port_08d792ed5d4f58fc98aea6b6139195cc",
+        "equipment_id": "eq_75b923cf8eee5f6b82842fa0be90964a",
+        "role": "from"
+      },
+      {
+        "id": "port_3b83a495bc2b54b0bd84a0c2f6337f02",
+        "equipment_id": "eq_75b923cf8eee5f6b82842fa0be90964a",
+        "role": "to"
+      },
+      {
+        "id": "port_3534967158d25a9e8623453a19adfbc4",
+        "equipment_id": "eq_054d66ed593b50d1abc6dcd844dc9a47",
+        "role": "from"
+      },
+      {
+        "id": "port_1e49aa34560a54b68a736b9f6697d554",
+        "equipment_id": "eq_054d66ed593b50d1abc6dcd844dc9a47",
+        "role": "to"
+      },
+      {
+        "id": "port_1e609b8b4d595d6b91d755aa5581429a",
+        "equipment_id": "eq_38d5335be1c65e08b87289926461ce12",
+        "role": "from"
+      },
+      {
+        "id": "port_ba5ff5135fa859ceb67839b7fe8b7f10",
+        "equipment_id": "eq_38d5335be1c65e08b87289926461ce12",
+        "role": "to"
+      },
+      {
+        "id": "port_81ad6989bf28525eaac242e6d43a9d6a",
+        "equipment_id": "eq_da2c645dc5c35b58816899b1d02c7714",
+        "role": "from"
+      },
+      {
+        "id": "port_27eeda51af1250ec808a88804654bcf5",
+        "equipment_id": "eq_da2c645dc5c35b58816899b1d02c7714",
+        "role": "to"
+      },
+      {
+        "id": "port_2a9f8460e9eb59bc9f6a831cccdf49cb",
+        "equipment_id": "eq_6e1ad967f337598d819cea815cbd34ed",
+        "role": "from"
+      },
+      {
+        "id": "port_9d2e58c0300459babb1a1401fcf1a41b",
+        "equipment_id": "eq_6e1ad967f337598d819cea815cbd34ed",
+        "role": "to"
+      },
+      {
+        "id": "port_a8668711dd71573bb4ae902010663531",
+        "equipment_id": "eq_47ceccd522385dea83c2dc3f61643285",
+        "role": "from"
+      },
+      {
+        "id": "port_94288587fe01572aa35cfcf331bfa59b",
+        "equipment_id": "eq_47ceccd522385dea83c2dc3f61643285",
+        "role": "to"
+      },
+      {
+        "id": "port_eb62230963be50a6a7a73ddc12a027f9",
+        "equipment_id": "eq_935cbbc46b155d16951255fd3afc9d09",
+        "role": "from"
+      },
+      {
+        "id": "port_2b28dadc4f97529fa4eb20479dc0f008",
+        "equipment_id": "eq_935cbbc46b155d16951255fd3afc9d09",
+        "role": "to"
+      },
+      {
+        "id": "port_b7cd45bb2b79580299bd8acbb1708d21",
+        "equipment_id": "eq_6322f5cee2755a4888ae05398f10b943",
+        "role": "from"
+      },
+      {
+        "id": "port_8616489c6d515345952f9c4dca19f4e6",
+        "equipment_id": "eq_6322f5cee2755a4888ae05398f10b943",
+        "role": "to"
+      },
+      {
+        "id": "port_3d69f1931c3f5d5a862e37e1c600d956",
+        "equipment_id": "eq_f331c6f6592d5117802cb525ad09bb52",
+        "role": "from"
+      },
+      {
+        "id": "port_9a7903afe3115534aed8c53b3f15c957",
+        "equipment_id": "eq_f331c6f6592d5117802cb525ad09bb52",
+        "role": "to"
+      },
+      {
+        "id": "port_c3f6869a7d1653418b2098b88234c0a0",
+        "equipment_id": "eq_5aa365877ada589ca442702e8a81f634",
+        "role": "from"
+      },
+      {
+        "id": "port_211c1141acd855d5a6bb222218d8077a",
+        "equipment_id": "eq_5aa365877ada589ca442702e8a81f634",
+        "role": "to"
+      },
+      {
+        "id": "port_e446105fce455df9af21207286452877",
+        "equipment_id": "eq_a3f043e883bb5b41b438ec2fd6b26ad0",
+        "role": "terminal"
+      },
+      {
+        "id": "port_4cb5ea05731f5068aa0bd176494e99b9",
+        "equipment_id": "eq_200afc10c5255800a70b5b810d237e51",
+        "role": "terminal"
+      },
+      {
+        "id": "port_a0bd8f12717458aa83478be7e5ad0538",
+        "equipment_id": "eq_883df9c684a2587b81ba0a5300430f1b",
+        "role": "terminal"
+      },
+      {
+        "id": "port_bf39fdf877a956c8a8fdf1f74b2e5451",
+        "equipment_id": "eq_86eff7a6dee157b4ba9d3292579003e6",
+        "role": "terminal"
+      },
+      {
+        "id": "port_b1752729ed61507da421f50c4e042a91",
+        "equipment_id": "eq_1a4cacc59d115a9c96e6ef08d48be62b",
+        "role": "terminal"
+      },
+      {
+        "id": "port_e336dc7989e458749fde641bad598a70",
+        "equipment_id": "eq_68d8caecc0375cc081c9cdc8ebfe997d",
+        "role": "terminal"
+      },
+      {
+        "id": "port_4985904d15bb55a99c05cdcd5fa8e0f9",
+        "equipment_id": "eq_702b3f0afbea5c9fb8c3336264855397",
+        "role": "terminal"
+      },
+      {
+        "id": "port_e1222b7db1dd5f6fa383116d0107094c",
+        "equipment_id": "eq_ff55943eb7eb54b8bd3d13aa219c6e07",
+        "role": "terminal"
+      }
+    ],
+    "electrical_nodes": [
+      {
+        "id": "node_329fd13f3776592b803ebfa244fc9f13",
+        "name": "Система 110 кВ",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.110kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "sys110",
+            "legacy_class": "Node",
+            "source_order": 0,
+            "payload": {
+              "kind": "point",
+              "section": null,
+              "calculation_base_kv": null,
+              "prefault_voltage_kv": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_a2ccc7a20381581db85469d53d8eba05",
+        "name": "ОРУ 110 кВ",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.110kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "ou110",
+            "legacy_class": "Node",
+            "source_order": 1,
+            "payload": {
+              "kind": "bus",
+              "section": null,
+              "calculation_base_kv": null,
+              "prefault_voltage_kv": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_e10705999c6f5328ba29b78b90239a72",
+        "name": "Вывод ВН Т1",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.110kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "t1_hv",
+            "legacy_class": "Node",
+            "source_order": 2,
+            "payload": {
+              "kind": "point",
+              "section": null,
+              "calculation_base_kv": null,
+              "prefault_voltage_kv": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_287e65e0519c5ca6b48ee638f5aa1262",
+        "name": "Вывод ВН Т2",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.110kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "t2_hv",
+            "legacy_class": "Node",
+            "source_order": 3,
+            "payload": {
+              "kind": "point",
+              "section": null,
+              "calculation_base_kv": null,
+              "prefault_voltage_kv": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_ff6a2d3ab3255ea18d7b2926a614e242",
+        "name": "Вывод НН Т1",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "t1_lv",
+            "legacy_class": "Node",
+            "source_order": 4,
+            "payload": {
+              "kind": "point",
+              "section": null,
+              "calculation_base_kv": null,
+              "prefault_voltage_kv": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_a9687db32e34534da39f6e9c08816209",
+        "name": "Вывод НН Т2",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "t2_lv",
+            "legacy_class": "Node",
+            "source_order": 5,
+            "payload": {
+              "kind": "point",
+              "section": null,
+              "calculation_base_kv": null,
+              "prefault_voltage_kv": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_985d50bbe93b5cffb5750adfd2354231",
+        "name": "1 СШ 10 кВ",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "sh1",
+            "legacy_class": "Node",
+            "source_order": 6,
+            "payload": {
+              "kind": "bus",
+              "section": null,
+              "calculation_base_kv": null,
+              "prefault_voltage_kv": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+        "name": "2 СШ 10 кВ",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "sh2",
+            "legacy_class": "Node",
+            "source_order": 7,
+            "payload": {
+              "kind": "bus",
+              "section": null,
+              "calculation_base_kv": null,
+              "prefault_voltage_kv": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_b5adcfb9da2351e9a305e5fcead2e0cd",
+        "name": "Ячейка Ф-1",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "f1_cell",
+            "legacy_class": "Node",
+            "source_order": 8,
+            "payload": {
+              "kind": "point",
+              "section": null,
+              "calculation_base_kv": null,
+              "prefault_voltage_kv": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_28647ad1c2405e72928e382091971f0e",
+        "name": "Конец Ф-1",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "f1_end",
+            "legacy_class": "Node",
+            "source_order": 9,
+            "payload": {
+              "kind": "point",
+              "section": null,
+              "calculation_base_kv": null,
+              "prefault_voltage_kv": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_5c84a64d147755bb83234075301530b2",
+        "name": "Ячейка Ф-2",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "f2_cell",
+            "legacy_class": "Node",
+            "source_order": 10,
+            "payload": {
+              "kind": "point",
+              "section": null,
+              "calculation_base_kv": null,
+              "prefault_voltage_kv": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_3885d3a235175b6e976acdcaafdfff79",
+        "name": "Конец Ф-2",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "f2_end",
+            "legacy_class": "Node",
+            "source_order": 11,
+            "payload": {
+              "kind": "point",
+              "section": null,
+              "calculation_base_kv": null,
+              "prefault_voltage_kv": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_084128d7b67651828864f5fa01ad4c4b",
+        "name": "Ячейка Ф-3",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "f3_cell",
+            "legacy_class": "Node",
+            "source_order": 12,
+            "payload": {
+              "kind": "point",
+              "section": null,
+              "calculation_base_kv": null,
+              "prefault_voltage_kv": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_ec150726f9f757079a6133811efcbde4",
+        "name": "Конец Ф-3",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "f3_end",
+            "legacy_class": "Node",
+            "source_order": 13,
+            "payload": {
+              "kind": "point",
+              "section": null,
+              "calculation_base_kv": null,
+              "prefault_voltage_kv": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_4cc95c83e8d95f899b8edd99d182044d",
+        "name": "Ячейка Ф-4",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "f4_cell",
+            "legacy_class": "Node",
+            "source_order": 14,
+            "payload": {
+              "kind": "point",
+              "section": null,
+              "calculation_base_kv": null,
+              "prefault_voltage_kv": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_2af5d632dd2a51a8a0cfc10526defeb1",
+        "name": "Конец Ф-4",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "f4_end",
+            "legacy_class": "Node",
+            "source_order": 15,
+            "payload": {
+              "kind": "point",
+              "section": null,
+              "calculation_base_kv": null,
+              "prefault_voltage_kv": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_57ef70b58c6750ab8d2fd8eaea0344c6",
+        "name": "Ячейка Ф-5",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "f5_cell",
+            "legacy_class": "Node",
+            "source_order": 16,
+            "payload": {
+              "kind": "point",
+              "section": null,
+              "calculation_base_kv": null,
+              "prefault_voltage_kv": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_3bb59cb0c7815be49dc70844f6a9b0eb",
+        "name": "Конец Ф-5",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "f5_end",
+            "legacy_class": "Node",
+            "source_order": 17,
+            "payload": {
+              "kind": "point",
+              "section": null,
+              "calculation_base_kv": null,
+              "prefault_voltage_kv": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_72f0ef0a662d59e8ba10ddcd49db7102",
+        "name": "Ячейка Ф-6",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "f6_cell",
+            "legacy_class": "Node",
+            "source_order": 18,
+            "payload": {
+              "kind": "point",
+              "section": null,
+              "calculation_base_kv": null,
+              "prefault_voltage_kv": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_cb020411b7825ddb8291e2d8e18ba164",
+        "name": "Конец Ф-6",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "f6_end",
+            "legacy_class": "Node",
+            "source_order": 19,
+            "payload": {
+              "kind": "point",
+              "section": null,
+              "calculation_base_kv": null,
+              "prefault_voltage_kv": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_93095a30890b5fab8a9fc909484ed7ec",
+        "name": "Ячейка Ф-7",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "f7_cell",
+            "legacy_class": "Node",
+            "source_order": 20,
+            "payload": {
+              "kind": "point",
+              "section": null,
+              "calculation_base_kv": null,
+              "prefault_voltage_kv": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_4c1d3919489d5d68960ec6179e6884d9",
+        "name": "Конец Ф-7",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "f7_end",
+            "legacy_class": "Node",
+            "source_order": 21,
+            "payload": {
+              "kind": "point",
+              "section": null,
+              "calculation_base_kv": null,
+              "prefault_voltage_kv": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_04accc2d245c56d699523dfb41e38581",
+        "name": "Ячейка Ф-8",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "f8_cell",
+            "legacy_class": "Node",
+            "source_order": 22,
+            "payload": {
+              "kind": "point",
+              "section": null,
+              "calculation_base_kv": null,
+              "prefault_voltage_kv": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_f2e052d8a9f3557cac55c0529f5d21cf",
+        "name": "Конец Ф-8",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "f8_end",
+            "legacy_class": "Node",
+            "source_order": 23,
+            "payload": {
+              "kind": "point",
+              "section": null,
+              "calculation_base_kv": null,
+              "prefault_voltage_kv": null
+            }
+          }
+        }
+      }
+    ],
+    "connections": [
+      {
+        "id": "conn_4a444b3868aa5c158e3aecb608f3d916",
+        "port_id": "port_b8f303357b7857498c5d2b9b7525d55d",
+        "electrical_node_id": "node_329fd13f3776592b803ebfa244fc9f13",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:SYS:terminal",
+            "legacy_class": "Connection",
+            "source_order": 0
+          }
+        }
+      },
+      {
+        "id": "conn_95219542feb555468a5ddc9ede13b8b4",
+        "port_id": "port_89f206e57fee523d86b37ed087ec299e",
+        "electrical_node_id": "node_329fd13f3776592b803ebfa244fc9f13",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:VL110:from",
+            "legacy_class": "Connection",
+            "source_order": 1
+          }
+        }
+      },
+      {
+        "id": "conn_06644fbcd58558418e136703431924ea",
+        "port_id": "port_d6be42c54dd855a9adbce62ab3ca03d0",
+        "electrical_node_id": "node_a2ccc7a20381581db85469d53d8eba05",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:VL110:to",
+            "legacy_class": "Connection",
+            "source_order": 1
+          }
+        }
+      },
+      {
+        "id": "conn_be21d208349d548b97a262d814c4c577",
+        "port_id": "port_769d94275a115abe9c5344cb1cff63d9",
+        "electrical_node_id": "node_a2ccc7a20381581db85469d53d8eba05",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:Q1:from",
+            "legacy_class": "Connection",
+            "source_order": 2
+          }
+        }
+      },
+      {
+        "id": "conn_357cb23d39db564f869b6f0c259018ff",
+        "port_id": "port_c2dd86ddf1d25cd28ac06b70c901dc86",
+        "electrical_node_id": "node_e10705999c6f5328ba29b78b90239a72",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:Q1:to",
+            "legacy_class": "Connection",
+            "source_order": 2
+          }
+        }
+      },
+      {
+        "id": "conn_9a3c33736f6f5f95a3ad3b9e85b6d808",
+        "port_id": "port_d342b75eab855dfb8353ae8606888994",
+        "electrical_node_id": "node_a2ccc7a20381581db85469d53d8eba05",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:Q2:from",
+            "legacy_class": "Connection",
+            "source_order": 3
+          }
+        }
+      },
+      {
+        "id": "conn_dbba841c1a32590dae7565a0e7d13c52",
+        "port_id": "port_f794dcf6aa5450fd9c0caa2cb5ab4cb4",
+        "electrical_node_id": "node_287e65e0519c5ca6b48ee638f5aa1262",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:Q2:to",
+            "legacy_class": "Connection",
+            "source_order": 3
+          }
+        }
+      },
+      {
+        "id": "conn_994a9938d5185d8dab7fa6aef8f10bef",
+        "port_id": "port_2e49dd0db3df5403a8278ac55933393e",
+        "electrical_node_id": "node_e10705999c6f5328ba29b78b90239a72",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:T1:from",
+            "legacy_class": "Connection",
+            "source_order": 4
+          }
+        }
+      },
+      {
+        "id": "conn_383485c51833541a9395346fa50e58a6",
+        "port_id": "port_377d53eb1f1154d2a97c04bd14d76643",
+        "electrical_node_id": "node_ff6a2d3ab3255ea18d7b2926a614e242",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:T1:to",
+            "legacy_class": "Connection",
+            "source_order": 4
+          }
+        }
+      },
+      {
+        "id": "conn_e919c290bb525f0696922fcfd5323d90",
+        "port_id": "port_c901ac581c5758019e4c6dc279dbddaa",
+        "electrical_node_id": "node_287e65e0519c5ca6b48ee638f5aa1262",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:T2:from",
+            "legacy_class": "Connection",
+            "source_order": 5
+          }
+        }
+      },
+      {
+        "id": "conn_cebd7de65c2a51749b4b6edf3c94bf54",
+        "port_id": "port_241e14fd5eed53d29220e372817975d8",
+        "electrical_node_id": "node_a9687db32e34534da39f6e9c08816209",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:T2:to",
+            "legacy_class": "Connection",
+            "source_order": 5
+          }
+        }
+      },
+      {
+        "id": "conn_e7f004fcab0c57c28914ad65b916b813",
+        "port_id": "port_096c4508f5b85653b0c91e41ae6a9abb",
+        "electrical_node_id": "node_ff6a2d3ab3255ea18d7b2926a614e242",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:Q3:from",
+            "legacy_class": "Connection",
+            "source_order": 6
+          }
+        }
+      },
+      {
+        "id": "conn_7f9854c7c8e85d30824fc184aa431b99",
+        "port_id": "port_5577103d6b7f57a7815dd1e51fc2688f",
+        "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:Q3:to",
+            "legacy_class": "Connection",
+            "source_order": 6
+          }
+        }
+      },
+      {
+        "id": "conn_8871350fc10b50798ff67284370c1f4e",
+        "port_id": "port_c5ee96cf86555acdbef4c3aad8219d23",
+        "electrical_node_id": "node_a9687db32e34534da39f6e9c08816209",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:Q4:from",
+            "legacy_class": "Connection",
+            "source_order": 7
+          }
+        }
+      },
+      {
+        "id": "conn_148dec5b0f3a5d8683ca22d53bd1c8b5",
+        "port_id": "port_0692a694980a5048b6bb4bfcead36404",
+        "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:Q4:to",
+            "legacy_class": "Connection",
+            "source_order": 7
+          }
+        }
+      },
+      {
+        "id": "conn_22a3bc17db7b598ca73cd59d47c31ace",
+        "port_id": "port_ae2c972e2a0250599351d8364d357445",
+        "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:QB:from",
+            "legacy_class": "Connection",
+            "source_order": 8
+          }
+        }
+      },
+      {
+        "id": "conn_cbd9170f9b4e521fbc92bcdb6d1bbee7",
+        "port_id": "port_6b4c56798d6e5afea0ccd246d58b263d",
+        "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:QB:to",
+            "legacy_class": "Connection",
+            "source_order": 8
+          }
+        }
+      },
+      {
+        "id": "conn_dce335b34e535525b72571d1684ff5e2",
+        "port_id": "port_225440f1053e5404a4f1d99356456d82",
+        "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:QF1:from",
+            "legacy_class": "Connection",
+            "source_order": 9
+          }
+        }
+      },
+      {
+        "id": "conn_fdd81ad32fbe5cdd8b3ff1334b43e856",
+        "port_id": "port_376ff78d471952fbad70730ba06514d6",
+        "electrical_node_id": "node_b5adcfb9da2351e9a305e5fcead2e0cd",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:QF1:to",
+            "legacy_class": "Connection",
+            "source_order": 9
+          }
+        }
+      },
+      {
+        "id": "conn_52c9c3089c25589f8909083ff6b41e08",
+        "port_id": "port_5428cdb3c6f459eb8500476b176ba690",
+        "electrical_node_id": "node_b5adcfb9da2351e9a305e5fcead2e0cd",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:F1:from",
+            "legacy_class": "Connection",
+            "source_order": 10
+          }
+        }
+      },
+      {
+        "id": "conn_38714d73a6ea56659a4a7d7541b26a7e",
+        "port_id": "port_1bdeaa514880529dacb5e5cc794ddaab",
+        "electrical_node_id": "node_28647ad1c2405e72928e382091971f0e",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:F1:to",
+            "legacy_class": "Connection",
+            "source_order": 10
+          }
+        }
+      },
+      {
+        "id": "conn_78ac3128aa1e513099af59ced1ce0e8a",
+        "port_id": "port_d6eee1fa7dad5d7c861647c7c385098f",
+        "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:QF2:from",
+            "legacy_class": "Connection",
+            "source_order": 11
+          }
+        }
+      },
+      {
+        "id": "conn_ac97b97d92055e449915a092edccd544",
+        "port_id": "port_8664588c492852b0ab51789a886ccc52",
+        "electrical_node_id": "node_5c84a64d147755bb83234075301530b2",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:QF2:to",
+            "legacy_class": "Connection",
+            "source_order": 11
+          }
+        }
+      },
+      {
+        "id": "conn_17a7253179a8553cb12137fd42556039",
+        "port_id": "port_26d1e23af8df5005b6ce277c970946a6",
+        "electrical_node_id": "node_5c84a64d147755bb83234075301530b2",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:F2:from",
+            "legacy_class": "Connection",
+            "source_order": 12
+          }
+        }
+      },
+      {
+        "id": "conn_84c58cc74b7753089478655c15ad0ab8",
+        "port_id": "port_a5fe3593c61950c6bc33e10165878075",
+        "electrical_node_id": "node_3885d3a235175b6e976acdcaafdfff79",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:F2:to",
+            "legacy_class": "Connection",
+            "source_order": 12
+          }
+        }
+      },
+      {
+        "id": "conn_0fdacdcb22f05f78bf8f2e15d98e3664",
+        "port_id": "port_750b349368565003922847ac6f6bf168",
+        "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:QF3:from",
+            "legacy_class": "Connection",
+            "source_order": 13
+          }
+        }
+      },
+      {
+        "id": "conn_53008fe68852579188ec04d5d12577b0",
+        "port_id": "port_a5e8f51156935664a34829ede99bf921",
+        "electrical_node_id": "node_084128d7b67651828864f5fa01ad4c4b",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:QF3:to",
+            "legacy_class": "Connection",
+            "source_order": 13
+          }
+        }
+      },
+      {
+        "id": "conn_136cf7f8dc2d57168e3ae94e9964df18",
+        "port_id": "port_87586ae2bb5058759d1754aff40c1a58",
+        "electrical_node_id": "node_084128d7b67651828864f5fa01ad4c4b",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:F3:from",
+            "legacy_class": "Connection",
+            "source_order": 14
+          }
+        }
+      },
+      {
+        "id": "conn_c27859f1cf1c5dcc88e3e38a051b9138",
+        "port_id": "port_34d9bd2564f251ef97758fc171952bd6",
+        "electrical_node_id": "node_ec150726f9f757079a6133811efcbde4",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:F3:to",
+            "legacy_class": "Connection",
+            "source_order": 14
+          }
+        }
+      },
+      {
+        "id": "conn_7869395a4c855aa19f758841be73addf",
+        "port_id": "port_08d792ed5d4f58fc98aea6b6139195cc",
+        "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:QF4:from",
+            "legacy_class": "Connection",
+            "source_order": 15
+          }
+        }
+      },
+      {
+        "id": "conn_e55023ca7d105c61918aa59701d758cc",
+        "port_id": "port_3b83a495bc2b54b0bd84a0c2f6337f02",
+        "electrical_node_id": "node_4cc95c83e8d95f899b8edd99d182044d",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:QF4:to",
+            "legacy_class": "Connection",
+            "source_order": 15
+          }
+        }
+      },
+      {
+        "id": "conn_121de17d12dc5f77b2cbdcc3975dbdef",
+        "port_id": "port_3534967158d25a9e8623453a19adfbc4",
+        "electrical_node_id": "node_4cc95c83e8d95f899b8edd99d182044d",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:F4:from",
+            "legacy_class": "Connection",
+            "source_order": 16
+          }
+        }
+      },
+      {
+        "id": "conn_b601eb26d78154f6aa0868597fbac1bd",
+        "port_id": "port_1e49aa34560a54b68a736b9f6697d554",
+        "electrical_node_id": "node_2af5d632dd2a51a8a0cfc10526defeb1",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:F4:to",
+            "legacy_class": "Connection",
+            "source_order": 16
+          }
+        }
+      },
+      {
+        "id": "conn_1d61749c6c295228a73f6cef674d643d",
+        "port_id": "port_1e609b8b4d595d6b91d755aa5581429a",
+        "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:QF5:from",
+            "legacy_class": "Connection",
+            "source_order": 17
+          }
+        }
+      },
+      {
+        "id": "conn_b45d441920fe568ca52d7fb62757ad2c",
+        "port_id": "port_ba5ff5135fa859ceb67839b7fe8b7f10",
+        "electrical_node_id": "node_57ef70b58c6750ab8d2fd8eaea0344c6",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:QF5:to",
+            "legacy_class": "Connection",
+            "source_order": 17
+          }
+        }
+      },
+      {
+        "id": "conn_1ce1806d50205e7cb888c335249324bc",
+        "port_id": "port_81ad6989bf28525eaac242e6d43a9d6a",
+        "electrical_node_id": "node_57ef70b58c6750ab8d2fd8eaea0344c6",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:F5:from",
+            "legacy_class": "Connection",
+            "source_order": 18
+          }
+        }
+      },
+      {
+        "id": "conn_b6be3cf64e7a577f8d6bb40db189ef03",
+        "port_id": "port_27eeda51af1250ec808a88804654bcf5",
+        "electrical_node_id": "node_3bb59cb0c7815be49dc70844f6a9b0eb",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:F5:to",
+            "legacy_class": "Connection",
+            "source_order": 18
+          }
+        }
+      },
+      {
+        "id": "conn_4b90499612335b2494075eb576e0927a",
+        "port_id": "port_2a9f8460e9eb59bc9f6a831cccdf49cb",
+        "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:QF6:from",
+            "legacy_class": "Connection",
+            "source_order": 19
+          }
+        }
+      },
+      {
+        "id": "conn_0d802960ad7650fa9ffa3d69eb08060c",
+        "port_id": "port_9d2e58c0300459babb1a1401fcf1a41b",
+        "electrical_node_id": "node_72f0ef0a662d59e8ba10ddcd49db7102",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:QF6:to",
+            "legacy_class": "Connection",
+            "source_order": 19
+          }
+        }
+      },
+      {
+        "id": "conn_8f392889d9085890b6abb848d6d3af18",
+        "port_id": "port_a8668711dd71573bb4ae902010663531",
+        "electrical_node_id": "node_72f0ef0a662d59e8ba10ddcd49db7102",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:F6:from",
+            "legacy_class": "Connection",
+            "source_order": 20
+          }
+        }
+      },
+      {
+        "id": "conn_7c9c9fa0a00a58b5ba480aa2fc9773aa",
+        "port_id": "port_94288587fe01572aa35cfcf331bfa59b",
+        "electrical_node_id": "node_cb020411b7825ddb8291e2d8e18ba164",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:F6:to",
+            "legacy_class": "Connection",
+            "source_order": 20
+          }
+        }
+      },
+      {
+        "id": "conn_df773cd45a6353c584b152c27c9246a1",
+        "port_id": "port_eb62230963be50a6a7a73ddc12a027f9",
+        "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:QF7:from",
+            "legacy_class": "Connection",
+            "source_order": 21
+          }
+        }
+      },
+      {
+        "id": "conn_c35126f4f7735ed4a53c0213e282897b",
+        "port_id": "port_2b28dadc4f97529fa4eb20479dc0f008",
+        "electrical_node_id": "node_93095a30890b5fab8a9fc909484ed7ec",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:QF7:to",
+            "legacy_class": "Connection",
+            "source_order": 21
+          }
+        }
+      },
+      {
+        "id": "conn_350b8d58506a5618aa43fcfc68b92677",
+        "port_id": "port_b7cd45bb2b79580299bd8acbb1708d21",
+        "electrical_node_id": "node_93095a30890b5fab8a9fc909484ed7ec",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:F7:from",
+            "legacy_class": "Connection",
+            "source_order": 22
+          }
+        }
+      },
+      {
+        "id": "conn_c603e5d1e0515cc5a59c8070cf009f68",
+        "port_id": "port_8616489c6d515345952f9c4dca19f4e6",
+        "electrical_node_id": "node_4c1d3919489d5d68960ec6179e6884d9",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:F7:to",
+            "legacy_class": "Connection",
+            "source_order": 22
+          }
+        }
+      },
+      {
+        "id": "conn_795595c0c9ac5de49254c1a26e973ad5",
+        "port_id": "port_3d69f1931c3f5d5a862e37e1c600d956",
+        "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:QF8:from",
+            "legacy_class": "Connection",
+            "source_order": 23
+          }
+        }
+      },
+      {
+        "id": "conn_f359ec2f3a455357938672b2d6109d05",
+        "port_id": "port_9a7903afe3115534aed8c53b3f15c957",
+        "electrical_node_id": "node_04accc2d245c56d699523dfb41e38581",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:QF8:to",
+            "legacy_class": "Connection",
+            "source_order": 23
+          }
+        }
+      },
+      {
+        "id": "conn_437a18eccde553a2b5a6e2a1bb9d965a",
+        "port_id": "port_c3f6869a7d1653418b2098b88234c0a0",
+        "electrical_node_id": "node_04accc2d245c56d699523dfb41e38581",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:F8:from",
+            "legacy_class": "Connection",
+            "source_order": 24
+          }
+        }
+      },
+      {
+        "id": "conn_4105b08dac6c5ab9b6dd90ae226f77e5",
+        "port_id": "port_211c1141acd855d5a6bb222218d8077a",
+        "electrical_node_id": "node_f2e052d8a9f3557cac55c0529f5d21cf",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:F8:to",
+            "legacy_class": "Connection",
+            "source_order": 24
+          }
+        }
+      },
+      {
+        "id": "conn_d6a2780263d7580daefceb88dd1c520a",
+        "port_id": "port_e446105fce455df9af21207286452877",
+        "electrical_node_id": "node_28647ad1c2405e72928e382091971f0e",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "load:L1:terminal",
+            "legacy_class": "Connection",
+            "source_order": 0
+          }
+        }
+      },
+      {
+        "id": "conn_22c02cd5adcd5747bae0b4abf982c209",
+        "port_id": "port_4cb5ea05731f5068aa0bd176494e99b9",
+        "electrical_node_id": "node_3885d3a235175b6e976acdcaafdfff79",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "load:L2:terminal",
+            "legacy_class": "Connection",
+            "source_order": 1
+          }
+        }
+      },
+      {
+        "id": "conn_091f6edbb6ae5b2e91d768670733f9b8",
+        "port_id": "port_a0bd8f12717458aa83478be7e5ad0538",
+        "electrical_node_id": "node_ec150726f9f757079a6133811efcbde4",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "load:L3:terminal",
+            "legacy_class": "Connection",
+            "source_order": 2
+          }
+        }
+      },
+      {
+        "id": "conn_360ef7527c5d5948870f434ddbf42dfc",
+        "port_id": "port_bf39fdf877a956c8a8fdf1f74b2e5451",
+        "electrical_node_id": "node_2af5d632dd2a51a8a0cfc10526defeb1",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "load:L4:terminal",
+            "legacy_class": "Connection",
+            "source_order": 3
+          }
+        }
+      },
+      {
+        "id": "conn_2162006b75305ad6b8043189466bf514",
+        "port_id": "port_b1752729ed61507da421f50c4e042a91",
+        "electrical_node_id": "node_3bb59cb0c7815be49dc70844f6a9b0eb",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "load:L5:terminal",
+            "legacy_class": "Connection",
+            "source_order": 4
+          }
+        }
+      },
+      {
+        "id": "conn_5986e91a46f556cfbeb1eccd9b6bcfca",
+        "port_id": "port_e336dc7989e458749fde641bad598a70",
+        "electrical_node_id": "node_cb020411b7825ddb8291e2d8e18ba164",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "load:L6:terminal",
+            "legacy_class": "Connection",
+            "source_order": 5
+          }
+        }
+      },
+      {
+        "id": "conn_95c9f2c905df5324b57d0abde3373be1",
+        "port_id": "port_4985904d15bb55a99c05cdcd5fa8e0f9",
+        "electrical_node_id": "node_4c1d3919489d5d68960ec6179e6884d9",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "load:L7:terminal",
+            "legacy_class": "Connection",
+            "source_order": 6
+          }
+        }
+      },
+      {
+        "id": "conn_a64b0afd6dbe521dab969d98d61d7952",
+        "port_id": "port_e1222b7db1dd5f6fa383116d0107094c",
+        "electrical_node_id": "node_f2e052d8a9f3557cac55c0529f5d21cf",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "load:L8:terminal",
+            "legacy_class": "Connection",
+            "source_order": 7
+          }
+        }
+      }
+    ],
+    "logical_lines": [],
+    "line_sections": [],
+    "operating_states": [
+      {
+        "id": "state_63302787232259d4948e3772a60c9315",
+        "name": "Нормальный режим",
+        "positions": {},
+        "availability": {},
+        "system": "max",
+        "description": "Оба трансформатора в работе, секционный выключатель отключён, секции работают раздельно.",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "mode",
+            "legacy_id": "normal",
+            "legacy_class": "Mode",
+            "source_order": 0,
+            "states": {},
+            "availability": {}
+          }
+        }
+      },
+      {
+        "id": "state_60ddfa78b77d540bbf903f7872214151",
+        "name": "Минимальный режим системы",
+        "positions": {},
+        "availability": {},
+        "system": "min",
+        "description": "Та же схема при наименьшей мощности питающей системы. Используется для проверки чувствительности защит.",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "mode",
+            "legacy_id": "minimum",
+            "legacy_class": "Mode",
+            "source_order": 1,
+            "states": {},
+            "availability": {}
+          }
+        }
+      },
+      {
+        "id": "state_d57be9e3885455f9a20f992cb7b62166",
+        "name": "Ремонт Т1, СВ включён",
+        "positions": {
+          "eq_424f4652d0fa53928823f4d3bf8279ac": "OPEN",
+          "eq_ade001fc320c558e8bdc2f70e5a1daa8": "OPEN",
+          "eq_05e8b7851ceb5453be69597946b63604": "CLOSED"
+        },
+        "availability": {},
+        "system": "max",
+        "description": "Т1 выведен выключателями с обеих сторон; обе секции 10 кВ питаются от Т2 через секционный выключатель.",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "mode",
+            "legacy_id": "t1_repair",
+            "legacy_class": "Mode",
+            "source_order": 2,
+            "states": {
+              "Q1": false,
+              "Q3": false,
+              "QB": true
+            },
+            "availability": {}
+          }
+        }
+      },
+      {
+        "id": "state_2d46eb4a065d55d59155999e377a3503",
+        "name": "Ремонт Т2, СВ включён",
+        "positions": {
+          "eq_7639d35369075892b02118a60e11c365": "OPEN",
+          "eq_ace04c8a21b05e1e9fb3dc70fdf4900a": "OPEN",
+          "eq_05e8b7851ceb5453be69597946b63604": "CLOSED"
+        },
+        "availability": {},
+        "system": "max",
+        "description": "Т2 выведен выключателями с обеих сторон; обе секции 10 кВ питаются от Т1 через секционный выключатель.",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "mode",
+            "legacy_id": "t2_repair",
+            "legacy_class": "Mode",
+            "source_order": 3,
+            "states": {
+              "Q2": false,
+              "Q4": false,
+              "QB": true
+            },
+            "availability": {}
+          }
+        }
+      },
+      {
+        "id": "state_070460ccd1ba56c2b243eda2364e5ec6",
+        "name": "Ремонт Т1 при минимуме системы",
+        "positions": {
+          "eq_424f4652d0fa53928823f4d3bf8279ac": "OPEN",
+          "eq_ade001fc320c558e8bdc2f70e5a1daa8": "OPEN",
+          "eq_05e8b7851ceb5453be69597946b63604": "CLOSED"
+        },
+        "availability": {},
+        "system": "min",
+        "description": "Самый тяжёлый режим для чувствительности: одна питающая цепь и наименьшая мощность системы.",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "mode",
+            "legacy_id": "t1_repair_min",
+            "legacy_class": "Mode",
+            "source_order": 4,
+            "states": {
+              "Q1": false,
+              "Q3": false,
+              "QB": true
+            },
+            "availability": {}
+          }
+        }
+      }
+    ]
+  },
+  "catalogs": {
+    "format_version": 1,
+    "id": "catalog.user.default",
+    "catalog_kind": "user",
+    "entries": []
+  },
+  "diagram": {
+    "format_version": 2,
+    "id": "diagram.main",
+    "name": "Однолинейная схема",
+    "revision": 1,
+    "pages": [
+      {
+        "id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "name": "Основная схема",
+        "parent_id": null,
+        "order": 0,
+        "extensions": {}
+      }
+    ],
+    "representations": [
+      {
+        "id": "representation_01f885daa2034676a1ec10acfdb66257",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "equipment",
+        "equipment_id": "eq_ace04c8a21b05e1e9fb3dc70fdf4900a",
+        "electrical_node_id": null,
+        "x": 1650.0,
+        "y": -765.0,
+        "rotation_deg": 90.0,
+        "z_index": 0,
+        "symbol_key": "",
+        "label": "Q4 · ввод-2 10 кВ",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 64.0,
+            "height": 32.0,
+            "label_x": 42.0,
+            "label_y": -16.0,
+            "label_visible": true,
+            "line_width": 2.0
+          }
+        }
+      },
+      {
+        "id": "representation_0251060271a244818149bd7aac517ca7",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "equipment",
+        "equipment_id": "eq_702b3f0afbea5c9fb8c3336264855397",
+        "electrical_node_id": null,
+        "x": 1800.0,
+        "y": -180.0,
+        "rotation_deg": 0.0,
+        "z_index": 0,
+        "symbol_key": "",
+        "label": "Нагрузка Ф-7",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 26.0,
+            "height": 30.0,
+            "label_x": 23.0,
+            "label_y": -15.0,
+            "label_visible": true,
+            "line_width": 2.0
+          }
+        }
+      },
+      {
+        "id": "representation_02ab0fcb969f476e996a41835b52e4a4",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "equipment",
+        "equipment_id": "eq_935cbbc46b155d16951255fd3afc9d09",
+        "electrical_node_id": null,
+        "x": 1800.0,
+        "y": -575.0,
+        "rotation_deg": 90.0,
+        "z_index": 0,
+        "symbol_key": "",
+        "label": "QF7 · выключатель Ф-7",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 64.0,
+            "height": 32.0,
+            "label_x": 42.0,
+            "label_y": -16.0,
+            "label_visible": true,
+            "line_width": 2.0
+          }
+        }
+      },
+      {
+        "id": "representation_090f09a59c084b82a57bbd5fed2cb367",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "equipment",
+        "equipment_id": "eq_7639d35369075892b02118a60e11c365",
+        "electrical_node_id": null,
+        "x": 1650.0,
+        "y": -1215.0,
+        "rotation_deg": 90.0,
+        "z_index": 0,
+        "symbol_key": "",
+        "label": "Q2 · выключатель ВН Т2",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 64.0,
+            "height": 32.0,
+            "label_x": 42.0,
+            "label_y": -16.0,
+            "label_visible": true,
+            "line_width": 2.0
+          }
+        }
+      },
+      {
+        "id": "representation_0a5caeb413744431b978e4504dd7307d",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "equipment",
+        "equipment_id": "eq_75b923cf8eee5f6b82842fa0be90964a",
+        "electrical_node_id": null,
+        "x": 900.0,
+        "y": -575.0,
+        "rotation_deg": 90.0,
+        "z_index": 0,
+        "symbol_key": "",
+        "label": "QF4 · выключатель Ф-4",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 64.0,
+            "height": 32.0,
+            "label_x": 42.0,
+            "label_y": -16.0,
+            "label_visible": true,
+            "line_width": 2.0
+          }
+        }
+      },
+      {
+        "id": "representation_0b6d92502a8c419786afd5185d28e4d1",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "electrical_node",
+        "equipment_id": null,
+        "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+        "x": 472.0,
+        "y": -670.0,
+        "rotation_deg": 0.0,
+        "z_index": 0,
+        "symbol_key": "busbar",
+        "label": "1 СШ 10 кВ",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 1008.0,
+            "height": 16.0,
+            "label_x": -504.0,
+            "label_y": -28.0,
+            "label_visible": true,
+            "line_width": 2.4
+          }
+        }
+      },
+      {
+        "id": "representation_1f8720c4ab634234b14dd576c839a372",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "equipment",
+        "equipment_id": "eq_ff55943eb7eb54b8bd3d13aa219c6e07",
+        "electrical_node_id": null,
+        "x": 2100.0,
+        "y": -180.0,
+        "rotation_deg": 0.0,
+        "z_index": 0,
+        "symbol_key": "",
+        "label": "Нагрузка Ф-8",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 26.0,
+            "height": 30.0,
+            "label_x": 23.0,
+            "label_y": -15.0,
+            "label_visible": true,
+            "line_width": 2.0
+          }
+        }
+      },
+      {
+        "id": "representation_3e039c9ce39048cabf33cd4d4aad5ccd",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "equipment",
+        "equipment_id": "eq_0cb75861854e55b587599895e9d5a96f",
+        "electrical_node_id": null,
+        "x": 600.0,
+        "y": -575.0,
+        "rotation_deg": 90.0,
+        "z_index": 0,
+        "symbol_key": "",
+        "label": "QF3 · выключатель Ф-3",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 64.0,
+            "height": 32.0,
+            "label_x": 42.0,
+            "label_y": -16.0,
+            "label_visible": true,
+            "line_width": 2.0
+          }
+        }
+      },
+      {
+        "id": "representation_3ef1f59e708f4e58bac52523446eb6ec",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "equipment",
+        "equipment_id": "eq_a4d7b5142f2655f6aeb9b3adfffc7d5d",
+        "electrical_node_id": null,
+        "x": 1050.0,
+        "y": -1620.0,
+        "rotation_deg": 0.0,
+        "z_index": 0,
+        "symbol_key": "",
+        "label": "Система 110 кВ",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 56.0,
+            "height": 56.0,
+            "label_x": 38.0,
+            "label_y": -28.0,
+            "label_visible": true,
+            "line_width": 2.0
+          }
+        }
+      },
+      {
+        "id": "representation_3f160cd2632240be8b2087c1e3983f5b",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "equipment",
+        "equipment_id": "eq_c21aa366334c5165b39fbc9c2c8e60f8",
+        "electrical_node_id": null,
+        "x": 450.0,
+        "y": -990.0,
+        "rotation_deg": 90.0,
+        "z_index": 0,
+        "symbol_key": "",
+        "label": "Т1 · 16 МВ·А 110/10",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 72.0,
+            "height": 48.0,
+            "label_x": 46.0,
+            "label_y": -24.0,
+            "label_visible": true,
+            "line_width": 2.0
+          }
+        }
+      },
+      {
+        "id": "representation_488b4aa83d2645cf96216758a5b2ec1e",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "electrical_node",
+        "equipment_id": null,
+        "electrical_node_id": "node_a2ccc7a20381581db85469d53d8eba05",
+        "x": 1050.0,
+        "y": -1310.0,
+        "rotation_deg": 0.0,
+        "z_index": 0,
+        "symbol_key": "busbar",
+        "label": "ОРУ 110 кВ",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 1264.0,
+            "height": 16.0,
+            "label_x": -632.0,
+            "label_y": -28.0,
+            "label_visible": true,
+            "line_width": 2.4
+          }
+        }
+      },
+      {
+        "id": "representation_4f9c32ef128d41719ccb3ce8c0d19b94",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "equipment",
+        "equipment_id": "eq_1a4cacc59d115a9c96e6ef08d48be62b",
+        "electrical_node_id": null,
+        "x": 1200.0,
+        "y": -180.0,
+        "rotation_deg": 0.0,
+        "z_index": 0,
+        "symbol_key": "",
+        "label": "Нагрузка Ф-5",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 26.0,
+            "height": 30.0,
+            "label_x": 23.0,
+            "label_y": -15.0,
+            "label_visible": true,
+            "line_width": 2.0
+          }
+        }
+      },
+      {
+        "id": "representation_590fbb16150a45c3a1c5b217ccc55e75",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "equipment",
+        "equipment_id": "eq_68d8caecc0375cc081c9cdc8ebfe997d",
+        "electrical_node_id": null,
+        "x": 1500.0,
+        "y": -180.0,
+        "rotation_deg": 0.0,
+        "z_index": 0,
+        "symbol_key": "",
+        "label": "Нагрузка Ф-6",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 26.0,
+            "height": 30.0,
+            "label_x": 23.0,
+            "label_y": -15.0,
+            "label_visible": true,
+            "line_width": 2.0
+          }
+        }
+      },
+      {
+        "id": "representation_5a1113f8d6234c1394966ce6a026ed6a",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "electrical_node",
+        "equipment_id": null,
+        "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+        "x": 1628.0,
+        "y": -670.0,
+        "rotation_deg": 0.0,
+        "z_index": 0,
+        "symbol_key": "busbar",
+        "label": "2 СШ 10 кВ",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 1008.0,
+            "height": 16.0,
+            "label_x": -504.0,
+            "label_y": -28.0,
+            "label_visible": true,
+            "line_width": 2.4
+          }
+        }
+      },
+      {
+        "id": "representation_5d0c74970f7f4ab18cdfed17dd28aef0",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "equipment",
+        "equipment_id": "eq_15a7852ddb1258a18197303b61eaf9b6",
+        "electrical_node_id": null,
+        "x": 1650.0,
+        "y": -990.0,
+        "rotation_deg": 90.0,
+        "z_index": 0,
+        "symbol_key": "",
+        "label": "Т2 · 16 МВ·А 110/10",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 72.0,
+            "height": 48.0,
+            "label_x": 46.0,
+            "label_y": -24.0,
+            "label_visible": true,
+            "line_width": 2.0
+          }
+        }
+      },
+      {
+        "id": "representation_5ebf45f7f6454112adbb6e7b6649382e",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "equipment",
+        "equipment_id": "eq_05e8b7851ceb5453be69597946b63604",
+        "electrical_node_id": null,
+        "x": 1050.0,
+        "y": -670.0,
+        "rotation_deg": 0.0,
+        "z_index": 0,
+        "symbol_key": "",
+        "label": "QB · секционный 10 кВ",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 64.0,
+            "height": 32.0,
+            "label_x": 42.0,
+            "label_y": -16.0,
+            "label_visible": true,
+            "line_width": 2.0
+          }
+        }
+      },
+      {
+        "id": "representation_6499707977ca416e92e6d9a4d619f025",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "equipment",
+        "equipment_id": "eq_38d5335be1c65e08b87289926461ce12",
+        "electrical_node_id": null,
+        "x": 1200.0,
+        "y": -575.0,
+        "rotation_deg": 90.0,
+        "z_index": 0,
+        "symbol_key": "",
+        "label": "QF5 · выключатель Ф-5",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 64.0,
+            "height": 32.0,
+            "label_x": 42.0,
+            "label_y": -16.0,
+            "label_visible": true,
+            "line_width": 2.0
+          }
+        }
+      },
+      {
+        "id": "representation_650c7990eb6a42ac94269e54c5334502",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "equipment",
+        "equipment_id": "eq_424f4652d0fa53928823f4d3bf8279ac",
+        "electrical_node_id": null,
+        "x": 450.0,
+        "y": -1215.0,
+        "rotation_deg": 90.0,
+        "z_index": 0,
+        "symbol_key": "",
+        "label": "Q1 · выключатель ВН Т1",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 64.0,
+            "height": 32.0,
+            "label_x": 42.0,
+            "label_y": -16.0,
+            "label_visible": true,
+            "line_width": 2.0
+          }
+        }
+      },
+      {
+        "id": "representation_735baf4777104d5cb76e8b928c96b934",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "equipment",
+        "equipment_id": "eq_c616b15c5b125a218b7dcd7c47851cf5",
+        "electrical_node_id": null,
+        "x": 0.0,
+        "y": -575.0,
+        "rotation_deg": 90.0,
+        "z_index": 0,
+        "symbol_key": "",
+        "label": "QF1 · выключатель Ф-1",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 64.0,
+            "height": 32.0,
+            "label_x": 42.0,
+            "label_y": -16.0,
+            "label_visible": true,
+            "line_width": 2.0
+          }
+        }
+      },
+      {
+        "id": "representation_80fbc12e391a49d39c65f0d1537946aa",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "equipment",
+        "equipment_id": "eq_a3f043e883bb5b41b438ec2fd6b26ad0",
+        "electrical_node_id": null,
+        "x": 0.0,
+        "y": -180.0,
+        "rotation_deg": 0.0,
+        "z_index": 0,
+        "symbol_key": "",
+        "label": "Нагрузка Ф-1",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 26.0,
+            "height": 30.0,
+            "label_x": 23.0,
+            "label_y": -15.0,
+            "label_visible": true,
+            "line_width": 2.0
+          }
+        }
+      },
+      {
+        "id": "representation_a3fff7ec2d854612a7ad8b9404b192a0",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "equipment",
+        "equipment_id": "eq_f331c6f6592d5117802cb525ad09bb52",
+        "electrical_node_id": null,
+        "x": 2100.0,
+        "y": -575.0,
+        "rotation_deg": 90.0,
+        "z_index": 0,
+        "symbol_key": "",
+        "label": "QF8 · выключатель Ф-8",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 64.0,
+            "height": 32.0,
+            "label_x": 42.0,
+            "label_y": -16.0,
+            "label_visible": true,
+            "line_width": 2.0
+          }
+        }
+      },
+      {
+        "id": "representation_a9eb32dc1c394174853f6630e35a5d04",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "equipment",
+        "equipment_id": "eq_5cb68a5487f053c0968df2612f187e21",
+        "electrical_node_id": null,
+        "x": 300.0,
+        "y": -575.0,
+        "rotation_deg": 90.0,
+        "z_index": 0,
+        "symbol_key": "",
+        "label": "QF2 · выключатель Ф-2",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 64.0,
+            "height": 32.0,
+            "label_x": 42.0,
+            "label_y": -16.0,
+            "label_visible": true,
+            "line_width": 2.0
+          }
+        }
+      },
+      {
+        "id": "representation_b9755a1191014d74a3bdd5a045d5db23",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "equipment",
+        "equipment_id": "eq_883df9c684a2587b81ba0a5300430f1b",
+        "electrical_node_id": null,
+        "x": 600.0,
+        "y": -180.0,
+        "rotation_deg": 0.0,
+        "z_index": 0,
+        "symbol_key": "",
+        "label": "Нагрузка Ф-3",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 26.0,
+            "height": 30.0,
+            "label_x": 23.0,
+            "label_y": -15.0,
+            "label_visible": true,
+            "line_width": 2.0
+          }
+        }
+      },
+      {
+        "id": "representation_bc40dea14c374d068db555976f820c56",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "equipment",
+        "equipment_id": "eq_86eff7a6dee157b4ba9d3292579003e6",
+        "electrical_node_id": null,
+        "x": 900.0,
+        "y": -180.0,
+        "rotation_deg": 0.0,
+        "z_index": 0,
+        "symbol_key": "",
+        "label": "Нагрузка Ф-4",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 26.0,
+            "height": 30.0,
+            "label_x": 23.0,
+            "label_y": -15.0,
+            "label_visible": true,
+            "line_width": 2.0
+          }
+        }
+      },
+      {
+        "id": "representation_cfe12a2bec374dd89366a62bea50beed",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "equipment",
+        "equipment_id": "eq_6e1ad967f337598d819cea815cbd34ed",
+        "electrical_node_id": null,
+        "x": 1500.0,
+        "y": -575.0,
+        "rotation_deg": 90.0,
+        "z_index": 0,
+        "symbol_key": "",
+        "label": "QF6 · выключатель Ф-6",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 64.0,
+            "height": 32.0,
+            "label_x": 42.0,
+            "label_y": -16.0,
+            "label_visible": true,
+            "line_width": 2.0
+          }
+        }
+      },
+      {
+        "id": "representation_d384c72e10bb45feb5faaf3230a67182",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "equipment",
+        "equipment_id": "eq_200afc10c5255800a70b5b810d237e51",
+        "electrical_node_id": null,
+        "x": 300.0,
+        "y": -180.0,
+        "rotation_deg": 0.0,
+        "z_index": 0,
+        "symbol_key": "",
+        "label": "Нагрузка Ф-2",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 26.0,
+            "height": 30.0,
+            "label_x": 23.0,
+            "label_y": -15.0,
+            "label_visible": true,
+            "line_width": 2.0
+          }
+        }
+      },
+      {
+        "id": "representation_eebf4f76c4af40b992f7762ab428124d",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "target_kind": "equipment",
+        "equipment_id": "eq_ade001fc320c558e8bdc2f70e5a1daa8",
+        "electrical_node_id": null,
+        "x": 450.0,
+        "y": -765.0,
+        "rotation_deg": 90.0,
+        "z_index": 0,
+        "symbol_key": "",
+        "label": "Q3 · ввод-1 10 кВ",
+        "route_points": [],
+        "extensions": {
+          "stage3_graphics": {
+            "width": 64.0,
+            "height": 32.0,
+            "label_x": 42.0,
+            "label_y": -16.0,
+            "label_visible": true,
+            "line_width": 2.0
+          }
+        }
+      }
+    ],
+    "routes": [
+      {
+        "id": "route_21f63aca17d14b4a821844fe5b2e229b",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "kind": "node_connection",
+        "equipment_id": null,
+        "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+        "start_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_eebf4f76c4af40b992f7762ab428124d",
+          "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+          "branch_port_id": null,
+          "target_port_id": "port_5577103d6b7f57a7815dd1e51fc2688f",
+          "anchor_key": ""
+        },
+        "end_anchor": {
+          "kind": "bus",
+          "representation_id": "representation_0b6d92502a8c419786afd5185d28e4d1",
+          "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+          "branch_port_id": null,
+          "target_port_id": null,
+          "anchor_key": ""
+        },
+        "waypoints": [
+          {
+            "id": "waypoint_e071fcc0eb1c43f8958cc7129e5dad16",
+            "x": 450.0,
+            "y": -733.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_9e0c19d4683b4d6e861645a48b02cd80",
+            "x": 450.0,
+            "y": -670.0,
+            "source": "automatic",
+            "pinned": false
+          }
+        ],
+        "routing_algorithm_version": 1,
+        "extensions": {}
+      },
+      {
+        "id": "route_2d56fcfeb1d2457080807636181283cb",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "kind": "equipment_branch",
+        "equipment_id": "eq_136e2e8c9a725af1b9ad2b4a2a09e545",
+        "electrical_node_id": null,
+        "start_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_a9eb32dc1c394174853f6630e35a5d04",
+          "electrical_node_id": "node_5c84a64d147755bb83234075301530b2",
+          "branch_port_id": "port_26d1e23af8df5005b6ce277c970946a6",
+          "target_port_id": "port_8664588c492852b0ab51789a886ccc52",
+          "anchor_key": ""
+        },
+        "end_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_d384c72e10bb45feb5faaf3230a67182",
+          "electrical_node_id": "node_3885d3a235175b6e976acdcaafdfff79",
+          "branch_port_id": "port_a5fe3593c61950c6bc33e10165878075",
+          "target_port_id": "port_4cb5ea05731f5068aa0bd176494e99b9",
+          "anchor_key": ""
+        },
+        "waypoints": [
+          {
+            "id": "waypoint_1b3b88b928ea4b5eb4c4440bedbe7439",
+            "x": 300.0,
+            "y": -575.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_82fa2b9dcc6f4e17a321300e3212636e",
+            "x": 300.0,
+            "y": -180.0,
+            "source": "automatic",
+            "pinned": false
+          }
+        ],
+        "routing_algorithm_version": 1,
+        "extensions": {}
+      },
+      {
+        "id": "route_3325559d134a42dfae73f98a8adcb52d",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "kind": "node_connection",
+        "equipment_id": null,
+        "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+        "start_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_735baf4777104d5cb76e8b928c96b934",
+          "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+          "branch_port_id": null,
+          "target_port_id": "port_225440f1053e5404a4f1d99356456d82",
+          "anchor_key": ""
+        },
+        "end_anchor": {
+          "kind": "bus",
+          "representation_id": "representation_0b6d92502a8c419786afd5185d28e4d1",
+          "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+          "branch_port_id": null,
+          "target_port_id": null,
+          "anchor_key": ""
+        },
+        "waypoints": [
+          {
+            "id": "waypoint_e52e74f27c014db8a96eaaf2331b64e2",
+            "x": 0.0,
+            "y": -607.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_a78e1f9c34094f258d4f9869a25bc0e8",
+            "x": 0.0,
+            "y": -670.0,
+            "source": "automatic",
+            "pinned": false
+          }
+        ],
+        "routing_algorithm_version": 1,
+        "extensions": {}
+      },
+      {
+        "id": "route_3af0520e0b894774af9683edba493955",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "kind": "equipment_branch",
+        "equipment_id": "eq_0644dbdc84fa5998817782d6756fbc82",
+        "electrical_node_id": null,
+        "start_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_735baf4777104d5cb76e8b928c96b934",
+          "electrical_node_id": "node_b5adcfb9da2351e9a305e5fcead2e0cd",
+          "branch_port_id": "port_5428cdb3c6f459eb8500476b176ba690",
+          "target_port_id": "port_376ff78d471952fbad70730ba06514d6",
+          "anchor_key": ""
+        },
+        "end_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_80fbc12e391a49d39c65f0d1537946aa",
+          "electrical_node_id": "node_28647ad1c2405e72928e382091971f0e",
+          "branch_port_id": "port_1bdeaa514880529dacb5e5cc794ddaab",
+          "target_port_id": "port_e446105fce455df9af21207286452877",
+          "anchor_key": ""
+        },
+        "waypoints": [
+          {
+            "id": "waypoint_e6b6f42d3c194706b064a74198795b0f",
+            "x": 0.0,
+            "y": -575.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_443a92327de54f9cb8ea38b372d43823",
+            "x": 0.0,
+            "y": -180.0,
+            "source": "automatic",
+            "pinned": false
+          }
+        ],
+        "routing_algorithm_version": 1,
+        "extensions": {}
+      },
+      {
+        "id": "route_4b71b5de83bd4b6983518eb8ffb7ca95",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "kind": "equipment_branch",
+        "equipment_id": "eq_dd66e489ba105d52b4d6577828b985e5",
+        "electrical_node_id": null,
+        "start_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_3ef1f59e708f4e58bac52523446eb6ec",
+          "electrical_node_id": "node_329fd13f3776592b803ebfa244fc9f13",
+          "branch_port_id": "port_89f206e57fee523d86b37ed087ec299e",
+          "target_port_id": "port_b8f303357b7857498c5d2b9b7525d55d",
+          "anchor_key": ""
+        },
+        "end_anchor": {
+          "kind": "bus",
+          "representation_id": "representation_488b4aa83d2645cf96216758a5b2ec1e",
+          "electrical_node_id": "node_a2ccc7a20381581db85469d53d8eba05",
+          "branch_port_id": "port_d6be42c54dd855a9adbce62ab3ca03d0",
+          "target_port_id": null,
+          "anchor_key": ""
+        },
+        "waypoints": [
+          {
+            "id": "waypoint_22c89024da884386bca70159af346c68",
+            "x": 1050.0,
+            "y": -1620.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_79b90de9a93f427598d22e058311a8c8",
+            "x": 1050.0,
+            "y": -1310.0,
+            "source": "automatic",
+            "pinned": false
+          }
+        ],
+        "routing_algorithm_version": 1,
+        "extensions": {}
+      },
+      {
+        "id": "route_5245c3e483ff42f99bec76758de9e2aa",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "kind": "node_connection",
+        "equipment_id": null,
+        "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+        "start_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_01f885daa2034676a1ec10acfdb66257",
+          "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+          "branch_port_id": null,
+          "target_port_id": "port_0692a694980a5048b6bb4bfcead36404",
+          "anchor_key": ""
+        },
+        "end_anchor": {
+          "kind": "bus",
+          "representation_id": "representation_5a1113f8d6234c1394966ce6a026ed6a",
+          "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+          "branch_port_id": null,
+          "target_port_id": null,
+          "anchor_key": ""
+        },
+        "waypoints": [
+          {
+            "id": "waypoint_6d41f27803bc4900abfc89bddcee69ae",
+            "x": 1650.0,
+            "y": -733.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_b24dad0314ff4c69bc5da1e3c3288400",
+            "x": 1650.0,
+            "y": -670.0,
+            "source": "automatic",
+            "pinned": false
+          }
+        ],
+        "routing_algorithm_version": 1,
+        "extensions": {}
+      },
+      {
+        "id": "route_68d38fef714d4529b9e7a2b62eb4d1ee",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "kind": "equipment_branch",
+        "equipment_id": "eq_5465b63471355dbd8e594b1e73c04db4",
+        "electrical_node_id": null,
+        "start_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_3e039c9ce39048cabf33cd4d4aad5ccd",
+          "electrical_node_id": "node_084128d7b67651828864f5fa01ad4c4b",
+          "branch_port_id": "port_87586ae2bb5058759d1754aff40c1a58",
+          "target_port_id": "port_a5e8f51156935664a34829ede99bf921",
+          "anchor_key": ""
+        },
+        "end_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_b9755a1191014d74a3bdd5a045d5db23",
+          "electrical_node_id": "node_ec150726f9f757079a6133811efcbde4",
+          "branch_port_id": "port_34d9bd2564f251ef97758fc171952bd6",
+          "target_port_id": "port_a0bd8f12717458aa83478be7e5ad0538",
+          "anchor_key": ""
+        },
+        "waypoints": [
+          {
+            "id": "waypoint_7643e2d8939c48f991fa3e2b54195e5f",
+            "x": 600.0,
+            "y": -575.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_e2163542eb674210a1d5d385720116c7",
+            "x": 600.0,
+            "y": -180.0,
+            "source": "automatic",
+            "pinned": false
+          }
+        ],
+        "routing_algorithm_version": 1,
+        "extensions": {}
+      },
+      {
+        "id": "route_6ae16d3257e043aeaddae318c122b6c7",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "kind": "node_connection",
+        "equipment_id": null,
+        "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+        "start_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_cfe12a2bec374dd89366a62bea50beed",
+          "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+          "branch_port_id": null,
+          "target_port_id": "port_2a9f8460e9eb59bc9f6a831cccdf49cb",
+          "anchor_key": ""
+        },
+        "end_anchor": {
+          "kind": "bus",
+          "representation_id": "representation_5a1113f8d6234c1394966ce6a026ed6a",
+          "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+          "branch_port_id": null,
+          "target_port_id": null,
+          "anchor_key": ""
+        },
+        "waypoints": [
+          {
+            "id": "waypoint_1e2b908fc554429da69c3ca6f4ac18cf",
+            "x": 1500.0,
+            "y": -607.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_a65ccc0389cd42609b0812dc39d6e7b8",
+            "x": 1500.0,
+            "y": -670.0,
+            "source": "automatic",
+            "pinned": false
+          }
+        ],
+        "routing_algorithm_version": 1,
+        "extensions": {}
+      },
+      {
+        "id": "route_6e8c2396ca104f0e8db13875a5047f6c",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "kind": "node_connection",
+        "equipment_id": null,
+        "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+        "start_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_5ebf45f7f6454112adbb6e7b6649382e",
+          "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+          "branch_port_id": null,
+          "target_port_id": "port_6b4c56798d6e5afea0ccd246d58b263d",
+          "anchor_key": ""
+        },
+        "end_anchor": {
+          "kind": "bus",
+          "representation_id": "representation_5a1113f8d6234c1394966ce6a026ed6a",
+          "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+          "branch_port_id": null,
+          "target_port_id": null,
+          "anchor_key": ""
+        },
+        "waypoints": [
+          {
+            "id": "waypoint_e64f42b3bf4b429b9a039f099d32b396",
+            "x": 1082.0,
+            "y": -670.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_37c568eebaf341019788641556bb8455",
+            "x": 1156.0,
+            "y": -670.0,
+            "source": "automatic",
+            "pinned": false
+          }
+        ],
+        "routing_algorithm_version": 1,
+        "extensions": {}
+      },
+      {
+        "id": "route_8c5571ad60c047eaad2874565c1add0e",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "kind": "node_connection",
+        "equipment_id": null,
+        "electrical_node_id": "node_a2ccc7a20381581db85469d53d8eba05",
+        "start_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_650c7990eb6a42ac94269e54c5334502",
+          "electrical_node_id": "node_a2ccc7a20381581db85469d53d8eba05",
+          "branch_port_id": null,
+          "target_port_id": "port_769d94275a115abe9c5344cb1cff63d9",
+          "anchor_key": ""
+        },
+        "end_anchor": {
+          "kind": "bus",
+          "representation_id": "representation_488b4aa83d2645cf96216758a5b2ec1e",
+          "electrical_node_id": "node_a2ccc7a20381581db85469d53d8eba05",
+          "branch_port_id": null,
+          "target_port_id": null,
+          "anchor_key": ""
+        },
+        "waypoints": [
+          {
+            "id": "waypoint_b5e1d570c7b146d69b35992aa21f7ba5",
+            "x": 450.0,
+            "y": -1247.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_92f800e8f363436d9ef20a19cc706c59",
+            "x": 450.0,
+            "y": -1310.0,
+            "source": "automatic",
+            "pinned": false
+          }
+        ],
+        "routing_algorithm_version": 1,
+        "extensions": {}
+      },
+      {
+        "id": "route_90889c7c1a1f49e48fccfe230e298f22",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "kind": "node_connection",
+        "equipment_id": null,
+        "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+        "start_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_6499707977ca416e92e6d9a4d619f025",
+          "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+          "branch_port_id": null,
+          "target_port_id": "port_1e609b8b4d595d6b91d755aa5581429a",
+          "anchor_key": ""
+        },
+        "end_anchor": {
+          "kind": "bus",
+          "representation_id": "representation_5a1113f8d6234c1394966ce6a026ed6a",
+          "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+          "branch_port_id": null,
+          "target_port_id": null,
+          "anchor_key": ""
+        },
+        "waypoints": [
+          {
+            "id": "waypoint_2b01d0c643e34f1380747bc6375aee29",
+            "x": 1200.0,
+            "y": -607.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_fda5aa769e564d21af9465cfac477021",
+            "x": 1200.0,
+            "y": -670.0,
+            "source": "automatic",
+            "pinned": false
+          }
+        ],
+        "routing_algorithm_version": 1,
+        "extensions": {}
+      },
+      {
+        "id": "route_9626dbb812be47bd84a982fdc55d7790",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "kind": "node_connection",
+        "equipment_id": null,
+        "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+        "start_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_0a5caeb413744431b978e4504dd7307d",
+          "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+          "branch_port_id": null,
+          "target_port_id": "port_08d792ed5d4f58fc98aea6b6139195cc",
+          "anchor_key": ""
+        },
+        "end_anchor": {
+          "kind": "bus",
+          "representation_id": "representation_0b6d92502a8c419786afd5185d28e4d1",
+          "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+          "branch_port_id": null,
+          "target_port_id": null,
+          "anchor_key": ""
+        },
+        "waypoints": [
+          {
+            "id": "waypoint_f8b39656c2ee4e4c88992b2211d61dbf",
+            "x": 900.0,
+            "y": -607.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_783f0a077fd44708adfe1972279a65d2",
+            "x": 900.0,
+            "y": -670.0,
+            "source": "automatic",
+            "pinned": false
+          }
+        ],
+        "routing_algorithm_version": 1,
+        "extensions": {}
+      },
+      {
+        "id": "route_96851cea563543a5b3bda6128e034dac",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "kind": "node_connection",
+        "equipment_id": null,
+        "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+        "start_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_5ebf45f7f6454112adbb6e7b6649382e",
+          "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+          "branch_port_id": null,
+          "target_port_id": "port_ae2c972e2a0250599351d8364d357445",
+          "anchor_key": ""
+        },
+        "end_anchor": {
+          "kind": "bus",
+          "representation_id": "representation_0b6d92502a8c419786afd5185d28e4d1",
+          "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+          "branch_port_id": null,
+          "target_port_id": null,
+          "anchor_key": ""
+        },
+        "waypoints": [
+          {
+            "id": "waypoint_bd07224a76d344e38ca8fd2b85b9fea1",
+            "x": 1018.0,
+            "y": -670.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_1c4f10a71f8042b6b4497f39d48bfdb0",
+            "x": 944.0,
+            "y": -670.0,
+            "source": "automatic",
+            "pinned": false
+          }
+        ],
+        "routing_algorithm_version": 1,
+        "extensions": {}
+      },
+      {
+        "id": "route_b065f68dd2ee42be817de3f1bba75c59",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "kind": "node_connection",
+        "equipment_id": null,
+        "electrical_node_id": "node_a2ccc7a20381581db85469d53d8eba05",
+        "start_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_090f09a59c084b82a57bbd5fed2cb367",
+          "electrical_node_id": "node_a2ccc7a20381581db85469d53d8eba05",
+          "branch_port_id": null,
+          "target_port_id": "port_d342b75eab855dfb8353ae8606888994",
+          "anchor_key": ""
+        },
+        "end_anchor": {
+          "kind": "bus",
+          "representation_id": "representation_488b4aa83d2645cf96216758a5b2ec1e",
+          "electrical_node_id": "node_a2ccc7a20381581db85469d53d8eba05",
+          "branch_port_id": null,
+          "target_port_id": null,
+          "anchor_key": ""
+        },
+        "waypoints": [
+          {
+            "id": "waypoint_e5162f80660146ae9c4d6c60f931be4e",
+            "x": 1650.0,
+            "y": -1247.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_e86b058ee3d94f23aac5403998fdb64c",
+            "x": 1650.0,
+            "y": -1310.0,
+            "source": "automatic",
+            "pinned": false
+          }
+        ],
+        "routing_algorithm_version": 1,
+        "extensions": {}
+      },
+      {
+        "id": "route_be02a3686fe74b28932c33e35d1cd2ad",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "kind": "equipment_branch",
+        "equipment_id": "eq_da2c645dc5c35b58816899b1d02c7714",
+        "electrical_node_id": null,
+        "start_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_6499707977ca416e92e6d9a4d619f025",
+          "electrical_node_id": "node_57ef70b58c6750ab8d2fd8eaea0344c6",
+          "branch_port_id": "port_81ad6989bf28525eaac242e6d43a9d6a",
+          "target_port_id": "port_ba5ff5135fa859ceb67839b7fe8b7f10",
+          "anchor_key": ""
+        },
+        "end_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_4f9c32ef128d41719ccb3ce8c0d19b94",
+          "electrical_node_id": "node_3bb59cb0c7815be49dc70844f6a9b0eb",
+          "branch_port_id": "port_27eeda51af1250ec808a88804654bcf5",
+          "target_port_id": "port_b1752729ed61507da421f50c4e042a91",
+          "anchor_key": ""
+        },
+        "waypoints": [
+          {
+            "id": "waypoint_de63ef52bead41799f69333fd9b022e9",
+            "x": 1200.0,
+            "y": -575.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_2628d5deb12f465bbbcda3e6dcc74779",
+            "x": 1200.0,
+            "y": -180.0,
+            "source": "automatic",
+            "pinned": false
+          }
+        ],
+        "routing_algorithm_version": 1,
+        "extensions": {}
+      },
+      {
+        "id": "route_d594309516694c3ba75490cd6fbbac33",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "kind": "node_connection",
+        "equipment_id": null,
+        "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+        "start_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_3e039c9ce39048cabf33cd4d4aad5ccd",
+          "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+          "branch_port_id": null,
+          "target_port_id": "port_750b349368565003922847ac6f6bf168",
+          "anchor_key": ""
+        },
+        "end_anchor": {
+          "kind": "bus",
+          "representation_id": "representation_0b6d92502a8c419786afd5185d28e4d1",
+          "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+          "branch_port_id": null,
+          "target_port_id": null,
+          "anchor_key": ""
+        },
+        "waypoints": [
+          {
+            "id": "waypoint_b05612758a5d43598cb97da623a9527b",
+            "x": 600.0,
+            "y": -607.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_eef76642ee5f48b4bce64676a2dc6f85",
+            "x": 600.0,
+            "y": -670.0,
+            "source": "automatic",
+            "pinned": false
+          }
+        ],
+        "routing_algorithm_version": 1,
+        "extensions": {}
+      },
+      {
+        "id": "route_d6fd8af4c59e462fb03d2b4edf2f6d05",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "kind": "equipment_branch",
+        "equipment_id": "eq_5aa365877ada589ca442702e8a81f634",
+        "electrical_node_id": null,
+        "start_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_a3fff7ec2d854612a7ad8b9404b192a0",
+          "electrical_node_id": "node_04accc2d245c56d699523dfb41e38581",
+          "branch_port_id": "port_c3f6869a7d1653418b2098b88234c0a0",
+          "target_port_id": "port_9a7903afe3115534aed8c53b3f15c957",
+          "anchor_key": ""
+        },
+        "end_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_1f8720c4ab634234b14dd576c839a372",
+          "electrical_node_id": "node_f2e052d8a9f3557cac55c0529f5d21cf",
+          "branch_port_id": "port_211c1141acd855d5a6bb222218d8077a",
+          "target_port_id": "port_e1222b7db1dd5f6fa383116d0107094c",
+          "anchor_key": ""
+        },
+        "waypoints": [
+          {
+            "id": "waypoint_3c7cd1da368846a086c9e4019e75df14",
+            "x": 2100.0,
+            "y": -575.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_9c7b921f6dae426e8b29ea46019a51eb",
+            "x": 2100.0,
+            "y": -180.0,
+            "source": "automatic",
+            "pinned": false
+          }
+        ],
+        "routing_algorithm_version": 1,
+        "extensions": {}
+      },
+      {
+        "id": "route_d8ddee00baad48149d68417c04e7a677",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "kind": "node_connection",
+        "equipment_id": null,
+        "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+        "start_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_02ab0fcb969f476e996a41835b52e4a4",
+          "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+          "branch_port_id": null,
+          "target_port_id": "port_eb62230963be50a6a7a73ddc12a027f9",
+          "anchor_key": ""
+        },
+        "end_anchor": {
+          "kind": "bus",
+          "representation_id": "representation_5a1113f8d6234c1394966ce6a026ed6a",
+          "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+          "branch_port_id": null,
+          "target_port_id": null,
+          "anchor_key": ""
+        },
+        "waypoints": [
+          {
+            "id": "waypoint_12c9576f746744aa9ebf6b593f2468e3",
+            "x": 1800.0,
+            "y": -607.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_9d22d7bfd23747cba3510c3c24069f27",
+            "x": 1800.0,
+            "y": -670.0,
+            "source": "automatic",
+            "pinned": false
+          }
+        ],
+        "routing_algorithm_version": 1,
+        "extensions": {}
+      },
+      {
+        "id": "route_e44a3baa259f4f2b8f1786deda1e18fb",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "kind": "equipment_branch",
+        "equipment_id": "eq_054d66ed593b50d1abc6dcd844dc9a47",
+        "electrical_node_id": null,
+        "start_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_0a5caeb413744431b978e4504dd7307d",
+          "electrical_node_id": "node_4cc95c83e8d95f899b8edd99d182044d",
+          "branch_port_id": "port_3534967158d25a9e8623453a19adfbc4",
+          "target_port_id": "port_3b83a495bc2b54b0bd84a0c2f6337f02",
+          "anchor_key": ""
+        },
+        "end_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_bc40dea14c374d068db555976f820c56",
+          "electrical_node_id": "node_2af5d632dd2a51a8a0cfc10526defeb1",
+          "branch_port_id": "port_1e49aa34560a54b68a736b9f6697d554",
+          "target_port_id": "port_bf39fdf877a956c8a8fdf1f74b2e5451",
+          "anchor_key": ""
+        },
+        "waypoints": [
+          {
+            "id": "waypoint_7be064749c2341ab99d7ca333d40359d",
+            "x": 900.0,
+            "y": -575.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_8cbdaba6df3b49e18112883f442ea188",
+            "x": 900.0,
+            "y": -180.0,
+            "source": "automatic",
+            "pinned": false
+          }
+        ],
+        "routing_algorithm_version": 1,
+        "extensions": {}
+      },
+      {
+        "id": "route_f3c81d905e7e40b2b51afacff7b8b8f2",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "kind": "equipment_branch",
+        "equipment_id": "eq_6322f5cee2755a4888ae05398f10b943",
+        "electrical_node_id": null,
+        "start_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_02ab0fcb969f476e996a41835b52e4a4",
+          "electrical_node_id": "node_93095a30890b5fab8a9fc909484ed7ec",
+          "branch_port_id": "port_b7cd45bb2b79580299bd8acbb1708d21",
+          "target_port_id": "port_2b28dadc4f97529fa4eb20479dc0f008",
+          "anchor_key": ""
+        },
+        "end_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_0251060271a244818149bd7aac517ca7",
+          "electrical_node_id": "node_4c1d3919489d5d68960ec6179e6884d9",
+          "branch_port_id": "port_8616489c6d515345952f9c4dca19f4e6",
+          "target_port_id": "port_4985904d15bb55a99c05cdcd5fa8e0f9",
+          "anchor_key": ""
+        },
+        "waypoints": [
+          {
+            "id": "waypoint_9272174939ba4c46861a9a962ec14172",
+            "x": 1800.0,
+            "y": -575.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_dc357bd06ba14524b9e33c59b70c1ac4",
+            "x": 1800.0,
+            "y": -180.0,
+            "source": "automatic",
+            "pinned": false
+          }
+        ],
+        "routing_algorithm_version": 1,
+        "extensions": {}
+      },
+      {
+        "id": "route_f510d2e4abb4435baf1a15469da3ac7c",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "kind": "node_connection",
+        "equipment_id": null,
+        "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+        "start_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_a3fff7ec2d854612a7ad8b9404b192a0",
+          "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+          "branch_port_id": null,
+          "target_port_id": "port_3d69f1931c3f5d5a862e37e1c600d956",
+          "anchor_key": ""
+        },
+        "end_anchor": {
+          "kind": "bus",
+          "representation_id": "representation_5a1113f8d6234c1394966ce6a026ed6a",
+          "electrical_node_id": "node_dbd362c2b2595e84b6a6e2f5c5eecc02",
+          "branch_port_id": null,
+          "target_port_id": null,
+          "anchor_key": ""
+        },
+        "waypoints": [
+          {
+            "id": "waypoint_f69417bf93064374862d0eed32bb081e",
+            "x": 2100.0,
+            "y": -607.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_314857bcdae14d25ba924feddd8cb767",
+            "x": 2100.0,
+            "y": -670.0,
+            "source": "automatic",
+            "pinned": false
+          }
+        ],
+        "routing_algorithm_version": 1,
+        "extensions": {}
+      },
+      {
+        "id": "route_fa030c2f290d462ca3e075a985689f17",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "kind": "equipment_branch",
+        "equipment_id": "eq_47ceccd522385dea83c2dc3f61643285",
+        "electrical_node_id": null,
+        "start_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_cfe12a2bec374dd89366a62bea50beed",
+          "electrical_node_id": "node_72f0ef0a662d59e8ba10ddcd49db7102",
+          "branch_port_id": "port_a8668711dd71573bb4ae902010663531",
+          "target_port_id": "port_9d2e58c0300459babb1a1401fcf1a41b",
+          "anchor_key": ""
+        },
+        "end_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_590fbb16150a45c3a1c5b217ccc55e75",
+          "electrical_node_id": "node_cb020411b7825ddb8291e2d8e18ba164",
+          "branch_port_id": "port_94288587fe01572aa35cfcf331bfa59b",
+          "target_port_id": "port_e336dc7989e458749fde641bad598a70",
+          "anchor_key": ""
+        },
+        "waypoints": [
+          {
+            "id": "waypoint_dc0268bde0d34ac780883c1208c3f577",
+            "x": 1500.0,
+            "y": -575.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_42f2c52e2a914c8396fc6398b7ae97b2",
+            "x": 1500.0,
+            "y": -180.0,
+            "source": "automatic",
+            "pinned": false
+          }
+        ],
+        "routing_algorithm_version": 1,
+        "extensions": {}
+      },
+      {
+        "id": "route_fa04a3365bfd434e950a5cd3ef78884f",
+        "page_id": "page_e47a5b0d5ee94d599b711ff8a990946e",
+        "kind": "node_connection",
+        "equipment_id": null,
+        "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+        "start_anchor": {
+          "kind": "equipment_port",
+          "representation_id": "representation_a9eb32dc1c394174853f6630e35a5d04",
+          "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+          "branch_port_id": null,
+          "target_port_id": "port_d6eee1fa7dad5d7c861647c7c385098f",
+          "anchor_key": ""
+        },
+        "end_anchor": {
+          "kind": "bus",
+          "representation_id": "representation_0b6d92502a8c419786afd5185d28e4d1",
+          "electrical_node_id": "node_985d50bbe93b5cffb5750adfd2354231",
+          "branch_port_id": null,
+          "target_port_id": null,
+          "anchor_key": ""
+        },
+        "waypoints": [
+          {
+            "id": "waypoint_4d884de711af4c039dfe1511948dba27",
+            "x": 300.0,
+            "y": -607.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_04f8b1469c8c4b78b9c60b516f4d9028",
+            "x": 300.0,
+            "y": -670.0,
+            "source": "automatic",
+            "pinned": false
+          }
+        ],
+        "routing_algorithm_version": 1,
+        "extensions": {}
+      }
+    ],
+    "extensions": {
+      "stage3_workspace": {
+        "mode": "edit",
+        "grid_visible": true,
+        "snap_enabled": true,
+        "grid_size": 20.0,
+        "zoom": 0.25,
+        "view_x": 0.0,
+        "view_y": 0.0,
+        "open_panels": [
+          "project",
+          "properties",
+          "issues"
+        ],
+        "developer_diagnostics": false,
+        "confirm_switching": true,
+        "active_page_id": "page_e47a5b0d5ee94d599b711ff8a990946e"
+      }
+    }
+  },
+  "catalog_snapshots": {
+    "format_version": 1,
+    "id": "catalog.project.snapshots",
+    "bindings": []
+  },
+  "migration_journal": [
+    {
+      "id": "migration_7aa39d5b904946f891b873f2b0a41872",
+      "from_version": 1,
+      "to_version": 7,
+      "applied_at": "2026-08-31T17:23:54.016718Z",
+      "steps": [
+        "Старая расчётная схема импортирована в объектную электрическую модель.",
+        "Добавлены страницы схемы, конструктивные участки и снимки каталогов."
+      ],
+      "backup_file": ""
+    }
+  ],
+  "methodology": {
+    "file": "../data/methodology_default.json"
+  }
+}

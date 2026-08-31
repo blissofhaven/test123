@@ -1,0 +1,188 @@
+{
+  "CF1": {
+    "normal": {
+      "main": [
+        {
+          "node_id": "CF1_end",
+          "name": "Центральная · конец Ф-1",
+          "equivalent_representative": "CF1_end"
+        }
+      ],
+      "backup": []
+    },
+    "min": {
+      "main": [
+        {
+          "node_id": "CF1_end",
+          "name": "Центральная · конец Ф-1",
+          "equivalent_representative": "CF1_end"
+        }
+      ],
+      "backup": []
+    },
+    "c_repair": {
+      "main": [
+        {
+          "node_id": "CF1_end",
+          "name": "Центральная · конец Ф-1",
+          "equivalent_representative": "CF1_end"
+        }
+      ],
+      "backup": []
+    },
+    "n_repair": {
+      "main": [
+        {
+          "node_id": "CF1_end",
+          "name": "Центральная · конец Ф-1",
+          "equivalent_representative": "CF1_end"
+        }
+      ],
+      "backup": []
+    },
+    "w_repair": {
+      "main": [
+        {
+          "node_id": "CF1_end",
+          "name": "Центральная · конец Ф-1",
+          "equivalent_representative": "CF1_end"
+        }
+      ],
+      "backup": []
+    },
+    "s_reserve": {
+      "main": [
+        {
+          "node_id": "CF1_end",
+          "name": "Центральная · конец Ф-1",
+          "equivalent_representative": "CF1_end"
+        }
+      ],
+      "backup": []
+    }
+  },
+  "CF1_T": {
+    "normal": {
+      "main": [
+        {
+          "node_id": "CF1_lv",
+          "name": "Центральная · КТП Ф-1, щит 0,4 кВ",
+          "equivalent_representative": "CF1_lv"
+        }
+      ],
+      "backup": []
+    },
+    "min": {
+      "main": [
+        {
+          "node_id": "CF1_lv",
+          "name": "Центральная · КТП Ф-1, щит 0,4 кВ",
+          "equivalent_representative": "CF1_lv"
+        }
+      ],
+      "backup": []
+    },
+    "c_repair": {
+      "main": [
+        {
+          "node_id": "CF1_lv",
+          "name": "Центральная · КТП Ф-1, щит 0,4 кВ",
+          "equivalent_representative": "CF1_lv"
+        }
+      ],
+      "backup": []
+    },
+    "n_repair": {
+      "main": [
+        {
+          "node_id": "CF1_lv",
+          "name": "Центральная · КТП Ф-1, щит 0,4 кВ",
+          "equivalent_representative": "CF1_lv"
+        }
+      ],
+      "backup": []
+    },
+    "w_repair": {
+      "main": [
+        {
+          "node_id": "CF1_lv",
+          "name": "Центральная · КТП Ф-1, щит 0,4 кВ",
+          "equivalent_representative": "CF1_lv"
+        }
+      ],
+      "backup": []
+    },
+    "s_reserve": {
+      "main": [
+        {
+          "node_id": "CF1_lv",
+          "name": "Центральная · КТП Ф-1, щит 0,4 кВ",
+          "equivalent_representative": "CF1_lv"
+        }
+      ],
+      "backup": []
+    }
+  },
+  "VL35": {
+    "normal": {
+      "main": [
+        {
+          "node_id": "w35",
+          "name": "ЗАПАДНАЯ · ОРУ 35 кВ",
+          "equivalent_representative": "w35"
+        }
+      ],
+      "backup": []
+    },
+    "min": {
+      "main": [
+        {
+          "node_id": "w35",
+          "name": "ЗАПАДНАЯ · ОРУ 35 кВ",
+          "equivalent_representative": "w35"
+        }
+      ],
+      "backup": []
+    },
+    "c_repair": {
+      "main": [
+        {
+          "node_id": "w35",
+          "name": "ЗАПАДНАЯ · ОРУ 35 кВ",
+          "equivalent_representative": "w35"
+        }
+      ],
+      "backup": []
+    },
+    "n_repair": {
+      "main": [
+        {
+          "node_id": "w35",
+          "name": "ЗАПАДНАЯ · ОРУ 35 кВ",
+          "equivalent_representative": "w35"
+        }
+      ],
+      "backup": []
+    },
+    "w_repair": {
+      "main": [
+        {
+          "node_id": "w35",
+          "name": "ЗАПАДНАЯ · ОРУ 35 кВ",
+          "equivalent_representative": "w35"
+        }
+      ],
+      "backup": []
+    },
+    "s_reserve": {
+      "main": [
+        {
+          "node_id": "w35",
+          "name": "ЗАПАДНАЯ · ОРУ 35 кВ",
+          "equivalent_representative": "w35"
+        }
+      ],
+      "backup": []
+    }
+  }
+}

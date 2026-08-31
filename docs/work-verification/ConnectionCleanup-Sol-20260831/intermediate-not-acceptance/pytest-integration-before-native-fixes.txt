@@ -1,0 +1,285 @@
+........................................................................ [  3%]
+........................................................................ [  7%]
+........................................................................ [ 11%]
+........................................................................ [ 15%]
+........................................................................ [ 19%]
+........................................................................ [ 23%]
+........................................................................ [ 27%]
+........................................................................ [ 30%]
+................F...F................................................... [ 34%]
+........................................................................ [ 38%]
+..........F...F......................................................... [ 42%]
+........................................................................ [ 46%]
+........................................................................ [ 50%]
+..............................F......................................... [ 54%]
+........................................................................ [ 58%]
+........................................................................ [ 61%]
+........................................................................ [ 65%]
+........................................................................ [ 69%]
+.......................................................FF............... [ 73%]
+........................................................................ [ 77%]
+........................................................................ [ 81%]
+........................................................................ [ 85%]
+........................................................................ [ 88%]
+.......F................................................................ [ 92%]
+................................................F....................... [ 96%]
+..............................................................           [100%]
+================================== FAILURES ===================================
+_________________ test_line_widths_are_uniform_except_busbars _________________
+
+    def test_line_widths_are_uniform_except_busbars() -> None:
+        for key in ALL_KEYS:
+            for item in build_symbol(key).primitives:
+                if item.direction_marker:
+                    # Requested thin direction hints are decorations, not a
+                    # change in conductor/apparatus pen widths.
+                    assert key in {"line", "line_section"}
+                    assert item.stroke_scale == pytest.approx(0.8)
+                elif key == "busbar":
+>                   assert item.stroke_scale > 1.0
+E                   AssertionError: assert 1.0 > 1.0
+E                    +  where 1.0 = SymbolPrimitive(kind='rect', points=(), center=(0.0, 0.0), radius=0.0, radius_y=0.0, start_angle=0.0, span_angle=0.0, ...oke_scale=1.0, text='', font_size=12.0, rotates=True, voltage_role='terminal', state_fill=None, direction_marker=False).stroke_scale
+
+tests\test_equipment_symbol_library.py:180: AssertionError
+________________ test_ink_bounds_stay_inside_the_declared_box _________________
+
+    def test_ink_bounds_stay_inside_the_declared_box() -> None:
+        for key in ALL_KEYS:
+            geometry = build_symbol(key)
+            min_x, min_y, max_x, max_y = geometry.ink_bounds()
+            assert min_x >= -geometry.width / 2.0 - 1e-6
+            assert max_x <= geometry.width / 2.0 + 1e-6
+>           assert min_y >= -geometry.height / 2.0 - 1e-6
+E           AssertionError: assert -13.0 >= ((-16.0 / 2.0) - 1e-06)
+E            +  where 16.0 = SymbolGeometry(key='busbar', title='Шина', width=160.0, height=16.0, primitives=(SymbolPrimitive(kind='line', points=(...on_marker=False)), terminals=(SymbolTerminal(role='terminal', x=0.0, y=0.0, direction=<RouteDirection.DOWN: 'down'>),)).height
+
+tests\test_equipment_symbol_library.py:216: AssertionError
+_ test_bus_rotation_keeps_fractional_connection_point_in_preview_commit_and_undo _
+
+app = <PySide6.QtWidgets.QApplication(0x29f40d81a70) at 0x0000029F42944B40>
+
+    def test_bus_rotation_keeps_fractional_connection_point_in_preview_commit_and_undo(app):
+        controller = controller_for("bus-fraction")
+        bus = controller.add_electrical_node(
+            "Шины 10 кВ", x=300, y=260, symbol_key="busbar", width=240, height=12,
+            rotation_deg=90, voltage_class_id=U10,
+        )
+        load = controller.add_equipment(
+            "builtin.load", "Нагрузка", x=100, y=420, rotation_deg=180,
+            voltage_class_by_group={"main": U10},
+        )
+        canvas = show_canvas(controller)
+        try:
+            source = canvas.scene._items_by_id[load.representation_id].port_item(load.port_ids[0])
+            canvas.scene.begin_connection(source)
+            canvas.scene.update_connection_cursor(QPointF(300, 320))
+            assert canvas.scene._connection_target.anchor_key == "0.75000000"
+            QTest.keyClick(canvas.view, Qt.Key.Key_Return)
+            QApplication.processEvents()
+            route = next(iter(controller.diagram.routes.values()))
+            assert route.end_anchor.representation_id == bus.representation_id
+>           assert route.end_anchor.anchor_key == "0.75000000"
+E           AssertionError: assert '0.75' == '0.75000000'
+E             
+E             - 0.75000000
+E             + 0.75
+
+tests\test_rotation_handle.py:422: AssertionError
+_ test_legacy_vertical_bus_without_fraction_keeps_its_original_local_attachment _
+
+app = <PySide6.QtWidgets.QApplication(0x29f40d81a70) at 0x0000029F42944B40>
+
+    def test_legacy_vertical_bus_without_fraction_keeps_its_original_local_attachment(app):
+        controller = controller_for("legacy-bus")
+        bus = controller.add_electrical_node(
+            "Старая вертикальная шина", x=300, y=260, symbol_key="busbar_vertical",
+            width=22, height=420, rotation_deg=0, voltage_class_id=U10,
+        )
+        load = controller.add_equipment(
+            "builtin.load", "Нагрузка", x=100, y=500, rotation_deg=180,
+            voltage_class_by_group={"main": U10},
+        )
+        points = tuple(RouteWaypoint(RouteWaypointId.new(), x, y, RouteWaypointSource.AUTOMATIC)
+                       for x, y in ((100, 525), (300, 525), (300, 365)))
+        connected = controller.connect_port_to_node(
+            load.port_ids[0], bus.node_id,
+            source_representation_id=load.representation_id,
+            node_representation_id=bus.representation_id,
+            route_waypoints=points,
+        )
+        original_route = controller.diagram.routes[connected.route_id]
+>       assert original_route.end_anchor.anchor_key == ""
+E       AssertionError: assert '0.75' == ''
+E         
+E         + 0.75
+
+tests\test_rotation_handle.py:557: AssertionError
+__ test_working_line_library_item_creates_equipment_ports_and_representation __
+
+    def test_working_line_library_item_creates_equipment_ports_and_representation() -> None:
+        _app()
+        controller = _controller()
+        workspace = EditorWorkspaceWidget(controller)
+>       payload = _library_payload(workspace, ui_text("equipment.line"))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_stage3_editor_gui.py:133: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+workspace = <rza_calc.gui.editor_panels.EditorWorkspaceWidget(0x29f469d1620) at 0x0000029F42824F00>
+title = 'Простой участок линии'
+
+    def _library_payload(workspace: EditorWorkspaceWidget, title: str) -> dict:
+        tree = workspace.side_panel.library
+    
+        def visit(item):
+            if item.text(0) == title:
+                return item.data(0, EquipmentLibraryTree.PAYLOAD_ROLE)
+            for index in range(item.childCount()):
+                found = visit(item.child(index))
+                if found:
+                    return found
+            return None
+    
+        for index in range(tree.topLevelItemCount()):
+            result = visit(tree.topLevelItem(index))
+            if result:
+                return result
+>       raise AssertionError(f"В библиотеке нет элемента '{title}'.")
+E       AssertionError: В библиотеке нет элемента 'Простой участок линии'.
+
+tests\test_stage3_editor_gui.py:79: AssertionError
+_ test_auto_labels_clear_painted_bridges_thick_buses_and_junction_markers[1.0] _
+
+zoom = 1.0
+
+    @pytest.mark.parametrize("zoom", (1.0, 0.6))
+    def test_auto_labels_clear_painted_bridges_thick_buses_and_junction_markers(zoom):
+        controller, buses = bus_bridge_fixture()
+        before = model_signature(controller.model, controller.diagram)
+        scene = _scene(controller)
+        view = DiagramGraphicsView(scene)
+        view.set_zoom(zoom)
+        QApplication.processEvents()
+        try:
+            assert len(_visible_rectangles(scene)) >= 8
+>           assert any(_has_curve(item._display_path) for item in scene._route_items_by_id.values())
+E           assert False
+E            +  where False = any(<generator object test_auto_labels_clear_painted_bridges_thick_buses_and_junction_markers.<locals>.<genexpr> at 0x0000029F4E27A880>)
+
+tests\test_ui_b3_visual_merge.py:65: AssertionError
+_ test_auto_labels_clear_painted_bridges_thick_buses_and_junction_markers[0.6] _
+
+zoom = 0.6
+
+    @pytest.mark.parametrize("zoom", (1.0, 0.6))
+    def test_auto_labels_clear_painted_bridges_thick_buses_and_junction_markers(zoom):
+        controller, buses = bus_bridge_fixture()
+        before = model_signature(controller.model, controller.diagram)
+        scene = _scene(controller)
+        view = DiagramGraphicsView(scene)
+        view.set_zoom(zoom)
+        QApplication.processEvents()
+        try:
+            assert len(_visible_rectangles(scene)) >= 8
+>           assert any(_has_curve(item._display_path) for item in scene._route_items_by_id.values())
+E           assert False
+E            +  where False = any(<generator object test_auto_labels_clear_painted_bridges_thick_buses_and_junction_markers.<locals>.<genexpr> at 0x0000029F4E27BA00>)
+
+tests\test_ui_b3_visual_merge.py:65: AssertionError
+_ test_selected_linear_objects_keep_frame_and_handle_without_a_false_blue_junction[busbar-False] _
+
+key = 'busbar', expected_dot = False
+
+    @pytest.mark.parametrize("key, expected_dot", (("line", False), ("line_section", False),
+                                                   ("busbar", False), ("circuit_breaker", True)))
+    def test_selected_linear_objects_keep_frame_and_handle_without_a_false_blue_junction(key, expected_dot):
+        controller, line, scene = _native_line_scene()
+        if key == "line_section":
+            identifier = controller.place_existing_equipment(line.section_id, x=300, y=160)
+        elif key == "busbar":
+            identifier = controller.add_electrical_node("Шина", x=300, y=160, symbol_key="busbar_horizontal",
+                                                       width=128, height=20).representation_id
+        else:
+            identifier = controller.add_equipment("builtin." + key, "Выбранный объект", x=300, y=160).representation_id
+        scene.sync_document(controller.diagram, controller.model)
+        before = _signature(controller.model)
+        document = diagram_to_dict(controller.diagram)
+        scene.select_representations((identifier,))
+        item = scene._items_by_id[identifier]
+        assert item._canonical_key == key
+        assert item.isSelected()
+        assert scene._rotation_handle.isVisible()
+        assert scene._rotation_handle.representation_id == identifier
+        image = QImage(256, 256, QImage.Format.Format_ARGB32_Premultiplied)
+        image.fill(0)
+        painter = _SelectionPaintRecorder(image)
+        painter.translate(128, 128)
+        try:
+            item.paint(painter, None)
+        finally:
+            painter.end()
+        frames = [rect for rect, color, style in painter.frames
+                  if color == "#2563eb" and style is Qt.PenStyle.DashLine]
+>       assert frames == [item.symbol_ink_rect().adjusted(-5, -5, 5, 5)], "Selection frame must remain visible"
+E       AssertionError: Selection frame must remain visible
+E       assert [PySide6.QtCo...0, 33.000000)] == [PySide6.QtCo...0, 43.000000)]
+E         
+E         At index 0 diff: PySide6.QtCore.QRectF(-65.500000, -16.500000, 131.000000, 33.000000) != PySide6.QtCore.QRectF(-70.500000, -21.500000, 141.000000, 43.000000)
+E         Use -v to get more diff
+
+tests\test_ui_line_direction.py:437: AssertionError
+__ test_bus_marks_only_explicit_anchors_and_branches_jump_in_both_directions __
+
+app = <PySide6.QtWidgets.QApplication(0x29f40d81a70) at 0x0000029F42944B40>
+
+    def test_bus_marks_only_explicit_anchors_and_branches_jump_in_both_directions(app):
+        controller, buses = bus_bridge_fixture()
+        baseline = model_signature(controller.model, controller.diagram)
+        scene = DiagramGraphicsScene()
+        scene.sync_document(controller.diagram, controller.model)
+        for bus, independent_intersection in zip(buses, ((100.0, 0.0), (0.0, 120.0))):
+            item = scene._items_by_id[bus.representation_id]
+            actual = {(round(point.x(), 5), round(point.y(), 5)) for point in item._bus_junction_points}
+            expected = set()
+            for route_item in scene._route_items_by_id.values():
+                route = route_item.route
+                vertices = route_item._display_vertices
+                for anchor, vertex in ((route.start_anchor, vertices[0]), (route.end_anchor, vertices[-1])):
+                    if anchor.representation_id == bus.representation_id:
+                        point = item.mapFromScene(vertex.x, vertex.y)
+                        expected.add((round(point.x(), 5), round(point.y(), 5)))
+            assert len(expected) == 1
+            assert actual == expected
+            assert independent_intersection not in actual, "independent crossing must not create a junction"
+        jumped_directions = set()
+        for item in scene._route_items_by_id.values():
+            if item.route.equipment_id is None:
+                continue
+            has_curve = any(item._display_path.elementAt(index).isCurveTo()
+                            for index in range(item._display_path.elementCount()))
+>           assert has_curve, "a branch, never the bus, must jump at this independent crossing"
+E           AssertionError: a branch, never the bus, must jump at this independent crossing
+E           assert False
+
+tests\test_visio_style_integration.py:259: AssertionError
+============================= slowest 8 durations =============================
+77.18s call     tests/test_stage3_requirements.py::test_17_project_with_1000_objects_opens_and_remains_manageable
+29.88s call     tests/test_stage2_topology_queries_legacy_scale.py::test_iterative_compiler_and_path_query_handle_5000_node_chain
+2.97s call     tests/test_stage3_project_commands.py::test_unconnected_editor_draft_saves_reopens_and_blocks_only_calculation
+1.71s call     tests/test_ui_direct_connections.py::test_cancel_then_drag_another_apparatus_in_same_scene_uses_its_own_original_position
+1.60s call     tests/test_ui_interaction_orientation.py::test_full_project_roundtrip_keeps_orientation_mode
+1.51s call     tests/test_stage3_requirements.py::test_11_save_load_preserve_electrical_topology
+1.46s call     tests/test_stage3_editor_gui.py::test_main_window_opens_editor_first_and_keeps_legacy_analysis
+1.33s call     tests/test_stage1_project_v3.py::test_v1_to_v3_save_reload_is_idempotent_and_does_not_touch_source
+=========================== short test summary info ===========================
+FAILED tests/test_equipment_symbol_library.py::test_line_widths_are_uniform_except_busbars
+FAILED tests/test_equipment_symbol_library.py::test_ink_bounds_stay_inside_the_declared_box
+FAILED tests/test_rotation_handle.py::test_bus_rotation_keeps_fractional_connection_point_in_preview_commit_and_undo
+FAILED tests/test_rotation_handle.py::test_legacy_vertical_bus_without_fraction_keeps_its_original_local_attachment
+FAILED tests/test_stage3_editor_gui.py::test_working_line_library_item_creates_equipment_ports_and_representation
+FAILED tests/test_ui_b3_visual_merge.py::test_auto_labels_clear_painted_bridges_thick_buses_and_junction_markers[1.0]
+FAILED tests/test_ui_b3_visual_merge.py::test_auto_labels_clear_painted_bridges_thick_buses_and_junction_markers[0.6]
+FAILED tests/test_ui_line_direction.py::test_selected_linear_objects_keep_frame_and_handle_without_a_false_blue_junction[busbar-False]
+FAILED tests/test_visio_style_integration.py::test_bus_marks_only_explicit_anchors_and_branches_jump_in_both_directions
+9 failed, 1853 passed in 235.88s (0:03:55)

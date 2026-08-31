@@ -1,0 +1,121 @@
+........................................................................ [  4%]
+........................................................................ [  9%]
+........................................................................ [ 14%]
+........................................................................ [ 18%]
+........................................................................ [ 23%]
+........................................................................ [ 28%]
+........................................................................ [ 32%]
+........................................................................ [ 37%]
+........................................................................ [ 42%]
+........................................................................ [ 46%]
+........................................................................ [ 51%]
+..F...........F......................................................... [ 56%]
+........................................................................ [ 60%]
+........................................................................ [ 65%]
+........................................................................ [ 70%]
+........................................................................ [ 74%]
+........................................................................ [ 79%]
+........................................................................ [ 84%]
+........................................................................ [ 88%]
+........................................................................ [ 93%]
+........................................................................ [ 98%]
+..........................                                               [100%]
+================================== FAILURES ===================================
+_ test_gui_physical_line_tool_creates_logical_line_and_line_section_in_one_command _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001E2F951E350>
+
+    def test_gui_physical_line_tool_creates_logical_line_and_line_section_in_one_command(
+        monkeypatch,
+    ) -> None:
+        _app()
+        controller = _controller()
+        start = controller.add_electrical_node("Начало ВЛ", x=0, y=0)
+        end = controller.add_electrical_node("Конец ВЛ", x=300, y=120)
+        canvas = EditorCanvas(controller)
+        monkeypatch.setattr(
+            canvas,
+            "_ask_new_physical_line_parameters",
+            lambda draft: (
+                True,
+                "ВЛ-10 кВ №1",
+                PhysicalLineInput(
+                    1_250_000,
+                    DataConfirmation.CONFIRMED,
+                    impedance_confirmation=DataConfirmation.UNCONFIRMED,
+                ),
+            ),
+        )
+        start_point = canvas.scene._items_by_id[start.representation_id].scenePos()
+        end_point = canvas.scene._items_by_id[end.representation_id].scenePos()
+        history_before = len(controller.journal)
+    
+        assert canvas.scene.begin_physical_line(
+            name="Воздушная линия",
+            line_kind=LineKind.OVERHEAD,
+            scene_pos=start_point,
+        )
+        canvas.scene.update_physical_line_cursor(end_point)
+>       assert canvas.scene.finish_physical_line()
+E       assert False
+E        +  where False = finish_physical_line()
+E        +    where finish_physical_line = <rza_calc.gui.editor_scene.DiagramGraphicsScene(0x1e2f21d3100) at 0x000001E2F937FEC0>.finish_physical_line
+E        +      where <rza_calc.gui.editor_scene.DiagramGraphicsScene(0x1e2f21d3100) at 0x000001E2F937FEC0> = <rza_calc.gui.editor_scene.EditorCanvas(0x1e2fc274780) at 0x000001E2F937C680>.scene
+
+tests\test_stage4_editor_interaction.py:338: AssertionError
+______ test_physical_line_endpoint_handle_reconnects_same_branch_and_ids ______
+
+    def test_physical_line_endpoint_handle_reconnects_same_branch_and_ids() -> None:
+        _app()
+        controller = _controller()
+        voltage_id = VoltageClassId("builtin.voltage.ac.10kv")
+        start = controller.add_electrical_node(
+            "Начало", x=0, y=0, voltage_class_id=voltage_id
+        )
+        old_end = controller.add_electrical_node(
+            "Старый конец", x=400, y=0, voltage_class_id=voltage_id
+        )
+        new_end = controller.add_electrical_node(
+            "Новый конец", x=400, y=200, voltage_class_id=voltage_id
+        )
+        line = controller.create_physical_line(
+            "Переподключаемая ВЛ",
+            LineKind.OVERHEAD,
+            NodeTarget(start.node_id),
+            NodeTarget(old_end.node_id),
+            physical=PhysicalLineInput(3_000_000, DataConfirmation.CONFIRMED),
+        )
+        to_port = controller.model.port_by_role(line.section_id, "to").id
+        old_connection = controller.model.connection_for_port(to_port)
+        assert old_connection is not None
+        history_before = len(controller.journal)
+        canvas = EditorCanvas(controller)
+        route_item = canvas.scene._route_items_by_id[line.route_id]
+        route_item.setSelected(True)
+        assert set(route_item._endpoint_handles) == {True, False}
+    
+        assert canvas.scene.begin_route_endpoint_reconnect(
+            line.route_id, at_start=False
+        )
+        target_representation = controller.diagram.representations[
+            new_end.representation_id
+        ]
+        canvas.scene.update_connection_cursor(
+            QPointF(target_representation.x, target_representation.y)
+        )
+>       assert canvas.scene._connection_target is not None
+E       assert None is not None
+E        +  where None = <rza_calc.gui.editor_scene.DiagramGraphicsScene(0x1e2fbdf6f20) at 0x000001E2FDB41280>._connection_target
+E        +    where <rza_calc.gui.editor_scene.DiagramGraphicsScene(0x1e2fbdf6f20) at 0x000001E2FDB41280> = <rza_calc.gui.editor_scene.EditorCanvas(0x1e2fc27f550) at 0x000001E2FDB424C0>.scene
+
+tests\test_stage4_editor_interaction.py:987: AssertionError
+============================= slowest 5 durations =============================
+76.59s call     tests/test_stage3_requirements.py::test_17_project_with_1000_objects_opens_and_remains_manageable
+30.56s call     tests/test_stage2_topology_queries_legacy_scale.py::test_iterative_compiler_and_path_query_handle_5000_node_chain
+3.03s call     tests/test_stage3_project_commands.py::test_unconnected_editor_draft_saves_reopens_and_blocks_only_calculation
+1.71s call     tests/test_a2_cli_regressions.py::test_cli_replays_in_new_process_without_the_original_methodology_file[changed]
+1.67s call     tests/test_a2_cli_regressions.py::test_cli_replays_in_new_process_without_the_original_methodology_file[corrupt]
+=========================== short test summary info ===========================
+FAILED tests/test_stage4_editor_interaction.py::test_gui_physical_line_tool_creates_logical_line_and_line_section_in_one_command
+FAILED tests/test_stage4_editor_interaction.py::test_physical_line_endpoint_handle_reconnects_same_branch_and_ids
+2 failed, 1536 passed in 208.28s (0:03:28)

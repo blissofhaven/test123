@@ -1,0 +1,29 @@
+Входная проверка A2, Sol, 31.08.2026
+python -X utf8 -m pytest -q
+783 passed in 103.12s (0:01:43)
+
+python -X utf8 tools_update_baseline.py --stage ПРОВЕРКА --reason "приёмка A2" --evidence "783 passed"
+Пересчитываю все демо-проекты…
+
+Расхождений с эталоном нет.
+
+Сводка для журнала: Числа не изменились (пересобран только формат снимка).
+Этап: ПРОВЕРКА
+Причина: приёмка A2
+Подтверждение: 783 passed
+
+Числа не изменились — обновлять нечего. Эталон оставлен как есть.
+
+python -X utf8 -m rza_calc rza_calc/examples/energoraion.json table
+Код процесса: 1; посчитано по строкам таблицы: 116 OK / 3 FAIL / 0 unresolved.
+
+Нативный Qt smoke: EDITOR_SCREENSHOT_OK, ANALYSIS_SCREENSHOT_OK, QT_NATIVE_SMOKE_OK
+
+python -X utf8 -m pytest -q tests/test_roadmap_consistency.py
+8 passed in 0.02s
+
+python -X utf8 -m pytest -q tests/test_ui_b2_voltage_colors.py
+45 passed in 2.06s
+
+Диагностический воспроизводитель вне tests/: 6 групп дефектов, код 1 (ожидаемый при воспроизведении).
+Код приложения, baseline, status.json не изменялись.

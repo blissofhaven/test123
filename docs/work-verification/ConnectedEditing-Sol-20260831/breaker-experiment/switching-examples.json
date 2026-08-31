@@ -1,0 +1,60 @@
+[
+  {
+    "breaker_id": "demo_qf_CF1_from",
+    "deenergized_old_nodes": [
+      "CF1_end",
+      "CF1_lv"
+    ],
+    "unexpectedly_energized_old_nodes": [],
+    "results_status_counts_all_modes": {
+      "ok": 116,
+      "fail": 3
+    },
+    "closing_restores_energized_old_nodes": true
+  },
+  {
+    "breaker_id": "demo_qf_CF1_T_from",
+    "deenergized_old_nodes": [
+      "CF1_lv"
+    ],
+    "unexpectedly_energized_old_nodes": [],
+    "results_status_counts_all_modes": {
+      "ok": 116,
+      "fail": 3
+    },
+    "closing_restores_energized_old_nodes": true
+  },
+  {
+    "breaker_id": "demo_qf_CF1_T_to",
+    "deenergized_old_nodes": [
+      "CF1_lv"
+    ],
+    "unexpectedly_energized_old_nodes": [],
+    "results_status_counts_all_modes": {
+      "ok": 116,
+      "fail": 3
+    },
+    "closing_restores_energized_old_nodes": true
+  },
+  {
+    "breaker_id": "demo_qf_CT2_from",
+    "deenergized_old_nodes": [
+      "CF4_end",
+      "CF4_lv",
+      "CF5_end",
+      "CF5_lv",
+      "CF5_rec",
+      "CF5_tail",
+      "CF6_end",
+      "CF6_lv",
+      "c10_2",
+      "c10_t2"
+    ],
+    "unexpectedly_energized_old_nodes": [],
+    "results_status_counts_all_modes": {
+      "ok": 116,
+      "fail": 3
+    },
+    "closing_restores_energized_old_nodes": true
+  }
+]

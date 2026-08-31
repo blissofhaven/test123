@@ -1,0 +1,482 @@
+{
+  "b3": {
+    "archive_sha256": "2f7956d0cfd5d567509f816820d4f58f65f07ddf070779aee71cd6b434343ccd",
+    "checked_input_files": 374,
+    "protected_unchanged_count": 56,
+    "protected_files": [
+      {
+        "file": "tools_update_baseline.py",
+        "sha256": "948c0fc6eabb3e452f96df7f50ac17444907602ac909dc3f2f95b929d92f336f"
+      },
+      {
+        "file": "docs/calculation-audit/baseline-log.md",
+        "sha256": "b291569479a64b59da895da2ba4a8761acce64b2e04fbe89b9d5997e2ad745e9"
+      },
+      {
+        "file": "rza_calc/adapters/__init__.py",
+        "sha256": "1f14e9690012a7615436ac0b82704c2a3f85916f48356feab54e2239fd929c98"
+      },
+      {
+        "file": "rza_calc/adapters/legacy_calculation.py",
+        "sha256": "452c6303c60744e1c254356cbc61aae195a6d8a2ca05053886c7d5861e8442b6"
+      },
+      {
+        "file": "rza_calc/calculation/__init__.py",
+        "sha256": "428af28320aba088c64f7a2e0a4baaa59f4f3c058d08f869a4d28be44c61cb64"
+      },
+      {
+        "file": "rza_calc/calculation/fault_location.py",
+        "sha256": "526dd6201097a9652b59b8d967c9b34fd8cbdd1c18c20474158f86c551a3f497"
+      },
+      {
+        "file": "rza_calc/calculation/projection.py",
+        "sha256": "f0827c9da2330a5c3731a00e9addf8b610dfdf51e8102730da236246864c9905"
+      },
+      {
+        "file": "rza_calc/core/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "file": "rza_calc/core/context.py",
+        "sha256": "593fa934a2bfa277ac28b3dd18a87442c8132b933eaad15be4429d1b689b8ab2"
+      },
+      {
+        "file": "rza_calc/core/electrical.py",
+        "sha256": "58e33ca235c5575829b4e1af3a9424ed7d89de3b4bd1cca977f1f198b2ea8ad5"
+      },
+      {
+        "file": "rza_calc/core/engine.py",
+        "sha256": "a2ee87b1e65ed668ec03c0b4ed765427e6fd5f9fcee2e0ec7588f87e92083268"
+      },
+      {
+        "file": "rza_calc/core/fingerprint.py",
+        "sha256": "fc99dd40a112ca4034be07ae5db569b831283705d76efc6be4904ef4725ec4a5"
+      },
+      {
+        "file": "rza_calc/core/impedance.py",
+        "sha256": "7191d6effbfd5714934328246a05f22a2bd5f5e78ec431490dd8a29e6e380f95"
+      },
+      {
+        "file": "rza_calc/core/load_current.py",
+        "sha256": "fc6ab66cbc1fe438037f0f6e053059922f480cdcac470aabb71f3186583e13e9"
+      },
+      {
+        "file": "rza_calc/core/methodology.py",
+        "sha256": "3d16e69d57a8515c6f14a0a016a6f1825597e44a53b2fff8c946655fa8f12b7c"
+      },
+      {
+        "file": "rza_calc/core/model.py",
+        "sha256": "261e6de028555a0463b848015e3770d4cd2bac58d6cc253c2fe2f68e8eb46a9d"
+      },
+      {
+        "file": "rza_calc/core/result.py",
+        "sha256": "9449e70b1eb1029076ca3026ed2195ecfb0d61a9a9cb812af1725915662bd05d"
+      },
+      {
+        "file": "rza_calc/core/selectivity.py",
+        "sha256": "6cd00987be48f15353a4171a386366b4dcead518a96d52a4fbfe1bdc991e2d32"
+      },
+      {
+        "file": "rza_calc/core/short_circuit.py",
+        "sha256": "e5dbba8bcdb4ee6110236dbf802ae7dcdd3b94b745e1f4febee772e4061d32b3"
+      },
+      {
+        "file": "rza_calc/core/trace.py",
+        "sha256": "ca961bcf1f20131a4f63060fd2e53bbe4aa75ca9358b2e557b89bcbcc8c3f2ed"
+      },
+      {
+        "file": "rza_calc/core/protections/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "file": "rza_calc/core/protections/mtz.py",
+        "sha256": "c913cfbc2ce6c5a3ddded0029f06ede3b063d7bf292d435d449c711c0088abb0"
+      },
+      {
+        "file": "rza_calc/core/protections/ozz.py",
+        "sha256": "8154d4f3df15c237cae938b12c2b3cf459c53549ad9a2dfba2f406c8a1910b98"
+      },
+      {
+        "file": "rza_calc/core/protections/selection.py",
+        "sha256": "1dee82eecb354803cd8d221a29aa558959e40388d5f1315018c1249c4263b3aa"
+      },
+      {
+        "file": "rza_calc/core/protections/to.py",
+        "sha256": "6cadfa69344ab88cc013d8935bc1eebc24827fb5204ac713ac21c8cca7caefa1"
+      },
+      {
+        "file": "rza_calc/data/cables.json",
+        "sha256": "35a460c07d5cad4c07d92c484a872d199024c27bd7ba79cc99d2b63686abb336"
+      },
+      {
+        "file": "rza_calc/data/methodology_default.json",
+        "sha256": "fc48da91a35b29426407c8aa57188b22d1aa66b0832311517bfa5cef17ef69ae"
+      },
+      {
+        "file": "rza_calc/data/methodology_project_template.json",
+        "sha256": "96fa1d188276abe9c73b429b0d22d3cc74855d30cb7fe3a5a9b48f5f018d8d4b"
+      },
+      {
+        "file": "rza_calc/domain/__init__.py",
+        "sha256": "bdc7aea96c28b63c109cbbd666498be80c503562ba4feb0225803a246c411d71"
+      },
+      {
+        "file": "rza_calc/domain/catalog_snapshot.py",
+        "sha256": "560dd9da58463eeddaa45ccbe59a52c5d8b7d12898d69dc38112ad9c4c8c9a91"
+      },
+      {
+        "file": "rza_calc/domain/catalog.py",
+        "sha256": "5e88eff2fa4102cc8ed3ef86a382aedd0c4517fd4766255d6b285c0dbe2ae3ca"
+      },
+      {
+        "file": "rza_calc/domain/diagram.py",
+        "sha256": "538e813b869d0b77848ea4dbac6545ea3b2acb7f7eca2be82c142a860ecaa206"
+      },
+      {
+        "file": "rza_calc/domain/electrical.py",
+        "sha256": "26af68fa5acafcc3a4af9bf75d56819382f161042c8d91c2ecbc6be47dab2833"
+      },
+      {
+        "file": "rza_calc/domain/fingerprint.py",
+        "sha256": "fdb52f0610f3bacf07d40e8fc2b82cea2ad8f0d4a76f1bfbfb0e95c304e0f45c"
+      },
+      {
+        "file": "rza_calc/domain/history.py",
+        "sha256": "6889829b975ea0e8de583f69398c86581c69dd48064e96017d7ffa50ea19557f"
+      },
+      {
+        "file": "rza_calc/domain/model.py",
+        "sha256": "e95bfcdcbcb5fea6aee79a5bf35aad5d6205bbe1f59fe7505f0e50c54c34cdc4"
+      },
+      {
+        "file": "rza_calc/editor/labels.py",
+        "sha256": "672dbfe5084dc20ce1406379185e51296302e69307329c3bb4c6f081150a5461"
+      },
+      {
+        "file": "rza_calc/editor/state.py",
+        "sha256": "49b689a215ab1123940f8c12c179683d61473c252261a2e8d0fd20bcc11fb2bb"
+      },
+      {
+        "file": "rza_calc/examples/energoraion_v1.json",
+        "sha256": "1dd4a016c22cf6dceba69700088826ecdfba6410d19550c412aa55f6acaad3ae"
+      },
+      {
+        "file": "rza_calc/examples/energoraion.json",
+        "sha256": "158394481136b90aef558a41c6752aaa5fb29915c9caa702600dd427a25fc173"
+      },
+      {
+        "file": "rza_calc/examples/gtes_sever_v1.json",
+        "sha256": "ac88723c7ebb6dbafea40cd857c33e2848bc75e1f7718b382fd0c24f9677af86"
+      },
+      {
+        "file": "rza_calc/examples/gtes_sever.json",
+        "sha256": "e51a23e41141a260f892117781e1d1eceb8056a118ed32a0a93b7add4182f0e8"
+      },
+      {
+        "file": "rza_calc/examples/ps_severnaya_v1.json",
+        "sha256": "140067751b657df9dec4ef691ede03e8b7e9570860144e5f7b55c5c14c9012f9"
+      },
+      {
+        "file": "rza_calc/examples/ps_severnaya.json",
+        "sha256": "263c089c133873deda9dd9f32174f47da58ff95a317e823c0caecc76c8378428"
+      },
+      {
+        "file": "rza_calc/gui/main_window.py",
+        "sha256": "d18bcabafda866abddb417a01d9fd0b596d6312773761920b20d35ca1498e937"
+      },
+      {
+        "file": "rza_calc/io/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "file": "rza_calc/io/catalog_snapshot.py",
+        "sha256": "26512259d5dcb4c1aaf1c29f22baec9ed80305ca3fa55e0f8c6fcfe53014d3fa"
+      },
+      {
+        "file": "rza_calc/io/catalog.py",
+        "sha256": "e2f629b48bf7e2ffb9dec785e155b517c396c7907c0e9df5ce1ba4c9e424fc94"
+      },
+      {
+        "file": "rza_calc/io/diagram.py",
+        "sha256": "a8da6e77ec74b445a358dc02698864aa515008d7fccf150d7145a568231e203b"
+      },
+      {
+        "file": "rza_calc/io/electrical_model.py",
+        "sha256": "f774fbcb5b7b6162c03381c9a0910602b5648d72971c8deb0261bed04676b076"
+      },
+      {
+        "file": "rza_calc/io/project.py",
+        "sha256": "39f9b11579eafbd9a7e3e7bcc025745fb0f0910a377ac4fecc64b6ef5216fa51"
+      },
+      {
+        "file": "rza_calc/topology/__init__.py",
+        "sha256": "0b7d5d96c6853149559a4fd80fedb5991a81ac0d79df78a72deb012537f14dbf"
+      },
+      {
+        "file": "rza_calc/topology/engine.py",
+        "sha256": "307bcf09a867dfeff1441f4203dd42780fb81d719799af0167c050eb34ba0020"
+      },
+      {
+        "file": "rza_calc/topology/handlers.py",
+        "sha256": "c56c47d07b4813cd24642a9583adf9a1a8e3f1f7269ff68b5fc776c268a715d9"
+      },
+      {
+        "file": "rza_calc/topology/model.py",
+        "sha256": "bc02686a94b156b2b55f4020aeea23edacfa5c419070f90768fa7bf2331c603c"
+      },
+      {
+        "file": "tests/baseline/calculation_baseline.json",
+        "sha256": "eb117b54e6117a4c83f612215b6ef7126f1bd303bae524e73fc60649b671f9d0"
+      }
+    ],
+    "changed_input_files": [
+      "docs/roadmap/BRIEF-FOR-SOL.md",
+      "docs/roadmap/current-state.md",
+      "docs/roadmap/ROADMAP.md",
+      "docs/roadmap/status.json",
+      "rza_calc/editor/controller.py",
+      "rza_calc/editor/orientation.py",
+      "rza_calc/editor/symbol_svg.py",
+      "rza_calc/editor/symbols.py",
+      "rza_calc/editor/tool_state.py",
+      "rza_calc/gui/editor_panels.py",
+      "rza_calc/gui/editor_scene.py",
+      "rza_calc/gui/label_layout.py",
+      "rza_calc/gui/strings.py",
+      "tests/test_stage3_editor_gui.py",
+      "tests/test_ui_b2_voltage_colors.py",
+      "tests/test_ui_b3_label_geometry.py",
+      "tests/test_ui_interaction_gui.py",
+      "tests/test_ui_interaction_regressions.py",
+      "tests/test_ui_interaction_tool_state.py"
+    ]
+  },
+  "donor": {
+    "archive_sha256": "22bbd1472ae3259a8912e5e2f7c63d99d4223266f9cd77e869c94ac0c87c5643",
+    "checked_input_files": 385,
+    "protected_unchanged_count": 55,
+    "protected_files": [
+      {
+        "file": "tools_update_baseline.py",
+        "sha256": "948c0fc6eabb3e452f96df7f50ac17444907602ac909dc3f2f95b929d92f336f"
+      },
+      {
+        "file": "docs/calculation-audit/baseline-log.md",
+        "sha256": "b291569479a64b59da895da2ba4a8761acce64b2e04fbe89b9d5997e2ad745e9"
+      },
+      {
+        "file": "rza_calc/adapters/__init__.py",
+        "sha256": "1f14e9690012a7615436ac0b82704c2a3f85916f48356feab54e2239fd929c98"
+      },
+      {
+        "file": "rza_calc/adapters/legacy_calculation.py",
+        "sha256": "452c6303c60744e1c254356cbc61aae195a6d8a2ca05053886c7d5861e8442b6"
+      },
+      {
+        "file": "rza_calc/calculation/__init__.py",
+        "sha256": "428af28320aba088c64f7a2e0a4baaa59f4f3c058d08f869a4d28be44c61cb64"
+      },
+      {
+        "file": "rza_calc/calculation/fault_location.py",
+        "sha256": "526dd6201097a9652b59b8d967c9b34fd8cbdd1c18c20474158f86c551a3f497"
+      },
+      {
+        "file": "rza_calc/calculation/projection.py",
+        "sha256": "f0827c9da2330a5c3731a00e9addf8b610dfdf51e8102730da236246864c9905"
+      },
+      {
+        "file": "rza_calc/core/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "file": "rza_calc/core/context.py",
+        "sha256": "593fa934a2bfa277ac28b3dd18a87442c8132b933eaad15be4429d1b689b8ab2"
+      },
+      {
+        "file": "rza_calc/core/electrical.py",
+        "sha256": "58e33ca235c5575829b4e1af3a9424ed7d89de3b4bd1cca977f1f198b2ea8ad5"
+      },
+      {
+        "file": "rza_calc/core/engine.py",
+        "sha256": "a2ee87b1e65ed668ec03c0b4ed765427e6fd5f9fcee2e0ec7588f87e92083268"
+      },
+      {
+        "file": "rza_calc/core/fingerprint.py",
+        "sha256": "fc99dd40a112ca4034be07ae5db569b831283705d76efc6be4904ef4725ec4a5"
+      },
+      {
+        "file": "rza_calc/core/impedance.py",
+        "sha256": "7191d6effbfd5714934328246a05f22a2bd5f5e78ec431490dd8a29e6e380f95"
+      },
+      {
+        "file": "rza_calc/core/load_current.py",
+        "sha256": "fc6ab66cbc1fe438037f0f6e053059922f480cdcac470aabb71f3186583e13e9"
+      },
+      {
+        "file": "rza_calc/core/methodology.py",
+        "sha256": "3d16e69d57a8515c6f14a0a016a6f1825597e44a53b2fff8c946655fa8f12b7c"
+      },
+      {
+        "file": "rza_calc/core/model.py",
+        "sha256": "261e6de028555a0463b848015e3770d4cd2bac58d6cc253c2fe2f68e8eb46a9d"
+      },
+      {
+        "file": "rza_calc/core/result.py",
+        "sha256": "9449e70b1eb1029076ca3026ed2195ecfb0d61a9a9cb812af1725915662bd05d"
+      },
+      {
+        "file": "rza_calc/core/selectivity.py",
+        "sha256": "6cd00987be48f15353a4171a386366b4dcead518a96d52a4fbfe1bdc991e2d32"
+      },
+      {
+        "file": "rza_calc/core/short_circuit.py",
+        "sha256": "e5dbba8bcdb4ee6110236dbf802ae7dcdd3b94b745e1f4febee772e4061d32b3"
+      },
+      {
+        "file": "rza_calc/core/trace.py",
+        "sha256": "ca961bcf1f20131a4f63060fd2e53bbe4aa75ca9358b2e557b89bcbcc8c3f2ed"
+      },
+      {
+        "file": "rza_calc/core/protections/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "file": "rza_calc/core/protections/mtz.py",
+        "sha256": "c913cfbc2ce6c5a3ddded0029f06ede3b063d7bf292d435d449c711c0088abb0"
+      },
+      {
+        "file": "rza_calc/core/protections/ozz.py",
+        "sha256": "8154d4f3df15c237cae938b12c2b3cf459c53549ad9a2dfba2f406c8a1910b98"
+      },
+      {
+        "file": "rza_calc/core/protections/selection.py",
+        "sha256": "1dee82eecb354803cd8d221a29aa558959e40388d5f1315018c1249c4263b3aa"
+      },
+      {
+        "file": "rza_calc/core/protections/to.py",
+        "sha256": "6cadfa69344ab88cc013d8935bc1eebc24827fb5204ac713ac21c8cca7caefa1"
+      },
+      {
+        "file": "rza_calc/data/cables.json",
+        "sha256": "35a460c07d5cad4c07d92c484a872d199024c27bd7ba79cc99d2b63686abb336"
+      },
+      {
+        "file": "rza_calc/data/methodology_default.json",
+        "sha256": "fc48da91a35b29426407c8aa57188b22d1aa66b0832311517bfa5cef17ef69ae"
+      },
+      {
+        "file": "rza_calc/data/methodology_project_template.json",
+        "sha256": "96fa1d188276abe9c73b429b0d22d3cc74855d30cb7fe3a5a9b48f5f018d8d4b"
+      },
+      {
+        "file": "rza_calc/domain/__init__.py",
+        "sha256": "bdc7aea96c28b63c109cbbd666498be80c503562ba4feb0225803a246c411d71"
+      },
+      {
+        "file": "rza_calc/domain/catalog_snapshot.py",
+        "sha256": "560dd9da58463eeddaa45ccbe59a52c5d8b7d12898d69dc38112ad9c4c8c9a91"
+      },
+      {
+        "file": "rza_calc/domain/catalog.py",
+        "sha256": "5e88eff2fa4102cc8ed3ef86a382aedd0c4517fd4766255d6b285c0dbe2ae3ca"
+      },
+      {
+        "file": "rza_calc/domain/diagram.py",
+        "sha256": "538e813b869d0b77848ea4dbac6545ea3b2acb7f7eca2be82c142a860ecaa206"
+      },
+      {
+        "file": "rza_calc/domain/electrical.py",
+        "sha256": "26af68fa5acafcc3a4af9bf75d56819382f161042c8d91c2ecbc6be47dab2833"
+      },
+      {
+        "file": "rza_calc/domain/fingerprint.py",
+        "sha256": "fdb52f0610f3bacf07d40e8fc2b82cea2ad8f0d4a76f1bfbfb0e95c304e0f45c"
+      },
+      {
+        "file": "rza_calc/domain/history.py",
+        "sha256": "6889829b975ea0e8de583f69398c86581c69dd48064e96017d7ffa50ea19557f"
+      },
+      {
+        "file": "rza_calc/domain/model.py",
+        "sha256": "e95bfcdcbcb5fea6aee79a5bf35aad5d6205bbe1f59fe7505f0e50c54c34cdc4"
+      },
+      {
+        "file": "rza_calc/editor/state.py",
+        "sha256": "266a759a30880ad28d9594a8e64e2a76fa42da7a1bc6f8b2a269521984ccfdb5"
+      },
+      {
+        "file": "rza_calc/examples/energoraion_v1.json",
+        "sha256": "1dd4a016c22cf6dceba69700088826ecdfba6410d19550c412aa55f6acaad3ae"
+      },
+      {
+        "file": "rza_calc/examples/energoraion.json",
+        "sha256": "158394481136b90aef558a41c6752aaa5fb29915c9caa702600dd427a25fc173"
+      },
+      {
+        "file": "rza_calc/examples/gtes_sever_v1.json",
+        "sha256": "ac88723c7ebb6dbafea40cd857c33e2848bc75e1f7718b382fd0c24f9677af86"
+      },
+      {
+        "file": "rza_calc/examples/gtes_sever.json",
+        "sha256": "e51a23e41141a260f892117781e1d1eceb8056a118ed32a0a93b7add4182f0e8"
+      },
+      {
+        "file": "rza_calc/examples/ps_severnaya_v1.json",
+        "sha256": "140067751b657df9dec4ef691ede03e8b7e9570860144e5f7b55c5c14c9012f9"
+      },
+      {
+        "file": "rza_calc/examples/ps_severnaya.json",
+        "sha256": "263c089c133873deda9dd9f32174f47da58ff95a317e823c0caecc76c8378428"
+      },
+      {
+        "file": "rza_calc/gui/main_window.py",
+        "sha256": "f156f6260ab89d8c035c3c3dc4bbc9f7c720bb2153d57c3bce0c173e5f796c84"
+      },
+      {
+        "file": "rza_calc/io/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "file": "rza_calc/io/catalog_snapshot.py",
+        "sha256": "26512259d5dcb4c1aaf1c29f22baec9ed80305ca3fa55e0f8c6fcfe53014d3fa"
+      },
+      {
+        "file": "rza_calc/io/catalog.py",
+        "sha256": "e2f629b48bf7e2ffb9dec785e155b517c396c7907c0e9df5ce1ba4c9e424fc94"
+      },
+      {
+        "file": "rza_calc/io/diagram.py",
+        "sha256": "a8da6e77ec74b445a358dc02698864aa515008d7fccf150d7145a568231e203b"
+      },
+      {
+        "file": "rza_calc/io/electrical_model.py",
+        "sha256": "f774fbcb5b7b6162c03381c9a0910602b5648d72971c8deb0261bed04676b076"
+      },
+      {
+        "file": "rza_calc/io/project.py",
+        "sha256": "39f9b11579eafbd9a7e3e7bcc025745fb0f0910a377ac4fecc64b6ef5216fa51"
+      },
+      {
+        "file": "rza_calc/topology/__init__.py",
+        "sha256": "0b7d5d96c6853149559a4fd80fedb5991a81ac0d79df78a72deb012537f14dbf"
+      },
+      {
+        "file": "rza_calc/topology/engine.py",
+        "sha256": "307bcf09a867dfeff1441f4203dd42780fb81d719799af0167c050eb34ba0020"
+      },
+      {
+        "file": "rza_calc/topology/handlers.py",
+        "sha256": "c56c47d07b4813cd24642a9583adf9a1a8e3f1f7269ff68b5fc776c268a715d9"
+      },
+      {
+        "file": "rza_calc/topology/model.py",
+        "sha256": "bc02686a94b156b2b55f4020aeea23edacfa5c419070f90768fa7bf2331c603c"
+      },
+      {
+        "file": "tests/baseline/calculation_baseline.json",
+        "sha256": "eb117b54e6117a4c83f612215b6ef7126f1bd303bae524e73fc60649b671f9d0"
+      }
+    ],
+    "changed_input_files": []
+  }
+}

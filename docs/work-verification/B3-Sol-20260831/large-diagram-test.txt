@@ -1,0 +1,4 @@
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+90.88s call     tests/test_stage3_requirements.py::test_17_project_with_1000_objects_opens_and_remains_manageable
+1 passed in 91.14s (0:01:31)

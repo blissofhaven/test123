@@ -1,0 +1,51 @@
+{
+  "platform": "windows",
+  "application": "MainWindow",
+  "probe_pid": 7948,
+  "exit_code": 0,
+  "source_project": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\examples\\energoraion.json",
+  "source_sha256_before_and_after": "898d808dff3dbf13bea28ee9fa6d2e21bcc91bb29c5f1e8aa5d11744f69f75af",
+  "electrical_model_fingerprint": "b275e47230495c199e8c4ad0158838af0f3a3c14a2767fc85a98bbe7a1164445",
+  "project_saved": false,
+  "user_application_touched": false,
+  "qt_callback_errors": [],
+  "hidden_service_node_glyphs": 37,
+  "hidden_normal_linear_port_circles": 62,
+  "retained_apparatus_ports_checked_by_real_paint": 70,
+  "developer_overlay_restored_service_node_glyphs": true,
+  "gesture_checks": {
+    "bus_attachment_delta": [40, 15],
+    "bus_attachment_motion_projected_to_bus_axis": true,
+    "bus_representations_never_moved": true,
+    "direct_wire_segment_motion": "40 scene units perpendicular to the selected segment",
+    "route_endpoints_remained_attached": true,
+    "commit_commands": 2,
+    "undo_operations": 2,
+    "five_direction_changes_and_escape_per_gesture": true,
+    "late_release_after_escape_did_not_commit": true,
+    "same_mouse_grabber_retained_during_all_previews": true,
+    "all_original_representations_and_routes_restored": true
+  },
+  "preserved_in_all_ten_phases": [
+    "electrical fingerprint and revision",
+    "equipment, electrical nodes, connections and semantic ports",
+    "representation and route IDs",
+    "route anchor kind, target node, target port and branch port IDs",
+    "source JSON bytes"
+  ],
+  "png_size": [1760, 1000],
+  "pngs": [
+    "native-connected-normal.png",
+    "native-connected-service-overlay.png",
+    "native-connected-bus-preview.png",
+    "native-connected-bus-commit.png",
+    "native-connected-bus-undo.png",
+    "native-connected-bus-five-moves-escape.png",
+    "native-connected-route-preview.png",
+    "native-connected-route-commit.png",
+    "native-connected-route-undo.png",
+    "native-connected-route-five-moves-escape.png"
+  ],
+  "visual_review": "Normal view, bus attachment preview and committed wire dogleg inspected as real widget PNGs: apparatus terminals retained, service dots absent, bus unchanged and conductor remains connected.",
+  "verification_limit": "Automated native Windows QTest and real widget PNG inspection, not a physical mouse test. Exit 0 is not proof that intermittent UI-CRASH-001 is resolved."
+}

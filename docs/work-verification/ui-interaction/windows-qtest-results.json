@@ -1,0 +1,62 @@
+{
+  "platform": "windows",
+  "automated_qtest": true,
+  "physical_mouse_acceptance": false,
+  "selection_and_double_click": "passed",
+  "one_shot": "passed: 1 object after 6 canvas clicks",
+  "repeat": "passed: 3 objects, Esc blocks fourth",
+  "rotation": "passed: 0/90/180/270, HV/LV unchanged",
+  "auto_orientation": "passed: horizontal=0, vertical=90",
+  "collision": "passed: red preview, commit rejected",
+  "crossing": "passed: no electrical path",
+  "screenshots": [
+    {
+      "file": "01-selection-transformer.png",
+      "width": 1500,
+      "height": 850,
+      "bytes": 63987
+    },
+    {
+      "file": "02-double-click-properties.png",
+      "width": 1500,
+      "height": 850,
+      "bytes": 65247
+    },
+    {
+      "file": "03-one-shot-placement.png",
+      "width": 1500,
+      "height": 850,
+      "bytes": 47552
+    },
+    {
+      "file": "04-explicit-repeat-placement.png",
+      "width": 1500,
+      "height": 850,
+      "bytes": 74334
+    },
+    {
+      "file": "05-rotation-semantic-ports.png",
+      "width": 1500,
+      "height": 850,
+      "bytes": 92681
+    },
+    {
+      "file": "06-auto-orientation-lines.png",
+      "width": 1500,
+      "height": 850,
+      "bytes": 86452
+    },
+    {
+      "file": "07-invalid-collision-preview.png",
+      "width": 1500,
+      "height": 850,
+      "bytes": 44596
+    },
+    {
+      "file": "08-crossing-without-node.png",
+      "width": 1500,
+      "height": 850,
+      "bytes": 70773
+    }
+  ]
+}

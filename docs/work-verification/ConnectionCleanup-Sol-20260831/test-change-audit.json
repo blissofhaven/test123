@@ -1,0 +1,106 @@
+{
+  "changed_test_files": [
+    {
+      "file": "tests/test_rotation_handle.py",
+      "removed_or_renamed_test_functions": [],
+      "added_or_renamed_test_functions": [],
+      "assertions_changed": [
+        "test_bus_rotation_keeps_fractional_connection_point_in_preview_commit_and_undo"
+      ],
+      "assertions_unchanged_count": 12
+    },
+    {
+      "file": "tests/test_stage3_editor_gui.py",
+      "removed_or_renamed_test_functions": [
+        "test_working_line_library_item_creates_equipment_ports_and_representation"
+      ],
+      "added_or_renamed_test_functions": [
+        "test_physical_line_library_item_creates_real_branch_ports_and_route"
+      ],
+      "assertions_changed": [],
+      "assertions_unchanged_count": 6
+    },
+    {
+      "file": "tests/test_stage4_editor_interaction.py",
+      "removed_or_renamed_test_functions": [
+        "test_gui_delete_physical_route_removes_line_but_keeps_endpoint_nodes"
+      ],
+      "added_or_renamed_test_functions": [
+        "test_gui_delete_physical_route_removes_line_and_orphan_nodes_atomically"
+      ],
+      "assertions_changed": [],
+      "assertions_unchanged_count": 22
+    },
+    {
+      "file": "tests/test_stage4_requirements.py",
+      "removed_or_renamed_test_functions": [],
+      "added_or_renamed_test_functions": [],
+      "assertions_changed": [],
+      "assertions_unchanged_count": 35
+    },
+    {
+      "file": "tests/test_ui_b3_visual_merge.py",
+      "removed_or_renamed_test_functions": [],
+      "added_or_renamed_test_functions": [],
+      "assertions_changed": [
+        "test_auto_labels_clear_painted_bridges_thick_buses_and_junction_markers"
+      ],
+      "assertions_unchanged_count": 3
+    },
+    {
+      "file": "tests/test_ui_connected_commands.py",
+      "removed_or_renamed_test_functions": [
+        "test_actual_legacy_bus_group_only_moves_coincident_explicit_taps_and_survives_save_undo",
+        "test_mixed_native_and_legacy_coincident_bus_tap_moves_as_one_command_not_whole_bus"
+      ],
+      "added_or_renamed_test_functions": [
+        "test_actual_legacy_bus_moves_selected_coincident_tap_only_and_survives_save_undo",
+        "test_mixed_native_and_legacy_coincident_bus_tap_moves_only_selected_endpoint"
+      ],
+      "assertions_changed": [],
+      "assertions_unchanged_count": 11
+    },
+    {
+      "file": "tests/test_ui_connected_drag.py",
+      "removed_or_renamed_test_functions": [],
+      "added_or_renamed_test_functions": [],
+      "assertions_changed": [],
+      "assertions_unchanged_count": 13
+    },
+    {
+      "file": "tests/test_ui_direct_connections.py",
+      "removed_or_renamed_test_functions": [
+        "test_cancel_menu_or_physical_parameters_leaves_no_electrical_side_effect",
+        "test_drag_physical_choice_asks_parameters_before_one_command"
+      ],
+      "added_or_renamed_test_functions": [
+        "test_cancel_physical_draft_leaves_no_electrical_side_effect",
+        "test_physical_palette_creates_one_unconfirmed_branch_without_modal_parameters"
+      ],
+      "assertions_changed": [
+        "test_terminal_drag_previews_then_commits_one_ordinary_connection"
+      ],
+      "assertions_unchanged_count": 15
+    },
+    {
+      "file": "tests/test_ui_line_direction.py",
+      "removed_or_renamed_test_functions": [],
+      "added_or_renamed_test_functions": [],
+      "assertions_changed": [
+        "test_selected_linear_objects_keep_frame_and_handle_without_a_false_blue_junction"
+      ],
+      "assertions_unchanged_count": 14
+    },
+    {
+      "file": "tests/test_visio_style_integration.py",
+      "removed_or_renamed_test_functions": [
+        "test_bus_marks_only_explicit_anchors_and_branches_jump_in_both_directions"
+      ],
+      "added_or_renamed_test_functions": [
+        "test_bus_marks_only_explicit_anchors_and_branches_have_gaps_in_both_directions"
+      ],
+      "assertions_changed": [],
+      "assertions_unchanged_count": 10
+    }
+  ]
+}

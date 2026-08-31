@@ -1,0 +1,54 @@
+FILE_SHA256 898d808dff3dbf13bea28ee9fa6d2e21bcc91bb29c5f1e8aa5d11744f69f75af
+FINGERPRINT b275e47230495c199e8c4ad0158838af0f3a3c14a2767fc85a98bbe7a1164445
+GLYPHS {'transformer_3w': 1, 'source': 1, 'transformer_2w': 22, 'circuit_breaker': 13, 'line_section': 31, 'load': 24}
+LEGACY_LINE_TYPES {'overhead': 21, 'cable': 10}
+PHOTO3_CF2_PHYSICAL overhead c10_1 CF2_end roles [('from', 'port_fe25d6ee007f55bcadc3f2fcc5cdbb50'), ('to', 'port_22a82581291353f5ba08a5d7a186ce5d')]
+TRANSFORMERS
+CT1	Т1 Центральная 110/35/10	eq_10d64e8d290857d4afffd96ce4b8734a	hv: ЦЕНТРАЛЬНАЯ · ОРУ 110 кВ [degree=5, switches=[]] | mv: ЦЕНТРАЛЬНАЯ · ОРУ 35 кВ [degree=2, switches=[]] | lv: ЦЕНТРАЛЬНАЯ · вывод НН Т1 [degree=2, switches=['Ввод-1 10 кВ (Центральная)']]
+CT2	Т2 Центральная 110/10	eq_53789bc3e7e15ebf983409937ddac923	from: ЦЕНТРАЛЬНАЯ · ОРУ 110 кВ [degree=5, switches=[]] | to: ЦЕНТРАЛЬНАЯ · вывод НН Т2 [degree=2, switches=['Ввод-2 10 кВ (Центральная)']]
+NT1	Т1 Северная 110/10	eq_d32d8ce2d29e52f98d22165007ac5870	from: СЕВЕРНАЯ · ОРУ 110 кВ [degree=4, switches=[]] | to: СЕВЕРНАЯ · вывод НН Т1 [degree=2, switches=['Ввод-1 10 кВ (Северная)']]
+NT2	Т2 Северная 110/10	eq_d40a1f6256225c869f3915a13f250529	from: СЕВЕРНАЯ · ОРУ 110 кВ [degree=4, switches=[]] | to: СЕВЕРНАЯ · вывод НН Т2 [degree=2, switches=['Ввод-2 10 кВ (Северная)']]
+WT1	Т1 Западная 35/10	eq_c37404aec16c52e49ac964599cc33602	from: ЗАПАДНАЯ · ОРУ 35 кВ [degree=3, switches=[]] | to: ЗАПАДНАЯ · вывод НН Т1 [degree=2, switches=['Ввод-1 10 кВ (Западная)']]
+WT2	Т2 Западная 35/10	eq_f49e2ada0bd258b4a49073f7e5bb0801	from: ЗАПАДНАЯ · ОРУ 35 кВ [degree=3, switches=[]] | to: ЗАПАДНАЯ · вывод НН Т2 [degree=2, switches=['Ввод-2 10 кВ (Западная)']]
+ST1	Т1 Южная 110/10	eq_b177fca4756c5ab280084f444cb10df5	from: ЮЖНАЯ · ОРУ 110 кВ [degree=3, switches=[]] | to: ЮЖНАЯ · вывод НН Т1 [degree=2, switches=['Ввод-1 10 кВ (Южная)']]
+CF1_T	КТП Ф-1 630 кВ·А (Центральная)	eq_d6f9f3c3cdfc53a6857f6505e38c17db	from: Центральная · конец Ф-1 [degree=2, switches=[]] | to: Центральная · КТП Ф-1, щит 0,4 кВ [degree=2, switches=[]]
+CF4_T	КТП Ф-4 400 кВ·А (Центральная)	eq_f6ad130a41d053e8a05df930a91838ed	from: Центральная · конец Ф-4 [degree=2, switches=[]] | to: Центральная · КТП Ф-4, щит 0,4 кВ [degree=2, switches=[]]
+CF5_T	КТП Ф-5 250 кВ·А (Центральная)	eq_b88f6ad81258588a817a15ea07ffa40f	from: Центральная · хвост Ф-5 [degree=2, switches=[]] | to: Центральная · КТП Ф-5, щит 0,4 кВ [degree=2, switches=[]]
+CF6_T	КТП Ф-6 400 кВ·А (Центральная)	eq_5fc6e4f63a645702a7f8f317a57ca81d	from: Центральная · конец Ф-6 [degree=2, switches=[]] | to: Центральная · КТП Ф-6, щит 0,4 кВ [degree=2, switches=[]]
+NF1_T	КТП Ф-1 400 кВ·А (Северная)	eq_2ee6a5df0e4f5b579274ab21858e2acb	from: Северная · конец Ф-1 [degree=2, switches=[]] | to: Северная · КТП Ф-1, щит 0,4 кВ [degree=2, switches=[]]
+NF3_T	КТП Ф-3 250 кВ·А (Северная)	eq_9c9b9567613a5b1e8dceffd28041081b	from: Северная · конец Ф-3 [degree=2, switches=[]] | to: Северная · КТП Ф-3, щит 0,4 кВ [degree=2, switches=[]]
+NF4_T	КТП Ф-4 250 кВ·А (Северная)	eq_e1ace8ed1a095b9cbd5f6dc221108bf0	from: Северная · хвост Ф-4 [degree=2, switches=[]] | to: Северная · КТП Ф-4, щит 0,4 кВ [degree=2, switches=[]]
+NF5_T	КТП Ф-5 630 кВ·А (Северная)	eq_9eedc734b5bb5903add555c13ecd4fa8	from: Северная · конец Ф-5 [degree=2, switches=[]] | to: Северная · КТП Ф-5, щит 0,4 кВ [degree=2, switches=[]]
+WF1_T	КТП Ф-1 400 кВ·А (Западная)	eq_fbfe399d70de5cbcbf6f8f2ccb3affcf	from: Западная · конец Ф-1 [degree=2, switches=[]] | to: Западная · КТП Ф-1, щит 0,4 кВ [degree=2, switches=[]]
+WF3_T	КТП Ф-3 250 кВ·А (Западная)	eq_e15f2458ee875310927c13dab4ae0f14	from: Западная · конец Ф-3 [degree=2, switches=[]] | to: Западная · КТП Ф-3, щит 0,4 кВ [degree=2, switches=[]]
+WF4_T	КТП Ф-4 250 кВ·А (Западная)	eq_59e209e137ed56e191d0e1b14842b449	from: Западная · хвост Ф-4 [degree=2, switches=[]] | to: Западная · КТП Ф-4, щит 0,4 кВ [degree=2, switches=[]]
+WF5_T	КТП Ф-5 630 кВ·А (Западная)	eq_19792d590c085860bff3ee0a5a74913e	from: Западная · конец Ф-5 [degree=2, switches=[]] | to: Западная · КТП Ф-5, щит 0,4 кВ [degree=2, switches=[]]
+SF1_T	КТП Ф-1 630 кВ·А (Южная)	eq_d04212c0f08d581989d7ffc09bf5f343	from: Южная · конец Ф-1 [degree=2, switches=[]] | to: Южная · КТП Ф-1, щит 0,4 кВ [degree=2, switches=[]]
+SF2_T	КТП Ф-2 400 кВ·А (Южная)	eq_466068a201405fd6ad8487ac76adb296	from: Южная · конец Ф-2 [degree=2, switches=[]] | to: Южная · КТП Ф-2, щит 0,4 кВ [degree=2, switches=[]]
+SF4_T	КТП Ф-4 400 кВ·А (Южная)	eq_f006bea84e305f0aa3cdc16584eca4d1	from: Южная · конец Ф-4 [degree=2, switches=[]] | to: Южная · КТП Ф-4, щит 0,4 кВ [degree=2, switches=[]]
+SF5_T	КТП Ф-5 630 кВ·А (Южная)	eq_7f08d1925eb85466929aec74d441bef9	from: Южная · конец Ф-5 [degree=2, switches=[]] | to: Южная · КТП Ф-5, щит 0,4 кВ [degree=2, switches=[]]
+SWITCHES
+CV1	Ввод-1 10 кВ (Центральная)	eq_d24e5cfc3db75acd9920b7ad55c5a344	from: ЦЕНТРАЛЬНАЯ · вывод НН Т1 | to: ЦЕНТРАЛЬНАЯ · 1 СШ 10 кВ
+CV2	Ввод-2 10 кВ (Центральная)	eq_539cdfcba6f653da9c25e4fbe053aa3b	from: ЦЕНТРАЛЬНАЯ · вывод НН Т2 | to: ЦЕНТРАЛЬНАЯ · 2 СШ 10 кВ
+CSV	СВ 10 кВ (Центральная)	eq_e37930e24a7b59b7accb22918b4934e3	from: ЦЕНТРАЛЬНАЯ · 1 СШ 10 кВ | to: ЦЕНТРАЛЬНАЯ · 2 СШ 10 кВ
+NV1	Ввод-1 10 кВ (Северная)	eq_4f46b3725de250e390e8cec837be0305	from: СЕВЕРНАЯ · вывод НН Т1 | to: СЕВЕРНАЯ · 1 СШ 10 кВ
+NV2	Ввод-2 10 кВ (Северная)	eq_dd93088842aa5a95b13ec2fffd3f4254	from: СЕВЕРНАЯ · вывод НН Т2 | to: СЕВЕРНАЯ · 2 СШ 10 кВ
+NSV	СВ 10 кВ (Северная)	eq_561f2190291254ddbd351be1260d4709	from: СЕВЕРНАЯ · 1 СШ 10 кВ | to: СЕВЕРНАЯ · 2 СШ 10 кВ
+WV1	Ввод-1 10 кВ (Западная)	eq_1a5b4456558a5f29980c6d7eb845555d	from: ЗАПАДНАЯ · вывод НН Т1 | to: ЗАПАДНАЯ · 1 СШ 10 кВ
+WV2	Ввод-2 10 кВ (Западная)	eq_abcf288950bb5d73995c79cdc9fd7bb7	from: ЗАПАДНАЯ · вывод НН Т2 | to: ЗАПАДНАЯ · 2 СШ 10 кВ
+WSV	СВ 10 кВ (Западная)	eq_e2cf5c89e61554db8fe12d0920526a4a	from: ЗАПАДНАЯ · 1 СШ 10 кВ | to: ЗАПАДНАЯ · 2 СШ 10 кВ
+SV1	Ввод-1 10 кВ (Южная)	eq_cea880e1e35c5e08bc1ea2bbdbbda929	from: ЮЖНАЯ · вывод НН Т1 | to: ЮЖНАЯ · 1 СШ 10 кВ
+CF5_R	Реклоузер Ф-5 (Центральная)	eq_0cac04acf01e56a3b2f2aea494197de1	from: Центральная · конец Ф-5 | to: Центральная · за реклоузером Ф-5
+NF4_R	Реклоузер Ф-4 (Северная)	eq_c3d43f8c8b73585480702bfebb535182	from: Северная · конец Ф-4 | to: Северная · за реклоузером Ф-4
+WF4_R	Реклоузер Ф-4 (Западная)	eq_46d975069fcb597da06f546fd4e5a395	from: Западная · конец Ф-4 | to: Западная · за реклоузером Ф-4
+PHOTO3_LINES
+VL110_1	ВЛ-110 Центральная — Северная	eq_b9bb476543ec54ae834035cbc10e871e	['representation_65cdd876c43b4c45b9cd40355930597f']	from: ЦЕНТРАЛЬНАЯ · ОРУ 110 кВ | to: СЕВЕРНАЯ · ОРУ 110 кВ
+VL35	ВЛ-35 Центральная — Западная	eq_ded17b61e2235167b88689d71b61ab00	['representation_57e521937be9493ba6e7405e83496ebc']	from: ЦЕНТРАЛЬНАЯ · ОРУ 35 кВ | to: ЗАПАДНАЯ · ОРУ 35 кВ
+VL110_2	ВЛ-110 Центральная — Южная	eq_a05362fbfdfb5c508230f90cbdcd4416	['representation_e5b4ce1fdc7642dda9e4d9ca3a809cba']	from: ЦЕНТРАЛЬНАЯ · ОРУ 110 кВ | to: ЮЖНАЯ · ОРУ 110 кВ
+CF1	Ф-1 10 кВ (Центральная)	eq_298fea7396f85f888baecf5b9c4b1c87	['representation_d2dacf39445c4ef6afa0a0a91791a134']	from: ЦЕНТРАЛЬНАЯ · 1 СШ 10 кВ | to: Центральная · конец Ф-1
+CF2	Ф-2 10 кВ (Центральная)	eq_f6bb86c182045a4689f20cb9e717fb88	['representation_0f58f198e4e8435bb4b35737bfee8e91']	from: ЦЕНТРАЛЬНАЯ · 1 СШ 10 кВ | to: Центральная · конец Ф-2
+CF3	Ф-3 10 кВ (Центральная)	eq_0c01b95e785f5766892af833aac76ab1	['representation_9ab32a9a70bc44a2a732eaff6604c4b8']	from: ЦЕНТРАЛЬНАЯ · 1 СШ 10 кВ | to: Центральная · конец Ф-3
+CF4	Ф-4 10 кВ (Центральная)	eq_b9f6cdf8f4655507b0eed5b84fc43d0a	['representation_2e454b515ffb48619fbc04f4a9a488f8']	from: ЦЕНТРАЛЬНАЯ · 2 СШ 10 кВ | to: Центральная · конец Ф-4
+CF5	Ф-5 10 кВ (Центральная)	eq_57d8db435c145faa9e50427dbb45950d	['representation_2b2428ea31434ebfa7f4f611ad0c5672']	from: ЦЕНТРАЛЬНАЯ · 2 СШ 10 кВ | to: Центральная · конец Ф-5
+CF5_2	Ф-5 за реклоузером (Центральная)	eq_8e94212ccd7259599b2490051628ef02	['representation_abf397c37dd642789c35b95f6f4aede8']	from: Центральная · за реклоузером Ф-5 | to: Центральная · хвост Ф-5
+CF6	Ф-6 10 кВ (Центральная)	eq_544abd41661b535cbc88235d9e1bb65e	['representation_2ee59b3d3bea41979891d2deecced48c']	from: ЦЕНТРАЛЬНАЯ · 2 СШ 10 кВ | to: Центральная · конец Ф-6

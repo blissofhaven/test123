@@ -1,0 +1,43 @@
+{
+  "pid": 21044,
+  "project_saved": false,
+  "source_unchanged": true,
+  "platform": "windows",
+  "qt_callback_errors": [],
+  "frames": [
+    {
+      "phase": "native-wide-bus-crossing-vs-connection",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native-wide-bus-crossing-vs-connection.png",
+      "fingerprint": "b25a965545162df5adddb1d2c177426123974a70a337d926c28671046d7cd688",
+      "journal": 6,
+      "synthetic_in_memory": true,
+      "bus": "representation_600f402988d94f62a93fe26664cc4baf",
+      "crossing_is_not_electrical_connection": true,
+      "gap_count": 1
+    },
+    {
+      "phase": "native-wide-bus-crossing-vs-connection-unselected",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native-wide-bus-crossing-vs-connection-unselected.png",
+      "fingerprint": "b25a965545162df5adddb1d2c177426123974a70a337d926c28671046d7cd688",
+      "journal": 6,
+      "synthetic_in_memory": true
+    }
+  ],
+  "gaps": {
+    "route:route_f05bcdc1efba472695cc2e3583590d10": [
+      [
+        1,
+        [
+          1080.0,
+          2486.5
+        ],
+        [
+          1080.0,
+          2513.5
+        ]
+      ]
+    ]
+  },
+  "real_junction_port": "port_1c6bc1938ab0470e86c7986f13455e86",
+  "unrelated_crossing_port": "port_dacfc955f0fc4b9eb24ef02ebdf56596"
+}

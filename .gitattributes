@@ -1,0 +1,14 @@
+# Preserve the imported project and historical verification evidence byte for
+# byte. In particular, line-ending conversion must not invalidate recorded
+# file hashes or change existing example JSON files during the first import.
+# -text disables EOL conversion, not ordinary text diffs.
+* -text
+
+# Keep batch bytes intact in BOTH checkouts and GitHub source ZIP archives.
+# text eol=crlf alone stores LF in Git, which breaks the UTF-8 GUI launcher
+# when an archive is downloaded. The launcher format test checks actual CRLF.
+*.bat -text
+*.cmd -text
+
+# Shell scripts must remain usable on Unix hosts.
+*.sh text eol=lf

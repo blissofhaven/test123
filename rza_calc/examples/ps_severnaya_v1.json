@@ -1,0 +1,104 @@
+{
+  "format_version": 1,
+  "project": {
+    "name": "ПС Северная 35/10 кВ",
+    "object": "Пример схемы для проверки ядра расчёта",
+    "author": "",
+    "_warning": "УЧЕБНЫЙ ПРИМЕР. Параметры оборудования и коэффициенты не относятся к реальному объекту и не являются уставками."
+  },
+  "methodology": {"file": "../data/methodology_default.json"},
+  "neutral": {"10": "isolated", "35": "isolated", "0.4": "earthed"},
+
+  "nodes": [
+    {"id": "b35",     "name": "ОРУ 35 кВ",            "u_nom": 35},
+    {"id": "t1_lv",   "name": "Т1, вывод 10 кВ",      "u_nom": 10, "kind": "point"},
+    {"id": "t2_lv",   "name": "Т2, вывод 10 кВ",      "u_nom": 10, "kind": "point"},
+    {"id": "b10_1",   "name": "1 СШ 10 кВ",           "u_nom": 10, "section": "1 СШ"},
+    {"id": "b10_2",   "name": "2 СШ 10 кВ",           "u_nom": 10, "section": "2 СШ"},
+    {"id": "f1_end",  "name": "РП-1, 10 кВ",          "u_nom": 10},
+    {"id": "ktp1_lv", "name": "КТП-1, шины 0,4 кВ",   "u_nom": 0.4},
+    {"id": "f2_end",  "name": "Ф-2, конец линии",     "u_nom": 10},
+    {"id": "f3_end",  "name": "Ф-3, конец линии",     "u_nom": 10}
+  ],
+
+  "branches": [
+    {"id": "S", "kind": "source", "name": "Система 35 кВ", "node_from": "GRID", "node_to": "b35",
+     "s_kz_max": 400, "s_kz_min": 250},
+
+    {"id": "T1", "kind": "transformer", "name": "Т1 35/10 кВ", "node_from": "b35", "node_to": "t1_lv",
+     "s_nom": 10000, "u_hv": 35, "u_lv": 10, "uk": 7.5, "p_k": 60, "group": "Д/Ун-11",
+     "i_inrush_ratio": 5, "ct_ratio": [200, 5], "breaker_t_off": 0.06, "terminal": "БМРЗ",
+     "switchable": true, "normally_closed": true,
+     "prot": {"mtz": true, "to": false, "ozz": false}},
+
+    {"id": "T2", "kind": "transformer", "name": "Т2 35/10 кВ", "node_from": "b35", "node_to": "t2_lv",
+     "s_nom": 10000, "u_hv": 35, "u_lv": 10, "uk": 7.5, "p_k": 60, "group": "Д/Ун-11",
+     "i_inrush_ratio": 5, "ct_ratio": [200, 5], "breaker_t_off": 0.06, "terminal": "БМРЗ",
+     "switchable": true, "normally_closed": true,
+     "prot": {"mtz": true, "to": false, "ozz": false}},
+
+    {"id": "V1", "kind": "tie", "name": "Ввод-1 10 кВ", "node_from": "t1_lv", "node_to": "b10_1",
+     "ct_ratio": [1000, 5], "breaker_t_off": 0.06, "terminal": "БМРЗ",
+     "switchable": true, "normally_closed": true,
+     "prot": {"mtz": true, "to": false, "ozz": false}},
+
+    {"id": "V2", "kind": "tie", "name": "Ввод-2 10 кВ", "node_from": "t2_lv", "node_to": "b10_2",
+     "ct_ratio": [1000, 5], "breaker_t_off": 0.06, "terminal": "БМРЗ",
+     "switchable": true, "normally_closed": true,
+     "prot": {"mtz": true, "to": false, "ozz": false}},
+
+    {"id": "SV", "kind": "tie", "name": "СВ 10 кВ", "node_from": "b10_1", "node_to": "b10_2",
+     "ct_ratio": [1000, 5], "breaker_t_off": 0.06, "terminal": "БМРЗ",
+     "switchable": true, "normally_closed": false,
+     "prot": {"mtz": true, "to": false, "ozz": false}},
+
+    {"id": "F1", "kind": "line", "name": "Фидер-1 10 кВ", "node_from": "b10_1", "node_to": "f1_end",
+     "line_type": "cable", "length_km": 3.2, "brand": "ААБл", "section_mm2": 150, "material": "Al",
+     "ic_per_km": 0.90, "ct_ratio": [400, 5], "breaker_t_off": 0.06, "terminal": "БМРЗ",
+     "note": "ic_per_km — ПРИМЕР, обязательно сверить с каталогом кабеля",
+     "prot": {"mtz": true, "to": true, "ozz": true, "to_reach": "line_end"}},
+
+    {"id": "TK1", "kind": "transformer", "name": "КТП-1 10/0,4 кВ", "node_from": "f1_end", "node_to": "ktp1_lv",
+     "s_nom": 1000, "u_hv": 10, "u_lv": 0.4, "uk": 6.0, "p_k": 12.2, "group": "Д/Ун-11",
+     "i_inrush_ratio": 8, "ct_ratio": [100, 5], "breaker_t_off": 0.06, "terminal": "БМРЗ",
+     "switchable": false,
+     "prot": {"mtz": true, "to": true, "ozz": false, "to_reach": "behind_transformer", "t_mtz": 0.5}},
+
+    {"id": "F2", "kind": "line", "name": "Фидер-2 10 кВ", "node_from": "b10_1", "node_to": "f2_end",
+     "line_type": "cable", "length_km": 1.8, "brand": "ААБл", "section_mm2": 120, "material": "Al",
+     "ic_per_km": 0.85, "ct_ratio": [300, 5], "breaker_t_off": 0.06, "terminal": "БМРЗ",
+     "note": "ic_per_km — ПРИМЕР, обязательно сверить с каталогом кабеля",
+     "prot": {"mtz": true, "to": true, "ozz": true}},
+
+    {"id": "F3", "kind": "line", "name": "Фидер-3 10 кВ", "node_from": "b10_2", "node_to": "f3_end",
+     "line_type": "cable", "length_km": 5.0, "brand": "ААБл", "section_mm2": 95, "material": "Al",
+     "ic_per_km": 0.80, "ct_ratio": [200, 5], "breaker_t_off": 0.06, "terminal": "БМРЗ",
+     "note": "ic_per_km — ПРИМЕР, обязательно сверить с каталогом кабеля",
+     "prot": {"mtz": true, "to": true, "ozz": true}}
+  ],
+
+  "loads": [
+    {"id": "L_rp1",  "name": "Прочие КТП фидера-1", "node": "f1_end",  "p_kw": 1800, "cos_phi": 0.90},
+    {"id": "L_ktp1", "name": "Нагрузка КТП-1",      "node": "ktp1_lv", "p_kw": 700,  "cos_phi": 0.90},
+    {"id": "L_f2",   "name": "Нагрузка фидера-2",   "node": "f2_end",  "p_kw": 1500, "cos_phi": 0.92},
+    {"id": "L_f3",   "name": "Нагрузка фидера-3",   "node": "f3_end",  "p_kw": 900,  "cos_phi": 0.88}
+  ],
+
+  "modes": [
+    {"id": "m1", "name": "Нормальный",
+     "description": "Т1 и Т2 в работе, секции разделены, СВ отключён. Система в максимальном режиме.",
+     "system": "max", "states": {"T1": true, "T2": true, "V1": true, "V2": true, "SV": false}},
+
+    {"id": "m2", "name": "Т1 отключён, СВ включён",
+     "description": "Обе секции питаются от Т2 через СВ.",
+     "system": "max", "states": {"T1": false, "T2": true, "V1": false, "V2": true, "SV": true}},
+
+    {"id": "m3", "name": "Минимальный режим системы",
+     "description": "Нормальная схема, минимальная мощность КЗ питающей системы.",
+     "system": "min", "states": {"T1": true, "T2": true, "V1": true, "V2": true, "SV": false}},
+
+    {"id": "m4", "name": "Т1 отключён + минимальный режим",
+     "description": "Наиболее тяжёлый режим для проверки чувствительности.",
+     "system": "min", "states": {"T1": false, "T2": true, "V1": false, "V2": true, "SV": true}}
+  ]
+}

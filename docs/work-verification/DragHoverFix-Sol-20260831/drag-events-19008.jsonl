@@ -1,0 +1,185 @@
+{"event": "setup", "clock": 488795.7595839, "test": "test_real_demo_noop_click_counts_full_scene_rebuilds", "representations": 157, "routes": 160, "fingerprint": "b275e47230495c199e8c4ad0158838af0f3a3c14a2767fc85a98bbe7a1164445", "labels_auto": false, "code_hashes": {"editor_scene.py": "8d54d3dd0c00b9c06a4fde7245aef73dea6d09a3fbc42cdd043cb987a9c38ec9", "label_layout.py": "99282cac9b239de2ced5f035dbc883e786ef3933085e60b65653279d2628d1cf"}}
+{"event": "candidate_kinds", "clock": 488795.765286, "objects": [["representation_015873c21248439dad34b22648fe5612", "transformer_2w", "КТП Ф-4 400 кВ·А (Центральная)"], ["representation_03213b5ce0054cdcac9ceeaafb30e997", "load", "Нагрузка КТП Ф-1 (Западная)"], ["representation_0d18b731f5a34d108e03a3b2e5fbbf93", "circuit_breaker", "Ввод-2 10 кВ (Центральная)"], ["representation_0e4dabdc5bf3426ab0aacbd1e94fd2b1", "line_section", "Ф-4 10 кВ (Северная)"], ["representation_415716e05a9e4a6aa5b72926d521e886", "transformer_3w", "Т1 Центральная 110/35/10"], ["representation_8b51c9e7e2484f5f824070a4edfdd6e4", "source", "Энергосистема 110 кВ"]]}
+{"event": "event_start", "clock": 488795.7781304, "kind": "move", "point": [2725.0, 315.0]}
+{"event": "event_end", "clock": 488795.7794885, "kind": "move", "elapsed": 0.001355100015643984, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488795.7795136, "kind": "move", "point": [2700.0, 290.0]}
+{"event": "event_end", "clock": 488795.7820406, "kind": "move", "elapsed": 0.002523000002838671, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488795.7820714, "kind": "press", "point": [2700.0, 290.0]}
+{"event": "event_end", "clock": 488795.7851686, "kind": "press", "elapsed": 0.003095199994277209, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "select"}
+{"event": "event_start", "clock": 488795.7851955, "kind": "release", "point": [2700.0, 290.0]}
+{"event": "event_end", "clock": 488795.7865191, "kind": "release", "elapsed": 0.0013220999971963465, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "noop_result", "clock": 488795.7865365, "counts": {"bridges": 0, "labels": 0}}
+{"event": "teardown", "clock": 488795.793705, "test": "test_real_demo_noop_click_counts_full_scene_rebuilds", "counts": {"bridges": 0, "labels": 0}}
+{"event": "setup", "clock": 488796.2118874, "test": "test_real_demo_gesture_terminal_states[commit]", "representations": 157, "routes": 160, "fingerprint": "b275e47230495c199e8c4ad0158838af0f3a3c14a2767fc85a98bbe7a1164445", "labels_auto": false, "code_hashes": {"editor_scene.py": "8d54d3dd0c00b9c06a4fde7245aef73dea6d09a3fbc42cdd043cb987a9c38ec9", "label_layout.py": "99282cac9b239de2ced5f035dbc883e786ef3933085e60b65653279d2628d1cf"}}
+{"event": "candidate_kinds", "clock": 488796.2211133, "objects": [["representation_015873c21248439dad34b22648fe5612", "transformer_2w", "КТП Ф-4 400 кВ·А (Центральная)"], ["representation_03213b5ce0054cdcac9ceeaafb30e997", "load", "Нагрузка КТП Ф-1 (Западная)"], ["representation_0d18b731f5a34d108e03a3b2e5fbbf93", "circuit_breaker", "Ввод-2 10 кВ (Центральная)"], ["representation_0e4dabdc5bf3426ab0aacbd1e94fd2b1", "line_section", "Ф-4 10 кВ (Северная)"], ["representation_415716e05a9e4a6aa5b72926d521e886", "transformer_3w", "Т1 Центральная 110/35/10"], ["representation_8b51c9e7e2484f5f824070a4edfdd6e4", "source", "Энергосистема 110 кВ"]]}
+{"event": "event_start", "clock": 488796.234063, "kind": "move", "point": [2725.0, 315.0]}
+{"event": "event_end", "clock": 488796.2350364, "kind": "move", "elapsed": 0.000971200002823025, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488796.2350546, "kind": "move", "point": [2700.0, 290.0]}
+{"event": "event_end", "clock": 488796.2375455, "kind": "move", "elapsed": 0.0024879000266082585, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488796.2375754, "kind": "press", "point": [2700.0, 290.0]}
+{"event": "event_end", "clock": 488796.2402946, "kind": "press", "elapsed": 0.002717800030950457, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "select"}
+{"event": "event_start", "clock": 488796.2403149, "kind": "move", "point": [2710.0, 290.0]}
+{"event": "event_end", "clock": 488796.2707798, "kind": "move", "elapsed": 0.03046169999288395, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488796.2708125, "kind": "move", "point": [2720.0, 290.0]}
+{"event": "event_end", "clock": 488796.3014783, "kind": "move", "elapsed": 0.03066329995635897, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488796.3015101, "kind": "move", "point": [2730.0, 290.0]}
+{"event": "event_end", "clock": 488796.3327698, "kind": "move", "elapsed": 0.03125709999585524, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488796.3328019, "kind": "move", "point": [2740.0, 290.0]}
+{"event": "event_end", "clock": 488796.3643964, "kind": "move", "elapsed": 0.0315919000422582, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "preview_result", "clock": 488796.3644352, "operation": "commit", "object": "representation_015873c21248439dad34b22648fe5612", "actual": [2740.0, 290.0], "expected": [2740.0, 290.0], "document_unchanged": true}
+{"event": "event_start", "clock": 488796.3644561, "kind": "release", "point": [2740.0, 290.0]}
+{"event": "event_end", "clock": 488796.4572824, "kind": "release", "elapsed": 0.09280270000454038, "calls": {"bridges": 2, "labels": 2}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "terminal_result", "clock": 488796.4573392, "operation": "commit", "object": "representation_015873c21248439dad34b22648fe5612", "scene": [2740.0, 290.0], "original": [2700.0, 290.0], "stored": [2740.0, 290.0], "doc_changed": true}
+{"event": "teardown", "clock": 488796.4644872, "test": "test_real_demo_gesture_terminal_states[commit]", "counts": {"bridges": 6, "labels": 6}}
+{"event": "setup", "clock": 488796.898334, "test": "test_real_demo_gesture_terminal_states[escape]", "representations": 157, "routes": 160, "fingerprint": "b275e47230495c199e8c4ad0158838af0f3a3c14a2767fc85a98bbe7a1164445", "labels_auto": false, "code_hashes": {"editor_scene.py": "8d54d3dd0c00b9c06a4fde7245aef73dea6d09a3fbc42cdd043cb987a9c38ec9", "label_layout.py": "99282cac9b239de2ced5f035dbc883e786ef3933085e60b65653279d2628d1cf"}}
+{"event": "candidate_kinds", "clock": 488796.9073551, "objects": [["representation_015873c21248439dad34b22648fe5612", "transformer_2w", "КТП Ф-4 400 кВ·А (Центральная)"], ["representation_03213b5ce0054cdcac9ceeaafb30e997", "load", "Нагрузка КТП Ф-1 (Западная)"], ["representation_0d18b731f5a34d108e03a3b2e5fbbf93", "circuit_breaker", "Ввод-2 10 кВ (Центральная)"], ["representation_0e4dabdc5bf3426ab0aacbd1e94fd2b1", "line_section", "Ф-4 10 кВ (Северная)"], ["representation_415716e05a9e4a6aa5b72926d521e886", "transformer_3w", "Т1 Центральная 110/35/10"], ["representation_8b51c9e7e2484f5f824070a4edfdd6e4", "source", "Энергосистема 110 кВ"]]}
+{"event": "event_start", "clock": 488796.9215451, "kind": "move", "point": [2725.0, 315.0]}
+{"event": "event_end", "clock": 488796.9233482, "kind": "move", "elapsed": 0.00179720000596717, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488796.9233851, "kind": "move", "point": [2700.0, 290.0]}
+{"event": "event_end", "clock": 488796.9266225, "kind": "move", "elapsed": 0.003234500007238239, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488796.926655, "kind": "press", "point": [2700.0, 290.0]}
+{"event": "event_end", "clock": 488796.9294236, "kind": "press", "elapsed": 0.002767199999652803, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "select"}
+{"event": "event_start", "clock": 488796.9294457, "kind": "move", "point": [2710.0, 290.0]}
+{"event": "event_end", "clock": 488796.9619597, "kind": "move", "elapsed": 0.032510299992281944, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488796.9619957, "kind": "move", "point": [2720.0, 290.0]}
+{"event": "event_end", "clock": 488796.9937952, "kind": "move", "elapsed": 0.03179679997265339, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488796.9938282, "kind": "move", "point": [2730.0, 290.0]}
+{"event": "event_end", "clock": 488797.025167, "kind": "move", "elapsed": 0.03133589995559305, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488797.0251997, "kind": "move", "point": [2740.0, 290.0]}
+{"event": "event_end", "clock": 488797.0553155, "kind": "move", "elapsed": 0.030112999957054853, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "preview_result", "clock": 488797.0553536, "operation": "escape", "object": "representation_015873c21248439dad34b22648fe5612", "actual": [2740.0, 290.0], "expected": [2740.0, 290.0], "document_unchanged": true}
+{"event": "event_start", "clock": 488797.055376, "kind": "key", "point": null}
+{"event": "event_end", "clock": 488797.0848263, "kind": "key", "elapsed": 0.029446500004269183, "calls": {"bridges": 1, "labels": 1}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488797.0848582, "kind": "release", "point": [2740.0, 290.0]}
+{"event": "event_end", "clock": 488797.0849381, "kind": "release", "elapsed": 7.910002022981644e-05, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "terminal_result", "clock": 488797.0849596, "operation": "escape", "object": "representation_015873c21248439dad34b22648fe5612", "scene": [2700.0, 290.0], "original": [2700.0, 290.0], "stored": [2700.0, 290.0], "doc_changed": false}
+{"event": "teardown", "clock": 488797.0923452, "test": "test_real_demo_gesture_terminal_states[escape]", "counts": {"bridges": 5, "labels": 5}}
+{"event": "setup", "clock": 488797.5153175, "test": "test_real_demo_gesture_terminal_states[analysis]", "representations": 157, "routes": 160, "fingerprint": "b275e47230495c199e8c4ad0158838af0f3a3c14a2767fc85a98bbe7a1164445", "labels_auto": false, "code_hashes": {"editor_scene.py": "8d54d3dd0c00b9c06a4fde7245aef73dea6d09a3fbc42cdd043cb987a9c38ec9", "label_layout.py": "99282cac9b239de2ced5f035dbc883e786ef3933085e60b65653279d2628d1cf"}}
+{"event": "candidate_kinds", "clock": 488797.5243909, "objects": [["representation_015873c21248439dad34b22648fe5612", "transformer_2w", "КТП Ф-4 400 кВ·А (Центральная)"], ["representation_03213b5ce0054cdcac9ceeaafb30e997", "load", "Нагрузка КТП Ф-1 (Западная)"], ["representation_0d18b731f5a34d108e03a3b2e5fbbf93", "circuit_breaker", "Ввод-2 10 кВ (Центральная)"], ["representation_0e4dabdc5bf3426ab0aacbd1e94fd2b1", "line_section", "Ф-4 10 кВ (Северная)"], ["representation_415716e05a9e4a6aa5b72926d521e886", "transformer_3w", "Т1 Центральная 110/35/10"], ["representation_8b51c9e7e2484f5f824070a4edfdd6e4", "source", "Энергосистема 110 кВ"]]}
+{"event": "event_start", "clock": 488797.5378744, "kind": "move", "point": [2725.0, 315.0]}
+{"event": "event_end", "clock": 488797.5388683, "kind": "move", "elapsed": 0.0009919999865815043, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488797.5388887, "kind": "move", "point": [2700.0, 290.0]}
+{"event": "event_end", "clock": 488797.5415586, "kind": "move", "elapsed": 0.002661400008946657, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488797.541601, "kind": "press", "point": [2700.0, 290.0]}
+{"event": "event_end", "clock": 488797.5444294, "kind": "press", "elapsed": 0.0028276999946683645, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "select"}
+{"event": "event_start", "clock": 488797.5444496, "kind": "move", "point": [2710.0, 290.0]}
+{"event": "event_end", "clock": 488797.5781343, "kind": "move", "elapsed": 0.03368140000384301, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488797.5781676, "kind": "move", "point": [2720.0, 290.0]}
+{"event": "event_end", "clock": 488797.609939, "kind": "move", "elapsed": 0.03176849998999387, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488797.6099718, "kind": "move", "point": [2730.0, 290.0]}
+{"event": "event_end", "clock": 488797.6418699, "kind": "move", "elapsed": 0.03189500002190471, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488797.6419029, "kind": "move", "point": [2740.0, 290.0]}
+{"event": "event_end", "clock": 488797.6746949, "kind": "move", "elapsed": 0.032788900018204004, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "preview_result", "clock": 488797.6747307, "operation": "analysis", "object": "representation_015873c21248439dad34b22648fe5612", "actual": [2740.0, 290.0], "expected": [2740.0, 290.0], "document_unchanged": true}
+{"event": "event_start", "clock": 488797.7109015, "kind": "release", "point": [2740.0, 290.0]}
+{"event": "event_end", "clock": 488797.7110039, "kind": "release", "elapsed": 0.00010040000779554248, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "terminal_result", "clock": 488797.7110274, "operation": "analysis", "object": "representation_015873c21248439dad34b22648fe5612", "scene": [2700.0, 290.0], "original": [2700.0, 290.0], "stored": [2700.0, 290.0], "doc_changed": true}
+{"event": "teardown", "clock": 488797.7194009, "test": "test_real_demo_gesture_terminal_states[analysis]", "counts": {"bridges": 5, "labels": 5}}
+{"event": "setup", "clock": 488798.1570596, "test": "test_real_demo_gesture_terminal_states[reject]", "representations": 157, "routes": 160, "fingerprint": "b275e47230495c199e8c4ad0158838af0f3a3c14a2767fc85a98bbe7a1164445", "labels_auto": false, "code_hashes": {"editor_scene.py": "8d54d3dd0c00b9c06a4fde7245aef73dea6d09a3fbc42cdd043cb987a9c38ec9", "label_layout.py": "99282cac9b239de2ced5f035dbc883e786ef3933085e60b65653279d2628d1cf"}}
+{"event": "candidate_kinds", "clock": 488798.1678808, "objects": [["representation_015873c21248439dad34b22648fe5612", "transformer_2w", "КТП Ф-4 400 кВ·А (Центральная)"], ["representation_03213b5ce0054cdcac9ceeaafb30e997", "load", "Нагрузка КТП Ф-1 (Западная)"], ["representation_0d18b731f5a34d108e03a3b2e5fbbf93", "circuit_breaker", "Ввод-2 10 кВ (Центральная)"], ["representation_0e4dabdc5bf3426ab0aacbd1e94fd2b1", "line_section", "Ф-4 10 кВ (Северная)"], ["representation_415716e05a9e4a6aa5b72926d521e886", "transformer_3w", "Т1 Центральная 110/35/10"], ["representation_8b51c9e7e2484f5f824070a4edfdd6e4", "source", "Энергосистема 110 кВ"]]}
+{"event": "event_start", "clock": 488798.1831703, "kind": "move", "point": [2725.0, 315.0]}
+{"event": "event_end", "clock": 488798.1843051, "kind": "move", "elapsed": 0.0011286999797448516, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488798.1843408, "kind": "move", "point": [2700.0, 290.0]}
+{"event": "event_end", "clock": 488798.1869557, "kind": "move", "elapsed": 0.002612300042528659, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488798.1869852, "kind": "press", "point": [2700.0, 290.0]}
+{"event": "event_end", "clock": 488798.189752, "kind": "press", "elapsed": 0.002765500044915825, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "select"}
+{"event": "event_start", "clock": 488798.1897733, "kind": "move", "point": [2025.0, 540.0]}
+{"event": "event_end", "clock": 488798.2240812, "kind": "move", "elapsed": 0.034302599960938096, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488798.2241234, "kind": "move", "point": [1350.0, 790.0]}
+{"event": "event_end", "clock": 488798.2590469, "kind": "move", "elapsed": 0.034914700023364276, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488798.2590968, "kind": "move", "point": [675.0, 1040.0]}
+{"event": "event_end", "clock": 488798.2900087, "kind": "move", "elapsed": 0.030909000022802502, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488798.2900463, "kind": "move", "point": [0.0, 1290.0]}
+{"event": "event_end", "clock": 488798.3205702, "kind": "move", "elapsed": 0.03052110003773123, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "preview_result", "clock": 488798.3206096, "operation": "reject", "object": "representation_015873c21248439dad34b22648fe5612", "actual": [0.0, 1290.0], "expected": [0.0, 1290.0], "document_unchanged": true}
+{"event": "event_start", "clock": 488798.3206236, "kind": "release", "point": [0.0, 1290.0]}
+{"event": "event_end", "clock": 488798.3533534, "kind": "release", "elapsed": 0.03272580000339076, "calls": {"bridges": 1, "labels": 1}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "terminal_result", "clock": 488798.3533916, "operation": "reject", "object": "representation_015873c21248439dad34b22648fe5612", "scene": [2700.0, 290.0], "original": [2700.0, 290.0], "stored": [2700.0, 290.0], "doc_changed": false}
+{"event": "teardown", "clock": 488798.3610069, "test": "test_real_demo_gesture_terminal_states[reject]", "counts": {"bridges": 5, "labels": 5}}
+{"event": "setup", "clock": 488798.803064, "test": "test_real_demo_group_repeat_drag_undo_keeps_topology", "representations": 157, "routes": 160, "fingerprint": "b275e47230495c199e8c4ad0158838af0f3a3c14a2767fc85a98bbe7a1164445", "labels_auto": true, "code_hashes": {"editor_scene.py": "8d54d3dd0c00b9c06a4fde7245aef73dea6d09a3fbc42cdd043cb987a9c38ec9", "label_layout.py": "99282cac9b239de2ced5f035dbc883e786ef3933085e60b65653279d2628d1cf"}}
+{"event": "candidate_kinds", "clock": 488798.8097839, "objects": [["representation_015873c21248439dad34b22648fe5612", "transformer_2w", "КТП Ф-4 400 кВ·А (Центральная)"], ["representation_03213b5ce0054cdcac9ceeaafb30e997", "load", "Нагрузка КТП Ф-1 (Западная)"], ["representation_0d18b731f5a34d108e03a3b2e5fbbf93", "circuit_breaker", "Ввод-2 10 кВ (Центральная)"], ["representation_0e4dabdc5bf3426ab0aacbd1e94fd2b1", "line_section", "Ф-4 10 кВ (Северная)"], ["representation_415716e05a9e4a6aa5b72926d521e886", "transformer_3w", "Т1 Центральная 110/35/10"], ["representation_8b51c9e7e2484f5f824070a4edfdd6e4", "source", "Энергосистема 110 кВ"]]}
+{"event": "event_start", "clock": 488798.8329552, "kind": "move", "point": [2725.0, 315.0]}
+{"event": "event_end", "clock": 488798.8345392, "kind": "move", "elapsed": 0.0015805999864824116, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488798.8345715, "kind": "move", "point": [2700.0, 290.0]}
+{"event": "event_end", "clock": 488798.8382737, "kind": "move", "elapsed": 0.0036979999858886003, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488798.8383053, "kind": "press", "point": [2700.0, 290.0]}
+{"event": "event_end", "clock": 488798.8414092, "kind": "press", "elapsed": 0.003101400041487068, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "select"}
+{"event": "event_start", "clock": 488798.8414432, "kind": "move", "point": [2705.0, 292.0]}
+{"event": "event_end", "clock": 488799.0535892, "kind": "move", "elapsed": 0.21213659999193624, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "drag_object"}
+{"event": "event_start", "clock": 488799.0536471, "kind": "move", "point": [2710.0, 294.0]}
+{"event": "event_end", "clock": 488799.2450993, "kind": "move", "elapsed": 0.19144530000630766, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "drag_object"}
+{"event": "event_start", "clock": 488799.2451546, "kind": "move", "point": [2715.0, 296.0]}
+{"event": "event_end", "clock": 488799.4390283, "kind": "move", "elapsed": 0.1938664999906905, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "drag_object"}
+{"event": "event_start", "clock": 488799.4390848, "kind": "move", "point": [2720.0, 298.0]}
+{"event": "event_end", "clock": 488799.6566372, "kind": "move", "elapsed": 0.21754579996922985, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "drag_object"}
+{"event": "event_start", "clock": 488799.6566904, "kind": "move", "point": [2725.0, 300.0]}
+{"event": "event_end", "clock": 488799.847881, "kind": "move", "elapsed": 0.19118319998960942, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "drag_object"}
+{"event": "event_start", "clock": 488799.8479337, "kind": "move", "point": [2730.0, 302.0]}
+{"event": "event_end", "clock": 488800.0437782, "kind": "move", "elapsed": 0.1958355000242591, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "drag_object"}
+{"event": "event_start", "clock": 488800.0438336, "kind": "release", "point": [2730.0, 302.0]}
+{"event": "event_end", "clock": 488800.2150599, "kind": "release", "elapsed": 0.1712192000122741, "calls": {"bridges": 2, "labels": 2}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "group_cycle", "clock": 488800.2151797, "cycle": 0, "changed": true, "selection": 157}
+{"event": "event_start", "clock": 488800.3431638, "kind": "move", "point": [2725.0, 315.0]}
+{"event": "event_end", "clock": 488800.3441315, "kind": "move", "elapsed": 0.0009658000199124217, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488800.3441499, "kind": "move", "point": [2700.0, 290.0]}
+{"event": "event_end", "clock": 488800.3466841, "kind": "move", "elapsed": 0.0025286999880336225, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488800.3467148, "kind": "press", "point": [2700.0, 290.0]}
+{"event": "event_end", "clock": 488800.3496268, "kind": "press", "elapsed": 0.0029106000438332558, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "select"}
+{"event": "event_start", "clock": 488800.3496526, "kind": "move", "point": [2705.0, 292.0]}
+{"event": "event_end", "clock": 488800.5406893, "kind": "move", "elapsed": 0.19102420000126585, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "drag_object"}
+{"event": "event_start", "clock": 488800.5407742, "kind": "move", "point": [2710.0, 294.0]}
+{"event": "event_end", "clock": 488800.7324006, "kind": "move", "elapsed": 0.1916165000293404, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "drag_object"}
+{"event": "event_start", "clock": 488800.7324741, "kind": "move", "point": [2715.0, 296.0]}
+{"event": "event_end", "clock": 488800.9360938, "kind": "move", "elapsed": 0.20361109997611493, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "drag_object"}
+{"event": "event_start", "clock": 488800.9361605, "kind": "move", "point": [2720.0, 298.0]}
+{"event": "event_end", "clock": 488801.1430094, "kind": "move", "elapsed": 0.20683969999663532, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "drag_object"}
+{"event": "event_start", "clock": 488801.1430729, "kind": "move", "point": [2725.0, 300.0]}
+{"event": "event_end", "clock": 488801.374011, "kind": "move", "elapsed": 0.23093070002505556, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "drag_object"}
+{"event": "event_start", "clock": 488801.3740696, "kind": "move", "point": [2730.0, 302.0]}
+{"event": "event_end", "clock": 488801.5701386, "kind": "move", "elapsed": 0.19606119999662042, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "drag_object"}
+{"event": "event_start", "clock": 488801.5701949, "kind": "release", "point": [2730.0, 302.0]}
+{"event": "event_end", "clock": 488801.7156512, "kind": "release", "elapsed": 0.14544949994888157, "calls": {"bridges": 2, "labels": 2}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "group_cycle", "clock": 488801.715774, "cycle": 1, "changed": true, "selection": 157}
+{"event": "event_start", "clock": 488801.8547342, "kind": "move", "point": [2725.0, 315.0]}
+{"event": "event_end", "clock": 488801.8558275, "kind": "move", "elapsed": 0.0010905000381171703, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488801.8558586, "kind": "move", "point": [2700.0, 290.0]}
+{"event": "event_end", "clock": 488801.8586042, "kind": "move", "elapsed": 0.002739400020800531, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488801.8586389, "kind": "press", "point": [2700.0, 290.0]}
+{"event": "event_end", "clock": 488801.8615705, "kind": "press", "elapsed": 0.002930500020738691, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "select"}
+{"event": "event_start", "clock": 488801.8615939, "kind": "move", "point": [2705.0, 292.0]}
+{"event": "event_end", "clock": 488802.0595786, "kind": "move", "elapsed": 0.19797410001046956, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "drag_object"}
+{"event": "event_start", "clock": 488802.0596529, "kind": "move", "point": [2710.0, 294.0]}
+{"event": "event_end", "clock": 488802.2525607, "kind": "move", "elapsed": 0.19290009996620938, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "drag_object"}
+{"event": "event_start", "clock": 488802.2526155, "kind": "move", "point": [2715.0, 296.0]}
+{"event": "event_end", "clock": 488802.4433818, "kind": "move", "elapsed": 0.19075800001155585, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "drag_object"}
+{"event": "event_start", "clock": 488802.4434424, "kind": "move", "point": [2720.0, 298.0]}
+{"event": "event_end", "clock": 488802.6793835, "kind": "move", "elapsed": 0.2359310999745503, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "drag_object"}
+{"event": "event_start", "clock": 488802.6794438, "kind": "move", "point": [2725.0, 300.0]}
+{"event": "event_end", "clock": 488802.8751778, "kind": "move", "elapsed": 0.19572640000842512, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "drag_object"}
+{"event": "event_start", "clock": 488802.8752349, "kind": "move", "point": [2730.0, 302.0]}
+{"event": "event_end", "clock": 488803.0725986, "kind": "move", "elapsed": 0.19735520001268014, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "drag_object"}
+{"event": "event_start", "clock": 488803.0726564, "kind": "release", "point": [2730.0, 302.0]}
+{"event": "event_end", "clock": 488803.2166688, "kind": "release", "elapsed": 0.14400549995480105, "calls": {"bridges": 2, "labels": 2}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "group_cycle", "clock": 488803.2167845, "cycle": 2, "changed": true, "selection": 157}
+{"event": "event_start", "clock": 488803.3498642, "kind": "move", "point": [2725.0, 315.0]}
+{"event": "event_end", "clock": 488803.3508532, "kind": "move", "elapsed": 0.0009872999507933855, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488803.3508735, "kind": "move", "point": [2700.0, 290.0]}
+{"event": "event_end", "clock": 488803.3534904, "kind": "move", "elapsed": 0.0026132999919354916, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488803.3535211, "kind": "press", "point": [2700.0, 290.0]}
+{"event": "event_end", "clock": 488803.356528, "kind": "press", "elapsed": 0.00300470000365749, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "select"}
+{"event": "event_start", "clock": 488803.3565612, "kind": "move", "point": [2705.0, 292.0]}
+{"event": "event_end", "clock": 488803.5503846, "kind": "move", "elapsed": 0.19380920002004132, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "drag_object"}
+{"event": "event_start", "clock": 488803.5504659, "kind": "move", "point": [2710.0, 294.0]}
+{"event": "event_end", "clock": 488803.7526329, "kind": "move", "elapsed": 0.20215720002306625, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "drag_object"}
+{"event": "event_start", "clock": 488803.7526929, "kind": "move", "point": [2715.0, 296.0]}
+{"event": "event_end", "clock": 488803.9680344, "kind": "move", "elapsed": 0.21533380000619218, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "drag_object"}
+{"event": "event_start", "clock": 488803.9680898, "kind": "move", "point": [2720.0, 298.0]}
+{"event": "event_end", "clock": 488804.1631587, "kind": "move", "elapsed": 0.1950616999529302, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "drag_object"}
+{"event": "event_start", "clock": 488804.16321, "kind": "move", "point": [2725.0, 300.0]}
+{"event": "event_end", "clock": 488804.360885, "kind": "move", "elapsed": 0.19766639999579638, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "drag_object"}
+{"event": "event_start", "clock": 488804.3609416, "kind": "move", "point": [2730.0, 302.0]}
+{"event": "event_end", "clock": 488804.5588033, "kind": "move", "elapsed": 0.19785300001967698, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 157, "tool": "drag_object"}
+{"event": "event_start", "clock": 488804.5588612, "kind": "release", "point": [2730.0, 302.0]}
+{"event": "event_end", "clock": 488804.7035691, "kind": "release", "elapsed": 0.14469970000209287, "calls": {"bridges": 2, "labels": 2}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "group_cycle", "clock": 488804.703714, "cycle": 3, "changed": true, "selection": 157}
+{"event": "teardown", "clock": 488804.8246018, "test": "test_real_demo_group_repeat_drag_undo_keeps_topology", "counts": {"bridges": 36, "labels": 36}}

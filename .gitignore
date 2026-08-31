@@ -1,0 +1,26 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+build/
+dist/
+*.egg-info/
+
+# Отчёты, создаваемые демонстрационным запуском
+Отчёт*.txt
+
+# Local logs, OS metadata, and credentials are not part of the repository.
+*.log
+Thumbs.db
+.DS_Store
+.env
+.env.*
+!.env.example
+!.env.template
+*.pem
+*.key
+*.p12
+*.pfx

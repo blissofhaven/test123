@@ -1,0 +1,26 @@
+A2.1 checkpoint, Sol, 2026-08-31
+
+python -B -X utf8 -m pytest -q
+960 passed in 98.45s (0:01:38)
+
+python -B -X utf8 tools_update_baseline.py --stage ПРОВЕРКА --reason "коррекция A2.1" --evidence "960 passed"
+Пересчитываю все демо-проекты…
+
+Расхождений с эталоном нет.
+
+Сводка для журнала: Числа не изменились (пересобран только формат снимка).
+Этап: ПРОВЕРКА
+Причина: коррекция A2.1
+Подтверждение: 960 passed
+
+Числа не изменились — обновлять нечего. Эталон оставлен как есть.
+
+Exit code: 0
+
+Original A2 defect reproducer: REPRODUCED_DEFECT_GROUPS=0; exit code 0.
+Full demo CLI table: exit code 1 (protection failures, not a launch error).
+IO replay integration: pending explicit scope approval; io/project.py not changed.
+
+After status/roadmap/brief/current-state/report updates:
+python -B -X utf8 -m pytest -q tests/test_roadmap_consistency.py tests/test_ui_b2_voltage_colors.py
+53 passed in 2.09s

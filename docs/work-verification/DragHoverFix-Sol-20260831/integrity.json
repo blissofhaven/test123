@@ -1,0 +1,36 @@
+{
+  "before_sha256": "dbe5684709b56ce53e9ce2e3e8b9a78d10724b326ef1739c68bf5ca782f942d7",
+  "checkpoint_files": 426,
+  "unchanged_checkpoint_files": 422,
+  "changed_checkpoint_files": [
+    "docs/roadmap/status.json",
+    "rza_calc/gui/app.py",
+    "rza_calc/gui/editor_scene.py",
+    "rza_calc/gui/theme.py"
+  ],
+  "added_files": [
+    "docs/roadmap/ПЕРЕДАЧА-UI-drag-fixes-для-Max.md",
+    "docs/work-verification/drag-hover-fix-report.md",
+    "docs/work-verification/DragHoverFix-Sol-20260831/baseline-check.txt",
+    "docs/work-verification/DragHoverFix-Sol-20260831/drag-events-19008.jsonl",
+    "docs/work-verification/DragHoverFix-Sol-20260831/drag-events-21604.jsonl",
+    "docs/work-verification/DragHoverFix-Sol-20260831/drag-events-25924.jsonl",
+    "docs/work-verification/DragHoverFix-Sol-20260831/drag-fault-25924.log",
+    "docs/work-verification/DragHoverFix-Sol-20260831/gui-smoke.txt",
+    "docs/work-verification/DragHoverFix-Sol-20260831/native-input-text-selection.png",
+    "docs/work-verification/DragHoverFix-Sol-20260831/native-mainwindow-auto.png",
+    "docs/work-verification/DragHoverFix-Sol-20260831/native-mainwindow-loaded.png",
+    "docs/work-verification/DragHoverFix-Sol-20260831/pytest-full.txt",
+    "docs/work-verification/DragHoverFix-Sol-20260831/pytest-full.xml",
+    "docs/work-verification/DragHoverFix-Sol-20260831/pytest-roadmap.txt",
+    "docs/work-verification/DragHoverFix-Sol-20260831/pytest-targeted-windows.txt",
+    "docs/work-verification/DragHoverFix-Sol-20260831/text-selection-fixed-native.png",
+    "docs/work-verification/DragHoverFix-Sol-20260831/windows-crash-events.json",
+    "tests/test_gui_fault_diagnostics.py",
+    "tests/test_ui_drag_regressions.py",
+    "tests/test_ui_text_selection.py"
+  ],
+  "calculation_and_existing_tests_unchanged": true,
+  "baseline_sha256": "eb117b54e6117a4c83f612215b6ef7126f1bd303bae524e73fc60649b671f9d0",
+  "baseline_log_sha256": "b291569479a64b59da895da2ba4a8761acce64b2e04fbe89b9d5997e2ad745e9"
+}

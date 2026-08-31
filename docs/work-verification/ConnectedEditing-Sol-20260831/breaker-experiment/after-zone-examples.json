@@ -1,0 +1,321 @@
+{
+  "CF1": {
+    "normal": {
+      "main": [
+        {
+          "node_id": "CF1_end",
+          "name": "Центральная · конец Ф-1",
+          "equivalent_representative": "CF1_end"
+        }
+      ],
+      "backup": [
+        {
+          "node_id": "N_71fdd8b61c0d519791901ba7d928df60",
+          "name": "После выключателя КТП Ф-1 630 кВ·А (Центральная)",
+          "equivalent_representative": "CF1_end"
+        }
+      ]
+    },
+    "min": {
+      "main": [
+        {
+          "node_id": "CF1_end",
+          "name": "Центральная · конец Ф-1",
+          "equivalent_representative": "CF1_end"
+        }
+      ],
+      "backup": [
+        {
+          "node_id": "N_71fdd8b61c0d519791901ba7d928df60",
+          "name": "После выключателя КТП Ф-1 630 кВ·А (Центральная)",
+          "equivalent_representative": "CF1_end"
+        }
+      ]
+    },
+    "c_repair": {
+      "main": [
+        {
+          "node_id": "CF1_end",
+          "name": "Центральная · конец Ф-1",
+          "equivalent_representative": "CF1_end"
+        }
+      ],
+      "backup": [
+        {
+          "node_id": "N_71fdd8b61c0d519791901ba7d928df60",
+          "name": "После выключателя КТП Ф-1 630 кВ·А (Центральная)",
+          "equivalent_representative": "CF1_end"
+        }
+      ]
+    },
+    "n_repair": {
+      "main": [
+        {
+          "node_id": "CF1_end",
+          "name": "Центральная · конец Ф-1",
+          "equivalent_representative": "CF1_end"
+        }
+      ],
+      "backup": [
+        {
+          "node_id": "N_71fdd8b61c0d519791901ba7d928df60",
+          "name": "После выключателя КТП Ф-1 630 кВ·А (Центральная)",
+          "equivalent_representative": "CF1_end"
+        }
+      ]
+    },
+    "w_repair": {
+      "main": [
+        {
+          "node_id": "CF1_end",
+          "name": "Центральная · конец Ф-1",
+          "equivalent_representative": "CF1_end"
+        }
+      ],
+      "backup": [
+        {
+          "node_id": "N_71fdd8b61c0d519791901ba7d928df60",
+          "name": "После выключателя КТП Ф-1 630 кВ·А (Центральная)",
+          "equivalent_representative": "CF1_end"
+        }
+      ]
+    },
+    "s_reserve": {
+      "main": [
+        {
+          "node_id": "CF1_end",
+          "name": "Центральная · конец Ф-1",
+          "equivalent_representative": "CF1_end"
+        }
+      ],
+      "backup": [
+        {
+          "node_id": "N_71fdd8b61c0d519791901ba7d928df60",
+          "name": "После выключателя КТП Ф-1 630 кВ·А (Центральная)",
+          "equivalent_representative": "CF1_end"
+        }
+      ]
+    }
+  },
+  "CF1_T": {
+    "normal": {
+      "main": [
+        {
+          "node_id": "N_f8ac0dd129025b238f34eea8a051e193",
+          "name": "После выключателя КТП Ф-1 630 кВ·А (Центральная)",
+          "equivalent_representative": "CF1_lv"
+        }
+      ],
+      "backup": [
+        {
+          "node_id": "CF1_lv",
+          "name": "Центральная · КТП Ф-1, щит 0,4 кВ",
+          "equivalent_representative": "CF1_lv"
+        }
+      ]
+    },
+    "min": {
+      "main": [
+        {
+          "node_id": "N_f8ac0dd129025b238f34eea8a051e193",
+          "name": "После выключателя КТП Ф-1 630 кВ·А (Центральная)",
+          "equivalent_representative": "CF1_lv"
+        }
+      ],
+      "backup": [
+        {
+          "node_id": "CF1_lv",
+          "name": "Центральная · КТП Ф-1, щит 0,4 кВ",
+          "equivalent_representative": "CF1_lv"
+        }
+      ]
+    },
+    "c_repair": {
+      "main": [
+        {
+          "node_id": "N_f8ac0dd129025b238f34eea8a051e193",
+          "name": "После выключателя КТП Ф-1 630 кВ·А (Центральная)",
+          "equivalent_representative": "CF1_lv"
+        }
+      ],
+      "backup": [
+        {
+          "node_id": "CF1_lv",
+          "name": "Центральная · КТП Ф-1, щит 0,4 кВ",
+          "equivalent_representative": "CF1_lv"
+        }
+      ]
+    },
+    "n_repair": {
+      "main": [
+        {
+          "node_id": "N_f8ac0dd129025b238f34eea8a051e193",
+          "name": "После выключателя КТП Ф-1 630 кВ·А (Центральная)",
+          "equivalent_representative": "CF1_lv"
+        }
+      ],
+      "backup": [
+        {
+          "node_id": "CF1_lv",
+          "name": "Центральная · КТП Ф-1, щит 0,4 кВ",
+          "equivalent_representative": "CF1_lv"
+        }
+      ]
+    },
+    "w_repair": {
+      "main": [
+        {
+          "node_id": "N_f8ac0dd129025b238f34eea8a051e193",
+          "name": "После выключателя КТП Ф-1 630 кВ·А (Центральная)",
+          "equivalent_representative": "CF1_lv"
+        }
+      ],
+      "backup": [
+        {
+          "node_id": "CF1_lv",
+          "name": "Центральная · КТП Ф-1, щит 0,4 кВ",
+          "equivalent_representative": "CF1_lv"
+        }
+      ]
+    },
+    "s_reserve": {
+      "main": [
+        {
+          "node_id": "N_f8ac0dd129025b238f34eea8a051e193",
+          "name": "После выключателя КТП Ф-1 630 кВ·А (Центральная)",
+          "equivalent_representative": "CF1_lv"
+        }
+      ],
+      "backup": [
+        {
+          "node_id": "CF1_lv",
+          "name": "Центральная · КТП Ф-1, щит 0,4 кВ",
+          "equivalent_representative": "CF1_lv"
+        }
+      ]
+    }
+  },
+  "VL35": {
+    "normal": {
+      "main": [
+        {
+          "node_id": "w35",
+          "name": "ЗАПАДНАЯ · ОРУ 35 кВ",
+          "equivalent_representative": "w35"
+        }
+      ],
+      "backup": [
+        {
+          "node_id": "N_23adb25b54f65ae99144ec49194c08bd",
+          "name": "После выключателя Т1 Западная 35/10",
+          "equivalent_representative": "w35"
+        },
+        {
+          "node_id": "N_2928f00abbc1550b94b90526df3d3886",
+          "name": "После выключателя Т2 Западная 35/10",
+          "equivalent_representative": "w35"
+        }
+      ]
+    },
+    "min": {
+      "main": [
+        {
+          "node_id": "w35",
+          "name": "ЗАПАДНАЯ · ОРУ 35 кВ",
+          "equivalent_representative": "w35"
+        }
+      ],
+      "backup": [
+        {
+          "node_id": "N_23adb25b54f65ae99144ec49194c08bd",
+          "name": "После выключателя Т1 Западная 35/10",
+          "equivalent_representative": "w35"
+        },
+        {
+          "node_id": "N_2928f00abbc1550b94b90526df3d3886",
+          "name": "После выключателя Т2 Западная 35/10",
+          "equivalent_representative": "w35"
+        }
+      ]
+    },
+    "c_repair": {
+      "main": [
+        {
+          "node_id": "w35",
+          "name": "ЗАПАДНАЯ · ОРУ 35 кВ",
+          "equivalent_representative": "w35"
+        }
+      ],
+      "backup": [
+        {
+          "node_id": "N_23adb25b54f65ae99144ec49194c08bd",
+          "name": "После выключателя Т1 Западная 35/10",
+          "equivalent_representative": "w35"
+        },
+        {
+          "node_id": "N_2928f00abbc1550b94b90526df3d3886",
+          "name": "После выключателя Т2 Западная 35/10",
+          "equivalent_representative": "w35"
+        }
+      ]
+    },
+    "n_repair": {
+      "main": [
+        {
+          "node_id": "w35",
+          "name": "ЗАПАДНАЯ · ОРУ 35 кВ",
+          "equivalent_representative": "w35"
+        }
+      ],
+      "backup": [
+        {
+          "node_id": "N_23adb25b54f65ae99144ec49194c08bd",
+          "name": "После выключателя Т1 Западная 35/10",
+          "equivalent_representative": "w35"
+        },
+        {
+          "node_id": "N_2928f00abbc1550b94b90526df3d3886",
+          "name": "После выключателя Т2 Западная 35/10",
+          "equivalent_representative": "w35"
+        }
+      ]
+    },
+    "w_repair": {
+      "main": [
+        {
+          "node_id": "w35",
+          "name": "ЗАПАДНАЯ · ОРУ 35 кВ",
+          "equivalent_representative": "w35"
+        }
+      ],
+      "backup": [
+        {
+          "node_id": "N_2928f00abbc1550b94b90526df3d3886",
+          "name": "После выключателя Т2 Западная 35/10",
+          "equivalent_representative": "w35"
+        }
+      ]
+    },
+    "s_reserve": {
+      "main": [
+        {
+          "node_id": "w35",
+          "name": "ЗАПАДНАЯ · ОРУ 35 кВ",
+          "equivalent_representative": "w35"
+        }
+      ],
+      "backup": [
+        {
+          "node_id": "N_23adb25b54f65ae99144ec49194c08bd",
+          "name": "После выключателя Т1 Западная 35/10",
+          "equivalent_representative": "w35"
+        },
+        {
+          "node_id": "N_2928f00abbc1550b94b90526df3d3886",
+          "name": "После выключателя Т2 Западная 35/10",
+          "equivalent_representative": "w35"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,863 @@
+{
+ "format_version": 1,
+ "project": {
+  "name": "ПС 110/10 кВ «Промышленная» — образцовая схема",
+  "note": "Два трансформатора 16 МВ·А, две секции 10 кВ, восемь фидеров. Выключатели стоят с обеих сторон каждого трансформатора, на вводах 10 кВ, на секционном и на каждом фидере — их можно отключать в режимах. Демонстрационный проект: параметры правдоподобны, но к реальному объекту не относятся. Коэффициенты методики — типовые и требуют утверждения."
+ },
+ "methodology": {
+  "file": "../data/methodology_default.json"
+ },
+ "neutral": {
+  "110": "earthed",
+  "10": "isolated"
+ },
+ "nodes": [
+  {
+   "id": "sys110",
+   "name": "Система 110 кВ",
+   "u_nom": 110,
+   "kind": "point"
+  },
+  {
+   "id": "ou110",
+   "name": "ОРУ 110 кВ",
+   "u_nom": 110
+  },
+  {
+   "id": "t1_hv",
+   "name": "Вывод ВН Т1",
+   "u_nom": 110,
+   "kind": "point"
+  },
+  {
+   "id": "t2_hv",
+   "name": "Вывод ВН Т2",
+   "u_nom": 110,
+   "kind": "point"
+  },
+  {
+   "id": "t1_lv",
+   "name": "Вывод НН Т1",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "t2_lv",
+   "name": "Вывод НН Т2",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "sh1",
+   "name": "1 СШ 10 кВ",
+   "u_nom": 10
+  },
+  {
+   "id": "sh2",
+   "name": "2 СШ 10 кВ",
+   "u_nom": 10
+  },
+  {
+   "id": "f1_cell",
+   "name": "Ячейка Ф-1",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "f1_end",
+   "name": "Конец Ф-1",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "f2_cell",
+   "name": "Ячейка Ф-2",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "f2_end",
+   "name": "Конец Ф-2",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "f3_cell",
+   "name": "Ячейка Ф-3",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "f3_end",
+   "name": "Конец Ф-3",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "f4_cell",
+   "name": "Ячейка Ф-4",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "f4_end",
+   "name": "Конец Ф-4",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "f5_cell",
+   "name": "Ячейка Ф-5",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "f5_end",
+   "name": "Конец Ф-5",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "f6_cell",
+   "name": "Ячейка Ф-6",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "f6_end",
+   "name": "Конец Ф-6",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "f7_cell",
+   "name": "Ячейка Ф-7",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "f7_end",
+   "name": "Конец Ф-7",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "f8_cell",
+   "name": "Ячейка Ф-8",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "f8_end",
+   "name": "Конец Ф-8",
+   "u_nom": 10,
+   "kind": "point"
+  }
+ ],
+ "transformers3w": [],
+ "branches": [
+  {
+   "id": "SYS",
+   "kind": "source",
+   "name": "Система 110 кВ",
+   "node_from": "GRID",
+   "node_to": "sys110",
+   "s_kz_max": 2500000.0,
+   "s_kz_min": 1400000.0,
+   "input_mode_max": "power",
+   "input_mode_min": "power",
+   "x_r_ratio": 12.0
+  },
+  {
+   "id": "VL110",
+   "kind": "line",
+   "name": "ВЛ-110 питающая",
+   "node_from": "sys110",
+   "node_to": "ou110",
+   "line_type": "overhead",
+   "length_km": 12.0,
+   "brand": "АС-120",
+   "section_mm2": 120,
+   "material": "Al",
+   "r0": 0.249,
+   "x0": 0.427,
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": false,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false,
+    "t_mtz": 1.3
+   }
+  },
+  {
+   "id": "Q1",
+   "kind": "tie",
+   "name": "Q1 · выключатель ВН Т1",
+   "node_from": "ou110",
+   "node_to": "t1_hv",
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": false,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "Q2",
+   "kind": "tie",
+   "name": "Q2 · выключатель ВН Т2",
+   "node_from": "ou110",
+   "node_to": "t2_hv",
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": false,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "T1",
+   "kind": "transformer",
+   "name": "Т1 · 16 МВ·А 110/10",
+   "node_from": "t1_hv",
+   "node_to": "t1_lv",
+   "s_nom": 16000,
+   "u_hv": 115.0,
+   "u_lv": 11.0,
+   "uk": 10.5,
+   "p_k": 85.0,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 5.0,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": false,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false,
+    "t_mtz": 0.9
+   }
+  },
+  {
+   "id": "T2",
+   "kind": "transformer",
+   "name": "Т2 · 16 МВ·А 110/10",
+   "node_from": "t2_hv",
+   "node_to": "t2_lv",
+   "s_nom": 16000,
+   "u_hv": 115.0,
+   "u_lv": 11.0,
+   "uk": 10.5,
+   "p_k": 85.0,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 5.0,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": false,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false,
+    "t_mtz": 0.9
+   }
+  },
+  {
+   "id": "Q3",
+   "kind": "tie",
+   "name": "Q3 · ввод-1 10 кВ",
+   "node_from": "t1_lv",
+   "node_to": "sh1",
+   "ct_ratio": [
+    1000,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": false,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "Q4",
+   "kind": "tie",
+   "name": "Q4 · ввод-2 10 кВ",
+   "node_from": "t2_lv",
+   "node_to": "sh2",
+   "ct_ratio": [
+    1000,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": false,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "QB",
+   "kind": "tie",
+   "name": "QB · секционный 10 кВ",
+   "node_from": "sh1",
+   "node_to": "sh2",
+   "ct_ratio": [
+    1000,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": false,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "QF1",
+   "kind": "tie",
+   "name": "QF1 · выключатель Ф-1",
+   "node_from": "sh1",
+   "node_to": "f1_cell",
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": false,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "F1",
+   "kind": "line",
+   "name": "Ф-1 · КЛ на РП-1",
+   "node_from": "f1_cell",
+   "node_to": "f1_end",
+   "line_type": "cable",
+   "length_km": 1.1,
+   "brand": "АПвПу-10",
+   "section_mm2": 120,
+   "material": "Al",
+   "r0": 0.258,
+   "x0": 0.081,
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": false,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": true,
+    "t_mtz": 0.5
+   }
+  },
+  {
+   "id": "QF2",
+   "kind": "tie",
+   "name": "QF2 · выключатель Ф-2",
+   "node_from": "sh1",
+   "node_to": "f2_cell",
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": false,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "F2",
+   "kind": "line",
+   "name": "Ф-2 · КЛ на ЦРП",
+   "node_from": "f2_cell",
+   "node_to": "f2_end",
+   "line_type": "cable",
+   "length_km": 5.2,
+   "brand": "АПвПу-10",
+   "section_mm2": 120,
+   "material": "Al",
+   "r0": 0.258,
+   "x0": 0.081,
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": false,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true,
+    "t_mtz": 0.5
+   }
+  },
+  {
+   "id": "QF3",
+   "kind": "tie",
+   "name": "QF3 · выключатель Ф-3",
+   "node_from": "sh1",
+   "node_to": "f3_cell",
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": false,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "F3",
+   "kind": "line",
+   "name": "Ф-3 · КЛ на ЦТП-4",
+   "node_from": "f3_cell",
+   "node_to": "f3_end",
+   "line_type": "cable",
+   "length_km": 6.4,
+   "brand": "АПвПу-10",
+   "section_mm2": 120,
+   "material": "Al",
+   "r0": 0.258,
+   "x0": 0.081,
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": false,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true,
+    "t_mtz": 0.5
+   }
+  },
+  {
+   "id": "QF4",
+   "kind": "tie",
+   "name": "QF4 · выключатель Ф-4",
+   "node_from": "sh1",
+   "node_to": "f4_cell",
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": false,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "F4",
+   "kind": "line",
+   "name": "Ф-4 · ВЛ на насосную",
+   "node_from": "f4_cell",
+   "node_to": "f4_end",
+   "line_type": "overhead",
+   "length_km": 4.2,
+   "brand": "АС-95",
+   "section_mm2": 95,
+   "material": "Al",
+   "r0": 0.315,
+   "x0": 0.363,
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": false,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false,
+    "t_mtz": 0.5
+   },
+   "ic_per_km": 0.02
+  },
+  {
+   "id": "QF5",
+   "kind": "tie",
+   "name": "QF5 · выключатель Ф-5",
+   "node_from": "sh2",
+   "node_to": "f5_cell",
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": false,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "F5",
+   "kind": "line",
+   "name": "Ф-5 · КЛ на компрессорную",
+   "node_from": "f5_cell",
+   "node_to": "f5_end",
+   "line_type": "cable",
+   "length_km": 1.3,
+   "brand": "АПвПу-10",
+   "section_mm2": 240,
+   "material": "Al",
+   "r0": 0.129,
+   "x0": 0.075,
+   "ic_per_km": 1.3,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": false,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": true,
+    "t_mtz": 0.5
+   }
+  },
+  {
+   "id": "QF6",
+   "kind": "tie",
+   "name": "QF6 · выключатель Ф-6",
+   "node_from": "sh2",
+   "node_to": "f6_cell",
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": false,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "F6",
+   "kind": "line",
+   "name": "Ф-6 · КЛ на РП-2",
+   "node_from": "f6_cell",
+   "node_to": "f6_end",
+   "line_type": "cable",
+   "length_km": 5.6,
+   "brand": "АПвПу-10",
+   "section_mm2": 120,
+   "material": "Al",
+   "r0": 0.258,
+   "x0": 0.081,
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": false,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true,
+    "t_mtz": 0.5
+   }
+  },
+  {
+   "id": "QF7",
+   "kind": "tie",
+   "name": "QF7 · выключатель Ф-7",
+   "node_from": "sh2",
+   "node_to": "f7_cell",
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": false,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "F7",
+   "kind": "line",
+   "name": "Ф-7 · КЛ на очистные",
+   "node_from": "f7_cell",
+   "node_to": "f7_end",
+   "line_type": "cable",
+   "length_km": 6.8,
+   "brand": "АПвПу-10",
+   "section_mm2": 120,
+   "material": "Al",
+   "r0": 0.258,
+   "x0": 0.081,
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": false,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true,
+    "t_mtz": 0.5
+   }
+  },
+  {
+   "id": "QF8",
+   "kind": "tie",
+   "name": "QF8 · выключатель Ф-8",
+   "node_from": "sh2",
+   "node_to": "f8_cell",
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": false,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "F8",
+   "kind": "line",
+   "name": "Ф-8 · ВЛ на карьер",
+   "node_from": "f8_cell",
+   "node_to": "f8_end",
+   "line_type": "overhead",
+   "length_km": 4.6,
+   "brand": "АС-95",
+   "section_mm2": 95,
+   "material": "Al",
+   "r0": 0.315,
+   "x0": 0.363,
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": false,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false,
+    "t_mtz": 0.5
+   },
+   "ic_per_km": 0.02
+  }
+ ],
+ "loads": [
+  {
+   "id": "L1",
+   "name": "Нагрузка Ф-1",
+   "node": "f1_end",
+   "p_kw": 1800,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "L2",
+   "name": "Нагрузка Ф-2",
+   "node": "f2_end",
+   "p_kw": 1250,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "L3",
+   "name": "Нагрузка Ф-3",
+   "node": "f3_end",
+   "p_kw": 1100,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "L4",
+   "name": "Нагрузка Ф-4",
+   "node": "f4_end",
+   "p_kw": 780,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "L5",
+   "name": "Нагрузка Ф-5",
+   "node": "f5_end",
+   "p_kw": 2400,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "L6",
+   "name": "Нагрузка Ф-6",
+   "node": "f6_end",
+   "p_kw": 1600,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "L7",
+   "name": "Нагрузка Ф-7",
+   "node": "f7_end",
+   "p_kw": 1050,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "L8",
+   "name": "Нагрузка Ф-8",
+   "node": "f8_end",
+   "p_kw": 690,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  }
+ ],
+ "modes": [
+  {
+   "id": "normal",
+   "name": "Нормальный режим",
+   "system": "max",
+   "description": "Оба трансформатора в работе, секционный выключатель отключён, секции работают раздельно.",
+   "states": {}
+  },
+  {
+   "id": "minimum",
+   "name": "Минимальный режим системы",
+   "system": "min",
+   "description": "Та же схема при наименьшей мощности питающей системы. Используется для проверки чувствительности защит.",
+   "states": {}
+  },
+  {
+   "id": "t1_repair",
+   "name": "Ремонт Т1, СВ включён",
+   "system": "max",
+   "description": "Т1 выведен выключателями с обеих сторон; обе секции 10 кВ питаются от Т2 через секционный выключатель.",
+   "states": {
+    "Q1": false,
+    "Q3": false,
+    "QB": true
+   }
+  },
+  {
+   "id": "t2_repair",
+   "name": "Ремонт Т2, СВ включён",
+   "system": "max",
+   "description": "Т2 выведен выключателями с обеих сторон; обе секции 10 кВ питаются от Т1 через секционный выключатель.",
+   "states": {
+    "Q2": false,
+    "Q4": false,
+    "QB": true
+   }
+  },
+  {
+   "id": "t1_repair_min",
+   "name": "Ремонт Т1 при минимуме системы",
+   "system": "min",
+   "description": "Самый тяжёлый режим для чувствительности: одна питающая цепь и наименьшая мощность системы.",
+   "states": {
+    "Q1": false,
+    "Q3": false,
+    "QB": true
+   }
+  }
+ ]
+}

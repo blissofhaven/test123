@@ -1,0 +1,4910 @@
+[
+  {
+    "path": "fault_currents/c_repair/N_0302d43475bc55efafaa7309c8f86a83",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_037a6804d73b5ca28b9ac446017390a7",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 5.32557842289,
+      "i2_ka": 4.61208620406,
+      "zth_r_ohm": 0.0240809110706,
+      "zth_x_ohm": 0.0360634761104,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_061cb7c7cde95f258c21508e558ec1ca",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.43326445714,
+      "i2_ka": 6.43739585293,
+      "zth_r_ohm": 0.0283583056615,
+      "zth_x_ohm": 0.815053986304,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_074a365f556551648ddc6778d0043866",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.43326445714,
+      "i2_ka": 6.43739585293,
+      "zth_r_ohm": 0.0283583056615,
+      "zth_x_ohm": 0.815053986304,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_1f10fc0395595d369afd7c3c0a7f654f",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.22849517509,
+      "i2_ka": 1.92993343384,
+      "zth_r_ohm": 1.97723113364,
+      "zth_x_ohm": 1.86831340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_21cc396b98e754f39f900184eb0a9b7d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_23adb25b54f65ae99144ec49194c08bd",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.58731921796,
+      "i2_ka": 1.37465876667,
+      "zth_r_ohm": 5.01763170477,
+      "zth_x_ohm": 12.487515712,
+      "u_stage_kv": 37.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_25eb1c74197a547c9f0bff3ca20cc11f",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_2928f00abbc1550b94b90526df3d3886",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.58731921796,
+      "i2_ka": 1.37465876667,
+      "zth_r_ohm": 5.01763170477,
+      "zth_x_ohm": 12.487515712,
+      "u_stage_kv": 37.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_2b3354430fc2547d83f62b39bc5cb1c5",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.7073295005,
+      "i2_ka": 4.07666693142,
+      "zth_r_ohm": 5.04581058843,
+      "zth_x_ohm": 13.1712270611,
+      "u_stage_kv": 115.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_2cc67cdf86fa530095b7e4b04ca48926",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.24923155875,
+      "i2_ka": 1.08186626509,
+      "zth_r_ohm": 3.24587076421,
+      "zth_x_ohm": 3.60739069844,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_2da114f40d065c4cae42fbdda1e1b221",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_2e528d60119e561da70c1d4e88c0f3be",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.43326445714,
+      "i2_ka": 6.43739585293,
+      "zth_r_ohm": 0.0283583056615,
+      "zth_x_ohm": 0.815053986304,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_32ea59bbff6e5a7298a2cbd5f7414ee1",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 13.3430573204,
+      "i2_ka": 11.5554266036,
+      "zth_r_ohm": 0.00556922230531,
+      "zth_x_ohm": 0.0163873933778,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_38286de7a5225dd0b947666977496d5c",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_39bee5ebfcf259c98f4ad466c23706a6",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 9.02249386627,
+      "i2_ka": 7.81370889368,
+      "zth_r_ohm": 0.0104694510783,
+      "zth_x_ohm": 0.0233569651813,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_490e8940a59a512b8d2e721d9cfd5210",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.7073295005,
+      "i2_ka": 4.07666693142,
+      "zth_r_ohm": 5.04581058843,
+      "zth_x_ohm": 13.1712270611,
+      "u_stage_kv": 115.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_49e9eb9f236051ccb12da647ea332bf6",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 5.24347506426,
+      "i2_ka": 4.54098260976,
+      "zth_r_ohm": 0.0255842660218,
+      "zth_x_ohm": 0.0358505276789,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_581e44fe616b54b197d74c320f9b540d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 3.95365429821,
+      "i2_ka": 3.42396506004,
+      "zth_r_ohm": 6.41531058843,
+      "zth_x_ohm": 15.5197270611,
+      "u_stage_kv": 115.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_59e6a417aa1c5d2e87c70144eb3a7990",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.36297990994,
+      "i2_ka": 1.18037522686,
+      "zth_r_ohm": 1.9822527846,
+      "zth_x_ohm": 3.98158876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_61542578a45d5425a6156a97d70af42a",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.69692452868,
+      "i2_ka": 4.06765596149,
+      "zth_r_ohm": 0.119631133639,
+      "zth_x_ohm": 1.28511340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_626eed90f0a156038e52bfea4ba9855d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.69692452868,
+      "i2_ka": 4.06765596149,
+      "zth_r_ohm": 0.119631133639,
+      "zth_x_ohm": 1.28511340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_6305cfe6ea6e50fa88c3ea902e9888d6",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 0.761162856345,
+      "i2_ka": 0.659186370012,
+      "zth_r_ohm": 4.9844527846,
+      "zth_x_ohm": 6.21178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_6982b468f1de5f4e82e54339e156af90",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.51412883483,
+      "i2_ka": 2.17729943935,
+      "zth_r_ohm": 2.01695830566,
+      "zth_x_ohm": 1.3213539863,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_6bb285ae88d4583d8da820dbb237c501",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_716d138c8d6a56b5b4191a0eef0eb7bc",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.43326445714,
+      "i2_ka": 6.43739585293,
+      "zth_r_ohm": 0.0283583056615,
+      "zth_x_ohm": 0.815053986304,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_71fdd8b61c0d519791901ba7d928df60",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 6.37676649946,
+      "i2_ka": 5.52244178253,
+      "zth_r_ohm": 0.275558305662,
+      "zth_x_ohm": 0.909853986304,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_721011e756c659caab9f1c019256266d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 5.60296326765,
+      "i2_ka": 4.85230852626,
+      "zth_r_ohm": 0.023421200202,
+      "zth_x_ohm": 0.0339165038598,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_747fcdbbaa5653aa8f49dce687fe5506",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.45186061862,
+      "i2_ka": 1.25734817848,
+      "zth_r_ohm": 2.73227076421,
+      "zth_x_ohm": 3.15739069844,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_75d70c789a8655f89f43e14b15216c90",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_772259ffe2ed57ac9a1af603c8229f35",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_7b64e69ed26a5c698d363f115f398098",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.69692452868,
+      "i2_ka": 4.06765596149,
+      "zth_r_ohm": 0.119631133639,
+      "zth_x_ohm": 1.28511340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_7f42766ea7915b6d9c946d41b7aa65dc",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 9.8876460855,
+      "i2_ka": 8.56295269367,
+      "zth_r_ohm": 0.00797000751842,
+      "zth_x_ohm": 0.021954538807,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_83a97e1d3da0535d9d897c6d7c87d1e0",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_84d67b0064775218b2ea5e7718366da7",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.28969480805,
+      "i2_ka": 1.98293387068,
+      "zth_r_ohm": 1.89983113364,
+      "zth_x_ohm": 1.84401340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_858a3b23bf235f43aa68f6e4054de7ba",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 8.0580717697,
+      "i2_ka": 6.97849485808,
+      "zth_r_ohm": 0.0123105607462,
+      "zth_x_ohm": 0.025880796167,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_87715017c12357fa9944b7bcf969fdc3",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 12.5510928085,
+      "i2_ka": 10.8695652174,
+      "zth_r_ohm": 0.439310588426,
+      "zth_x_ohm": 5.27172706112,
+      "u_stage_kv": 115.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_8ac0b08c292d506389db561b356a325d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 0.983515108629,
+      "i2_ka": 0.851749069079,
+      "zth_r_ohm": 4.22275830566,
+      "zth_x_ohm": 4.4900539863,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_8aeff72844485d6993e7ea911cb76260",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 0.963723373958,
+      "i2_ka": 0.834608924068,
+      "zth_r_ohm": 3.7004527846,
+      "zth_x_ohm": 5.08678876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_8ba251478c7356b78ae7a97f1449e539",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.41591426933,
+      "i2_ka": 2.0922431306,
+      "zth_r_ohm": 1.66463113364,
+      "zth_x_ohm": 1.87761340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_948b8e0a452a5a6b9fffe945bf81b76c",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 3.39220419039,
+      "i2_ka": 2.9377350037,
+      "zth_r_ohm": 0.352131704768,
+      "zth_x_ohm": 6.28751571202,
+      "u_stage_kv": 37.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_966684c6f9395f44a7bc4a4c41cbbc25",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.07746146237,
+      "i2_ka": 0.933108998008,
+      "zth_r_ohm": 3.1868527846,
+      "zth_x_ohm": 4.63678876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_a75a34776e5a5c73b4f3c836e9016617",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 11.3790222503,
+      "i2_ka": 9.85452233897,
+      "zth_r_ohm": 0.00594048275115,
+      "zth_x_ohm": 0.0194063870903,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_a9751177cf7d57e7a9c1d8a042f2f82b",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 6.46772693504,
+      "i2_ka": 5.60121583048,
+      "zth_r_ohm": 0.254958305662,
+      "zth_x_ohm": 0.901953986304,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_b4d6e2ea2ebc5932a6fcfa87297ecb4e",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 5.17933199033,
+      "i2_ka": 4.48543307826,
+      "zth_r_ohm": 0.0260299621068,
+      "zth_x_ohm": 0.0362022181455,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_b5e17288d5525101ae56661c8ffc5071",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_b8dceb8688b05418b6134d05194af8d9",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.94279491088,
+      "i2_ka": 4.28058595852,
+      "zth_r_ohm": 0.0266896729754,
+      "zth_x_ohm": 0.0383491903961,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_bbf6afd20e215cca8e23145cde1d393c",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.69692452868,
+      "i2_ka": 4.06765596149,
+      "zth_r_ohm": 0.119631133639,
+      "zth_x_ohm": 1.28511340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_bd27848b782b5b27abd5d468a3f4e24d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.69692452868,
+      "i2_ka": 4.06765596149,
+      "zth_r_ohm": 0.119631133639,
+      "zth_x_ohm": 1.28511340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_c3587c27ca2f5e179bb26dc6028569ad",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.47780963379,
+      "i2_ka": 6.47597310753,
+      "zth_r_ohm": 0.0129702716148,
+      "zth_x_ohm": 0.0280277684177,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_c5c1fe476b33566281aeb15cde815139",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 9.05006295729,
+      "i2_ka": 7.83758442686,
+      "zth_r_ohm": 0.0103571245477,
+      "zth_x_ohm": 0.0233216998752,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_cbb24ab6da605fd1b53a1953c5b8dbb7",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.06781839605,
+      "i2_ka": 1.7907832614,
+      "zth_r_ohm": 1.52767076421,
+      "zth_x_ohm": 2.50219069844,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_d2103c397ef559fbb82ab929d4c7474e",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.43326445714,
+      "i2_ka": 6.43739585293,
+      "zth_r_ohm": 0.0283583056615,
+      "zth_x_ohm": 0.815053986304,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_d99f47ea04d856929e9b9c7d001240a4",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.69692452868,
+      "i2_ka": 4.06765596149,
+      "zth_r_ohm": 0.119631133639,
+      "zth_x_ohm": 1.28511340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_ddbfe52eafb2518eb178db3e91a1a23a",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.36049414788,
+      "i2_ka": 2.04424789755,
+      "zth_r_ohm": 1.72643113364,
+      "zth_x_ohm": 1.90131340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_ddd1c0e900425b34aed520901aaf57d4",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.43326445714,
+      "i2_ka": 6.43739585293,
+      "zth_r_ohm": 0.0283583056615,
+      "zth_x_ohm": 0.815053986304,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_df10e50028f55d25aef18d2bff870f00",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 0.925385827581,
+      "i2_ka": 0.801407634987,
+      "zth_r_ohm": 4.52987076421,
+      "zth_x_ohm": 4.73239069844,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_df777f56ec3b5ce59ba19e4fbbdd5099",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 13.3904566376,
+      "i2_ka": 11.5964756164,
+      "zth_r_ohm": 0.00547953523048,
+      "zth_x_ohm": 0.01635299882,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_ec70f7ef40a25a6f81347a7bb3ed9074",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "error": "NodeNotEnergizedError"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_f066d44e139c5887bf897846188d7572",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_f8ac0dd129025b238f34eea8a051e193",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 15.0502855611,
+      "i2_ka": 13.0339296301,
+      "zth_r_ohm": 0.00346364722616,
+      "zth_x_ohm": 0.0149485406996,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_faba281c6a015b2495b20d56d6a14151",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_fd8af8f488245af0b684bc54f793e571",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 12.7950263793,
+      "i2_ka": 11.0808178866,
+      "zth_r_ohm": 0.00528077188255,
+      "zth_x_ohm": 0.0172594148397,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/c_repair/N_fda9879e328b5c8698831cc8a7f8cd82",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 9.27539454396,
+      "i2_ka": 8.0327273052,
+      "zth_r_ohm": 0.0105271050241,
+      "zth_x_ohm": 0.0225631918682,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_0302d43475bc55efafaa7309c8f86a83",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.51443854227,
+      "i2_ka": 2.17756765386,
+      "zth_r_ohm": 0.610121785013,
+      "zth_x_ohm": 2.33247002042,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_037a6804d73b5ca28b9ac446017390a7",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 5.26241763959,
+      "i2_ka": 4.55738736121,
+      "zth_r_ohm": 0.0249626728853,
+      "zth_x_ohm": 0.0360934897238,
+      "u_stage_kv": 0.4,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_061cb7c7cde95f258c21508e558ec1ca",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.24901174174,
+      "i2_ka": 6.27782832068,
+      "zth_r_ohm": 0.0300817436199,
+      "zth_x_ohm": 0.835735241804,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_074a365f556551648ddc6778d0043866",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.68982953768,
+      "i2_ka": 6.6595877304,
+      "zth_r_ohm": 0.0419921889324,
+      "zth_x_ohm": 0.787217899124,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_1f10fc0395595d369afd7c3c0a7f654f",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.00519349394,
+      "i2_ka": 1.73654850525,
+      "zth_r_ohm": 2.36043833719,
+      "zth_x_ohm": 1.88899466539,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_21cc396b98e754f39f900184eb0a9b7d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.51443854227,
+      "i2_ka": 2.17756765386,
+      "zth_r_ohm": 0.610121785013,
+      "zth_x_ohm": 2.33247002042,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_23adb25b54f65ae99144ec49194c08bd",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.51780628973,
+      "i2_ka": 1.31445880493,
+      "zth_r_ohm": 5.97213203642,
+      "zth_x_ohm": 12.7443196919,
+      "u_stage_kv": 37.0,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_25eb1c74197a547c9f0bff3ca20cc11f",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.06871727897,
+      "i2_ka": 6.12168873576,
+      "zth_r_ohm": 0.0880746048114,
+      "zth_x_ohm": 0.853071953944,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_2928f00abbc1550b94b90526df3d3886",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.51780628973,
+      "i2_ka": 1.31445880493,
+      "zth_r_ohm": 5.97213203642,
+      "zth_x_ohm": 12.7443196919,
+      "u_stage_kv": 37.0,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_2b3354430fc2547d83f62b39bc5cb1c5",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 3.94607375616,
+      "i2_ka": 3.41740011804,
+      "zth_r_ohm": 6.17384498298,
+      "zth_x_ohm": 15.6520397958,
+      "u_stage_kv": 115.0,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_2cc67cdf86fa530095b7e4b04ca48926",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.13985740125,
+      "i2_ka": 0.987145466177,
+      "zth_r_ohm": 3.88871460481,
+      "zth_x_ohm": 3.62807195394,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_2da114f40d065c4cae42fbdda1e1b221",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.06871727897,
+      "i2_ka": 6.12168873576,
+      "zth_r_ohm": 0.0880746048114,
+      "zth_x_ohm": 0.853071953944,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_2e528d60119e561da70c1d4e88c0f3be",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.24901174174,
+      "i2_ka": 6.27782832068,
+      "zth_r_ohm": 0.0300817436199,
+      "zth_x_ohm": 0.835735241804,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_32ea59bbff6e5a7298a2cbd5f7414ee1",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 13.1984160529,
+      "i2_ka": 11.4301635915,
+      "zth_r_ohm": 0.00605255611545,
+      "zth_x_ohm": 0.0164174069913,
+      "u_stage_kv": 0.4,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_38286de7a5225dd0b947666977496d5c",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.06871727897,
+      "i2_ka": 6.12168873576,
+      "zth_r_ohm": 0.0880746048114,
+      "zth_x_ohm": 0.853071953944,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_39bee5ebfcf259c98f4ad466c23706a6",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 8.9319041186,
+      "i2_ka": 7.73525587087,
+      "zth_r_ohm": 0.0110255794463,
+      "zth_x_ohm": 0.0233869787948,
+      "u_stage_kv": 0.4,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_490e8940a59a512b8d2e721d9cfd5210",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 3.94607375616,
+      "i2_ka": 3.41740011804,
+      "zth_r_ohm": 6.17384498298,
+      "zth_x_ohm": 15.6520397958,
+      "u_stage_kv": 115.0,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_49e9eb9f236051ccb12da647ea332bf6",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 5.16171108329,
+      "i2_ka": 4.47017292512,
+      "zth_r_ohm": 0.0268214743785,
+      "zth_x_ohm": 0.0358101306362,
+      "u_stage_kv": 0.4,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_581e44fe616b54b197d74c320f9b540d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 3.3832511787,
+      "i2_ka": 2.92998146814,
+      "zth_r_ohm": 7.81724498298,
+      "zth_x_ohm": 18.0005397958,
+      "u_stage_kv": 115.0,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_59e6a417aa1c5d2e87c70144eb3a7990",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.30632186206,
+      "i2_ka": 1.13130791806,
+      "zth_r_ohm": 2.34892178501,
+      "zth_x_ohm": 4.00227002042,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_61542578a45d5425a6156a97d70af42a",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.61922052749,
+      "i2_ka": 4.00036232249,
+      "zth_r_ohm": 0.131318337193,
+      "zth_x_ohm": 1.30579466539,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_626eed90f0a156038e52bfea4ba9855d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.61922052749,
+      "i2_ka": 4.00036232249,
+      "zth_r_ohm": 0.131318337193,
+      "zth_x_ohm": 1.30579466539,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_6305cfe6ea6e50fa88c3ea902e9888d6",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 0.703456506357,
+      "i2_ka": 0.609211204963,
+      "zth_r_ohm": 5.95156178501,
+      "zth_x_ohm": 6.23247002042,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_6982b468f1de5f4e82e54339e156af90",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.20335221414,
+      "i2_ka": 1.90815899093,
+      "zth_r_ohm": 2.42831218893,
+      "zth_x_ohm": 1.29351789912,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_6bb285ae88d4583d8da820dbb237c501",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.06871727897,
+      "i2_ka": 6.12168873576,
+      "zth_r_ohm": 0.0880746048114,
+      "zth_x_ohm": 0.853071953944,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_716d138c8d6a56b5b4191a0eef0eb7bc",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.68982953768,
+      "i2_ka": 6.6595877304,
+      "zth_r_ohm": 0.0419921889324,
+      "zth_x_ohm": 0.787217899124,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_71fdd8b61c0d519791901ba7d928df60",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 6.14684063577,
+      "i2_ka": 5.32332014359,
+      "zth_r_ohm": 0.32672174362,
+      "zth_x_ohm": 0.930535241804,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_721011e756c659caab9f1c019256266d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 5.53915046814,
+      "i2_ka": 4.79704502079,
+      "zth_r_ohm": 0.0242050533947,
+      "zth_x_ohm": 0.0339465174732,
+      "u_stage_kv": 0.4,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_747fcdbbaa5653aa8f49dce687fe5506",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.32894227159,
+      "i2_ka": 1.15089776736,
+      "zth_r_ohm": 3.27239460481,
+      "zth_x_ohm": 3.17807195394,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_75d70c789a8655f89f43e14b15216c90",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.51443854227,
+      "i2_ka": 2.17756765386,
+      "zth_r_ohm": 0.610121785013,
+      "zth_x_ohm": 2.33247002042,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_772259ffe2ed57ac9a1af603c8229f35",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.06871727897,
+      "i2_ka": 6.12168873576,
+      "zth_r_ohm": 0.0880746048114,
+      "zth_x_ohm": 0.853071953944,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_7b64e69ed26a5c698d363f115f398098",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.61922052749,
+      "i2_ka": 4.00036232249,
+      "zth_r_ohm": 0.131318337193,
+      "zth_x_ohm": 1.30579466539,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_7f42766ea7915b6d9c946d41b7aa65dc",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 9.89128281025,
+      "i2_ka": 8.56610218969,
+      "zth_r_ohm": 0.00805556417441,
+      "zth_x_ohm": 0.0219141417643,
+      "u_stage_kv": 0.4,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_83a97e1d3da0535d9d897c6d7c87d1e0",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.51443854227,
+      "i2_ka": 2.17756765386,
+      "zth_r_ohm": 0.610121785013,
+      "zth_x_ohm": 2.33247002042,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_84d67b0064775218b2ea5e7718366da7",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.06491687866,
+      "i2_ka": 1.78827047362,
+      "zth_r_ohm": 2.26755833719,
+      "zth_x_ohm": 1.86469466539,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_858a3b23bf235f43aa68f6e4054de7ba",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.93632054318,
+      "i2_ka": 6.87305520297,
+      "zth_r_ohm": 0.0132434860478,
+      "zth_x_ohm": 0.0259108097804,
+      "u_stage_kv": 0.4,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_87715017c12357fa9944b7bcf969fdc3",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 8.53474310976,
+      "i2_ka": 7.39130434783,
+      "zth_r_ohm": 0.64604498298,
+      "zth_x_ohm": 7.75253979576,
+      "u_stage_kv": 115.0,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_8ac0b08c292d506389db561b356a325d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 0.897044998662,
+      "i2_ka": 0.776863757179,
+      "zth_r_ohm": 5.07527218893,
+      "zth_x_ohm": 4.46221789912,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_8aeff72844485d6993e7ea911cb76260",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 0.898311705467,
+      "i2_ka": 0.777960757452,
+      "zth_r_ohm": 4.41076178501,
+      "zth_x_ohm": 5.10747002042,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_8ba251478c7356b78ae7a97f1449e539",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.20698162663,
+      "i2_ka": 1.91130215435,
+      "zth_r_ohm": 1.98531833719,
+      "zth_x_ohm": 1.89829466539,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_948b8e0a452a5a6b9fffe945bf81b76c",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 3.25889459496,
+      "i2_ka": 2.82228550749,
+      "zth_r_ohm": 0.373532036423,
+      "zth_x_ohm": 6.54431969188,
+      "u_stage_kv": 37.0,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_966684c6f9395f44a7bc4a4c41cbbc25",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.00910496056,
+      "i2_ka": 0.873910530926,
+      "zth_r_ohm": 3.79444178501,
+      "zth_x_ohm": 4.65747002042,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_a75a34776e5a5c73b4f3c836e9016617",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 11.2731751154,
+      "i2_ka": 9.76285603123,
+      "zth_r_ohm": 0.00647261009868,
+      "zth_x_ohm": 0.0194364007038,
+      "u_stage_kv": 0.4,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_a9751177cf7d57e7a9c1d8a042f2f82b",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 6.5270684024,
+      "i2_ka": 5.65260704871,
+      "zth_r_ohm": 0.313912188932,
+      "zth_x_ohm": 0.874117899124,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_b4d6e2ea2ebc5932a6fcfa87297ecb4e",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 5.08820878302,
+      "i2_ka": 4.40651806585,
+      "zth_r_ohm": 0.0273355676805,
+      "zth_x_ohm": 0.0362322317589,
+      "u_stage_kv": 0.4,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_b5e17288d5525101ae56661c8ffc5071",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.06871727897,
+      "i2_ka": 6.12168873576,
+      "zth_r_ohm": 0.0880746048114,
+      "zth_x_ohm": 0.853071953944,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_b8dceb8688b05418b6134d05194af8d9",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.8555091864,
+      "i2_ka": 4.20499430373,
+      "zth_r_ohm": 0.028093187171,
+      "zth_x_ohm": 0.0383792040096,
+      "u_stage_kv": 0.4,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_bbf6afd20e215cca8e23145cde1d393c",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.61922052749,
+      "i2_ka": 4.00036232249,
+      "zth_r_ohm": 0.131318337193,
+      "zth_x_ohm": 1.30579466539,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_bd27848b782b5b27abd5d468a3f4e24d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.61922052749,
+      "i2_ka": 4.00036232249,
+      "zth_r_ohm": 0.131318337193,
+      "zth_x_ohm": 1.30579466539,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_c3587c27ca2f5e179bb26dc6028569ad",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.36483378707,
+      "i2_ka": 6.37813315425,
+      "zth_r_ohm": 0.0140011055383,
+      "zth_x_ohm": 0.0280577820311,
+      "u_stage_kv": 0.4,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_c5c1fe476b33566281aeb15cde815139",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 8.9628097408,
+      "i2_ka": 7.76202092482,
+      "zth_r_ohm": 0.0108907876095,
+      "zth_x_ohm": 0.0233517134886,
+      "u_stage_kv": 0.4,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_cbb24ab6da605fd1b53a1953c5b8dbb7",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.94621188301,
+      "i2_ka": 1.68546893184,
+      "zth_r_ohm": 1.82687460481,
+      "zth_x_ohm": 2.52287195394,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_d2103c397ef559fbb82ab929d4c7474e",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.68982953768,
+      "i2_ka": 6.6595877304,
+      "zth_r_ohm": 0.0419921889324,
+      "zth_x_ohm": 0.787217899124,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_d99f47ea04d856929e9b9c7d001240a4",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.61922052749,
+      "i2_ka": 4.00036232249,
+      "zth_r_ohm": 0.131318337193,
+      "zth_x_ohm": 1.30579466539,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_ddbfe52eafb2518eb178db3e91a1a23a",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.1519943488,
+      "i2_ka": 1.86368177487,
+      "zth_r_ohm": 2.05947833719,
+      "zth_x_ohm": 1.92199466539,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_ddd1c0e900425b34aed520901aaf57d4",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.24901174174,
+      "i2_ka": 6.27782832068,
+      "zth_r_ohm": 0.0300817436199,
+      "zth_x_ohm": 0.835735241804,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_df10e50028f55d25aef18d2bff870f00",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 0.840096877413,
+      "i2_ka": 0.72754523748,
+      "zth_r_ohm": 5.42951460481,
+      "zth_x_ohm": 4.75307195394,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_df777f56ec3b5ce59ba19e4fbbdd5099",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 13.2508755336,
+      "i2_ka": 11.4755948345,
+      "zth_r_ohm": 0.00594493162566,
+      "zth_x_ohm": 0.0163830124334,
+      "u_stage_kv": 0.4,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_ec70f7ef40a25a6f81347a7bb3ed9074",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 8.53474310976,
+      "i2_ka": 7.39130434783,
+      "zth_r_ohm": 0.64604498298,
+      "zth_x_ohm": 7.75253979576,
+      "u_stage_kv": 115.0,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_f066d44e139c5887bf897846188d7572",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.51443854227,
+      "i2_ka": 2.17756765386,
+      "zth_r_ohm": 0.610121785013,
+      "zth_x_ohm": 2.33247002042,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_f8ac0dd129025b238f34eea8a051e193",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 15.0051672201,
+      "i2_ka": 12.9948560006,
+      "zth_r_ohm": 0.00353789802047,
+      "zth_x_ohm": 0.014978554313,
+      "u_stage_kv": 0.4,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_faba281c6a015b2495b20d56d6a14151",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.51443854227,
+      "i2_ka": 2.17756765386,
+      "zth_r_ohm": 0.610121785013,
+      "zth_x_ohm": 2.33247002042,
+      "u_stage_kv": 10.5,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_fd8af8f488245af0b684bc54f793e571",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 12.6824053178,
+      "i2_ka": 10.9832851863,
+      "zth_r_ohm": 0.00571499060814,
+      "zth_x_ohm": 0.0172894284531,
+      "u_stage_kv": 0.4,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/min/N_fda9879e328b5c8698831cc8a7f8cd82",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 9.19342412994,
+      "i2_ka": 7.96173884429,
+      "zth_r_ohm": 0.0111240811812,
+      "zth_x_ohm": 0.0225227948256,
+      "u_stage_kv": 0.4,
+      "regime": "min"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_0302d43475bc55efafaa7309c8f86a83",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_037a6804d73b5ca28b9ac446017390a7",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 5.32557842289,
+      "i2_ka": 4.61208620406,
+      "zth_r_ohm": 0.0240809110706,
+      "zth_x_ohm": 0.0360634761104,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_061cb7c7cde95f258c21508e558ec1ca",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.43326445714,
+      "i2_ka": 6.43739585293,
+      "zth_r_ohm": 0.0283583056616,
+      "zth_x_ohm": 0.815053986304,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_074a365f556551648ddc6778d0043866",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.89763945336,
+      "i2_ka": 6.83955639654,
+      "zth_r_ohm": 0.0402687509741,
+      "zth_x_ohm": 0.766536643623,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_1f10fc0395595d369afd7c3c0a7f654f",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.22849517509,
+      "i2_ka": 1.92993343384,
+      "zth_r_ohm": 1.97723113364,
+      "zth_x_ohm": 1.86831340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_21cc396b98e754f39f900184eb0a9b7d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_23adb25b54f65ae99144ec49194c08bd",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.58731921796,
+      "i2_ka": 1.37465876667,
+      "zth_r_ohm": 5.01763170477,
+      "zth_x_ohm": 12.487515712,
+      "u_stage_kv": 37.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_25eb1c74197a547c9f0bff3ca20cc11f",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_2928f00abbc1550b94b90526df3d3886",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.58731921796,
+      "i2_ka": 1.37465876667,
+      "zth_r_ohm": 5.01763170477,
+      "zth_x_ohm": 12.487515712,
+      "u_stage_kv": 37.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_2b3354430fc2547d83f62b39bc5cb1c5",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.7073295005,
+      "i2_ka": 4.07666693142,
+      "zth_r_ohm": 5.04581058843,
+      "zth_x_ohm": 13.1712270611,
+      "u_stage_kv": 115.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_2cc67cdf86fa530095b7e4b04ca48926",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.24923155875,
+      "i2_ka": 1.08186626509,
+      "zth_r_ohm": 3.24587076421,
+      "zth_x_ohm": 3.60739069844,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_2da114f40d065c4cae42fbdda1e1b221",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_2e528d60119e561da70c1d4e88c0f3be",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.43326445714,
+      "i2_ka": 6.43739585293,
+      "zth_r_ohm": 0.0283583056616,
+      "zth_x_ohm": 0.815053986304,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_32ea59bbff6e5a7298a2cbd5f7414ee1",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 13.3430573204,
+      "i2_ka": 11.5554266036,
+      "zth_r_ohm": 0.00556922230531,
+      "zth_x_ohm": 0.0163873933778,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_38286de7a5225dd0b947666977496d5c",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_39bee5ebfcf259c98f4ad466c23706a6",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 9.02249386627,
+      "i2_ka": 7.81370889368,
+      "zth_r_ohm": 0.0104694510783,
+      "zth_x_ohm": 0.0233569651813,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_490e8940a59a512b8d2e721d9cfd5210",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "error": "NodeNotEnergizedError"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_49e9eb9f236051ccb12da647ea332bf6",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 5.24910492154,
+      "i2_ka": 4.54585820918,
+      "zth_r_ohm": 0.0256015510218,
+      "zth_x_ohm": 0.0357801170228,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_581e44fe616b54b197d74c320f9b540d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 3.95365429821,
+      "i2_ka": 3.42396506004,
+      "zth_r_ohm": 6.41531058843,
+      "zth_x_ohm": 15.5197270611,
+      "u_stage_kv": 115.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_59e6a417aa1c5d2e87c70144eb3a7990",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.36297990994,
+      "i2_ka": 1.18037522686,
+      "zth_r_ohm": 1.9822527846,
+      "zth_x_ohm": 3.98158876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_61542578a45d5425a6156a97d70af42a",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.69692452868,
+      "i2_ka": 4.06765596149,
+      "zth_r_ohm": 0.119631133639,
+      "zth_x_ohm": 1.28511340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_626eed90f0a156038e52bfea4ba9855d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.69692452868,
+      "i2_ka": 4.06765596149,
+      "zth_r_ohm": 0.119631133639,
+      "zth_x_ohm": 1.28511340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_6305cfe6ea6e50fa88c3ea902e9888d6",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 0.761162856345,
+      "i2_ka": 0.659186370012,
+      "zth_r_ohm": 4.9844527846,
+      "zth_x_ohm": 6.21178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_6982b468f1de5f4e82e54339e156af90",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.53109323545,
+      "i2_ka": 2.19199104125,
+      "zth_r_ohm": 2.02886875097,
+      "zth_x_ohm": 1.27283664362,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_6bb285ae88d4583d8da820dbb237c501",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_716d138c8d6a56b5b4191a0eef0eb7bc",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.89763945336,
+      "i2_ka": 6.83955639654,
+      "zth_r_ohm": 0.0402687509741,
+      "zth_x_ohm": 0.766536643623,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_71fdd8b61c0d519791901ba7d928df60",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 6.37676649946,
+      "i2_ka": 5.52244178253,
+      "zth_r_ohm": 0.275558305662,
+      "zth_x_ohm": 0.909853986304,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_721011e756c659caab9f1c019256266d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 5.60296326765,
+      "i2_ka": 4.85230852626,
+      "zth_r_ohm": 0.023421200202,
+      "zth_x_ohm": 0.0339165038598,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_747fcdbbaa5653aa8f49dce687fe5506",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.45186061862,
+      "i2_ka": 1.25734817848,
+      "zth_r_ohm": 2.73227076421,
+      "zth_x_ohm": 3.15739069844,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_75d70c789a8655f89f43e14b15216c90",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_772259ffe2ed57ac9a1af603c8229f35",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_7b64e69ed26a5c698d363f115f398098",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.69692452868,
+      "i2_ka": 4.06765596149,
+      "zth_r_ohm": 0.119631133639,
+      "zth_x_ohm": 1.28511340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_7f42766ea7915b6d9c946d41b7aa65dc",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 9.91321873707,
+      "i2_ka": 8.58509925958,
+      "zth_r_ohm": 0.00798729251842,
+      "zth_x_ohm": 0.0218841281509,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_83a97e1d3da0535d9d897c6d7c87d1e0",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_84d67b0064775218b2ea5e7718366da7",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.28969480805,
+      "i2_ka": 1.98293387068,
+      "zth_r_ohm": 1.89983113364,
+      "zth_x_ohm": 1.84401340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_858a3b23bf235f43aa68f6e4054de7ba",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 8.0580717697,
+      "i2_ka": 6.97849485808,
+      "zth_r_ohm": 0.0123105607462,
+      "zth_x_ohm": 0.025880796167,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_87715017c12357fa9944b7bcf969fdc3",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 12.5510928085,
+      "i2_ka": 10.8695652174,
+      "zth_r_ohm": 0.439310588426,
+      "zth_x_ohm": 5.27172706112,
+      "u_stage_kv": 115.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_8ac0b08c292d506389db561b356a325d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 0.987848700493,
+      "i2_ka": 0.855502069723,
+      "zth_r_ohm": 4.23466875097,
+      "zth_x_ohm": 4.44153664362,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_8aeff72844485d6993e7ea911cb76260",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 0.963723373958,
+      "i2_ka": 0.834608924068,
+      "zth_r_ohm": 3.7004527846,
+      "zth_x_ohm": 5.08678876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_8ba251478c7356b78ae7a97f1449e539",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.41591426933,
+      "i2_ka": 2.0922431306,
+      "zth_r_ohm": 1.66463113364,
+      "zth_x_ohm": 1.87761340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_948b8e0a452a5a6b9fffe945bf81b76c",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 3.39220419039,
+      "i2_ka": 2.9377350037,
+      "zth_r_ohm": 0.352131704768,
+      "zth_x_ohm": 6.28751571202,
+      "u_stage_kv": 37.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_966684c6f9395f44a7bc4a4c41cbbc25",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.07746146237,
+      "i2_ka": 0.933108998008,
+      "zth_r_ohm": 3.1868527846,
+      "zth_x_ohm": 4.63678876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_a75a34776e5a5c73b4f3c836e9016617",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 11.3790222503,
+      "i2_ka": 9.85452233897,
+      "zth_r_ohm": 0.00594048275115,
+      "zth_x_ohm": 0.0194063870903,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_a9751177cf7d57e7a9c1d8a042f2f82b",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 6.77953023646,
+      "i2_ka": 5.8712454105,
+      "zth_r_ohm": 0.266868750974,
+      "zth_x_ohm": 0.853436643623,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_b4d6e2ea2ebc5932a6fcfa87297ecb4e",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 5.17933199033,
+      "i2_ka": 4.48543307826,
+      "zth_r_ohm": 0.0260299621068,
+      "zth_x_ohm": 0.0362022181455,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_b5e17288d5525101ae56661c8ffc5071",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_b8dceb8688b05418b6134d05194af8d9",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.94279491088,
+      "i2_ka": 4.28058595852,
+      "zth_r_ohm": 0.0266896729754,
+      "zth_x_ohm": 0.0383491903961,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_bbf6afd20e215cca8e23145cde1d393c",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.69692452868,
+      "i2_ka": 4.06765596149,
+      "zth_r_ohm": 0.119631133639,
+      "zth_x_ohm": 1.28511340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_bd27848b782b5b27abd5d468a3f4e24d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.69692452868,
+      "i2_ka": 4.06765596149,
+      "zth_r_ohm": 0.119631133639,
+      "zth_x_ohm": 1.28511340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_c3587c27ca2f5e179bb26dc6028569ad",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.47780963379,
+      "i2_ka": 6.47597310753,
+      "zth_r_ohm": 0.0129702716148,
+      "zth_x_ohm": 0.0280277684177,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_c5c1fe476b33566281aeb15cde815139",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 9.05006295729,
+      "i2_ka": 7.83758442686,
+      "zth_r_ohm": 0.0103571245477,
+      "zth_x_ohm": 0.0233216998752,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_cbb24ab6da605fd1b53a1953c5b8dbb7",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.06781839605,
+      "i2_ka": 1.7907832614,
+      "zth_r_ohm": 1.52767076421,
+      "zth_x_ohm": 2.50219069844,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_d2103c397ef559fbb82ab929d4c7474e",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.89763945336,
+      "i2_ka": 6.83955639654,
+      "zth_r_ohm": 0.0402687509741,
+      "zth_x_ohm": 0.766536643623,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_d99f47ea04d856929e9b9c7d001240a4",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.69692452868,
+      "i2_ka": 4.06765596149,
+      "zth_r_ohm": 0.119631133639,
+      "zth_x_ohm": 1.28511340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_ddbfe52eafb2518eb178db3e91a1a23a",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.36049414788,
+      "i2_ka": 2.04424789755,
+      "zth_r_ohm": 1.72643113364,
+      "zth_x_ohm": 1.90131340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_ddd1c0e900425b34aed520901aaf57d4",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.43326445714,
+      "i2_ka": 6.43739585293,
+      "zth_r_ohm": 0.0283583056616,
+      "zth_x_ohm": 0.815053986304,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_df10e50028f55d25aef18d2bff870f00",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 0.925385827581,
+      "i2_ka": 0.801407634987,
+      "zth_r_ohm": 4.52987076421,
+      "zth_x_ohm": 4.73239069844,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_df777f56ec3b5ce59ba19e4fbbdd5099",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 13.3904566376,
+      "i2_ka": 11.5964756164,
+      "zth_r_ohm": 0.00547953523048,
+      "zth_x_ohm": 0.01635299882,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_ec70f7ef40a25a6f81347a7bb3ed9074",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 12.5510928085,
+      "i2_ka": 10.8695652174,
+      "zth_r_ohm": 0.439310588426,
+      "zth_x_ohm": 5.27172706112,
+      "u_stage_kv": 115.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_f066d44e139c5887bf897846188d7572",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_f8ac0dd129025b238f34eea8a051e193",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 15.0502855611,
+      "i2_ka": 13.0339296301,
+      "zth_r_ohm": 0.00346364722616,
+      "zth_x_ohm": 0.0149485406996,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_faba281c6a015b2495b20d56d6a14151",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_fd8af8f488245af0b684bc54f793e571",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 12.7950263793,
+      "i2_ka": 11.0808178866,
+      "zth_r_ohm": 0.00528077188255,
+      "zth_x_ohm": 0.0172594148397,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/n_repair/N_fda9879e328b5c8698831cc8a7f8cd82",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 9.29647475894,
+      "i2_ka": 8.05098330688,
+      "zth_r_ohm": 0.0105443900241,
+      "zth_x_ohm": 0.0224927812121,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_0302d43475bc55efafaa7309c8f86a83",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_037a6804d73b5ca28b9ac446017390a7",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 5.32557842289,
+      "i2_ka": 4.61208620406,
+      "zth_r_ohm": 0.0240809110706,
+      "zth_x_ohm": 0.0360634761104,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_061cb7c7cde95f258c21508e558ec1ca",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.43326445714,
+      "i2_ka": 6.43739585293,
+      "zth_r_ohm": 0.0283583056616,
+      "zth_x_ohm": 0.815053986304,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_074a365f556551648ddc6778d0043866",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.89763945336,
+      "i2_ka": 6.83955639654,
+      "zth_r_ohm": 0.0402687509741,
+      "zth_x_ohm": 0.766536643623,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_1f10fc0395595d369afd7c3c0a7f654f",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.22849517509,
+      "i2_ka": 1.92993343384,
+      "zth_r_ohm": 1.97723113364,
+      "zth_x_ohm": 1.86831340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_21cc396b98e754f39f900184eb0a9b7d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_23adb25b54f65ae99144ec49194c08bd",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.58731921796,
+      "i2_ka": 1.37465876667,
+      "zth_r_ohm": 5.01763170477,
+      "zth_x_ohm": 12.487515712,
+      "u_stage_kv": 37.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_25eb1c74197a547c9f0bff3ca20cc11f",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_2928f00abbc1550b94b90526df3d3886",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.58731921796,
+      "i2_ka": 1.37465876667,
+      "zth_r_ohm": 5.01763170477,
+      "zth_x_ohm": 12.487515712,
+      "u_stage_kv": 37.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_2b3354430fc2547d83f62b39bc5cb1c5",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.7073295005,
+      "i2_ka": 4.07666693142,
+      "zth_r_ohm": 5.04581058843,
+      "zth_x_ohm": 13.1712270611,
+      "u_stage_kv": 115.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_2cc67cdf86fa530095b7e4b04ca48926",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.24923155875,
+      "i2_ka": 1.08186626509,
+      "zth_r_ohm": 3.24587076421,
+      "zth_x_ohm": 3.60739069844,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_2da114f40d065c4cae42fbdda1e1b221",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_2e528d60119e561da70c1d4e88c0f3be",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.43326445714,
+      "i2_ka": 6.43739585293,
+      "zth_r_ohm": 0.0283583056616,
+      "zth_x_ohm": 0.815053986304,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_32ea59bbff6e5a7298a2cbd5f7414ee1",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 13.3430573204,
+      "i2_ka": 11.5554266036,
+      "zth_r_ohm": 0.00556922230531,
+      "zth_x_ohm": 0.0163873933778,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_38286de7a5225dd0b947666977496d5c",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_39bee5ebfcf259c98f4ad466c23706a6",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 9.02249386627,
+      "i2_ka": 7.81370889368,
+      "zth_r_ohm": 0.0104694510783,
+      "zth_x_ohm": 0.0233569651813,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_490e8940a59a512b8d2e721d9cfd5210",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.7073295005,
+      "i2_ka": 4.07666693142,
+      "zth_r_ohm": 5.04581058843,
+      "zth_x_ohm": 13.1712270611,
+      "u_stage_kv": 115.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_49e9eb9f236051ccb12da647ea332bf6",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 5.24910492154,
+      "i2_ka": 4.54585820918,
+      "zth_r_ohm": 0.0256015510218,
+      "zth_x_ohm": 0.0357801170228,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_581e44fe616b54b197d74c320f9b540d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 3.95365429821,
+      "i2_ka": 3.42396506004,
+      "zth_r_ohm": 6.41531058843,
+      "zth_x_ohm": 15.5197270611,
+      "u_stage_kv": 115.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_59e6a417aa1c5d2e87c70144eb3a7990",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.36297990994,
+      "i2_ka": 1.18037522686,
+      "zth_r_ohm": 1.9822527846,
+      "zth_x_ohm": 3.98158876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_61542578a45d5425a6156a97d70af42a",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.69692452868,
+      "i2_ka": 4.06765596149,
+      "zth_r_ohm": 0.119631133639,
+      "zth_x_ohm": 1.28511340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_626eed90f0a156038e52bfea4ba9855d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.69692452868,
+      "i2_ka": 4.06765596149,
+      "zth_r_ohm": 0.119631133639,
+      "zth_x_ohm": 1.28511340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_6305cfe6ea6e50fa88c3ea902e9888d6",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 0.761162856345,
+      "i2_ka": 0.659186370012,
+      "zth_r_ohm": 4.9844527846,
+      "zth_x_ohm": 6.21178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_6982b468f1de5f4e82e54339e156af90",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.53109323545,
+      "i2_ka": 2.19199104125,
+      "zth_r_ohm": 2.02886875097,
+      "zth_x_ohm": 1.27283664362,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_6bb285ae88d4583d8da820dbb237c501",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_716d138c8d6a56b5b4191a0eef0eb7bc",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.89763945336,
+      "i2_ka": 6.83955639654,
+      "zth_r_ohm": 0.0402687509741,
+      "zth_x_ohm": 0.766536643623,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_71fdd8b61c0d519791901ba7d928df60",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 6.37676649946,
+      "i2_ka": 5.52244178253,
+      "zth_r_ohm": 0.275558305662,
+      "zth_x_ohm": 0.909853986304,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_721011e756c659caab9f1c019256266d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 5.60296326765,
+      "i2_ka": 4.85230852626,
+      "zth_r_ohm": 0.023421200202,
+      "zth_x_ohm": 0.0339165038598,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_747fcdbbaa5653aa8f49dce687fe5506",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.45186061862,
+      "i2_ka": 1.25734817848,
+      "zth_r_ohm": 2.73227076421,
+      "zth_x_ohm": 3.15739069844,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_75d70c789a8655f89f43e14b15216c90",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_772259ffe2ed57ac9a1af603c8229f35",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_7b64e69ed26a5c698d363f115f398098",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.69692452868,
+      "i2_ka": 4.06765596149,
+      "zth_r_ohm": 0.119631133639,
+      "zth_x_ohm": 1.28511340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_7f42766ea7915b6d9c946d41b7aa65dc",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 9.91321873707,
+      "i2_ka": 8.58509925958,
+      "zth_r_ohm": 0.00798729251842,
+      "zth_x_ohm": 0.0218841281509,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_83a97e1d3da0535d9d897c6d7c87d1e0",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_84d67b0064775218b2ea5e7718366da7",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.28969480805,
+      "i2_ka": 1.98293387068,
+      "zth_r_ohm": 1.89983113364,
+      "zth_x_ohm": 1.84401340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_858a3b23bf235f43aa68f6e4054de7ba",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 8.0580717697,
+      "i2_ka": 6.97849485808,
+      "zth_r_ohm": 0.0123105607462,
+      "zth_x_ohm": 0.025880796167,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_87715017c12357fa9944b7bcf969fdc3",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 12.5510928085,
+      "i2_ka": 10.8695652174,
+      "zth_r_ohm": 0.439310588426,
+      "zth_x_ohm": 5.27172706112,
+      "u_stage_kv": 115.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_8ac0b08c292d506389db561b356a325d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 0.987848700493,
+      "i2_ka": 0.855502069723,
+      "zth_r_ohm": 4.23466875097,
+      "zth_x_ohm": 4.44153664362,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_8aeff72844485d6993e7ea911cb76260",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 0.963723373958,
+      "i2_ka": 0.834608924068,
+      "zth_r_ohm": 3.7004527846,
+      "zth_x_ohm": 5.08678876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_8ba251478c7356b78ae7a97f1449e539",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.41591426933,
+      "i2_ka": 2.0922431306,
+      "zth_r_ohm": 1.66463113364,
+      "zth_x_ohm": 1.87761340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_948b8e0a452a5a6b9fffe945bf81b76c",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 3.39220419039,
+      "i2_ka": 2.9377350037,
+      "zth_r_ohm": 0.352131704768,
+      "zth_x_ohm": 6.28751571202,
+      "u_stage_kv": 37.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_966684c6f9395f44a7bc4a4c41cbbc25",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.07746146237,
+      "i2_ka": 0.933108998008,
+      "zth_r_ohm": 3.1868527846,
+      "zth_x_ohm": 4.63678876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_a75a34776e5a5c73b4f3c836e9016617",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 11.3790222503,
+      "i2_ka": 9.85452233897,
+      "zth_r_ohm": 0.00594048275115,
+      "zth_x_ohm": 0.0194063870903,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_a9751177cf7d57e7a9c1d8a042f2f82b",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 6.77953023646,
+      "i2_ka": 5.8712454105,
+      "zth_r_ohm": 0.266868750974,
+      "zth_x_ohm": 0.853436643623,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_b4d6e2ea2ebc5932a6fcfa87297ecb4e",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 5.17933199033,
+      "i2_ka": 4.48543307826,
+      "zth_r_ohm": 0.0260299621068,
+      "zth_x_ohm": 0.0362022181455,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_b5e17288d5525101ae56661c8ffc5071",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_b8dceb8688b05418b6134d05194af8d9",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.94279491088,
+      "i2_ka": 4.28058595852,
+      "zth_r_ohm": 0.0266896729754,
+      "zth_x_ohm": 0.0383491903961,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_bbf6afd20e215cca8e23145cde1d393c",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.69692452868,
+      "i2_ka": 4.06765596149,
+      "zth_r_ohm": 0.119631133639,
+      "zth_x_ohm": 1.28511340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_bd27848b782b5b27abd5d468a3f4e24d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.69692452868,
+      "i2_ka": 4.06765596149,
+      "zth_r_ohm": 0.119631133639,
+      "zth_x_ohm": 1.28511340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_c3587c27ca2f5e179bb26dc6028569ad",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.47780963379,
+      "i2_ka": 6.47597310753,
+      "zth_r_ohm": 0.0129702716148,
+      "zth_x_ohm": 0.0280277684177,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_c5c1fe476b33566281aeb15cde815139",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 9.05006295729,
+      "i2_ka": 7.83758442686,
+      "zth_r_ohm": 0.0103571245477,
+      "zth_x_ohm": 0.0233216998752,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_cbb24ab6da605fd1b53a1953c5b8dbb7",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.06781839605,
+      "i2_ka": 1.7907832614,
+      "zth_r_ohm": 1.52767076421,
+      "zth_x_ohm": 2.50219069844,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_d2103c397ef559fbb82ab929d4c7474e",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.89763945336,
+      "i2_ka": 6.83955639654,
+      "zth_r_ohm": 0.0402687509741,
+      "zth_x_ohm": 0.766536643623,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_d99f47ea04d856929e9b9c7d001240a4",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.69692452868,
+      "i2_ka": 4.06765596149,
+      "zth_r_ohm": 0.119631133639,
+      "zth_x_ohm": 1.28511340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_ddbfe52eafb2518eb178db3e91a1a23a",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.36049414788,
+      "i2_ka": 2.04424789755,
+      "zth_r_ohm": 1.72643113364,
+      "zth_x_ohm": 1.90131340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_ddd1c0e900425b34aed520901aaf57d4",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.43326445714,
+      "i2_ka": 6.43739585293,
+      "zth_r_ohm": 0.0283583056616,
+      "zth_x_ohm": 0.815053986304,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_df10e50028f55d25aef18d2bff870f00",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 0.925385827581,
+      "i2_ka": 0.801407634987,
+      "zth_r_ohm": 4.52987076421,
+      "zth_x_ohm": 4.73239069844,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_df777f56ec3b5ce59ba19e4fbbdd5099",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 13.3904566376,
+      "i2_ka": 11.5964756164,
+      "zth_r_ohm": 0.00547953523048,
+      "zth_x_ohm": 0.01635299882,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_ec70f7ef40a25a6f81347a7bb3ed9074",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 12.5510928085,
+      "i2_ka": 10.8695652174,
+      "zth_r_ohm": 0.439310588426,
+      "zth_x_ohm": 5.27172706112,
+      "u_stage_kv": 115.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_f066d44e139c5887bf897846188d7572",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_f8ac0dd129025b238f34eea8a051e193",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 15.0502855611,
+      "i2_ka": 13.0339296301,
+      "zth_r_ohm": 0.00346364722616,
+      "zth_x_ohm": 0.0149485406996,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_faba281c6a015b2495b20d56d6a14151",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_fd8af8f488245af0b684bc54f793e571",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 12.7950263793,
+      "i2_ka": 11.0808178866,
+      "zth_r_ohm": 0.00528077188255,
+      "zth_x_ohm": 0.0172594148397,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/normal/N_fda9879e328b5c8698831cc8a7f8cd82",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 9.29647475894,
+      "i2_ka": 8.05098330688,
+      "zth_r_ohm": 0.0105443900241,
+      "zth_x_ohm": 0.0224927812121,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_0302d43475bc55efafaa7309c8f86a83",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_037a6804d73b5ca28b9ac446017390a7",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 5.32557842289,
+      "i2_ka": 4.61208620406,
+      "zth_r_ohm": 0.0240809110706,
+      "zth_x_ohm": 0.0360634761104,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_061cb7c7cde95f258c21508e558ec1ca",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.43326445714,
+      "i2_ka": 6.43739585293,
+      "zth_r_ohm": 0.0283583056616,
+      "zth_x_ohm": 0.815053986304,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_074a365f556551648ddc6778d0043866",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.89763945336,
+      "i2_ka": 6.83955639654,
+      "zth_r_ohm": 0.0402687509741,
+      "zth_x_ohm": 0.766536643623,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_1f10fc0395595d369afd7c3c0a7f654f",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.17935408498,
+      "i2_ka": 1.88737600143,
+      "zth_r_ohm": 2.00940579337,
+      "zth_x_ohm": 1.9234884288,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_21cc396b98e754f39f900184eb0a9b7d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_23adb25b54f65ae99144ec49194c08bd",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.58731921796,
+      "i2_ka": 1.37465876667,
+      "zth_r_ohm": 5.01763170477,
+      "zth_x_ohm": 12.487515712,
+      "u_stage_kv": 37.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_25eb1c74197a547c9f0bff3ca20cc11f",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_2928f00abbc1550b94b90526df3d3886",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.58731921796,
+      "i2_ka": 1.37465876667,
+      "zth_r_ohm": 5.01763170477,
+      "zth_x_ohm": 12.487515712,
+      "u_stage_kv": 37.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_2b3354430fc2547d83f62b39bc5cb1c5",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.7073295005,
+      "i2_ka": 4.07666693142,
+      "zth_r_ohm": 5.04581058843,
+      "zth_x_ohm": 13.1712270611,
+      "u_stage_kv": 115.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_2cc67cdf86fa530095b7e4b04ca48926",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.24923155875,
+      "i2_ka": 1.08186626509,
+      "zth_r_ohm": 3.24587076421,
+      "zth_x_ohm": 3.60739069844,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_2da114f40d065c4cae42fbdda1e1b221",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_2e528d60119e561da70c1d4e88c0f3be",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.43326445714,
+      "i2_ka": 6.43739585293,
+      "zth_r_ohm": 0.0283583056616,
+      "zth_x_ohm": 0.815053986304,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_32ea59bbff6e5a7298a2cbd5f7414ee1",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 13.273385743,
+      "i2_ka": 11.4950892476,
+      "zth_r_ohm": 0.00561591568905,
+      "zth_x_ohm": 0.0164674659676,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_38286de7a5225dd0b947666977496d5c",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_39bee5ebfcf259c98f4ad466c23706a6",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 8.99012134476,
+      "i2_ka": 7.78567346766,
+      "zth_r_ohm": 0.010516144462,
+      "zth_x_ohm": 0.0234370377711,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_490e8940a59a512b8d2e721d9cfd5210",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.7073295005,
+      "i2_ka": 4.07666693142,
+      "zth_r_ohm": 5.04581058843,
+      "zth_x_ohm": 13.1712270611,
+      "u_stage_kv": 115.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_49e9eb9f236051ccb12da647ea332bf6",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 5.24910492154,
+      "i2_ka": 4.54585820918,
+      "zth_r_ohm": 0.0256015510218,
+      "zth_x_ohm": 0.0357801170228,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_581e44fe616b54b197d74c320f9b540d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.72040345215,
+      "i2_ka": 2.3559384981,
+      "zth_r_ohm": 10.2748105884,
+      "zth_x_ohm": 22.1382270611,
+      "u_stage_kv": 115.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_59e6a417aa1c5d2e87c70144eb3a7990",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.36297990994,
+      "i2_ka": 1.18037522686,
+      "zth_r_ohm": 1.9822527846,
+      "zth_x_ohm": 3.98158876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_61542578a45d5425a6156a97d70af42a",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.49430373553,
+      "i2_ka": 3.8921812073,
+      "zth_r_ohm": 0.151805793374,
+      "zth_x_ohm": 1.3402884288,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_626eed90f0a156038e52bfea4ba9855d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.49430373553,
+      "i2_ka": 3.8921812073,
+      "zth_r_ohm": 0.151805793374,
+      "zth_x_ohm": 1.3402884288,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_6305cfe6ea6e50fa88c3ea902e9888d6",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 0.761162856345,
+      "i2_ka": 0.659186370012,
+      "zth_r_ohm": 4.9844527846,
+      "zth_x_ohm": 6.21178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_6982b468f1de5f4e82e54339e156af90",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.53109323545,
+      "i2_ka": 2.19199104125,
+      "zth_r_ohm": 2.02886875097,
+      "zth_x_ohm": 1.27283664362,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_6bb285ae88d4583d8da820dbb237c501",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_716d138c8d6a56b5b4191a0eef0eb7bc",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.89763945336,
+      "i2_ka": 6.83955639654,
+      "zth_r_ohm": 0.0402687509741,
+      "zth_x_ohm": 0.766536643623,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_71fdd8b61c0d519791901ba7d928df60",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 6.37676649946,
+      "i2_ka": 5.52244178253,
+      "zth_r_ohm": 0.275558305662,
+      "zth_x_ohm": 0.909853986304,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_721011e756c659caab9f1c019256266d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 5.60296326765,
+      "i2_ka": 4.85230852626,
+      "zth_r_ohm": 0.023421200202,
+      "zth_x_ohm": 0.0339165038598,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_747fcdbbaa5653aa8f49dce687fe5506",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.45186061862,
+      "i2_ka": 1.25734817848,
+      "zth_r_ohm": 2.73227076421,
+      "zth_x_ohm": 3.15739069844,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_75d70c789a8655f89f43e14b15216c90",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_772259ffe2ed57ac9a1af603c8229f35",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_7b64e69ed26a5c698d363f115f398098",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.49430373553,
+      "i2_ka": 3.8921812073,
+      "zth_r_ohm": 0.151805793374,
+      "zth_x_ohm": 1.3402884288,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_7f42766ea7915b6d9c946d41b7aa65dc",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 9.91321873707,
+      "i2_ka": 8.58509925958,
+      "zth_r_ohm": 0.00798729251842,
+      "zth_x_ohm": 0.0218841281509,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_83a97e1d3da0535d9d897c6d7c87d1e0",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_84d67b0064775218b2ea5e7718366da7",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.23765726733,
+      "i2_ka": 1.93786803847,
+      "zth_r_ohm": 1.93200579337,
+      "zth_x_ohm": 1.8991884288,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_858a3b23bf235f43aa68f6e4054de7ba",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 8.0580717697,
+      "i2_ka": 6.97849485808,
+      "zth_r_ohm": 0.0123105607462,
+      "zth_x_ohm": 0.025880796167,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_87715017c12357fa9944b7bcf969fdc3",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 12.5510928085,
+      "i2_ka": 10.8695652174,
+      "zth_r_ohm": 0.439310588426,
+      "zth_x_ohm": 5.27172706112,
+      "u_stage_kv": 115.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_8ac0b08c292d506389db561b356a325d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 0.987848700493,
+      "i2_ka": 0.855502069723,
+      "zth_r_ohm": 4.23466875097,
+      "zth_x_ohm": 4.44153664362,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_8aeff72844485d6993e7ea911cb76260",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 0.963723373958,
+      "i2_ka": 0.834608924068,
+      "zth_r_ohm": 3.7004527846,
+      "zth_x_ohm": 5.08678876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_8ba251478c7356b78ae7a97f1449e539",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.35705449284,
+      "i2_ka": 2.0412690689,
+      "zth_r_ohm": 1.69680579337,
+      "zth_x_ohm": 1.9327884288,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_948b8e0a452a5a6b9fffe945bf81b76c",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 3.39220419039,
+      "i2_ka": 2.9377350037,
+      "zth_r_ohm": 0.352131704768,
+      "zth_x_ohm": 6.28751571202,
+      "u_stage_kv": 37.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_966684c6f9395f44a7bc4a4c41cbbc25",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.07746146237,
+      "i2_ka": 0.933108998008,
+      "zth_r_ohm": 3.1868527846,
+      "zth_x_ohm": 4.63678876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_a75a34776e5a5c73b4f3c836e9016617",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 11.3790222503,
+      "i2_ka": 9.85452233897,
+      "zth_r_ohm": 0.00594048275115,
+      "zth_x_ohm": 0.0194063870903,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_a9751177cf7d57e7a9c1d8a042f2f82b",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 6.77953023646,
+      "i2_ka": 5.8712454105,
+      "zth_r_ohm": 0.266868750974,
+      "zth_x_ohm": 0.853436643623,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_b4d6e2ea2ebc5932a6fcfa87297ecb4e",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 5.17933199033,
+      "i2_ka": 4.48543307826,
+      "zth_r_ohm": 0.0260299621068,
+      "zth_x_ohm": 0.0362022181455,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_b5e17288d5525101ae56661c8ffc5071",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_b8dceb8688b05418b6134d05194af8d9",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.94279491088,
+      "i2_ka": 4.28058595852,
+      "zth_r_ohm": 0.0266896729754,
+      "zth_x_ohm": 0.0383491903961,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_bbf6afd20e215cca8e23145cde1d393c",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.49430373553,
+      "i2_ka": 3.8921812073,
+      "zth_r_ohm": 0.151805793374,
+      "zth_x_ohm": 1.3402884288,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_bd27848b782b5b27abd5d468a3f4e24d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.49430373553,
+      "i2_ka": 3.8921812073,
+      "zth_r_ohm": 0.151805793374,
+      "zth_x_ohm": 1.3402884288,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_c3587c27ca2f5e179bb26dc6028569ad",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.47780963379,
+      "i2_ka": 6.47597310753,
+      "zth_r_ohm": 0.0129702716148,
+      "zth_x_ohm": 0.0280277684177,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_c5c1fe476b33566281aeb15cde815139",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 9.0175047826,
+      "i2_ka": 7.80938822048,
+      "zth_r_ohm": 0.0104038179314,
+      "zth_x_ohm": 0.023401772465,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_cbb24ab6da605fd1b53a1953c5b8dbb7",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.06781839605,
+      "i2_ka": 1.7907832614,
+      "zth_r_ohm": 1.52767076421,
+      "zth_x_ohm": 2.50219069844,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_d2103c397ef559fbb82ab929d4c7474e",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.89763945336,
+      "i2_ka": 6.83955639654,
+      "zth_r_ohm": 0.0402687509741,
+      "zth_x_ohm": 0.766536643623,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_d99f47ea04d856929e9b9c7d001240a4",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.49430373553,
+      "i2_ka": 3.8921812073,
+      "zth_r_ohm": 0.151805793374,
+      "zth_x_ohm": 1.3402884288,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_ddbfe52eafb2518eb178db3e91a1a23a",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.30440409903,
+      "i2_ka": 1.99567249034,
+      "zth_r_ohm": 1.75860579337,
+      "zth_x_ohm": 1.9564884288,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_ddd1c0e900425b34aed520901aaf57d4",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.43326445714,
+      "i2_ka": 6.43739585293,
+      "zth_r_ohm": 0.0283583056616,
+      "zth_x_ohm": 0.815053986304,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_df10e50028f55d25aef18d2bff870f00",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 0.925385827581,
+      "i2_ka": 0.801407634987,
+      "zth_r_ohm": 4.52987076421,
+      "zth_x_ohm": 4.73239069844,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_df777f56ec3b5ce59ba19e4fbbdd5099",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 13.3203514585,
+      "i2_ka": 11.5357627504,
+      "zth_r_ohm": 0.00552622861422,
+      "zth_x_ohm": 0.0164330714098,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_ec70f7ef40a25a6f81347a7bb3ed9074",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 12.5510928085,
+      "i2_ka": 10.8695652174,
+      "zth_r_ohm": 0.439310588426,
+      "zth_x_ohm": 5.27172706112,
+      "u_stage_kv": 115.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_f066d44e139c5887bf897846188d7572",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_f8ac0dd129025b238f34eea8a051e193",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 15.0502855611,
+      "i2_ka": 13.0339296301,
+      "zth_r_ohm": 0.00346364722616,
+      "zth_x_ohm": 0.0149485406996,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_faba281c6a015b2495b20d56d6a14151",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_fd8af8f488245af0b684bc54f793e571",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 12.7950263793,
+      "i2_ka": 11.0808178866,
+      "zth_r_ohm": 0.00528077188255,
+      "zth_x_ohm": 0.0172594148397,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/s_reserve/N_fda9879e328b5c8698831cc8a7f8cd82",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 9.29647475894,
+      "i2_ka": 8.05098330688,
+      "zth_r_ohm": 0.0105443900241,
+      "zth_x_ohm": 0.0224927812121,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_0302d43475bc55efafaa7309c8f86a83",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_037a6804d73b5ca28b9ac446017390a7",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 5.32557842289,
+      "i2_ka": 4.61208620406,
+      "zth_r_ohm": 0.0240809110706,
+      "zth_x_ohm": 0.0360634761104,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_061cb7c7cde95f258c21508e558ec1ca",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.43326445714,
+      "i2_ka": 6.43739585293,
+      "zth_r_ohm": 0.0283583056616,
+      "zth_x_ohm": 0.815053986304,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_074a365f556551648ddc6778d0043866",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.89763945336,
+      "i2_ka": 6.83955639654,
+      "zth_r_ohm": 0.0402687509741,
+      "zth_x_ohm": 0.766536643623,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_1f10fc0395595d369afd7c3c0a7f654f",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.22849517509,
+      "i2_ka": 1.92993343384,
+      "zth_r_ohm": 1.97723113364,
+      "zth_x_ohm": 1.86831340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_21cc396b98e754f39f900184eb0a9b7d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_23adb25b54f65ae99144ec49194c08bd",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "error": "NodeNotEnergizedError"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_25eb1c74197a547c9f0bff3ca20cc11f",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_2928f00abbc1550b94b90526df3d3886",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.58731921796,
+      "i2_ka": 1.37465876667,
+      "zth_r_ohm": 5.01763170477,
+      "zth_x_ohm": 12.487515712,
+      "u_stage_kv": 37.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_2b3354430fc2547d83f62b39bc5cb1c5",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.7073295005,
+      "i2_ka": 4.07666693142,
+      "zth_r_ohm": 5.04581058843,
+      "zth_x_ohm": 13.1712270611,
+      "u_stage_kv": 115.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_2cc67cdf86fa530095b7e4b04ca48926",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.24923155875,
+      "i2_ka": 1.08186626509,
+      "zth_r_ohm": 3.24587076421,
+      "zth_x_ohm": 3.60739069844,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_2da114f40d065c4cae42fbdda1e1b221",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_2e528d60119e561da70c1d4e88c0f3be",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.43326445714,
+      "i2_ka": 6.43739585293,
+      "zth_r_ohm": 0.0283583056616,
+      "zth_x_ohm": 0.815053986304,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_32ea59bbff6e5a7298a2cbd5f7414ee1",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 13.3430573204,
+      "i2_ka": 11.5554266036,
+      "zth_r_ohm": 0.00556922230531,
+      "zth_x_ohm": 0.0163873933778,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_38286de7a5225dd0b947666977496d5c",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_39bee5ebfcf259c98f4ad466c23706a6",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 9.02249386627,
+      "i2_ka": 7.81370889368,
+      "zth_r_ohm": 0.0104694510783,
+      "zth_x_ohm": 0.0233569651813,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_490e8940a59a512b8d2e721d9cfd5210",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.7073295005,
+      "i2_ka": 4.07666693142,
+      "zth_r_ohm": 5.04581058843,
+      "zth_x_ohm": 13.1712270611,
+      "u_stage_kv": 115.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_49e9eb9f236051ccb12da647ea332bf6",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 5.24910492154,
+      "i2_ka": 4.54585820918,
+      "zth_r_ohm": 0.0256015510218,
+      "zth_x_ohm": 0.0357801170228,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_581e44fe616b54b197d74c320f9b540d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 3.95365429821,
+      "i2_ka": 3.42396506004,
+      "zth_r_ohm": 6.41531058843,
+      "zth_x_ohm": 15.5197270611,
+      "u_stage_kv": 115.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_59e6a417aa1c5d2e87c70144eb3a7990",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.36297990994,
+      "i2_ka": 1.18037522686,
+      "zth_r_ohm": 1.9822527846,
+      "zth_x_ohm": 3.98158876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_61542578a45d5425a6156a97d70af42a",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.69692452868,
+      "i2_ka": 4.06765596149,
+      "zth_r_ohm": 0.119631133639,
+      "zth_x_ohm": 1.28511340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_626eed90f0a156038e52bfea4ba9855d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.69692452868,
+      "i2_ka": 4.06765596149,
+      "zth_r_ohm": 0.119631133639,
+      "zth_x_ohm": 1.28511340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_6305cfe6ea6e50fa88c3ea902e9888d6",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 0.761162856345,
+      "i2_ka": 0.659186370012,
+      "zth_r_ohm": 4.9844527846,
+      "zth_x_ohm": 6.21178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_6982b468f1de5f4e82e54339e156af90",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.53109323545,
+      "i2_ka": 2.19199104125,
+      "zth_r_ohm": 2.02886875097,
+      "zth_x_ohm": 1.27283664362,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_6bb285ae88d4583d8da820dbb237c501",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_716d138c8d6a56b5b4191a0eef0eb7bc",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.89763945336,
+      "i2_ka": 6.83955639654,
+      "zth_r_ohm": 0.0402687509741,
+      "zth_x_ohm": 0.766536643623,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_71fdd8b61c0d519791901ba7d928df60",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 6.37676649946,
+      "i2_ka": 5.52244178253,
+      "zth_r_ohm": 0.275558305662,
+      "zth_x_ohm": 0.909853986304,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_721011e756c659caab9f1c019256266d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 5.60296326765,
+      "i2_ka": 4.85230852626,
+      "zth_r_ohm": 0.023421200202,
+      "zth_x_ohm": 0.0339165038598,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_747fcdbbaa5653aa8f49dce687fe5506",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.45186061862,
+      "i2_ka": 1.25734817848,
+      "zth_r_ohm": 2.73227076421,
+      "zth_x_ohm": 3.15739069844,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_75d70c789a8655f89f43e14b15216c90",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_772259ffe2ed57ac9a1af603c8229f35",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_7b64e69ed26a5c698d363f115f398098",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.69692452868,
+      "i2_ka": 4.06765596149,
+      "zth_r_ohm": 0.119631133639,
+      "zth_x_ohm": 1.28511340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_7f42766ea7915b6d9c946d41b7aa65dc",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 9.91321873707,
+      "i2_ka": 8.58509925958,
+      "zth_r_ohm": 0.00798729251842,
+      "zth_x_ohm": 0.0218841281509,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_83a97e1d3da0535d9d897c6d7c87d1e0",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_84d67b0064775218b2ea5e7718366da7",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.28969480805,
+      "i2_ka": 1.98293387068,
+      "zth_r_ohm": 1.89983113364,
+      "zth_x_ohm": 1.84401340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_858a3b23bf235f43aa68f6e4054de7ba",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 8.0580717697,
+      "i2_ka": 6.97849485808,
+      "zth_r_ohm": 0.0123105607462,
+      "zth_x_ohm": 0.025880796167,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_87715017c12357fa9944b7bcf969fdc3",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 12.5510928085,
+      "i2_ka": 10.8695652174,
+      "zth_r_ohm": 0.439310588426,
+      "zth_x_ohm": 5.27172706112,
+      "u_stage_kv": 115.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_8ac0b08c292d506389db561b356a325d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 0.987848700493,
+      "i2_ka": 0.855502069723,
+      "zth_r_ohm": 4.23466875097,
+      "zth_x_ohm": 4.44153664362,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_8aeff72844485d6993e7ea911cb76260",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 0.963723373958,
+      "i2_ka": 0.834608924068,
+      "zth_r_ohm": 3.7004527846,
+      "zth_x_ohm": 5.08678876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_8ba251478c7356b78ae7a97f1449e539",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.41591426933,
+      "i2_ka": 2.0922431306,
+      "zth_r_ohm": 1.66463113364,
+      "zth_x_ohm": 1.87761340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_948b8e0a452a5a6b9fffe945bf81b76c",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 3.39220419039,
+      "i2_ka": 2.9377350037,
+      "zth_r_ohm": 0.352131704768,
+      "zth_x_ohm": 6.28751571202,
+      "u_stage_kv": 37.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_966684c6f9395f44a7bc4a4c41cbbc25",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 1.07746146237,
+      "i2_ka": 0.933108998008,
+      "zth_r_ohm": 3.1868527846,
+      "zth_x_ohm": 4.63678876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_a75a34776e5a5c73b4f3c836e9016617",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 11.3790222503,
+      "i2_ka": 9.85452233897,
+      "zth_r_ohm": 0.00594048275115,
+      "zth_x_ohm": 0.0194063870903,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_a9751177cf7d57e7a9c1d8a042f2f82b",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 6.77953023646,
+      "i2_ka": 5.8712454105,
+      "zth_r_ohm": 0.266868750974,
+      "zth_x_ohm": 0.853436643623,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_b4d6e2ea2ebc5932a6fcfa87297ecb4e",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 5.17933199033,
+      "i2_ka": 4.48543307826,
+      "zth_r_ohm": 0.0260299621068,
+      "zth_x_ohm": 0.0362022181455,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_b5e17288d5525101ae56661c8ffc5071",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.25054079509,
+      "i2_ka": 6.27915251972,
+      "zth_r_ohm": 0.0786707642066,
+      "zth_x_ohm": 0.832390698443,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_b8dceb8688b05418b6134d05194af8d9",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.94279491088,
+      "i2_ka": 4.28058595852,
+      "zth_r_ohm": 0.0266896729754,
+      "zth_x_ohm": 0.0383491903961,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_bbf6afd20e215cca8e23145cde1d393c",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.69692452868,
+      "i2_ka": 4.06765596149,
+      "zth_r_ohm": 0.119631133639,
+      "zth_x_ohm": 1.28511340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_bd27848b782b5b27abd5d468a3f4e24d",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.69692452868,
+      "i2_ka": 4.06765596149,
+      "zth_r_ohm": 0.119631133639,
+      "zth_x_ohm": 1.28511340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_c3587c27ca2f5e179bb26dc6028569ad",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.47780963379,
+      "i2_ka": 6.47597310753,
+      "zth_r_ohm": 0.0129702716148,
+      "zth_x_ohm": 0.0280277684177,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_c5c1fe476b33566281aeb15cde815139",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 9.05006295729,
+      "i2_ka": 7.83758442686,
+      "zth_r_ohm": 0.0103571245477,
+      "zth_x_ohm": 0.0233216998752,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_cbb24ab6da605fd1b53a1953c5b8dbb7",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.06781839605,
+      "i2_ka": 1.7907832614,
+      "zth_r_ohm": 1.52767076421,
+      "zth_x_ohm": 2.50219069844,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_d2103c397ef559fbb82ab929d4c7474e",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.89763945336,
+      "i2_ka": 6.83955639654,
+      "zth_r_ohm": 0.0402687509741,
+      "zth_x_ohm": 0.766536643623,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_d99f47ea04d856929e9b9c7d001240a4",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 4.69692452868,
+      "i2_ka": 4.06765596149,
+      "zth_r_ohm": 0.119631133639,
+      "zth_x_ohm": 1.28511340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_ddbfe52eafb2518eb178db3e91a1a23a",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.36049414788,
+      "i2_ka": 2.04424789755,
+      "zth_r_ohm": 1.72643113364,
+      "zth_x_ohm": 1.90131340989,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_ddd1c0e900425b34aed520901aaf57d4",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 7.43326445714,
+      "i2_ka": 6.43739585293,
+      "zth_r_ohm": 0.0283583056616,
+      "zth_x_ohm": 0.815053986304,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_df10e50028f55d25aef18d2bff870f00",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 0.925385827581,
+      "i2_ka": 0.801407634987,
+      "zth_r_ohm": 4.52987076421,
+      "zth_x_ohm": 4.73239069844,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_df777f56ec3b5ce59ba19e4fbbdd5099",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 13.3904566376,
+      "i2_ka": 11.5964756164,
+      "zth_r_ohm": 0.00547953523048,
+      "zth_x_ohm": 0.01635299882,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_ec70f7ef40a25a6f81347a7bb3ed9074",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 12.5510928085,
+      "i2_ka": 10.8695652174,
+      "zth_r_ohm": 0.439310588426,
+      "zth_x_ohm": 5.27172706112,
+      "u_stage_kv": 115.0,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_f066d44e139c5887bf897846188d7572",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_f8ac0dd129025b238f34eea8a051e193",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 15.0502855611,
+      "i2_ka": 13.0339296301,
+      "zth_r_ohm": 0.00346364722616,
+      "zth_x_ohm": 0.0149485406996,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_faba281c6a015b2495b20d56d6a14151",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 2.55519250157,
+      "i2_ka": 2.21286161792,
+      "zth_r_ohm": 0.5332527846,
+      "zth_x_ohm": 2.31178876492,
+      "u_stage_kv": 10.5,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_fd8af8f488245af0b684bc54f793e571",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 12.7950263793,
+      "i2_ka": 11.0808178866,
+      "zth_r_ohm": 0.00528077188255,
+      "zth_x_ohm": 0.0172594148397,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "fault_currents/w_repair/N_fda9879e328b5c8698831cc8a7f8cd82",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "i3_ka": 9.29647475894,
+      "i2_ka": 8.05098330688,
+      "zth_r_ohm": 0.0105443900241,
+      "zth_x_ohm": 0.0224927812121,
+      "u_stage_kv": 0.4,
+      "regime": "max"
+    }
+  },
+  {
+    "path": "protections/CF1_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 9.90084266716,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/CF1|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 88.7220023932,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/CF4_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 10.8735907221,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/CF4|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 186.707194349,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/CF5_2|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 38.843187859,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/CF5_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 8.51461509547,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/CF6_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 7.58260842313,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/CF6|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 47.7039747732,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/NF1_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 6.54576685997,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/NF1|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 24.6786366544,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/NF3_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 9.13722861103,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/NF3|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 57.5448883679,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/NF4_2|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 36.377261874,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/NF4_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 8.39336774448,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/NF5_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 8.36821728477,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/NF5|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 28.0911488639,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/SF1_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 7.25724672475,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/SF1|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 31.0613629144,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/SF2_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 7.39240088078,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/SF2|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 29.8045078936,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/SF4_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 7.36691035321,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/SF4|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 28.9424750876,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/SF5_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 7.28609195842,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/SF5|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 31.8550359058,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/VL110_2|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 48.833024469,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/VL110_3|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 39.265641635,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/VL35|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 16.4307350617,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/WF1_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 6.07441252786,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/WF1|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 19.4490189363,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/WF3_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 8.68073783087,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/WF3|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 43.6955265463,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/WF4_2|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 30.4605602482,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/WF4_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 8.00951295949,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/WF5_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 7.43836649998,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/WF5|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 18.8551319677,
+      "required": 1.2,
+      "status": "ok"
+    }
+  }
+]

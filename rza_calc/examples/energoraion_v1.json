@@ -1,0 +1,2514 @@
+{
+ "format_version": 1,
+ "project": {
+  "name": "Энергорайон — демонстрационная сеть",
+  "note": "Четыре подстанции и 24 отходящих фидера 10 кВ. Демонстрационный проект: параметры оборудования взяты из типовых справочных рядов и правдоподобны, но к реальному объекту не относятся. Коэффициенты методики — заглушка и требуют замены на принятые в проекте."
+ },
+ "methodology": {
+  "file": "../data/methodology_default.json"
+ },
+ "neutral": {
+  "110": "earthed",
+  "35": "isolated",
+  "10": "isolated",
+  "0.4": "earthed"
+ },
+ "nodes": [
+  {
+   "id": "c110",
+   "name": "ЦЕНТРАЛЬНАЯ · ОРУ 110 кВ",
+   "u_nom": 110
+  },
+  {
+   "id": "c35",
+   "name": "ЦЕНТРАЛЬНАЯ · ОРУ 35 кВ",
+   "u_nom": 35
+  },
+  {
+   "id": "c10_t1",
+   "name": "ЦЕНТРАЛЬНАЯ · вывод НН Т1",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "c10_t2",
+   "name": "ЦЕНТРАЛЬНАЯ · вывод НН Т2",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "c10_1",
+   "name": "ЦЕНТРАЛЬНАЯ · 1 СШ 10 кВ",
+   "u_nom": 10
+  },
+  {
+   "id": "c10_2",
+   "name": "ЦЕНТРАЛЬНАЯ · 2 СШ 10 кВ",
+   "u_nom": 10
+  },
+  {
+   "id": "n110",
+   "name": "СЕВЕРНАЯ · ОРУ 110 кВ",
+   "u_nom": 110
+  },
+  {
+   "id": "n10_t1",
+   "name": "СЕВЕРНАЯ · вывод НН Т1",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "n10_t2",
+   "name": "СЕВЕРНАЯ · вывод НН Т2",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "n10_1",
+   "name": "СЕВЕРНАЯ · 1 СШ 10 кВ",
+   "u_nom": 10
+  },
+  {
+   "id": "n10_2",
+   "name": "СЕВЕРНАЯ · 2 СШ 10 кВ",
+   "u_nom": 10
+  },
+  {
+   "id": "w35",
+   "name": "ЗАПАДНАЯ · ОРУ 35 кВ",
+   "u_nom": 35
+  },
+  {
+   "id": "w10_t1",
+   "name": "ЗАПАДНАЯ · вывод НН Т1",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "w10_t2",
+   "name": "ЗАПАДНАЯ · вывод НН Т2",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "w10_1",
+   "name": "ЗАПАДНАЯ · 1 СШ 10 кВ",
+   "u_nom": 10
+  },
+  {
+   "id": "w10_2",
+   "name": "ЗАПАДНАЯ · 2 СШ 10 кВ",
+   "u_nom": 10
+  },
+  {
+   "id": "s110",
+   "name": "ЮЖНАЯ · ОРУ 110 кВ",
+   "u_nom": 110
+  },
+  {
+   "id": "s10_t1",
+   "name": "ЮЖНАЯ · вывод НН Т1",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "s10_1",
+   "name": "ЮЖНАЯ · 1 СШ 10 кВ",
+   "u_nom": 10
+  },
+  {
+   "id": "CF1_end",
+   "name": "Центральная · конец Ф-1",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "CF1_lv",
+   "name": "Центральная · КТП Ф-1, щит 0,4 кВ",
+   "u_nom": 0.4
+  },
+  {
+   "id": "CF2_end",
+   "name": "Центральная · конец Ф-2",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "CF3_end",
+   "name": "Центральная · конец Ф-3",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "CF4_end",
+   "name": "Центральная · конец Ф-4",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "CF4_lv",
+   "name": "Центральная · КТП Ф-4, щит 0,4 кВ",
+   "u_nom": 0.4
+  },
+  {
+   "id": "CF5_end",
+   "name": "Центральная · конец Ф-5",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "CF5_rec",
+   "name": "Центральная · за реклоузером Ф-5",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "CF5_tail",
+   "name": "Центральная · хвост Ф-5",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "CF5_lv",
+   "name": "Центральная · КТП Ф-5, щит 0,4 кВ",
+   "u_nom": 0.4
+  },
+  {
+   "id": "CF6_end",
+   "name": "Центральная · конец Ф-6",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "CF6_lv",
+   "name": "Центральная · КТП Ф-6, щит 0,4 кВ",
+   "u_nom": 0.4
+  },
+  {
+   "id": "NF1_end",
+   "name": "Северная · конец Ф-1",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "NF1_lv",
+   "name": "Северная · КТП Ф-1, щит 0,4 кВ",
+   "u_nom": 0.4
+  },
+  {
+   "id": "NF2_end",
+   "name": "Северная · конец Ф-2",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "NF3_end",
+   "name": "Северная · конец Ф-3",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "NF3_lv",
+   "name": "Северная · КТП Ф-3, щит 0,4 кВ",
+   "u_nom": 0.4
+  },
+  {
+   "id": "NF4_end",
+   "name": "Северная · конец Ф-4",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "NF4_rec",
+   "name": "Северная · за реклоузером Ф-4",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "NF4_tail",
+   "name": "Северная · хвост Ф-4",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "NF4_lv",
+   "name": "Северная · КТП Ф-4, щит 0,4 кВ",
+   "u_nom": 0.4
+  },
+  {
+   "id": "NF5_end",
+   "name": "Северная · конец Ф-5",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "NF5_lv",
+   "name": "Северная · КТП Ф-5, щит 0,4 кВ",
+   "u_nom": 0.4
+  },
+  {
+   "id": "NF6_end",
+   "name": "Северная · конец Ф-6",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "WF1_end",
+   "name": "Западная · конец Ф-1",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "WF1_lv",
+   "name": "Западная · КТП Ф-1, щит 0,4 кВ",
+   "u_nom": 0.4
+  },
+  {
+   "id": "WF2_end",
+   "name": "Западная · конец Ф-2",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "WF3_end",
+   "name": "Западная · конец Ф-3",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "WF3_lv",
+   "name": "Западная · КТП Ф-3, щит 0,4 кВ",
+   "u_nom": 0.4
+  },
+  {
+   "id": "WF4_end",
+   "name": "Западная · конец Ф-4",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "WF4_rec",
+   "name": "Западная · за реклоузером Ф-4",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "WF4_tail",
+   "name": "Западная · хвост Ф-4",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "WF4_lv",
+   "name": "Западная · КТП Ф-4, щит 0,4 кВ",
+   "u_nom": 0.4
+  },
+  {
+   "id": "WF5_end",
+   "name": "Западная · конец Ф-5",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "WF5_lv",
+   "name": "Западная · КТП Ф-5, щит 0,4 кВ",
+   "u_nom": 0.4
+  },
+  {
+   "id": "WF6_end",
+   "name": "Западная · конец Ф-6",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "SF1_end",
+   "name": "Южная · конец Ф-1",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "SF1_lv",
+   "name": "Южная · КТП Ф-1, щит 0,4 кВ",
+   "u_nom": 0.4
+  },
+  {
+   "id": "SF2_end",
+   "name": "Южная · конец Ф-2",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "SF2_lv",
+   "name": "Южная · КТП Ф-2, щит 0,4 кВ",
+   "u_nom": 0.4
+  },
+  {
+   "id": "SF3_end",
+   "name": "Южная · конец Ф-3",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "SF4_end",
+   "name": "Южная · конец Ф-4",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "SF4_lv",
+   "name": "Южная · КТП Ф-4, щит 0,4 кВ",
+   "u_nom": 0.4
+  },
+  {
+   "id": "SF5_end",
+   "name": "Южная · конец Ф-5",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "SF5_lv",
+   "name": "Южная · КТП Ф-5, щит 0,4 кВ",
+   "u_nom": 0.4
+  },
+  {
+   "id": "SF6_end",
+   "name": "Южная · конец Ф-6",
+   "u_nom": 10,
+   "kind": "point"
+  }
+ ],
+ "transformers3w": [
+  {
+   "id": "CT1",
+   "name": "Т1 Центральная 110/35/10",
+   "node_hv": "c110",
+   "node_mv": "c35",
+   "node_lv": "c10_t1",
+   "s_nom": 25000,
+   "u_hv": 110,
+   "u_mv": 35,
+   "u_lv": 10,
+   "uk_hm": 10.5,
+   "uk_hl": 17.5,
+   "uk_ml": 6.5,
+   "p_k": 140,
+   "group": "Ун/Ун/Д-0-11",
+   "i_inrush_ratio": 5,
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  }
+ ],
+ "branches": [
+  {
+   "id": "SC",
+   "kind": "source",
+   "name": "Энергосистема 110 кВ",
+   "node_from": "GRID",
+   "node_to": "c110",
+   "s_kz_max": 2500,
+   "s_kz_min": 1700,
+   "input_mode_max": "power",
+   "input_mode_min": "power",
+   "x_r_ratio": 12.0
+  },
+  {
+   "id": "CT2",
+   "kind": "transformer",
+   "name": "Т2 Центральная 110/10",
+   "node_from": "c110",
+   "node_to": "c10_t2",
+   "s_nom": 16000,
+   "u_hv": 110,
+   "u_lv": 10,
+   "uk": 10.5,
+   "p_k": 85,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 5.0,
+   "ct_ratio": [
+    150,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "CV1",
+   "kind": "tie",
+   "name": "Ввод-1 10 кВ (Центральная)",
+   "node_from": "c10_t1",
+   "node_to": "c10_1",
+   "ct_ratio": [
+    1500,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "CV2",
+   "kind": "tie",
+   "name": "Ввод-2 10 кВ (Центральная)",
+   "node_from": "c10_t2",
+   "node_to": "c10_2",
+   "ct_ratio": [
+    1500,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "CSV",
+   "kind": "tie",
+   "name": "СВ 10 кВ (Центральная)",
+   "node_from": "c10_1",
+   "node_to": "c10_2",
+   "ct_ratio": [
+    1500,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "VL110_1",
+   "kind": "line",
+   "name": "ВЛ-110 Центральная — Северная",
+   "node_from": "c110",
+   "node_to": "n110",
+   "line_type": "overhead",
+   "length_km": 18.5,
+   "brand": "АС-120",
+   "section_mm2": 120,
+   "material": "Al",
+   "r0": 0.249,
+   "x0": 0.427,
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   }
+  },
+  {
+   "id": "NT1",
+   "kind": "transformer",
+   "name": "Т1 Северная 110/10",
+   "node_from": "n110",
+   "node_to": "n10_t1",
+   "s_nom": 16000,
+   "u_hv": 110,
+   "u_lv": 10,
+   "uk": 10.5,
+   "p_k": 85,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 5.0,
+   "ct_ratio": [
+    150,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "NT2",
+   "kind": "transformer",
+   "name": "Т2 Северная 110/10",
+   "node_from": "n110",
+   "node_to": "n10_t2",
+   "s_nom": 16000,
+   "u_hv": 110,
+   "u_lv": 10,
+   "uk": 10.5,
+   "p_k": 85,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 5.0,
+   "ct_ratio": [
+    150,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "NV1",
+   "kind": "tie",
+   "name": "Ввод-1 10 кВ (Северная)",
+   "node_from": "n10_t1",
+   "node_to": "n10_1",
+   "ct_ratio": [
+    1500,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "NV2",
+   "kind": "tie",
+   "name": "Ввод-2 10 кВ (Северная)",
+   "node_from": "n10_t2",
+   "node_to": "n10_2",
+   "ct_ratio": [
+    1500,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "NSV",
+   "kind": "tie",
+   "name": "СВ 10 кВ (Северная)",
+   "node_from": "n10_1",
+   "node_to": "n10_2",
+   "ct_ratio": [
+    1500,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "VL35",
+   "kind": "line",
+   "name": "ВЛ-35 Центральная — Западная",
+   "node_from": "c35",
+   "node_to": "w35",
+   "line_type": "overhead",
+   "length_km": 15.5,
+   "brand": "АС-95",
+   "section_mm2": 95,
+   "material": "Al",
+   "r0": 0.301,
+   "x0": 0.4,
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   }
+  },
+  {
+   "id": "WT1",
+   "kind": "transformer",
+   "name": "Т1 Западная 35/10",
+   "node_from": "w35",
+   "node_to": "w10_t1",
+   "s_nom": 6300,
+   "u_hv": 35,
+   "u_lv": 10,
+   "uk": 7.5,
+   "p_k": 46.5,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 5.0,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "WT2",
+   "kind": "transformer",
+   "name": "Т2 Западная 35/10",
+   "node_from": "w35",
+   "node_to": "w10_t2",
+   "s_nom": 6300,
+   "u_hv": 35,
+   "u_lv": 10,
+   "uk": 7.5,
+   "p_k": 46.5,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 5.0,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "WV1",
+   "kind": "tie",
+   "name": "Ввод-1 10 кВ (Западная)",
+   "node_from": "w10_t1",
+   "node_to": "w10_1",
+   "ct_ratio": [
+    1000,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "WV2",
+   "kind": "tie",
+   "name": "Ввод-2 10 кВ (Западная)",
+   "node_from": "w10_t2",
+   "node_to": "w10_2",
+   "ct_ratio": [
+    1000,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "WSV",
+   "kind": "tie",
+   "name": "СВ 10 кВ (Западная)",
+   "node_from": "w10_1",
+   "node_to": "w10_2",
+   "ct_ratio": [
+    1000,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "VL110_2",
+   "kind": "line",
+   "name": "ВЛ-110 Центральная — Южная",
+   "node_from": "c110",
+   "node_to": "s110",
+   "line_type": "overhead",
+   "length_km": 24.0,
+   "brand": "АС-120",
+   "section_mm2": 120,
+   "material": "Al",
+   "r0": 0.249,
+   "x0": 0.427,
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   }
+  },
+  {
+   "id": "VL110_3",
+   "kind": "line",
+   "name": "ВЛ-110 Северная — Южная (резерв)",
+   "node_from": "n110",
+   "node_to": "s110",
+   "line_type": "overhead",
+   "length_km": 21.0,
+   "brand": "АС-120",
+   "section_mm2": 120,
+   "material": "Al",
+   "r0": 0.249,
+   "x0": 0.427,
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   }
+  },
+  {
+   "id": "ST1",
+   "kind": "transformer",
+   "name": "Т1 Южная 110/10",
+   "node_from": "s110",
+   "node_to": "s10_t1",
+   "s_nom": 10000,
+   "u_hv": 110,
+   "u_lv": 10,
+   "uk": 10.5,
+   "p_k": 60,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 5.0,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "SV1",
+   "kind": "tie",
+   "name": "Ввод-1 10 кВ (Южная)",
+   "node_from": "s10_t1",
+   "node_to": "s10_1",
+   "ct_ratio": [
+    1000,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "CF1",
+   "kind": "line",
+   "name": "Ф-1 10 кВ (Центральная)",
+   "node_from": "c10_1",
+   "node_to": "CF1_end",
+   "line_type": "cable",
+   "length_km": 1.2,
+   "brand": "АПвПу-10",
+   "section_mm2": 150,
+   "material": "Al",
+   "r0": 0.206,
+   "x0": 0.079,
+   "ic_per_km": 1.0,
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": true
+   }
+  },
+  {
+   "id": "CF1_T",
+   "kind": "transformer",
+   "name": "КТП Ф-1 630 кВ·А (Центральная)",
+   "node_from": "CF1_end",
+   "node_to": "CF1_lv",
+   "s_nom": 630.0,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 7.6,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8.0,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   }
+  },
+  {
+   "id": "CF2",
+   "kind": "line",
+   "name": "Ф-2 10 кВ (Центральная)",
+   "node_from": "c10_1",
+   "node_to": "CF2_end",
+   "line_type": "overhead",
+   "length_km": 6.4,
+   "brand": "АС-70",
+   "section_mm2": 70,
+   "material": "Al",
+   "r0": 0.428,
+   "x0": 0.375,
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   },
+   "ic_per_km": 0.02
+  },
+  {
+   "id": "CF3",
+   "kind": "line",
+   "name": "Ф-3 10 кВ (Центральная)",
+   "node_from": "c10_1",
+   "node_to": "CF3_end",
+   "line_type": "cable",
+   "length_km": 5.6,
+   "brand": "АПвПу-10",
+   "section_mm2": 120,
+   "material": "Al",
+   "r0": 0.258,
+   "x0": 0.081,
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "CF4",
+   "kind": "line",
+   "name": "Ф-4 10 кВ (Центральная)",
+   "node_from": "c10_2",
+   "node_to": "CF4_end",
+   "line_type": "cable",
+   "length_km": 1.1,
+   "brand": "АПвПу-10",
+   "section_mm2": 150,
+   "material": "Al",
+   "r0": 0.206,
+   "x0": 0.079,
+   "ic_per_km": 1.0,
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": true
+   }
+  },
+  {
+   "id": "CF4_T",
+   "kind": "transformer",
+   "name": "КТП Ф-4 400 кВ·А (Центральная)",
+   "node_from": "CF4_end",
+   "node_to": "CF4_lv",
+   "s_nom": 400.0,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 7.6,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8.0,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   }
+  },
+  {
+   "id": "CF5",
+   "kind": "line",
+   "name": "Ф-5 10 кВ (Центральная)",
+   "node_from": "c10_2",
+   "node_to": "CF5_end",
+   "line_type": "overhead",
+   "length_km": 8.2,
+   "brand": "АС-70",
+   "section_mm2": 70,
+   "material": "Al",
+   "r0": 0.428,
+   "x0": 0.375,
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   },
+   "ic_per_km": 0.02
+  },
+  {
+   "id": "CF5_R",
+   "kind": "tie",
+   "name": "Реклоузер Ф-5 (Центральная)",
+   "node_from": "CF5_end",
+   "node_to": "CF5_rec",
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "PBA/TEL",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "CF5_2",
+   "kind": "line",
+   "name": "Ф-5 за реклоузером (Центральная)",
+   "node_from": "CF5_rec",
+   "node_to": "CF5_tail",
+   "line_type": "overhead",
+   "length_km": 1.6,
+   "brand": "АС-70",
+   "section_mm2": 70,
+   "material": "Al",
+   "r0": 0.428,
+   "x0": 0.375,
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "PBA/TEL",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   },
+   "ic_per_km": 0.02
+  },
+  {
+   "id": "CF5_T",
+   "kind": "transformer",
+   "name": "КТП Ф-5 250 кВ·А (Центральная)",
+   "node_from": "CF5_tail",
+   "node_to": "CF5_lv",
+   "s_nom": 250.0,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 7.6,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8.0,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   }
+  },
+  {
+   "id": "CF6",
+   "kind": "line",
+   "name": "Ф-6 10 кВ (Центральная)",
+   "node_from": "c10_2",
+   "node_to": "CF6_end",
+   "line_type": "cable",
+   "length_km": 6.1,
+   "brand": "АПвПу-10",
+   "section_mm2": 95,
+   "material": "Al",
+   "r0": 0.326,
+   "x0": 0.083,
+   "ic_per_km": 0.8,
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "CF6_T",
+   "kind": "transformer",
+   "name": "КТП Ф-6 400 кВ·А (Центральная)",
+   "node_from": "CF6_end",
+   "node_to": "CF6_lv",
+   "s_nom": 400.0,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 7.6,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8.0,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   }
+  },
+  {
+   "id": "NF1",
+   "kind": "line",
+   "name": "Ф-1 10 кВ (Северная)",
+   "node_from": "n10_1",
+   "node_to": "NF1_end",
+   "line_type": "overhead",
+   "length_km": 7.4,
+   "brand": "АС-70",
+   "section_mm2": 70,
+   "material": "Al",
+   "r0": 0.428,
+   "x0": 0.375,
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   },
+   "ic_per_km": 0.02
+  },
+  {
+   "id": "NF1_T",
+   "kind": "transformer",
+   "name": "КТП Ф-1 400 кВ·А (Северная)",
+   "node_from": "NF1_end",
+   "node_to": "NF1_lv",
+   "s_nom": 400.0,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 7.6,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8.0,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   }
+  },
+  {
+   "id": "NF2",
+   "kind": "line",
+   "name": "Ф-2 10 кВ (Северная)",
+   "node_from": "n10_1",
+   "node_to": "NF2_end",
+   "line_type": "overhead",
+   "length_km": 5.1,
+   "brand": "АС-70",
+   "section_mm2": 70,
+   "material": "Al",
+   "r0": 0.428,
+   "x0": 0.375,
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   },
+   "ic_per_km": 0.02
+  },
+  {
+   "id": "NF3",
+   "kind": "line",
+   "name": "Ф-3 10 кВ (Северная)",
+   "node_from": "n10_1",
+   "node_to": "NF3_end",
+   "line_type": "overhead",
+   "length_km": 6.2,
+   "brand": "АС-70",
+   "section_mm2": 70,
+   "material": "Al",
+   "r0": 0.428,
+   "x0": 0.375,
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   },
+   "ic_per_km": 0.02
+  },
+  {
+   "id": "NF3_T",
+   "kind": "transformer",
+   "name": "КТП Ф-3 250 кВ·А (Северная)",
+   "node_from": "NF3_end",
+   "node_to": "NF3_lv",
+   "s_nom": 250.0,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 7.6,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8.0,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   }
+  },
+  {
+   "id": "NF4",
+   "kind": "line",
+   "name": "Ф-4 10 кВ (Северная)",
+   "node_from": "n10_2",
+   "node_to": "NF4_end",
+   "line_type": "overhead",
+   "length_km": 8.8,
+   "brand": "АС-70",
+   "section_mm2": 70,
+   "material": "Al",
+   "r0": 0.428,
+   "x0": 0.375,
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   },
+   "ic_per_km": 0.02
+  },
+  {
+   "id": "NF4_R",
+   "kind": "tie",
+   "name": "Реклоузер Ф-4 (Северная)",
+   "node_from": "NF4_end",
+   "node_to": "NF4_rec",
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "PBA/TEL",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "NF4_2",
+   "kind": "line",
+   "name": "Ф-4 за реклоузером (Северная)",
+   "node_from": "NF4_rec",
+   "node_to": "NF4_tail",
+   "line_type": "overhead",
+   "length_km": 1.6,
+   "brand": "АС-70",
+   "section_mm2": 70,
+   "material": "Al",
+   "r0": 0.428,
+   "x0": 0.375,
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "PBA/TEL",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   },
+   "ic_per_km": 0.02
+  },
+  {
+   "id": "NF4_T",
+   "kind": "transformer",
+   "name": "КТП Ф-4 250 кВ·А (Северная)",
+   "node_from": "NF4_tail",
+   "node_to": "NF4_lv",
+   "s_nom": 250.0,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 7.6,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8.0,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   }
+  },
+  {
+   "id": "NF5",
+   "kind": "line",
+   "name": "Ф-5 10 кВ (Северная)",
+   "node_from": "n10_2",
+   "node_to": "NF5_end",
+   "line_type": "overhead",
+   "length_km": 4.6,
+   "brand": "АС-95",
+   "section_mm2": 95,
+   "material": "Al",
+   "r0": 0.315,
+   "x0": 0.363,
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   },
+   "ic_per_km": 0.02
+  },
+  {
+   "id": "NF5_T",
+   "kind": "transformer",
+   "name": "КТП Ф-5 630 кВ·А (Северная)",
+   "node_from": "NF5_end",
+   "node_to": "NF5_lv",
+   "s_nom": 630.0,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 7.6,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8.0,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   }
+  },
+  {
+   "id": "NF6",
+   "kind": "line",
+   "name": "Ф-6 10 кВ (Северная)",
+   "node_from": "n10_2",
+   "node_to": "NF6_end",
+   "line_type": "overhead",
+   "length_km": 6.8,
+   "brand": "АС-50",
+   "section_mm2": 50,
+   "material": "Al",
+   "r0": 0.603,
+   "x0": 0.392,
+   "ct_ratio": [
+    150,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   },
+   "ic_per_km": 0.02
+  },
+  {
+   "id": "WF1",
+   "kind": "line",
+   "name": "Ф-1 10 кВ (Западная)",
+   "node_from": "w10_1",
+   "node_to": "WF1_end",
+   "line_type": "overhead",
+   "length_km": 7.4,
+   "brand": "АС-70",
+   "section_mm2": 70,
+   "material": "Al",
+   "r0": 0.428,
+   "x0": 0.375,
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   },
+   "ic_per_km": 0.02
+  },
+  {
+   "id": "WF1_T",
+   "kind": "transformer",
+   "name": "КТП Ф-1 400 кВ·А (Западная)",
+   "node_from": "WF1_end",
+   "node_to": "WF1_lv",
+   "s_nom": 400.0,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 7.6,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8.0,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   }
+  },
+  {
+   "id": "WF2",
+   "kind": "line",
+   "name": "Ф-2 10 кВ (Западная)",
+   "node_from": "w10_1",
+   "node_to": "WF2_end",
+   "line_type": "overhead",
+   "length_km": 5.1,
+   "brand": "АС-70",
+   "section_mm2": 70,
+   "material": "Al",
+   "r0": 0.428,
+   "x0": 0.375,
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   },
+   "ic_per_km": 0.02
+  },
+  {
+   "id": "WF3",
+   "kind": "line",
+   "name": "Ф-3 10 кВ (Западная)",
+   "node_from": "w10_1",
+   "node_to": "WF3_end",
+   "line_type": "overhead",
+   "length_km": 6.2,
+   "brand": "АС-70",
+   "section_mm2": 70,
+   "material": "Al",
+   "r0": 0.428,
+   "x0": 0.375,
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   },
+   "ic_per_km": 0.02
+  },
+  {
+   "id": "WF3_T",
+   "kind": "transformer",
+   "name": "КТП Ф-3 250 кВ·А (Западная)",
+   "node_from": "WF3_end",
+   "node_to": "WF3_lv",
+   "s_nom": 250.0,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 7.6,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8.0,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   }
+  },
+  {
+   "id": "WF4",
+   "kind": "line",
+   "name": "Ф-4 10 кВ (Западная)",
+   "node_from": "w10_2",
+   "node_to": "WF4_end",
+   "line_type": "overhead",
+   "length_km": 8.8,
+   "brand": "АС-70",
+   "section_mm2": 70,
+   "material": "Al",
+   "r0": 0.428,
+   "x0": 0.375,
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   },
+   "ic_per_km": 0.02
+  },
+  {
+   "id": "WF4_R",
+   "kind": "tie",
+   "name": "Реклоузер Ф-4 (Западная)",
+   "node_from": "WF4_end",
+   "node_to": "WF4_rec",
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "PBA/TEL",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "WF4_2",
+   "kind": "line",
+   "name": "Ф-4 за реклоузером (Западная)",
+   "node_from": "WF4_rec",
+   "node_to": "WF4_tail",
+   "line_type": "overhead",
+   "length_km": 1.6,
+   "brand": "АС-70",
+   "section_mm2": 70,
+   "material": "Al",
+   "r0": 0.428,
+   "x0": 0.375,
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "PBA/TEL",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   },
+   "ic_per_km": 0.02
+  },
+  {
+   "id": "WF4_T",
+   "kind": "transformer",
+   "name": "КТП Ф-4 250 кВ·А (Западная)",
+   "node_from": "WF4_tail",
+   "node_to": "WF4_lv",
+   "s_nom": 250.0,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 7.6,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8.0,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   }
+  },
+  {
+   "id": "WF5",
+   "kind": "line",
+   "name": "Ф-5 10 кВ (Западная)",
+   "node_from": "w10_2",
+   "node_to": "WF5_end",
+   "line_type": "overhead",
+   "length_km": 4.6,
+   "brand": "АС-95",
+   "section_mm2": 95,
+   "material": "Al",
+   "r0": 0.315,
+   "x0": 0.363,
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   },
+   "ic_per_km": 0.02
+  },
+  {
+   "id": "WF5_T",
+   "kind": "transformer",
+   "name": "КТП Ф-5 630 кВ·А (Западная)",
+   "node_from": "WF5_end",
+   "node_to": "WF5_lv",
+   "s_nom": 630.0,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 7.6,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8.0,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   }
+  },
+  {
+   "id": "WF6",
+   "kind": "line",
+   "name": "Ф-6 10 кВ (Западная)",
+   "node_from": "w10_2",
+   "node_to": "WF6_end",
+   "line_type": "overhead",
+   "length_km": 6.8,
+   "brand": "АС-50",
+   "section_mm2": 50,
+   "material": "Al",
+   "r0": 0.603,
+   "x0": 0.392,
+   "ct_ratio": [
+    150,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Бреслер ТОР-300",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   },
+   "ic_per_km": 0.02
+  },
+  {
+   "id": "SF1",
+   "kind": "line",
+   "name": "Ф-1 10 кВ (Южная)",
+   "node_from": "s10_1",
+   "node_to": "SF1_end",
+   "line_type": "cable",
+   "length_km": 7.8,
+   "brand": "АПвПу-10",
+   "section_mm2": 150,
+   "material": "Al",
+   "r0": 0.206,
+   "x0": 0.079,
+   "ic_per_km": 1.0,
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "SF1_T",
+   "kind": "transformer",
+   "name": "КТП Ф-1 630 кВ·А (Южная)",
+   "node_from": "SF1_end",
+   "node_to": "SF1_lv",
+   "s_nom": 630.0,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 7.6,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8.0,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   }
+  },
+  {
+   "id": "SF2",
+   "kind": "line",
+   "name": "Ф-2 10 кВ (Южная)",
+   "node_from": "s10_1",
+   "node_to": "SF2_end",
+   "line_type": "cable",
+   "length_km": 6.9,
+   "brand": "АПвПу-10",
+   "section_mm2": 120,
+   "material": "Al",
+   "r0": 0.258,
+   "x0": 0.081,
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "SF2_T",
+   "kind": "transformer",
+   "name": "КТП Ф-2 400 кВ·А (Южная)",
+   "node_from": "SF2_end",
+   "node_to": "SF2_lv",
+   "s_nom": 400.0,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 7.6,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8.0,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   }
+  },
+  {
+   "id": "SF3",
+   "kind": "line",
+   "name": "Ф-3 10 кВ (Южная)",
+   "node_from": "s10_1",
+   "node_to": "SF3_end",
+   "line_type": "cable",
+   "length_km": 8.4,
+   "brand": "АПвПу-10",
+   "section_mm2": 150,
+   "material": "Al",
+   "r0": 0.206,
+   "x0": 0.079,
+   "ic_per_km": 1.0,
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "SF4",
+   "kind": "line",
+   "name": "Ф-4 10 кВ (Южная)",
+   "node_from": "s10_1",
+   "node_to": "SF4_end",
+   "line_type": "cable",
+   "length_km": 7.2,
+   "brand": "АПвПу-10",
+   "section_mm2": 120,
+   "material": "Al",
+   "r0": 0.258,
+   "x0": 0.081,
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "SF4_T",
+   "kind": "transformer",
+   "name": "КТП Ф-4 400 кВ·А (Южная)",
+   "node_from": "SF4_end",
+   "node_to": "SF4_lv",
+   "s_nom": 400.0,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 7.6,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8.0,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   }
+  },
+  {
+   "id": "SF5",
+   "kind": "line",
+   "name": "Ф-5 10 кВ (Южная)",
+   "node_from": "s10_1",
+   "node_to": "SF5_end",
+   "line_type": "cable",
+   "length_km": 7.5,
+   "brand": "АПвПу-10",
+   "section_mm2": 150,
+   "material": "Al",
+   "r0": 0.206,
+   "x0": 0.079,
+   "ic_per_km": 1.0,
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "SF5_T",
+   "kind": "transformer",
+   "name": "КТП Ф-5 630 кВ·А (Южная)",
+   "node_from": "SF5_end",
+   "node_to": "SF5_lv",
+   "s_nom": 630.0,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 7.6,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8.0,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   }
+  },
+  {
+   "id": "SF6",
+   "kind": "line",
+   "name": "Ф-6 10 кВ (Южная)",
+   "node_from": "s10_1",
+   "node_to": "SF6_end",
+   "line_type": "cable",
+   "length_km": 5.8,
+   "brand": "АПвПу-10",
+   "section_mm2": 95,
+   "material": "Al",
+   "r0": 0.326,
+   "x0": 0.083,
+   "ic_per_km": 0.8,
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ-100",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  }
+ ],
+ "loads": [
+  {
+   "id": "CF1_L",
+   "name": "Нагрузка КТП Ф-1 (Центральная)",
+   "node": "CF1_lv",
+   "p_kw": 420,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "CF2_L",
+   "name": "Нагрузка Ф-2 (Центральная)",
+   "node": "CF2_end",
+   "p_kw": 620,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "CF3_L",
+   "name": "Нагрузка Ф-3 (Центральная)",
+   "node": "CF3_end",
+   "p_kw": 950,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "CF4_L",
+   "name": "Нагрузка КТП Ф-4 (Центральная)",
+   "node": "CF4_lv",
+   "p_kw": 260,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "CF5_L",
+   "name": "Нагрузка КТП Ф-5 (Центральная)",
+   "node": "CF5_lv",
+   "p_kw": 170,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "CF6_L",
+   "name": "Нагрузка КТП Ф-6 (Центральная)",
+   "node": "CF6_lv",
+   "p_kw": 300,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "NF1_L",
+   "name": "Нагрузка КТП Ф-1 (Северная)",
+   "node": "NF1_lv",
+   "p_kw": 290,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "NF2_L",
+   "name": "Нагрузка Ф-2 (Северная)",
+   "node": "NF2_end",
+   "p_kw": 520,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "NF3_L",
+   "name": "Нагрузка КТП Ф-3 (Северная)",
+   "node": "NF3_lv",
+   "p_kw": 165,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "NF4_L",
+   "name": "Нагрузка КТП Ф-4 (Северная)",
+   "node": "NF4_lv",
+   "p_kw": 175,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "NF5_L",
+   "name": "Нагрузка КТП Ф-5 (Северная)",
+   "node": "NF5_lv",
+   "p_kw": 430,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "NF6_L",
+   "name": "Нагрузка Ф-6 (Северная)",
+   "node": "NF6_end",
+   "p_kw": 380,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "WF1_L",
+   "name": "Нагрузка КТП Ф-1 (Западная)",
+   "node": "WF1_lv",
+   "p_kw": 290,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "WF2_L",
+   "name": "Нагрузка Ф-2 (Западная)",
+   "node": "WF2_end",
+   "p_kw": 520,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "WF3_L",
+   "name": "Нагрузка КТП Ф-3 (Западная)",
+   "node": "WF3_lv",
+   "p_kw": 165,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "WF4_L",
+   "name": "Нагрузка КТП Ф-4 (Западная)",
+   "node": "WF4_lv",
+   "p_kw": 175,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "WF5_L",
+   "name": "Нагрузка КТП Ф-5 (Западная)",
+   "node": "WF5_lv",
+   "p_kw": 430,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "WF6_L",
+   "name": "Нагрузка Ф-6 (Западная)",
+   "node": "WF6_end",
+   "p_kw": 380,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "SF1_L",
+   "name": "Нагрузка КТП Ф-1 (Южная)",
+   "node": "SF1_lv",
+   "p_kw": 450,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "SF2_L",
+   "name": "Нагрузка КТП Ф-2 (Южная)",
+   "node": "SF2_lv",
+   "p_kw": 280,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "SF3_L",
+   "name": "Нагрузка Ф-3 (Южная)",
+   "node": "SF3_end",
+   "p_kw": 900,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "SF4_L",
+   "name": "Нагрузка КТП Ф-4 (Южная)",
+   "node": "SF4_lv",
+   "p_kw": 310,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "SF5_L",
+   "name": "Нагрузка КТП Ф-5 (Южная)",
+   "node": "SF5_lv",
+   "p_kw": 470,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  },
+  {
+   "id": "SF6_L",
+   "name": "Нагрузка Ф-6 (Южная)",
+   "node": "SF6_end",
+   "p_kw": 640,
+   "cos_phi": 0.9,
+   "k_use": 1.0
+  }
+ ],
+ "modes": [
+  {
+   "id": "normal",
+   "name": "Нормальный режим",
+   "system": "max",
+   "description": "Все трансформаторы в работе, секции 10 кВ разделены, секционные выключатели отключены, резервная ВЛ-110 Северная — Южная отключена. Энергосистема в максимальном режиме.",
+   "states": {
+    "CT1": true,
+    "CT2": true,
+    "CV1": true,
+    "CV2": true,
+    "CSV": false,
+    "NT1": true,
+    "NT2": true,
+    "NV1": true,
+    "NV2": true,
+    "NSV": false,
+    "WT1": true,
+    "WT2": true,
+    "WV1": true,
+    "WV2": true,
+    "WSV": false,
+    "ST1": true,
+    "SV1": true,
+    "VL110_1": true,
+    "VL110_2": true,
+    "VL110_3": false,
+    "VL35": true
+   }
+  },
+  {
+   "id": "min",
+   "name": "Минимальный режим системы",
+   "system": "min",
+   "description": "Нормальная схема при минимальной мощности КЗ энергосистемы. По этому режиму проверяется чувствительность защит.",
+   "states": {
+    "CT1": true,
+    "CT2": true,
+    "CV1": true,
+    "CV2": true,
+    "CSV": false,
+    "NT1": true,
+    "NT2": true,
+    "NV1": true,
+    "NV2": true,
+    "NSV": false,
+    "WT1": true,
+    "WT2": true,
+    "WV1": true,
+    "WV2": true,
+    "WSV": false,
+    "ST1": true,
+    "SV1": true,
+    "VL110_1": true,
+    "VL110_2": true,
+    "VL110_3": false,
+    "VL35": true
+   }
+  },
+  {
+   "id": "c_repair",
+   "name": "Ремонт Т2 Центральной, СВ включён",
+   "system": "max",
+   "description": "Т2 ПС Центральная выведен в ремонт, обе секции 10 кВ питаются от Т1 через секционный выключатель.",
+   "states": {
+    "CT1": true,
+    "CT2": false,
+    "CV1": true,
+    "CV2": false,
+    "CSV": true,
+    "NT1": true,
+    "NT2": true,
+    "NV1": true,
+    "NV2": true,
+    "NSV": false,
+    "WT1": true,
+    "WT2": true,
+    "WV1": true,
+    "WV2": true,
+    "WSV": false,
+    "ST1": true,
+    "SV1": true,
+    "VL110_1": true,
+    "VL110_2": true,
+    "VL110_3": false,
+    "VL35": true
+   }
+  },
+  {
+   "id": "n_repair",
+   "name": "Ремонт Т1 Северной, СВ включён",
+   "system": "max",
+   "description": "Т1 ПС Северная выведен в ремонт, обе секции 10 кВ питаются от Т2 через секционный выключатель.",
+   "states": {
+    "CT1": true,
+    "CT2": true,
+    "CV1": true,
+    "CV2": true,
+    "CSV": false,
+    "NT1": false,
+    "NT2": true,
+    "NV1": false,
+    "NV2": true,
+    "NSV": true,
+    "WT1": true,
+    "WT2": true,
+    "WV1": true,
+    "WV2": true,
+    "WSV": false,
+    "ST1": true,
+    "SV1": true,
+    "VL110_1": true,
+    "VL110_2": true,
+    "VL110_3": false,
+    "VL35": true
+   }
+  },
+  {
+   "id": "w_repair",
+   "name": "Ремонт Т1 Западной, СВ включён",
+   "system": "max",
+   "description": "Т1 ПС Западная выведен в ремонт, обе секции 10 кВ питаются от Т2 через секционный выключатель.",
+   "states": {
+    "CT1": true,
+    "CT2": true,
+    "CV1": true,
+    "CV2": true,
+    "CSV": false,
+    "NT1": true,
+    "NT2": true,
+    "NV1": true,
+    "NV2": true,
+    "NSV": false,
+    "WT1": false,
+    "WT2": true,
+    "WV1": false,
+    "WV2": true,
+    "WSV": true,
+    "ST1": true,
+    "SV1": true,
+    "VL110_1": true,
+    "VL110_2": true,
+    "VL110_3": false,
+    "VL35": true
+   }
+  },
+  {
+   "id": "s_reserve",
+   "name": "Южная на резервном питании",
+   "system": "max",
+   "description": "ВЛ-110 Центральная — Южная отключена, ПС Южная питается по резервной ВЛ-110 от ПС Северная.",
+   "states": {
+    "CT1": true,
+    "CT2": true,
+    "CV1": true,
+    "CV2": true,
+    "CSV": false,
+    "NT1": true,
+    "NT2": true,
+    "NV1": true,
+    "NV2": true,
+    "NSV": false,
+    "WT1": true,
+    "WT2": true,
+    "WV1": true,
+    "WV2": true,
+    "WSV": false,
+    "ST1": true,
+    "SV1": true,
+    "VL110_1": true,
+    "VL110_2": false,
+    "VL110_3": true,
+    "VL35": true
+   }
+  }
+ ]
+}

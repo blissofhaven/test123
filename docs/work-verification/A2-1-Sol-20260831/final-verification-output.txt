@@ -1,0 +1,37 @@
+A2.1 FINAL — Sol — 2026-08-31
+
+python -B -X utf8 -m pytest -q
+1007 passed in 106.92s (0:01:46)
+
+python -B -X utf8 tools_update_baseline.py --stage ПРОВЕРКА --reason "финальная приёмка A2.1" --evidence "1007 passed"
+Пересчитываю все демо-проекты…
+
+Расхождений с эталоном нет.
+
+Сводка для журнала: Числа не изменились (пересобран только формат снимка).
+Этап: ПРОВЕРКА
+Причина: финальная приёмка A2.1
+Подтверждение: 1007 passed
+
+Числа не изменились — обновлять нечего. Эталон оставлен как есть.
+
+DEMO
+{'ok': 116, 'fail': 3}
+MODEL_FINGERPRINT=9545dba9c470c38a94d395954a6de7151a1cc78191084ad543642f95a10e6049
+PROTECTIONS=119
+
+WINDOWS QT HIDDEN WIDGET RENDER
+QT_TAB_0_RENDERED=01-editor-final.png
+QT_TAB_1_RENDERED=02-analysis-final.png
+MODEL_FINGERPRINT_UNCHANGED=b275e47230495c199e8c4ad0158838af0f3a3c14a2767fc85a98bbe7a1164445
+SOURCE_SHA256_UNCHANGED=158394481136b90aef558a41c6752aaa5fb29915c9caa702600dd427a25fc173
+QT_WINDOWS_HIDDEN_WIDGET_SMOKE_OK
+
+CLI/process + passport + previous exit codes: 48 passed in 10.60s
+New IO tests: 31 passed in 1.14s (A-CALC)
+Existing project format/migration tests: 31 passed in 8.79s (A-CALC)
+Independent final CLI/IO review: clear (A-METHOD)
+
+After final roadmap/status/brief/current-state/report updates:
+python -B -X utf8 -m pytest -q tests/test_roadmap_consistency.py tests/test_ui_b2_voltage_colors.py
+53 passed in 2.16s

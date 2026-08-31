@@ -1,0 +1,109 @@
+# -*- coding: utf-8 -*-
+"""Расчётные рабочие токи присоединений."""
+from __future__ import annotations
+
+import math
+
+from .methodology import Methodology
+from .model import GRID, Branch, GeneratorBranch, Mode, Network, TransformerBranch
+from .trace import Step, Value, fmt, record
+
+SQRT3 = math.sqrt(3.0)
+
+
+def working_current(net: Network, br: Branch, mode: Mode, m: Methodology) -> Value:
+    """
+    Максимальный рабочий ток ветви = сумма нагрузок, питающихся через неё
+    в данном режиме. Именно поэтому нагрузку достаточно задать один раз
+    у КТП: программа сама поднимет её на фидер, ввод и трансформатор.
+    """
+    if isinstance(br, GeneratorBranch):
+        s_gen = br.s_from_p
+        i = s_gen / (SQRT3 * br.u_nom)
+        step = Step(
+            what=f"Номинальный ток генератора «{br.name}»",
+            why=("Защита генератора отстраивается от его номинального тока: суммировать "
+                 "нагрузку сети здесь бессмысленно, машина работает параллельно с другими."),
+            given={"Sном": f"{fmt(s_gen)} кВ·А", "Uном": f"{fmt(br.u_nom)} кВ",
+                   **({"Pном": f"{fmt(br.p_nom)} МВт при cosφ = {fmt(br.cos_phi)}"} if br.p_nom else {})},
+            formula="Iном = Sном / (√3 · Uном)",
+            substitution=f"Iном = {fmt(s_gen)} / (1.732 · {fmt(br.u_nom)}) = {fmt(i)} А",
+            result=f"Iном = {fmt(i)} А",
+            note=("Для генератора это условие отстройки, но не полный расчёт защиты: "
+                  "МТЗ генератора обычно дополняется защитой от перегрузки, минимального "
+                  "напряжения и обратной мощности — в этой версии они не считаются."),
+        )
+        return Value(i, "А", "Iном генератора", step)
+
+    src_end, load_end, ring = net.orient(br, mode)
+    # Рабочий ток всегда приводится к физической стороне ТТ, а не к стороне,
+    # которая случайно оказалась питающей в данном режиме.
+    u_nom = net.protection_side_u(br) if br.has_protection_point else (
+        net.node(load_end if src_end == GRID else src_end).u_nom
+    )
+    loads = net.downstream_loads(br, mode)
+    group_note = None
+    if not loads:
+        zone, n_par = net.group_zone(br, mode)
+        if n_par > 1:
+            loads = [
+                load for load in net.loads.values()
+                if load.node in zone and mode.is_available(load.id)
+            ]
+            group_note = (
+                f"Присоединение работает параллельно ещё с {n_par - 1} таким же. "
+                "Рабочий ток принят по всей нагрузке группы: это режим, когда "
+                "параллельный элемент выведен в ремонт и оставшийся несёт всё. "
+                "Если такой режим у вас невозможен, задайте нагрузку явно или "
+                "опишите отдельный режим сети.")
+
+    if loads:
+        s_total = sum(l.s_kva * l.k_use for l in loads)
+        i = s_total / (SQRT3 * u_nom) if u_nom else 0.0
+        detail = ";  ".join(
+            f"«{l.name}»: {fmt(l.p_kw)} кВт / {fmt(l.cos_phi)}"
+            + (f" · Kи {fmt(l.k_use)}" if l.k_use != 1 else "")
+            + f" = {fmt(l.s_kva * l.k_use)} кВ·А" for l in loads)
+        step = Step(
+            what=f"Максимальный рабочий ток присоединения «{br.name}»",
+            why=("От него отстраивается МТЗ. Ток берётся не «на глаз», а суммированием "
+                 "всех нагрузок, которые в данном режиме питаются через это присоединение."),
+            given={"Режим": mode.name, "Uном": f"{fmt(u_nom)} кВ",
+                   "Нагрузки в зоне": detail, "ΣS": f"{fmt(s_total)} кВ·А"},
+            formula="Iраб.max = ΣS / (√3 · Uном)",
+            substitution=f"Iраб.max = {fmt(s_total)} / (1.732 · {fmt(u_nom)}) = {fmt(i)} А",
+            result=f"Iраб.max = {fmt(i)} А",
+            note=(group_note or
+                  "Если по присоединению возможна перегрузка сверх суммы заданных нагрузок "
+                  "(перевод питания, резервирование), задайте её отдельной нагрузкой в схеме "
+                  "или отдельным режимом."),
+        )
+        return Value(i, "А", "Iраб.max", step)
+
+    # Нагрузка не задана — для трансформатора безопасно принимаем номинальный
+    # ток, но именно на стороне установленного ТТ.
+    if isinstance(br, TransformerBranch):
+        i = br.s_nom / (SQRT3 * u_nom)
+        step = Step(
+            what=f"Номинальный ток трансформатора «{br.name}» на стороне ТТ",
+            why="Нагрузка в зоне не задана, поэтому за расчётный ток принят номинальный ток трансформатора.",
+            given={"Sном": f"{fmt(br.s_nom)} кВ·А", "U стороны ТТ": f"{fmt(u_nom)} кВ"},
+            formula="Iном = Sном / (√3 · UТТ)",
+            substitution=f"Iном = {fmt(br.s_nom)} / (1.732 · {fmt(u_nom)}) = {fmt(i)} А",
+            result=f"Iном = {fmt(i)} А",
+            note="Это допущение. Задайте фактическую нагрузку — уставка изменится.",
+        )
+        return Value(i, "А", "Iном", step)
+
+    step = Step(
+        what=f"Максимальный рабочий ток присоединения «{br.name}»",
+        why="Нужен для отстройки МТЗ.",
+        result="не определён",
+        note=("В зоне присоединения нет ни одной заданной нагрузки. Уставку МТЗ "
+              "по условию отстройки от рабочего тока рассчитать нельзя."),
+    )
+    return Value(0.0, "А", "Iраб.max", step)
+
+
+def nominal_current(s_kva: float, u_kv: float) -> float:
+    return s_kva / (SQRT3 * u_kv)

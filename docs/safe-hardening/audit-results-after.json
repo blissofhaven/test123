@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "patch": "0.3.1-safe-hardening",
+  "scope": "Безопасное усиление legacy positive-sequence пути, не промышленная аттестация",
+  "versions": {
+    "application": "0.3.1-safe-hardening",
+    "kernel": "legacy-positive-sequence-2",
+    "algorithm": "dense-ybus-v2"
+  },
+  "defects": [
+    {
+      "id": "AUD-SC-001",
+      "status": "resolved",
+      "note": "Согласованные физические ступени; пример 6 совпадает"
+    },
+    {
+      "id": "AUD-SC-002",
+      "status": "mitigated",
+      "note": "Точная оценка sqrt(3)/2 и явный флаг; Z2 ещё отсутствует"
+    },
+    {
+      "id": "AUD-SC-003",
+      "status": "resolved",
+      "note": "NaN/Infinity блокируются"
+    },
+    {
+      "id": "AUD-SC-004",
+      "status": "resolved",
+      "note": "Отрицательная Sкз блокируется"
+    },
+    {
+      "id": "AUD-SC-005",
+      "status": "resolved",
+      "note": "Конфликт требует явного input mode"
+    },
+    {
+      "id": "AUD-SC-006",
+      "status": "mitigated",
+      "note": "Явное предупреждение; двигательная модель не реализована"
+    },
+    {
+      "id": "AUD-SC-011",
+      "status": "partial",
+      "note": "Комплексный направленный API добавлен; legacy downstream ещё использует модуль"
+    },
+    {
+      "id": "AUD-LINE-001",
+      "status": "resolved",
+      "note": "Отрицательные R/X блокируются"
+    },
+    {
+      "id": "AUD-TR-001",
+      "status": "resolved",
+      "note": "2W и служебный 3W-leg различаются"
+    },
+    {
+      "id": "AUD-TOP-001",
+      "status": "resolved",
+      "note": "Topology cache keyed by content fingerprint"
+    },
+    {
+      "id": "AUD-TOP-002",
+      "status": "resolved",
+      "note": "ProjectData derived network refresh by fingerprint"
+    },
+    {
+      "id": "AUD-TOP-003",
+      "status": "resolved",
+      "note": "GUI uses fresh project.network"
+    },
+    {
+      "id": "AUD-TOP-004",
+      "status": "resolved",
+      "note": "Projection checks model/registry fingerprint"
+    }
+  ],
+  "benchmarkExample6": {
+    "r_pu": 1.4121551911,
+    "x_pu": 8.0361436299,
+    "z_pu": 8.1592761152,
+    "i_0_4_ka": 17.6899966687,
+    "i_10_ka": 0.7075998667,
+    "i_110_ka": 0.0643272606,
+    "i_10_5_ka": 0.673904635,
+    "status": "passed"
+  },
+  "tests": {
+    "nonGuiPassed": 448,
+    "guiNotRunMissingPySide6": 44,
+    "auditTestsPassed": 74,
+    "coreAuditSafePassed": 114
+  },
+  "remainingBlockers": [
+    "Полные сети обратной и нулевой последовательностей",
+    "Нормативно утверждённая методика",
+    "Двигательная подпитка",
+    "Полный комплексный ProjectResult и вклады источников",
+    "Sparse solver и отказ от inv(Y)",
+    "Временные составляющие и проверки стойкости",
+    "GUI-приёмка на Windows с PySide6"
+  ],
+  "independentWindowsVerification": {
+    "date": "2026-08-28",
+    "status": "blocked_before_stage_4_5_tkz",
+    "report": "docs/work-verification/safe-hardening-verification.md",
+    "tests": {
+      "initialFullPassed": 492,
+      "finalFullPassed": 495,
+      "coreAuditSafePassed": 117,
+      "auditSafePassed": 82,
+      "guiPassedEachRun": 64,
+      "guiRuns": 2,
+      "smokeExitCode": 0
+    },
+    "localRegressionFixes": [
+      "Разделена сторона генератора 10,5 кВ и класс сети 10 кВ при приведении тока",
+      "Отрицательное Uk разрешено только зарегистрированному лучу Transformer3W",
+      "Повреждённый числовой ID даёт предметную ошибку валидации"
+    ],
+    "defectStatus": {
+      "AUD-SC-001": "partial_methodology_unverified",
+      "AUD-SC-002": "mitigated",
+      "AUD-SC-003": "functional_fix",
+      "AUD-SC-004": "functional_fix",
+      "AUD-SC-005": "partial_gui_and_trace_missing",
+      "AUD-SC-006": "mitigated",
+      "AUD-SC-011": "partial_downstream_complex_missing",
+      "AUD-LINE-001": "functional_fix",
+      "AUD-TR-001": "functional_fix_after_windows_regression",
+      "AUD-TOP-001": "functional_fix",
+      "AUD-TOP-002": "functional_fix",
+      "AUD-TOP-003": "automated_fix_manual_gui_unverified",
+      "AUD-TOP-004": "functional_fix"
+    },
+    "blockingReasons": [
+      "Штатные demo изменились до 9,9024 % без утверждённого независимого эталона",
+      "Общая методика и типизированная модель напряжений не подтверждены",
+      "Ручная GUI-приёмка человеком не выполнена",
+      "Единый структурированный статус и полный комплексный CalculationResult отсутствуют"
+    ],
+    "stage45Started": false,
+    "stage461Started": false
+  }
+}

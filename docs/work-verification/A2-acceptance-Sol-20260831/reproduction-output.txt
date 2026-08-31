@@ -1,0 +1,74 @@
+{
+  "observations": {
+    "F1_null_claim": {
+      "approval_blocking_errors": [],
+      "results_despite_null_approval": 16,
+      "run_rejection": null,
+      "source_null_blocking_errors": [],
+      "expected": "nonempty validation errors; no approved calculation"
+    },
+    "F2_backup_order": [
+      {
+        "transformer_declared_first": true,
+        "validation": [],
+        "backup": [],
+        "check_names": [
+          "Kч в основной зоне"
+        ]
+      },
+      {
+        "transformer_declared_first": false,
+        "validation": [],
+        "backup": [
+          "b",
+          "end"
+        ],
+        "check_names": [
+          "Kч в основной зоне",
+          "Kч в зоне резервирования"
+        ]
+      }
+    ],
+    "F3_three_winding_voltage": {
+      "validation": [],
+      "solver_errors": {},
+      "given": {
+        "Sном трансформатора": "32000.0 кВ·А",
+        "Напряжение для Iном": "номинальный класс стороны защиты 110.0 кВ (паспортное напряжение обмотки не определено однозначно)",
+        "Iном (на стороне защиты)": "168.0 А",
+        "kотс.бр": "1.300",
+        "кратность броска": "8.000"
+      },
+      "inrush_result": "Iсз ≥ 1746.7 А",
+      "actual_i_calc_A": 1746.746996239159,
+      "expected_I_nom_A": 160.6539879484176,
+      "expected_inrush_threshold_A": 1670.801474663543,
+      "actual_accepted_A": 1800.0,
+      "rounded_corrected_inrush_A": 1800.0,
+      "limit": "Both round to 1800 A in this fixture; no final-setting difference is claimed."
+    },
+    "F4_live_references": {
+      "old_protocol_changed": true,
+      "new_text_in_old_protocol": true
+    },
+    "F5_unknown_basis": {
+      "blocking_errors": [],
+      "returned_value": "garbage",
+      "expected": "reject a variant not implemented by the calculator"
+    },
+    "F6_unknown_feeder_exit": {
+      "actual_exit": 1,
+      "expected_exit": 2,
+      "message": "Присоединение '__does_not_exist__' не найдено. Есть: T1 (Т1 35/10 кВ), T2 (Т2 35/10 кВ), V1 (Ввод-1 10 кВ), V2 (Ввод-2 10 кВ), SV (СВ 10 кВ), F1 (Фидер-1 10 кВ), TK1 (КТП-1 10/0,4 кВ), F2 (Фидер-2 10 кВ), F3 (Фидер-3 10 кВ)"
+    }
+  },
+  "reproduced": {
+    "F1_null_claim": true,
+    "F2_backup_order": true,
+    "F3_three_winding_voltage": true,
+    "F4_live_references": true,
+    "F5_unknown_basis": true,
+    "F6_unknown_feeder_exit": true
+  }
+}
+REPRODUCED_DEFECT_GROUPS=6

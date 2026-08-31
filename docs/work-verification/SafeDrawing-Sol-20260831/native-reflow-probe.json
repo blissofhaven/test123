@@ -1,0 +1,85 @@
+{
+  "pid": 23604,
+  "platform": "windows",
+  "source_sha256": "898d808dff3dbf13bea28ee9fa6d2e21bcc91bb29c5f1e8aa5d11744f69f75af",
+  "electrical_fingerprint": "b275e47230495c199e8c4ad0158838af0f3a3c14a2767fc85a98bbe7a1164445",
+  "pairs": [
+    {
+      "name": "Ввод-1 10 кВ (Западная)",
+      "breaker_id": "representation_17f557c5ad3c4f49879267f151b122c4",
+      "joint_id": "representation_0342f711ebf24874b1e6663e877f1bad",
+      "preview_equals_commit_geometry": true,
+      "undo_restores_all_ids_and_waypoints": true,
+      "five_moves_escape_restores_auxiliary_joint": true
+    },
+    {
+      "name": "Ввод-2 10 кВ (Западная)",
+      "breaker_id": "representation_6982f963daf94c0cb5d6f07b3a74ee8d",
+      "joint_id": "representation_4da6c000ac834bc6a34f3818204dd6cf",
+      "preview_equals_commit_geometry": true,
+      "undo_restores_all_ids_and_waypoints": true,
+      "five_moves_escape_restores_auxiliary_joint": true
+    },
+    {
+      "name": "Ввод-1 10 кВ (Центральная)",
+      "breaker_id": "representation_ca94de481b6d46a2853c8ee9772e5c93",
+      "joint_id": "representation_80f5286f32d0468895e07a1b06b570af",
+      "preview_equals_commit_geometry": true,
+      "undo_restores_all_ids_and_waypoints": true,
+      "five_moves_escape_restores_auxiliary_joint": true
+    },
+    {
+      "name": "Ввод-2 10 кВ (Центральная)",
+      "breaker_id": "representation_0d18b731f5a34d108e03a3b2e5fbbf93",
+      "joint_id": "representation_0e5efdfc521a4fedb34918fe49f8c0bc",
+      "preview_equals_commit_geometry": true,
+      "undo_restores_all_ids_and_waypoints": true,
+      "five_moves_escape_restores_auxiliary_joint": true
+    },
+    {
+      "name": "Ввод-1 10 кВ (Северная)",
+      "breaker_id": "representation_a70e6e9a978c475b91f387f893fcd2d4",
+      "joint_id": "representation_14378b7f683e4ab6a2f66dd9c0d822b7",
+      "preview_equals_commit_geometry": true,
+      "undo_restores_all_ids_and_waypoints": true,
+      "five_moves_escape_restores_auxiliary_joint": true
+    },
+    {
+      "name": "Ввод-2 10 кВ (Северная)",
+      "breaker_id": "representation_bde39f066a9d40c7a82c19e72f346ead",
+      "joint_id": "representation_8017d98c3ee1427ca7d0edaed395e888",
+      "preview_equals_commit_geometry": true,
+      "undo_restores_all_ids_and_waypoints": true,
+      "five_moves_escape_restores_auxiliary_joint": true
+    },
+    {
+      "name": "Ввод-1 10 кВ (Южная)",
+      "breaker_id": "representation_617b5a5bbff84112bec92322ea171ba7",
+      "joint_id": "representation_85e6a2623b3c4592bca420a942af1128",
+      "preview_equals_commit_geometry": true,
+      "undo_restores_all_ids_and_waypoints": true,
+      "five_moves_escape_restores_auxiliary_joint": true
+    }
+  ],
+  "frames": [
+    {
+      "phase": "native-reflow-before",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\direct-connections-20260831\\native-reflow-before.png"
+    },
+    {
+      "phase": "native-reflow-preview",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\direct-connections-20260831\\native-reflow-preview.png"
+    },
+    {
+      "phase": "native-reflow-commit",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\direct-connections-20260831\\native-reflow-commit.png"
+    },
+    {
+      "phase": "native-reflow-undo",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\direct-connections-20260831\\native-reflow-undo.png"
+    }
+  ],
+  "qt_callback_errors": [],
+  "project_saved": false,
+  "final_representations_and_routes_equal_original": true
+}

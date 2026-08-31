@@ -1,0 +1,2313 @@
+{
+  "new_breakers": [
+    {
+      "equipment_id": "eq_10d64e8d290857d4afffd96ce4b8734a",
+      "name": "Т1 Центральная 110/35/10",
+      "legacy_id": "CT1",
+      "port_id": "port_184bf72f56d957e1b962c1bd2006e6f6",
+      "role": "hv",
+      "new_breaker_id": "demo_qf_CT1_hv",
+      "new_node_id": "demo_qf_node_CT1_hv",
+      "old_connection_id": "conn_df26da4a949153e1a5d1800881fde298",
+      "old_node_id": "node_e81c9103eb2a5e64b7551db0f3ec786e",
+      "old_route_id": "route_a81438fcba504aefb81f3207ece8eca4",
+      "voltage_class": "builtin.voltage.ac.110kv",
+      "waypoints": [
+        [
+          1431.24,
+          -1311.0
+        ],
+        [
+          1431.24,
+          -1500.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_10d64e8d290857d4afffd96ce4b8734a",
+      "name": "Т1 Центральная 110/35/10",
+      "legacy_id": "CT1",
+      "port_id": "port_a275b923727e5ba9b5a0b0a1415c924a",
+      "role": "mv",
+      "new_breaker_id": "demo_qf_CT1_mv",
+      "new_node_id": "demo_qf_node_CT1_mv",
+      "old_connection_id": "conn_4f179dbf9d045eb98a7b2d6c31d2d920",
+      "old_node_id": "node_b6779e42a7865e788919df1c32140bb3",
+      "old_route_id": "route_fcb385eeffd6439aaab1b7f2736d923d",
+      "voltage_class": "builtin.voltage.ac.35kv",
+      "waypoints": [
+        [
+          1431.24,
+          -1239.0
+        ],
+        [
+          1431.24,
+          -1050.0
+        ],
+        [
+          824.0,
+          -1050.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_53789bc3e7e15ebf983409937ddac923",
+      "name": "Т2 Центральная 110/10",
+      "legacy_id": "CT2",
+      "port_id": "port_313147ea6b145f0dbb8aa154a91dc388",
+      "role": "from",
+      "new_breaker_id": "demo_qf_CT2_from",
+      "new_node_id": "demo_qf_node_CT2_from",
+      "old_connection_id": "conn_137d8151761e5c7ca26224777cc11be7",
+      "old_node_id": "node_e81c9103eb2a5e64b7551db0f3ec786e",
+      "old_route_id": "route_5422dbf0712046fc8a8a9eed8c9f6c59",
+      "voltage_class": "builtin.voltage.ac.110kv",
+      "waypoints": [
+        [
+          3000.0,
+          -1086.0
+        ],
+        [
+          3000.0,
+          -1500.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "OPEN",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_d32d8ce2d29e52f98d22165007ac5870",
+      "name": "Т1 Северная 110/10",
+      "legacy_id": "NT1",
+      "port_id": "port_b0f4d7c9c9195d1fa48dda80d15558ce",
+      "role": "from",
+      "new_breaker_id": "demo_qf_NT1_from",
+      "new_node_id": "demo_qf_node_NT1_from",
+      "old_connection_id": "conn_855778acd028506193091fb8f5be459b",
+      "old_node_id": "node_31096e8746765f76b47893b271b6b391",
+      "old_route_id": "route_3d3d71a811ba410a8b7e7ed7f7ed78d5",
+      "voltage_class": "builtin.voltage.ac.110kv",
+      "waypoints": [
+        [
+          3900.0,
+          -896.0
+        ],
+        [
+          3900.0,
+          -1310.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "OPEN",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_d40a1f6256225c869f3915a13f250529",
+      "name": "Т2 Северная 110/10",
+      "legacy_id": "NT2",
+      "port_id": "port_8b1abc2b073d584a946fbc8ef88cdb3b",
+      "role": "from",
+      "new_breaker_id": "demo_qf_NT2_from",
+      "new_node_id": "demo_qf_node_NT2_from",
+      "old_connection_id": "conn_973a1f2eb17b5c3e95d6f49c2db91713",
+      "old_node_id": "node_31096e8746765f76b47893b271b6b391",
+      "old_route_id": "route_9d082ab8041f49359c5403ac8fced452",
+      "voltage_class": "builtin.voltage.ac.110kv",
+      "waypoints": [
+        [
+          4800.0,
+          -896.0
+        ],
+        [
+          4800.0,
+          -1310.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_c37404aec16c52e49ac964599cc33602",
+      "name": "Т1 Западная 35/10",
+      "legacy_id": "WT1",
+      "port_id": "port_43b31c8575da50ab839c06ff1f0a6ac0",
+      "role": "from",
+      "new_breaker_id": "demo_qf_WT1_from",
+      "new_node_id": "demo_qf_node_WT1_from",
+      "old_connection_id": "conn_eb8543dc8ebd5591b861097d55155b53",
+      "old_node_id": "node_9ef46037fb835037a4800118d9cc75cf",
+      "old_route_id": "route_37a86dd47f0940e0a12f261c0653eb82",
+      "voltage_class": "builtin.voltage.ac.35kv",
+      "waypoints": [
+        [
+          300.0,
+          -576.0
+        ],
+        [
+          300.0,
+          -860.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "OPEN",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_f49e2ada0bd258b4a49073f7e5bb0801",
+      "name": "Т2 Западная 35/10",
+      "legacy_id": "WT2",
+      "port_id": "port_ea8b1f2459105757af832b052b752c86",
+      "role": "from",
+      "new_breaker_id": "demo_qf_WT2_from",
+      "new_node_id": "demo_qf_node_WT2_from",
+      "old_connection_id": "conn_39438fae7e4a55da8954bffabbf540cf",
+      "old_node_id": "node_9ef46037fb835037a4800118d9cc75cf",
+      "old_route_id": "route_27ad02559b0d4798a0d984a682058a9c",
+      "voltage_class": "builtin.voltage.ac.35kv",
+      "waypoints": [
+        [
+          1200.0,
+          -576.0
+        ],
+        [
+          1200.0,
+          -860.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_b177fca4756c5ab280084f444cb10df5",
+      "name": "Т1 Южная 110/10",
+      "legacy_id": "ST1",
+      "port_id": "port_3321825bdf5d5a688122673b2fc68545",
+      "role": "from",
+      "new_breaker_id": "demo_qf_ST1_from",
+      "new_node_id": "demo_qf_node_ST1_from",
+      "old_connection_id": "conn_d9166417aaec5832804b4c403d6755b4",
+      "old_node_id": "node_0a1fe0ab1e175d7bb935ee4b45a23749",
+      "old_route_id": "route_b669a5b5fddb46928646ccce522781ad",
+      "voltage_class": "builtin.voltage.ac.110kv",
+      "waypoints": [
+        [
+          6150.0,
+          -896.0
+        ],
+        [
+          6150.0,
+          -1310.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_298fea7396f85f888baecf5b9c4b1c87",
+      "name": "Ф-1 10 кВ (Центральная)",
+      "legacy_id": "CF1",
+      "port_id": "port_bbb6ca7d34675445b444a2542334a08b",
+      "role": "from",
+      "new_breaker_id": "demo_qf_CF1_from",
+      "new_node_id": "demo_qf_node_CF1_from",
+      "old_connection_id": "conn_5642f3aa9e8f5ce79b11e8d58dba21aa",
+      "old_node_id": "node_087b32b7e020508d8dc649d9621bcd98",
+      "old_route_id": "route_d649ab77a9aa4008b41ce810ef5513e7",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          1800.0,
+          -379.0
+        ],
+        [
+          1800.0,
+          -410.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_d6f9f3c3cdfc53a6857f6505e38c17db",
+      "name": "КТП Ф-1 630 кВ·А (Центральная)",
+      "legacy_id": "CF1_T",
+      "port_id": "port_e6f4ac02723c5144b9ab9aa30de5afb1",
+      "role": "from",
+      "new_breaker_id": "demo_qf_CF1_T_from",
+      "new_node_id": "demo_qf_node_CF1_T_from",
+      "old_connection_id": "conn_13ecb9c9c4c953f48573edcbe2b227ff",
+      "old_node_id": "node_9bd51d20ae585150a1648165c06abee4",
+      "old_route_id": "route_4e2733fa23014708bc4d8522fca2f402",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          1800.0,
+          254.0
+        ],
+        [
+          1800.0,
+          -220.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_d6f9f3c3cdfc53a6857f6505e38c17db",
+      "name": "КТП Ф-1 630 кВ·А (Центральная)",
+      "legacy_id": "CF1_T",
+      "port_id": "port_4243651f857b583b941c02d3bd842c64",
+      "role": "to",
+      "new_breaker_id": "demo_qf_CF1_T_to",
+      "new_node_id": "demo_qf_node_CF1_T_to",
+      "old_connection_id": "conn_b80d7196365c56f4a3eb85aaab47cb4a",
+      "old_node_id": "node_5a21ba525f4555f687b314655f1b216c",
+      "old_route_id": "route_43368e6dc60040bd8d9bc7a41e7e423e",
+      "voltage_class": "builtin.voltage.ac.0_4kv",
+      "waypoints": [
+        [
+          1800.0,
+          326.0
+        ],
+        [
+          1800.0,
+          800.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_f6bb86c182045a4689f20cb9e717fb88",
+      "name": "Ф-2 10 кВ (Центральная)",
+      "legacy_id": "CF2",
+      "port_id": "port_fe25d6ee007f55bcadc3f2fcc5cdbb50",
+      "role": "from",
+      "new_breaker_id": "demo_qf_CF2_from",
+      "new_node_id": "demo_qf_node_CF2_from",
+      "old_connection_id": "conn_c00880200064507e93535e8e2f3e8501",
+      "old_node_id": "node_087b32b7e020508d8dc649d9621bcd98",
+      "old_route_id": "route_a3b753e6ed5548a29305f003cfe00adb",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          2100.0,
+          -379.0
+        ],
+        [
+          2100.0,
+          -410.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_0c01b95e785f5766892af833aac76ab1",
+      "name": "Ф-3 10 кВ (Центральная)",
+      "legacy_id": "CF3",
+      "port_id": "port_8818cbd352165d8c8908abfbac1883d1",
+      "role": "from",
+      "new_breaker_id": "demo_qf_CF3_from",
+      "new_node_id": "demo_qf_node_CF3_from",
+      "old_connection_id": "conn_19ea87f0e5175ba292a12a4d582201e0",
+      "old_node_id": "node_087b32b7e020508d8dc649d9621bcd98",
+      "old_route_id": "route_54c373c86f584bc28d35a4b76a8ca406",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          2400.0,
+          -379.0
+        ],
+        [
+          2400.0,
+          -410.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_b9f6cdf8f4655507b0eed5b84fc43d0a",
+      "name": "Ф-4 10 кВ (Центральная)",
+      "legacy_id": "CF4",
+      "port_id": "port_e67caa20b3035609bb7c6c91e5b921de",
+      "role": "from",
+      "new_breaker_id": "demo_qf_CF4_from",
+      "new_node_id": "demo_qf_node_CF4_from",
+      "old_connection_id": "conn_e8a2a04d3d085ce298e2029151c1e95b",
+      "old_node_id": "node_27192c6d6f9b57f5b5cc8b2e13d32527",
+      "old_route_id": "route_8e434e3e3ea546da8a8edca2e2a25b21",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          2700.0,
+          -379.0
+        ],
+        [
+          2700.0,
+          -410.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_f6ad130a41d053e8a05df930a91838ed",
+      "name": "КТП Ф-4 400 кВ·А (Центральная)",
+      "legacy_id": "CF4_T",
+      "port_id": "port_4635dbb2cbf250218b6f740d9eceb4b2",
+      "role": "from",
+      "new_breaker_id": "demo_qf_CF4_T_from",
+      "new_node_id": "demo_qf_node_CF4_T_from",
+      "old_connection_id": "conn_88808d89e5bf5633ac3929751c9fa24b",
+      "old_node_id": "node_e6984ad993485a26a6bb0f09e89f6286",
+      "old_route_id": "route_751ea4b0080742928d3cd7010eceeeb8",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          2700.0,
+          254.0
+        ],
+        [
+          2700.0,
+          -220.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_f6ad130a41d053e8a05df930a91838ed",
+      "name": "КТП Ф-4 400 кВ·А (Центральная)",
+      "legacy_id": "CF4_T",
+      "port_id": "port_eb44a32b24d0511ba1d0074fa02f0dd9",
+      "role": "to",
+      "new_breaker_id": "demo_qf_CF4_T_to",
+      "new_node_id": "demo_qf_node_CF4_T_to",
+      "old_connection_id": "conn_56771babd9b755d2a6cede4052d4f2ba",
+      "old_node_id": "node_110463ec53a15116b3a1989f4d210946",
+      "old_route_id": "route_34879a2a2ef745d4b9b18bef81a815be",
+      "voltage_class": "builtin.voltage.ac.0_4kv",
+      "waypoints": [
+        [
+          2700.0,
+          326.0
+        ],
+        [
+          2700.0,
+          800.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_57d8db435c145faa9e50427dbb45950d",
+      "name": "Ф-5 10 кВ (Центральная)",
+      "legacy_id": "CF5",
+      "port_id": "port_f9a26d1f75c45d6bb546f9bc827cca12",
+      "role": "from",
+      "new_breaker_id": "demo_qf_CF5_from",
+      "new_node_id": "demo_qf_node_CF5_from",
+      "old_connection_id": "conn_211c2304b71e5ef1b963261e1c8fed51",
+      "old_node_id": "node_27192c6d6f9b57f5b5cc8b2e13d32527",
+      "old_route_id": "route_dcb47c85ac2f4f56a102c2a9aa4d74dc",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          3000.0,
+          -379.0
+        ],
+        [
+          3000.0,
+          -410.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_b88f6ad81258588a817a15ea07ffa40f",
+      "name": "КТП Ф-5 250 кВ·А (Центральная)",
+      "legacy_id": "CF5_T",
+      "port_id": "port_98bf18455d0a5d7ea45287491aebf8b3",
+      "role": "from",
+      "new_breaker_id": "demo_qf_CF5_T_from",
+      "new_node_id": "demo_qf_node_CF5_T_from",
+      "old_connection_id": "conn_ab7aa541adb25083954f5a19233ad659",
+      "old_node_id": "node_55e006883bd55c5cba09ac77cf21e4b6",
+      "old_route_id": "route_2364791e518647b5b50ab8eb8c1943c8",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          3000.0,
+          634.0
+        ],
+        [
+          3000.0,
+          160.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_b88f6ad81258588a817a15ea07ffa40f",
+      "name": "КТП Ф-5 250 кВ·А (Центральная)",
+      "legacy_id": "CF5_T",
+      "port_id": "port_0c0e67f8e2a356ee9b6da38aa9f11a37",
+      "role": "to",
+      "new_breaker_id": "demo_qf_CF5_T_to",
+      "new_node_id": "demo_qf_node_CF5_T_to",
+      "old_connection_id": "conn_e8fba383dcf65628b06ad4c9527b3bbd",
+      "old_node_id": "node_1e33c5dad1ce593eb06937fc643d3970",
+      "old_route_id": "route_b9f5f52702454c4ab31df8f516b7328e",
+      "voltage_class": "builtin.voltage.ac.0_4kv",
+      "waypoints": [
+        [
+          3000.0,
+          706.0
+        ],
+        [
+          3000.0,
+          1180.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_544abd41661b535cbc88235d9e1bb65e",
+      "name": "Ф-6 10 кВ (Центральная)",
+      "legacy_id": "CF6",
+      "port_id": "port_accdf4aecda6589a895a9a542c52061c",
+      "role": "from",
+      "new_breaker_id": "demo_qf_CF6_from",
+      "new_node_id": "demo_qf_node_CF6_from",
+      "old_connection_id": "conn_4ac983dcc6e9591aa604095fae15e1e6",
+      "old_node_id": "node_27192c6d6f9b57f5b5cc8b2e13d32527",
+      "old_route_id": "route_a88d7a0bb7904fb0ac1981cf8a72be08",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          3300.0,
+          -379.0
+        ],
+        [
+          3300.0,
+          -410.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_5fc6e4f63a645702a7f8f317a57ca81d",
+      "name": "КТП Ф-6 400 кВ·А (Центральная)",
+      "legacy_id": "CF6_T",
+      "port_id": "port_b62d3a170a2d5360ad8bab663715c7e6",
+      "role": "from",
+      "new_breaker_id": "demo_qf_CF6_T_from",
+      "new_node_id": "demo_qf_node_CF6_T_from",
+      "old_connection_id": "conn_69ea7ec226615187b2d2979d6589c28d",
+      "old_node_id": "node_c385ba8d93b7511cb9f6dac22705eb98",
+      "old_route_id": "route_f58db4855ced408dbe10bb89e3d55e59",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          3300.0,
+          254.0
+        ],
+        [
+          3300.0,
+          -220.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_5fc6e4f63a645702a7f8f317a57ca81d",
+      "name": "КТП Ф-6 400 кВ·А (Центральная)",
+      "legacy_id": "CF6_T",
+      "port_id": "port_4301081fb8cc5b35aaa42a637a599407",
+      "role": "to",
+      "new_breaker_id": "demo_qf_CF6_T_to",
+      "new_node_id": "demo_qf_node_CF6_T_to",
+      "old_connection_id": "conn_e4e319d0e508518f8b2dbaaca2dd4555",
+      "old_node_id": "node_ae7b79accdd055478b20365d4e6bfa0c",
+      "old_route_id": "route_ea97f48490f3499d8684b2580fb4c479",
+      "voltage_class": "builtin.voltage.ac.0_4kv",
+      "waypoints": [
+        [
+          3300.0,
+          326.0
+        ],
+        [
+          3300.0,
+          800.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_c21f142ea64956bea2b76cef3995174b",
+      "name": "Ф-1 10 кВ (Северная)",
+      "legacy_id": "NF1",
+      "port_id": "port_981ca9f4f450500f9d9eb243f8ee299e",
+      "role": "from",
+      "new_breaker_id": "demo_qf_NF1_from",
+      "new_node_id": "demo_qf_node_NF1_from",
+      "old_connection_id": "conn_af7619edf9b85e79aabfe55af71f5f2c",
+      "old_node_id": "node_31b63a234de45e18a208b4d2b464d062",
+      "old_route_id": "route_c335b5bc8c3746cd8bf2ce7ffc4d5130",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          3600.0,
+          -189.0
+        ],
+        [
+          3600.0,
+          -220.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_2ee6a5df0e4f5b579274ab21858e2acb",
+      "name": "КТП Ф-1 400 кВ·А (Северная)",
+      "legacy_id": "NF1_T",
+      "port_id": "port_1d2f5ed49b6b591e8d000867576c4798",
+      "role": "from",
+      "new_breaker_id": "demo_qf_NF1_T_from",
+      "new_node_id": "demo_qf_node_NF1_T_from",
+      "old_connection_id": "conn_ef078c5f415852119226977456231a91",
+      "old_node_id": "node_ce506119df205da38fad4f730c5bc853",
+      "old_route_id": "route_76d6f87001b944e79b9ebd5e9feef1b3",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          3600.0,
+          444.0
+        ],
+        [
+          3600.0,
+          -30.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_2ee6a5df0e4f5b579274ab21858e2acb",
+      "name": "КТП Ф-1 400 кВ·А (Северная)",
+      "legacy_id": "NF1_T",
+      "port_id": "port_069ff11a9cfd5523b1cce670272af71d",
+      "role": "to",
+      "new_breaker_id": "demo_qf_NF1_T_to",
+      "new_node_id": "demo_qf_node_NF1_T_to",
+      "old_connection_id": "conn_904d1338ab5a588eb76487768f42a8d9",
+      "old_node_id": "node_1647f1a5cccd55bb8a806e20eebbcb28",
+      "old_route_id": "route_7a70438a919c4babae80b8af9ecccc13",
+      "voltage_class": "builtin.voltage.ac.0_4kv",
+      "waypoints": [
+        [
+          3600.0,
+          516.0
+        ],
+        [
+          3600.0,
+          990.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_fb4ddd78049051e1a739c59b14f6a91b",
+      "name": "Ф-2 10 кВ (Северная)",
+      "legacy_id": "NF2",
+      "port_id": "port_3f33f75c93e5573593bdf13f435c3c8f",
+      "role": "from",
+      "new_breaker_id": "demo_qf_NF2_from",
+      "new_node_id": "demo_qf_node_NF2_from",
+      "old_connection_id": "conn_2285bc357c6955cdaa6407ff1b36d650",
+      "old_node_id": "node_31b63a234de45e18a208b4d2b464d062",
+      "old_route_id": "route_aeeb335f3511469ba756ef47e0c2c178",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          3900.0,
+          -189.0
+        ],
+        [
+          3900.0,
+          -220.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_d075aeb87d225e5ab4e0ce2b76fc3e75",
+      "name": "Ф-3 10 кВ (Северная)",
+      "legacy_id": "NF3",
+      "port_id": "port_0d41abdec9d356b78d6fb218766fa250",
+      "role": "from",
+      "new_breaker_id": "demo_qf_NF3_from",
+      "new_node_id": "demo_qf_node_NF3_from",
+      "old_connection_id": "conn_cf5846c95cef54c3b7878e81ad794941",
+      "old_node_id": "node_31b63a234de45e18a208b4d2b464d062",
+      "old_route_id": "route_be79e41ea7ac463d9e5a87cc96752bed",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          4200.0,
+          -189.0
+        ],
+        [
+          4200.0,
+          -220.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_9c9b9567613a5b1e8dceffd28041081b",
+      "name": "КТП Ф-3 250 кВ·А (Северная)",
+      "legacy_id": "NF3_T",
+      "port_id": "port_cb16f4da68c956c0b9d5cc938255035c",
+      "role": "from",
+      "new_breaker_id": "demo_qf_NF3_T_from",
+      "new_node_id": "demo_qf_node_NF3_T_from",
+      "old_connection_id": "conn_dd235a1044095c7a8cbd2cc3dedb1041",
+      "old_node_id": "node_4de86eea27e35503af66e88ae6b25cae",
+      "old_route_id": "route_ba78756e5dbe4a3b83a885a9da71da51",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          4200.0,
+          444.0
+        ],
+        [
+          4200.0,
+          -30.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_9c9b9567613a5b1e8dceffd28041081b",
+      "name": "КТП Ф-3 250 кВ·А (Северная)",
+      "legacy_id": "NF3_T",
+      "port_id": "port_2ead5215e4105a2286724e6e363c4095",
+      "role": "to",
+      "new_breaker_id": "demo_qf_NF3_T_to",
+      "new_node_id": "demo_qf_node_NF3_T_to",
+      "old_connection_id": "conn_8a812bd2e73a55839102c27d4942dadb",
+      "old_node_id": "node_310ee574a62c5d71a8ce385cc0a3ddc7",
+      "old_route_id": "route_2411cfa04f0541b89365f4175376e19d",
+      "voltage_class": "builtin.voltage.ac.0_4kv",
+      "waypoints": [
+        [
+          4200.0,
+          516.0
+        ],
+        [
+          4200.0,
+          990.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_5e64b31420a0582c811a5eca0450021d",
+      "name": "Ф-4 10 кВ (Северная)",
+      "legacy_id": "NF4",
+      "port_id": "port_45dfd10777e3554dae55a5997f179fd2",
+      "role": "from",
+      "new_breaker_id": "demo_qf_NF4_from",
+      "new_node_id": "demo_qf_node_NF4_from",
+      "old_connection_id": "conn_0dee6c03fffe564aac2461385b6332cf",
+      "old_node_id": "node_406ced8db124599db29bc1bceffe6919",
+      "old_route_id": "route_5e8e732485574d38b468a8e5cb41158a",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          4500.0,
+          -189.0
+        ],
+        [
+          4500.0,
+          -220.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_e1ace8ed1a095b9cbd5f6dc221108bf0",
+      "name": "КТП Ф-4 250 кВ·А (Северная)",
+      "legacy_id": "NF4_T",
+      "port_id": "port_308c16d28e8556f7a3288f8766c2e8bc",
+      "role": "from",
+      "new_breaker_id": "demo_qf_NF4_T_from",
+      "new_node_id": "demo_qf_node_NF4_T_from",
+      "old_connection_id": "conn_74517a5e904c5511a91c3785e4ff3102",
+      "old_node_id": "node_a392369c08f75e3a9d8a52e9feaff94c",
+      "old_route_id": "route_e26bcab440364e30893d1c813d206593",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          4500.0,
+          824.0
+        ],
+        [
+          4500.0,
+          350.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_e1ace8ed1a095b9cbd5f6dc221108bf0",
+      "name": "КТП Ф-4 250 кВ·А (Северная)",
+      "legacy_id": "NF4_T",
+      "port_id": "port_9d766fc5c96a59deaa80e7d37f13540a",
+      "role": "to",
+      "new_breaker_id": "demo_qf_NF4_T_to",
+      "new_node_id": "demo_qf_node_NF4_T_to",
+      "old_connection_id": "conn_854c78e439fc5f9687011da4bdc10e14",
+      "old_node_id": "node_3e83cf7b3745581ca589165f77145d1a",
+      "old_route_id": "route_6a646afa7f0941e1a166140d5d31188d",
+      "voltage_class": "builtin.voltage.ac.0_4kv",
+      "waypoints": [
+        [
+          4500.0,
+          896.0
+        ],
+        [
+          4500.0,
+          1370.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_416b5a957af5558aacc0c6609df43668",
+      "name": "Ф-5 10 кВ (Северная)",
+      "legacy_id": "NF5",
+      "port_id": "port_b9452404af125df495645399d668b8b5",
+      "role": "from",
+      "new_breaker_id": "demo_qf_NF5_from",
+      "new_node_id": "demo_qf_node_NF5_from",
+      "old_connection_id": "conn_b3188fabaef55c5fb023fb466d1fbdfd",
+      "old_node_id": "node_406ced8db124599db29bc1bceffe6919",
+      "old_route_id": "route_e975cff1177e43ab930bec17ea5e802a",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          4800.0,
+          -189.0
+        ],
+        [
+          4800.0,
+          -220.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_9eedc734b5bb5903add555c13ecd4fa8",
+      "name": "КТП Ф-5 630 кВ·А (Северная)",
+      "legacy_id": "NF5_T",
+      "port_id": "port_3b59a17725b35865ab6d92bfb7c25a24",
+      "role": "from",
+      "new_breaker_id": "demo_qf_NF5_T_from",
+      "new_node_id": "demo_qf_node_NF5_T_from",
+      "old_connection_id": "conn_395f6d7663665a688ba2591312fcf74d",
+      "old_node_id": "node_75847d710adf5a63bdc47a5874e2de95",
+      "old_route_id": "route_f57413a186ca4b54bf2106a013028ad3",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          4800.0,
+          444.0
+        ],
+        [
+          4800.0,
+          -30.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_9eedc734b5bb5903add555c13ecd4fa8",
+      "name": "КТП Ф-5 630 кВ·А (Северная)",
+      "legacy_id": "NF5_T",
+      "port_id": "port_1291b6b8639051b286ffa83c9d4a9add",
+      "role": "to",
+      "new_breaker_id": "demo_qf_NF5_T_to",
+      "new_node_id": "demo_qf_node_NF5_T_to",
+      "old_connection_id": "conn_dd3c3d03d0ec572ca08aa5cd795c2145",
+      "old_node_id": "node_56f1fd1092bd5865800bb8b838640d92",
+      "old_route_id": "route_62eb8f93a06d4322b6e0a244cf43d09e",
+      "voltage_class": "builtin.voltage.ac.0_4kv",
+      "waypoints": [
+        [
+          4800.0,
+          516.0
+        ],
+        [
+          4800.0,
+          990.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_57bb8e254e085c38a0d7880b0ccea658",
+      "name": "Ф-6 10 кВ (Северная)",
+      "legacy_id": "NF6",
+      "port_id": "port_bda138a5c222523e9336922e84255afe",
+      "role": "from",
+      "new_breaker_id": "demo_qf_NF6_from",
+      "new_node_id": "demo_qf_node_NF6_from",
+      "old_connection_id": "conn_8c004758e885569e9020e51c9e1541a4",
+      "old_node_id": "node_406ced8db124599db29bc1bceffe6919",
+      "old_route_id": "route_34d766d98adf4915b363843cce29dbcc",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          5100.0,
+          -189.0
+        ],
+        [
+          5100.0,
+          -220.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_c5d237fdc2535166b808ad678210532e",
+      "name": "Ф-1 10 кВ (Западная)",
+      "legacy_id": "WF1",
+      "port_id": "port_5b866b2860305502bf407c916deba403",
+      "role": "from",
+      "new_breaker_id": "demo_qf_WF1_from",
+      "new_node_id": "demo_qf_node_WF1_from",
+      "old_connection_id": "conn_bbc1a871488554f49abd3c94311b5ff9",
+      "old_node_id": "node_5c58447705fb582caf528056fa848bee",
+      "old_route_id": "route_5e6f46d81f574b198c63f0d2f023ea32",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          -30.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_fbfe399d70de5cbcbf6f8f2ccb3affcf",
+      "name": "КТП Ф-1 400 кВ·А (Западная)",
+      "legacy_id": "WF1_T",
+      "port_id": "port_4b7bd80208b1545aaa657ce58830a28a",
+      "role": "from",
+      "new_breaker_id": "demo_qf_WF1_T_from",
+      "new_node_id": "demo_qf_node_WF1_T_from",
+      "old_connection_id": "conn_28ca5136447751a697542a6155402e71",
+      "old_node_id": "node_8557e1d075455d98a8910204a8c9e5ec",
+      "old_route_id": "route_2a150bcaec9f4b678c1f0c88337d86ea",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          0.0,
+          634.0
+        ],
+        [
+          0.0,
+          160.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_fbfe399d70de5cbcbf6f8f2ccb3affcf",
+      "name": "КТП Ф-1 400 кВ·А (Западная)",
+      "legacy_id": "WF1_T",
+      "port_id": "port_cd34960b6cb557acba06ee89e74b6761",
+      "role": "to",
+      "new_breaker_id": "demo_qf_WF1_T_to",
+      "new_node_id": "demo_qf_node_WF1_T_to",
+      "old_connection_id": "conn_f1633f9a2e1b5f5294ba36db350e54cf",
+      "old_node_id": "node_adce4e81367d595caf4db7b01e57d519",
+      "old_route_id": "route_8fc4296fc52f495cb9c046d8d0cb742d",
+      "voltage_class": "builtin.voltage.ac.0_4kv",
+      "waypoints": [
+        [
+          0.0,
+          706.0
+        ],
+        [
+          0.0,
+          1180.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_5919fa8f42985c9b8315c3cbc0d1891a",
+      "name": "Ф-2 10 кВ (Западная)",
+      "legacy_id": "WF2",
+      "port_id": "port_328e2618e8c55d5289e0ade874970748",
+      "role": "from",
+      "new_breaker_id": "demo_qf_WF2_from",
+      "new_node_id": "demo_qf_node_WF2_from",
+      "old_connection_id": "conn_febc2f474a2f50eeb663d2f4649422e9",
+      "old_node_id": "node_5c58447705fb582caf528056fa848bee",
+      "old_route_id": "route_c05c1ba9a6584a05aa95377ce64ab366",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          300.0,
+          1.0
+        ],
+        [
+          300.0,
+          -30.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_e5a95a04cfa8526b805ff1021dcf6841",
+      "name": "Ф-3 10 кВ (Западная)",
+      "legacy_id": "WF3",
+      "port_id": "port_12c19c4db1ff53faa942e8c32aff20df",
+      "role": "from",
+      "new_breaker_id": "demo_qf_WF3_from",
+      "new_node_id": "demo_qf_node_WF3_from",
+      "old_connection_id": "conn_86aadea98b655d719d9f5f117ae77344",
+      "old_node_id": "node_5c58447705fb582caf528056fa848bee",
+      "old_route_id": "route_a4d95bf0da6b4ddbbf557f21e6a69c7c",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          600.0,
+          1.0
+        ],
+        [
+          600.0,
+          -30.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_e15f2458ee875310927c13dab4ae0f14",
+      "name": "КТП Ф-3 250 кВ·А (Западная)",
+      "legacy_id": "WF3_T",
+      "port_id": "port_036bdea011ae56959bc9ad6811de7793",
+      "role": "from",
+      "new_breaker_id": "demo_qf_WF3_T_from",
+      "new_node_id": "demo_qf_node_WF3_T_from",
+      "old_connection_id": "conn_d7c061ffef27555c9629b9eae8391da9",
+      "old_node_id": "node_92f462a1c76b565fa89af76473efb4d3",
+      "old_route_id": "route_54fcfa1f72144791bf02de47824032e1",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          600.0,
+          634.0
+        ],
+        [
+          600.0,
+          160.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_e15f2458ee875310927c13dab4ae0f14",
+      "name": "КТП Ф-3 250 кВ·А (Западная)",
+      "legacy_id": "WF3_T",
+      "port_id": "port_22c2a87a8123591a97239a27fe3c4dee",
+      "role": "to",
+      "new_breaker_id": "demo_qf_WF3_T_to",
+      "new_node_id": "demo_qf_node_WF3_T_to",
+      "old_connection_id": "conn_715252e79f4853e19f9e5cc88224c913",
+      "old_node_id": "node_9e961b5d47d75d7bbed36929c3f8a79d",
+      "old_route_id": "route_c08320f73dbb4c35bc3c1081f7694e2d",
+      "voltage_class": "builtin.voltage.ac.0_4kv",
+      "waypoints": [
+        [
+          600.0,
+          706.0
+        ],
+        [
+          600.0,
+          1180.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_02b70f27a3fc518d9605d0c1237b0288",
+      "name": "Ф-4 10 кВ (Западная)",
+      "legacy_id": "WF4",
+      "port_id": "port_fe05b24be4d95db0a82d35587ca271fd",
+      "role": "from",
+      "new_breaker_id": "demo_qf_WF4_from",
+      "new_node_id": "demo_qf_node_WF4_from",
+      "old_connection_id": "conn_380303394c735c5784d72f4afcb0d099",
+      "old_node_id": "node_cac3e64b7e2658aea6659c6815b31a86",
+      "old_route_id": "route_a37306ba88bf4eb8825120ef5db95526",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          900.0,
+          1.0
+        ],
+        [
+          900.0,
+          -30.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_59e209e137ed56e191d0e1b14842b449",
+      "name": "КТП Ф-4 250 кВ·А (Западная)",
+      "legacy_id": "WF4_T",
+      "port_id": "port_ec58a659cb2c5389b3501172f66a0542",
+      "role": "from",
+      "new_breaker_id": "demo_qf_WF4_T_from",
+      "new_node_id": "demo_qf_node_WF4_T_from",
+      "old_connection_id": "conn_cf51f0dde48c5fef97bb2003d67c952b",
+      "old_node_id": "node_5bdea081bfa751e8a7e5c76e76b83ff8",
+      "old_route_id": "route_5fd3bf88247f4ad099641d2488cecf29",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          900.0,
+          1014.0
+        ],
+        [
+          900.0,
+          540.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_59e209e137ed56e191d0e1b14842b449",
+      "name": "КТП Ф-4 250 кВ·А (Западная)",
+      "legacy_id": "WF4_T",
+      "port_id": "port_7f8adf29382d509f8af4f26aa5772d65",
+      "role": "to",
+      "new_breaker_id": "demo_qf_WF4_T_to",
+      "new_node_id": "demo_qf_node_WF4_T_to",
+      "old_connection_id": "conn_580c4e8d60fd521296141cde88b16dbf",
+      "old_node_id": "node_1c6dc820dd525b78ab7adde4890957d0",
+      "old_route_id": "route_f07f05f3feac4dd8bf8921e16c1b1c3f",
+      "voltage_class": "builtin.voltage.ac.0_4kv",
+      "waypoints": [
+        [
+          900.0,
+          1086.0
+        ],
+        [
+          900.0,
+          1560.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_7f7d79aa286f597e8ab2cf9a4d417e39",
+      "name": "Ф-5 10 кВ (Западная)",
+      "legacy_id": "WF5",
+      "port_id": "port_ceab02640a5657a9a715f3059092df40",
+      "role": "from",
+      "new_breaker_id": "demo_qf_WF5_from",
+      "new_node_id": "demo_qf_node_WF5_from",
+      "old_connection_id": "conn_642784d118845bb7b01a40de2c01a8dc",
+      "old_node_id": "node_cac3e64b7e2658aea6659c6815b31a86",
+      "old_route_id": "route_91388bf9dba045b2a38b72e6d61cf718",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          1200.0,
+          1.0
+        ],
+        [
+          1200.0,
+          -30.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_19792d590c085860bff3ee0a5a74913e",
+      "name": "КТП Ф-5 630 кВ·А (Западная)",
+      "legacy_id": "WF5_T",
+      "port_id": "port_c84783f6797351adacde1600a654d128",
+      "role": "from",
+      "new_breaker_id": "demo_qf_WF5_T_from",
+      "new_node_id": "demo_qf_node_WF5_T_from",
+      "old_connection_id": "conn_1eba67b8256f5acabbc90e1499aaa04f",
+      "old_node_id": "node_31e185f8a9985944b332ad33b8b5ef9f",
+      "old_route_id": "route_8b239c1420a44bb9bfaf220ea51ae519",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          1200.0,
+          634.0
+        ],
+        [
+          1200.0,
+          160.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_19792d590c085860bff3ee0a5a74913e",
+      "name": "КТП Ф-5 630 кВ·А (Западная)",
+      "legacy_id": "WF5_T",
+      "port_id": "port_c3a4225786d65991a66035e17e4fd4a8",
+      "role": "to",
+      "new_breaker_id": "demo_qf_WF5_T_to",
+      "new_node_id": "demo_qf_node_WF5_T_to",
+      "old_connection_id": "conn_060e8ab2db8a5206b36107871f974dde",
+      "old_node_id": "node_9ae3f1de47f45c989ed51ad7dd48aa65",
+      "old_route_id": "route_112faed804e54c57818ca881ca34a3f6",
+      "voltage_class": "builtin.voltage.ac.0_4kv",
+      "waypoints": [
+        [
+          1200.0,
+          706.0
+        ],
+        [
+          1200.0,
+          1180.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_a386517fa82a5fcf98d3fb43fb480229",
+      "name": "Ф-6 10 кВ (Западная)",
+      "legacy_id": "WF6",
+      "port_id": "port_742e55c980eb5199a3dd7a1943af278e",
+      "role": "from",
+      "new_breaker_id": "demo_qf_WF6_from",
+      "new_node_id": "demo_qf_node_WF6_from",
+      "old_connection_id": "conn_08b1439e31475adcbda4beb64b83737a",
+      "old_node_id": "node_cac3e64b7e2658aea6659c6815b31a86",
+      "old_route_id": "route_56e96a4f4d2941859e309db910a1d828",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          1500.0,
+          1.0
+        ],
+        [
+          1500.0,
+          -30.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_c6b8951dff4d5a91b6e2fd1007d70fe4",
+      "name": "Ф-1 10 кВ (Южная)",
+      "legacy_id": "SF1",
+      "port_id": "port_271e37deb6005c75b59c1c20cb522a25",
+      "role": "from",
+      "new_breaker_id": "demo_qf_SF1_from",
+      "new_node_id": "demo_qf_node_SF1_from",
+      "old_connection_id": "conn_5a4c4ec4f96e59099388a996c68b6347",
+      "old_node_id": "node_3cdae44d693e59049d993225dd64e324",
+      "old_route_id": "route_0e75ad8389bd44c4b537a7f6b9cafd63",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          5400.0,
+          -189.0
+        ],
+        [
+          5400.0,
+          -220.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_d04212c0f08d581989d7ffc09bf5f343",
+      "name": "КТП Ф-1 630 кВ·А (Южная)",
+      "legacy_id": "SF1_T",
+      "port_id": "port_e914d2057b835893aeaa0aea24f96113",
+      "role": "from",
+      "new_breaker_id": "demo_qf_SF1_T_from",
+      "new_node_id": "demo_qf_node_SF1_T_from",
+      "old_connection_id": "conn_8ca0736535c7540394bb0b43f64d867d",
+      "old_node_id": "node_8b46b5feaf615d57b0313f5c6b61bc6c",
+      "old_route_id": "route_2b1c059dc0bc438d9ac63fdfd145d68b",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          5400.0,
+          444.0
+        ],
+        [
+          5400.0,
+          -30.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_d04212c0f08d581989d7ffc09bf5f343",
+      "name": "КТП Ф-1 630 кВ·А (Южная)",
+      "legacy_id": "SF1_T",
+      "port_id": "port_785b318681ea5ee6976d721b757abdab",
+      "role": "to",
+      "new_breaker_id": "demo_qf_SF1_T_to",
+      "new_node_id": "demo_qf_node_SF1_T_to",
+      "old_connection_id": "conn_ee1790aa3294551f9d5ce3c41ef589bb",
+      "old_node_id": "node_1d8cd07dfd96566ea5930a841c059ba6",
+      "old_route_id": "route_099a8d1dd3b54830beb332de1f35b6cb",
+      "voltage_class": "builtin.voltage.ac.0_4kv",
+      "waypoints": [
+        [
+          5400.0,
+          516.0
+        ],
+        [
+          5400.0,
+          990.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_d1421d94c30758ffa32b08ec283bfa8b",
+      "name": "Ф-2 10 кВ (Южная)",
+      "legacy_id": "SF2",
+      "port_id": "port_54e559b2b8a8549c8d48be584c30dee8",
+      "role": "from",
+      "new_breaker_id": "demo_qf_SF2_from",
+      "new_node_id": "demo_qf_node_SF2_from",
+      "old_connection_id": "conn_d6f1f15f15585e6a8d394d8752f7f640",
+      "old_node_id": "node_3cdae44d693e59049d993225dd64e324",
+      "old_route_id": "route_b7ac9b0c68234c2ca5a8625188a2f880",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          5700.0,
+          -189.0
+        ],
+        [
+          5700.0,
+          -220.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_466068a201405fd6ad8487ac76adb296",
+      "name": "КТП Ф-2 400 кВ·А (Южная)",
+      "legacy_id": "SF2_T",
+      "port_id": "port_9433b6d2ea2a5310b1c5afd5e6d22fbc",
+      "role": "from",
+      "new_breaker_id": "demo_qf_SF2_T_from",
+      "new_node_id": "demo_qf_node_SF2_T_from",
+      "old_connection_id": "conn_f8809f33913a57288c50722f26021545",
+      "old_node_id": "node_5e7e674151a558b19ab587742b43d4b7",
+      "old_route_id": "route_30b7ac0654324af3b9bf05880f93cb01",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          5700.0,
+          444.0
+        ],
+        [
+          5700.0,
+          -30.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_466068a201405fd6ad8487ac76adb296",
+      "name": "КТП Ф-2 400 кВ·А (Южная)",
+      "legacy_id": "SF2_T",
+      "port_id": "port_b1250f35e5965b509d863bdcd70b0891",
+      "role": "to",
+      "new_breaker_id": "demo_qf_SF2_T_to",
+      "new_node_id": "demo_qf_node_SF2_T_to",
+      "old_connection_id": "conn_01253a75ee3e58c69a84c06877ba6e4b",
+      "old_node_id": "node_b00ebf2065ee523297e1d45e4e7c9bb8",
+      "old_route_id": "route_ba5a7aa3ce9f49e181b89e6dc6bd0604",
+      "voltage_class": "builtin.voltage.ac.0_4kv",
+      "waypoints": [
+        [
+          5700.0,
+          516.0
+        ],
+        [
+          5700.0,
+          990.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_a1a22118631d5e9396b0292bbb81635e",
+      "name": "Ф-3 10 кВ (Южная)",
+      "legacy_id": "SF3",
+      "port_id": "port_64d46d15ee055986a457ad38b615adf1",
+      "role": "from",
+      "new_breaker_id": "demo_qf_SF3_from",
+      "new_node_id": "demo_qf_node_SF3_from",
+      "old_connection_id": "conn_810488673ef3501db7759776ec31d5ad",
+      "old_node_id": "node_3cdae44d693e59049d993225dd64e324",
+      "old_route_id": "route_598714a8029d48ff991e07584e9126fd",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          6000.0,
+          -189.0
+        ],
+        [
+          6000.0,
+          -220.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_e487107a02515cbfa7f8b9fa6315f85d",
+      "name": "Ф-4 10 кВ (Южная)",
+      "legacy_id": "SF4",
+      "port_id": "port_91c7e2f93297504abb09b74aa3516cff",
+      "role": "from",
+      "new_breaker_id": "demo_qf_SF4_from",
+      "new_node_id": "demo_qf_node_SF4_from",
+      "old_connection_id": "conn_8b34102432485b2f94548983597d82e9",
+      "old_node_id": "node_3cdae44d693e59049d993225dd64e324",
+      "old_route_id": "route_aab2619faded41cd921bee6ce906330d",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          6300.0,
+          -189.0
+        ],
+        [
+          6300.0,
+          -220.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_f006bea84e305f0aa3cdc16584eca4d1",
+      "name": "КТП Ф-4 400 кВ·А (Южная)",
+      "legacy_id": "SF4_T",
+      "port_id": "port_8a8aca570c8559638ca29c184f934903",
+      "role": "from",
+      "new_breaker_id": "demo_qf_SF4_T_from",
+      "new_node_id": "demo_qf_node_SF4_T_from",
+      "old_connection_id": "conn_3b18bc671cc95c668762fee46b46d85d",
+      "old_node_id": "node_6dd2272119c55edea191ccccd0adc9a8",
+      "old_route_id": "route_40934614890f4887a8901c763bdce37e",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          6300.0,
+          444.0
+        ],
+        [
+          6300.0,
+          -30.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_f006bea84e305f0aa3cdc16584eca4d1",
+      "name": "КТП Ф-4 400 кВ·А (Южная)",
+      "legacy_id": "SF4_T",
+      "port_id": "port_d87993c5cf41591f82033fa9563aa875",
+      "role": "to",
+      "new_breaker_id": "demo_qf_SF4_T_to",
+      "new_node_id": "demo_qf_node_SF4_T_to",
+      "old_connection_id": "conn_a3dd4350a0fa5f4abdcdf83461fcebed",
+      "old_node_id": "node_5f7d8df63b7c50d68ca7f0e39778ded8",
+      "old_route_id": "route_5387282be2ba4023b662ea2154375181",
+      "voltage_class": "builtin.voltage.ac.0_4kv",
+      "waypoints": [
+        [
+          6300.0,
+          516.0
+        ],
+        [
+          6300.0,
+          990.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_f02e3f04c5f957aa97971422db6622ed",
+      "name": "Ф-5 10 кВ (Южная)",
+      "legacy_id": "SF5",
+      "port_id": "port_fc1f3268d8415beb962a77bdcc5e70b7",
+      "role": "from",
+      "new_breaker_id": "demo_qf_SF5_from",
+      "new_node_id": "demo_qf_node_SF5_from",
+      "old_connection_id": "conn_c601283a1d475d68b84cbfaac82dfb0a",
+      "old_node_id": "node_3cdae44d693e59049d993225dd64e324",
+      "old_route_id": "route_c441a84a48014d9bb4e08676700dee85",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          6600.0,
+          -189.0
+        ],
+        [
+          6600.0,
+          -220.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_7f08d1925eb85466929aec74d441bef9",
+      "name": "КТП Ф-5 630 кВ·А (Южная)",
+      "legacy_id": "SF5_T",
+      "port_id": "port_2350fe46e58f5c34b5628ec4829d6d9a",
+      "role": "from",
+      "new_breaker_id": "demo_qf_SF5_T_from",
+      "new_node_id": "demo_qf_node_SF5_T_from",
+      "old_connection_id": "conn_2250cc7c06305916a4c1595eaff3ee6b",
+      "old_node_id": "node_486c9ff7a20c591cadfd5d36eff0ca0d",
+      "old_route_id": "route_b1e3a87753aa459a8835720f73239871",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          6600.0,
+          444.0
+        ],
+        [
+          6600.0,
+          -30.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_7f08d1925eb85466929aec74d441bef9",
+      "name": "КТП Ф-5 630 кВ·А (Южная)",
+      "legacy_id": "SF5_T",
+      "port_id": "port_c1e00f44ca8a570aa6efea54c7639709",
+      "role": "to",
+      "new_breaker_id": "demo_qf_SF5_T_to",
+      "new_node_id": "demo_qf_node_SF5_T_to",
+      "old_connection_id": "conn_753ce0cc37215c9ab5125ec7f8dbe016",
+      "old_node_id": "node_58fbae863f4a50b5b1c519e4eca485d6",
+      "old_route_id": "route_d4965d1f389b4ca195b9275402e24a60",
+      "voltage_class": "builtin.voltage.ac.0_4kv",
+      "waypoints": [
+        [
+          6600.0,
+          516.0
+        ],
+        [
+          6600.0,
+          990.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    },
+    {
+      "equipment_id": "eq_65c4d7134a9d50aab8048be317adbdbc",
+      "name": "Ф-6 10 кВ (Южная)",
+      "legacy_id": "SF6",
+      "port_id": "port_d752dddfb12f5fc58a26d5bf6be690f2",
+      "role": "from",
+      "new_breaker_id": "demo_qf_SF6_from",
+      "new_node_id": "demo_qf_node_SF6_from",
+      "old_connection_id": "conn_8746f65682a7501e809039d6f599092a",
+      "old_node_id": "node_3cdae44d693e59049d993225dd64e324",
+      "old_route_id": "route_86e5a31ff2914bcf9bcc6c1b3139e00f",
+      "voltage_class": "builtin.voltage.ac.10kv",
+      "waypoints": [
+        [
+          6900.0,
+          -189.0
+        ],
+        [
+          6900.0,
+          -220.0
+        ]
+      ],
+      "mode_positions": {
+        "Нормальный режим": "CLOSED",
+        "Минимальный режим системы": "CLOSED",
+        "Ремонт Т2 Центральной, СВ включён": "CLOSED",
+        "Ремонт Т1 Северной, СВ включён": "CLOSED",
+        "Ремонт Т1 Западной, СВ включён": "CLOSED",
+        "Южная на резервном питании": "CLOSED"
+      }
+    }
+  ],
+  "covered_by_existing": [
+    [
+      "Т1 Центральная 110/35/10",
+      "lv",
+      "Ввод-1 10 кВ (Центральная)"
+    ],
+    [
+      "Т2 Центральная 110/10",
+      "to",
+      "Ввод-2 10 кВ (Центральная)"
+    ],
+    [
+      "Т1 Северная 110/10",
+      "to",
+      "Ввод-1 10 кВ (Северная)"
+    ],
+    [
+      "Т2 Северная 110/10",
+      "to",
+      "Ввод-2 10 кВ (Северная)"
+    ],
+    [
+      "Т1 Западная 35/10",
+      "to",
+      "Ввод-1 10 кВ (Западная)"
+    ],
+    [
+      "Т2 Западная 35/10",
+      "to",
+      "Ввод-2 10 кВ (Западная)"
+    ],
+    [
+      "Т1 Южная 110/10",
+      "to",
+      "Ввод-1 10 кВ (Южная)"
+    ]
+  ],
+  "ct_rebindings": [
+    {
+      "equipment_id": "eq_10d64e8d290857d4afffd96ce4b8734a",
+      "legacy_id": "CT1",
+      "old_ct_node": "c110",
+      "new_ct_node": "N_87715017c12357fa9944b7bcf969fdc3"
+    },
+    {
+      "equipment_id": "eq_53789bc3e7e15ebf983409937ddac923",
+      "legacy_id": "CT2",
+      "old_ct_node": "c110",
+      "new_ct_node": "N_ec70f7ef40a25a6f81347a7bb3ed9074"
+    },
+    {
+      "equipment_id": "eq_d32d8ce2d29e52f98d22165007ac5870",
+      "legacy_id": "NT1",
+      "old_ct_node": "n110",
+      "new_ct_node": "N_490e8940a59a512b8d2e721d9cfd5210"
+    },
+    {
+      "equipment_id": "eq_d40a1f6256225c869f3915a13f250529",
+      "legacy_id": "NT2",
+      "old_ct_node": "n110",
+      "new_ct_node": "N_2b3354430fc2547d83f62b39bc5cb1c5"
+    },
+    {
+      "equipment_id": "eq_c37404aec16c52e49ac964599cc33602",
+      "legacy_id": "WT1",
+      "old_ct_node": "w35",
+      "new_ct_node": "N_23adb25b54f65ae99144ec49194c08bd"
+    },
+    {
+      "equipment_id": "eq_f49e2ada0bd258b4a49073f7e5bb0801",
+      "legacy_id": "WT2",
+      "old_ct_node": "w35",
+      "new_ct_node": "N_2928f00abbc1550b94b90526df3d3886"
+    },
+    {
+      "equipment_id": "eq_b177fca4756c5ab280084f444cb10df5",
+      "legacy_id": "ST1",
+      "old_ct_node": "s110",
+      "new_ct_node": "N_581e44fe616b54b197d74c320f9b540d"
+    },
+    {
+      "equipment_id": "eq_298fea7396f85f888baecf5b9c4b1c87",
+      "legacy_id": "CF1",
+      "old_ct_node": "c10_1",
+      "new_ct_node": "N_061cb7c7cde95f258c21508e558ec1ca"
+    },
+    {
+      "equipment_id": "eq_d6f9f3c3cdfc53a6857f6505e38c17db",
+      "legacy_id": "CF1_T",
+      "old_ct_node": "CF1_end",
+      "new_ct_node": "N_71fdd8b61c0d519791901ba7d928df60"
+    },
+    {
+      "equipment_id": "eq_f6bb86c182045a4689f20cb9e717fb88",
+      "legacy_id": "CF2",
+      "old_ct_node": "c10_1",
+      "new_ct_node": "N_2e528d60119e561da70c1d4e88c0f3be"
+    },
+    {
+      "equipment_id": "eq_0c01b95e785f5766892af833aac76ab1",
+      "legacy_id": "CF3",
+      "old_ct_node": "c10_1",
+      "new_ct_node": "N_ddd1c0e900425b34aed520901aaf57d4"
+    },
+    {
+      "equipment_id": "eq_b9f6cdf8f4655507b0eed5b84fc43d0a",
+      "legacy_id": "CF4",
+      "old_ct_node": "c10_2",
+      "new_ct_node": "N_074a365f556551648ddc6778d0043866"
+    },
+    {
+      "equipment_id": "eq_f6ad130a41d053e8a05df930a91838ed",
+      "legacy_id": "CF4_T",
+      "old_ct_node": "CF4_end",
+      "new_ct_node": "N_a9751177cf7d57e7a9c1d8a042f2f82b"
+    },
+    {
+      "equipment_id": "eq_57d8db435c145faa9e50427dbb45950d",
+      "legacy_id": "CF5",
+      "old_ct_node": "c10_2",
+      "new_ct_node": "N_716d138c8d6a56b5b4191a0eef0eb7bc"
+    },
+    {
+      "equipment_id": "eq_b88f6ad81258588a817a15ea07ffa40f",
+      "legacy_id": "CF5_T",
+      "old_ct_node": "CF5_tail",
+      "new_ct_node": "N_8ac0b08c292d506389db561b356a325d"
+    },
+    {
+      "equipment_id": "eq_544abd41661b535cbc88235d9e1bb65e",
+      "legacy_id": "CF6",
+      "old_ct_node": "c10_2",
+      "new_ct_node": "N_d2103c397ef559fbb82ab929d4c7474e"
+    },
+    {
+      "equipment_id": "eq_5fc6e4f63a645702a7f8f317a57ca81d",
+      "legacy_id": "CF6_T",
+      "old_ct_node": "CF6_end",
+      "new_ct_node": "N_6982b468f1de5f4e82e54339e156af90"
+    },
+    {
+      "equipment_id": "eq_c21f142ea64956bea2b76cef3995174b",
+      "legacy_id": "NF1",
+      "old_ct_node": "n10_1",
+      "new_ct_node": "N_25eb1c74197a547c9f0bff3ca20cc11f"
+    },
+    {
+      "equipment_id": "eq_2ee6a5df0e4f5b579274ab21858e2acb",
+      "legacy_id": "NF1_T",
+      "old_ct_node": "NF1_end",
+      "new_ct_node": "N_2cc67cdf86fa530095b7e4b04ca48926"
+    },
+    {
+      "equipment_id": "eq_fb4ddd78049051e1a739c59b14f6a91b",
+      "legacy_id": "NF2",
+      "old_ct_node": "n10_1",
+      "new_ct_node": "N_772259ffe2ed57ac9a1af603c8229f35"
+    },
+    {
+      "equipment_id": "eq_d075aeb87d225e5ab4e0ce2b76fc3e75",
+      "legacy_id": "NF3",
+      "old_ct_node": "n10_1",
+      "new_ct_node": "N_2da114f40d065c4cae42fbdda1e1b221"
+    },
+    {
+      "equipment_id": "eq_9c9b9567613a5b1e8dceffd28041081b",
+      "legacy_id": "NF3_T",
+      "old_ct_node": "NF3_end",
+      "new_ct_node": "N_747fcdbbaa5653aa8f49dce687fe5506"
+    },
+    {
+      "equipment_id": "eq_5e64b31420a0582c811a5eca0450021d",
+      "legacy_id": "NF4",
+      "old_ct_node": "n10_2",
+      "new_ct_node": "N_38286de7a5225dd0b947666977496d5c"
+    },
+    {
+      "equipment_id": "eq_e1ace8ed1a095b9cbd5f6dc221108bf0",
+      "legacy_id": "NF4_T",
+      "old_ct_node": "NF4_tail",
+      "new_ct_node": "N_df10e50028f55d25aef18d2bff870f00"
+    },
+    {
+      "equipment_id": "eq_416b5a957af5558aacc0c6609df43668",
+      "legacy_id": "NF5",
+      "old_ct_node": "n10_2",
+      "new_ct_node": "N_6bb285ae88d4583d8da820dbb237c501"
+    },
+    {
+      "equipment_id": "eq_9eedc734b5bb5903add555c13ecd4fa8",
+      "legacy_id": "NF5_T",
+      "old_ct_node": "NF5_end",
+      "new_ct_node": "N_cbb24ab6da605fd1b53a1953c5b8dbb7"
+    },
+    {
+      "equipment_id": "eq_57bb8e254e085c38a0d7880b0ccea658",
+      "legacy_id": "NF6",
+      "old_ct_node": "n10_2",
+      "new_ct_node": "N_b5e17288d5525101ae56661c8ffc5071"
+    },
+    {
+      "equipment_id": "eq_c5d237fdc2535166b808ad678210532e",
+      "legacy_id": "WF1",
+      "old_ct_node": "w10_1",
+      "new_ct_node": "N_21cc396b98e754f39f900184eb0a9b7d"
+    },
+    {
+      "equipment_id": "eq_fbfe399d70de5cbcbf6f8f2ccb3affcf",
+      "legacy_id": "WF1_T",
+      "old_ct_node": "WF1_end",
+      "new_ct_node": "N_8aeff72844485d6993e7ea911cb76260"
+    },
+    {
+      "equipment_id": "eq_5919fa8f42985c9b8315c3cbc0d1891a",
+      "legacy_id": "WF2",
+      "old_ct_node": "w10_1",
+      "new_ct_node": "N_faba281c6a015b2495b20d56d6a14151"
+    },
+    {
+      "equipment_id": "eq_e5a95a04cfa8526b805ff1021dcf6841",
+      "legacy_id": "WF3",
+      "old_ct_node": "w10_1",
+      "new_ct_node": "N_0302d43475bc55efafaa7309c8f86a83"
+    },
+    {
+      "equipment_id": "eq_e15f2458ee875310927c13dab4ae0f14",
+      "legacy_id": "WF3_T",
+      "old_ct_node": "WF3_end",
+      "new_ct_node": "N_966684c6f9395f44a7bc4a4c41cbbc25"
+    },
+    {
+      "equipment_id": "eq_02b70f27a3fc518d9605d0c1237b0288",
+      "legacy_id": "WF4",
+      "old_ct_node": "w10_2",
+      "new_ct_node": "N_75d70c789a8655f89f43e14b15216c90"
+    },
+    {
+      "equipment_id": "eq_59e209e137ed56e191d0e1b14842b449",
+      "legacy_id": "WF4_T",
+      "old_ct_node": "WF4_tail",
+      "new_ct_node": "N_6305cfe6ea6e50fa88c3ea902e9888d6"
+    },
+    {
+      "equipment_id": "eq_7f7d79aa286f597e8ab2cf9a4d417e39",
+      "legacy_id": "WF5",
+      "old_ct_node": "w10_2",
+      "new_ct_node": "N_f066d44e139c5887bf897846188d7572"
+    },
+    {
+      "equipment_id": "eq_19792d590c085860bff3ee0a5a74913e",
+      "legacy_id": "WF5_T",
+      "old_ct_node": "WF5_end",
+      "new_ct_node": "N_59e6a417aa1c5d2e87c70144eb3a7990"
+    },
+    {
+      "equipment_id": "eq_a386517fa82a5fcf98d3fb43fb480229",
+      "legacy_id": "WF6",
+      "old_ct_node": "w10_2",
+      "new_ct_node": "N_83a97e1d3da0535d9d897c6d7c87d1e0"
+    },
+    {
+      "equipment_id": "eq_c6b8951dff4d5a91b6e2fd1007d70fe4",
+      "legacy_id": "SF1",
+      "old_ct_node": "s10_1",
+      "new_ct_node": "N_7b64e69ed26a5c698d363f115f398098"
+    },
+    {
+      "equipment_id": "eq_d04212c0f08d581989d7ffc09bf5f343",
+      "legacy_id": "SF1_T",
+      "old_ct_node": "SF1_end",
+      "new_ct_node": "N_ddbfe52eafb2518eb178db3e91a1a23a"
+    },
+    {
+      "equipment_id": "eq_d1421d94c30758ffa32b08ec283bfa8b",
+      "legacy_id": "SF2",
+      "old_ct_node": "s10_1",
+      "new_ct_node": "N_626eed90f0a156038e52bfea4ba9855d"
+    },
+    {
+      "equipment_id": "eq_466068a201405fd6ad8487ac76adb296",
+      "legacy_id": "SF2_T",
+      "old_ct_node": "SF2_end",
+      "new_ct_node": "N_84d67b0064775218b2ea5e7718366da7"
+    },
+    {
+      "equipment_id": "eq_a1a22118631d5e9396b0292bbb81635e",
+      "legacy_id": "SF3",
+      "old_ct_node": "s10_1",
+      "new_ct_node": "N_d99f47ea04d856929e9b9c7d001240a4"
+    },
+    {
+      "equipment_id": "eq_e487107a02515cbfa7f8b9fa6315f85d",
+      "legacy_id": "SF4",
+      "old_ct_node": "s10_1",
+      "new_ct_node": "N_61542578a45d5425a6156a97d70af42a"
+    },
+    {
+      "equipment_id": "eq_f006bea84e305f0aa3cdc16584eca4d1",
+      "legacy_id": "SF4_T",
+      "old_ct_node": "SF4_end",
+      "new_ct_node": "N_1f10fc0395595d369afd7c3c0a7f654f"
+    },
+    {
+      "equipment_id": "eq_f02e3f04c5f957aa97971422db6622ed",
+      "legacy_id": "SF5",
+      "old_ct_node": "s10_1",
+      "new_ct_node": "N_bbf6afd20e215cca8e23145cde1d393c"
+    },
+    {
+      "equipment_id": "eq_7f08d1925eb85466929aec74d441bef9",
+      "legacy_id": "SF5_T",
+      "old_ct_node": "SF5_end",
+      "new_ct_node": "N_8ba251478c7356b78ae7a97f1449e539"
+    },
+    {
+      "equipment_id": "eq_65c4d7134a9d50aab8048be317adbdbc",
+      "legacy_id": "SF6",
+      "old_ct_node": "s10_1",
+      "new_ct_node": "N_bd27848b782b5b27abd5d468a3f4e24d"
+    }
+  ]
+}

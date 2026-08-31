@@ -1,0 +1,49 @@
+{
+  "runtime": "Actual EditorWorkspaceWidget / DiagramGraphicsScene with QTest events",
+  "qpa_platform": "windows",
+  "physical_mouse_acceptance": false,
+  "source_examples_modified": false,
+  "preview_read_only": true,
+  "commit_history_entries": 1,
+  "electrical_fingerprint_and_port_ids_preserved": true,
+  "analysis_handle_hidden": true,
+  "collision_rejection_atomic": true,
+  "frames": [
+    {
+      "file": "01-handle-hover-90.png",
+      "width": 1550,
+      "height": 950,
+      "bytes": 91084
+    },
+    {
+      "file": "06-handle-hover-100-percent.png",
+      "width": 1550,
+      "height": 950,
+      "bytes": 85618
+    },
+    {
+      "file": "02-drag-preview-180.png",
+      "width": 1550,
+      "height": 950,
+      "bytes": 90621
+    },
+    {
+      "file": "03-committed-180.png",
+      "width": 1550,
+      "height": 950,
+      "bytes": 89816
+    },
+    {
+      "file": "04-analysis-read-only.png",
+      "width": 1550,
+      "height": 950,
+      "bytes": 88384
+    },
+    {
+      "file": "05-collision-preview-rejected.png",
+      "width": 1550,
+      "height": 950,
+      "bytes": 86496
+    }
+  ]
+}

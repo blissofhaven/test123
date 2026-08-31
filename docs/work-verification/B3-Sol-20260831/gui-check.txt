@@ -1,0 +1,28 @@
+{
+  "qt_platform": "windows",
+  "physical_mouse_acceptance": false,
+  "representations": 157,
+  "routes": 160,
+  "visible_labels_at_100_percent": 120,
+  "clearance_scene_units": 4,
+  "legacy_pinned_conflicts_before_explicit_reset": 32,
+  "auto_layout_conflicts": 0,
+  "analysis_layout_conflicts": 0,
+  "hidden_below_zoom": 0.6,
+  "source_files_unchanged": {
+    "rza_calc\\examples\\energoraion.json": "158394481136b90aef558a41c6752aaa5fb29915c9caa702600dd427a25fc173",
+    "rza_calc\\examples\\energoraion_v1.json": "1dd4a016c22cf6dceba69700088826ecdfba6410d19550c412aa55f6acaad3ae",
+    "rza_calc\\examples\\gtes_sever.json": "e51a23e41141a260f892117781e1d1eceb8056a118ed32a0a93b7add4182f0e8",
+    "rza_calc\\examples\\gtes_sever_v1.json": "ac88723c7ebb6dbafea40cd857c33e2848bc75e1f7718b382fd0c24f9677af86",
+    "rza_calc\\examples\\ps_severnaya.json": "263c089c133873deda9dd9f32174f47da58ff95a317e823c0caecc76c8378428",
+    "rza_calc\\examples\\ps_severnaya_v1.json": "140067751b657df9dec4ef691ede03e8b7e9570860144e5f7b55c5c14c9012f9"
+  },
+  "electrical_fingerprint_unchanged": "b275e47230495c199e8c4ad0158838af0f3a3c14a2767fc85a98bbe7a1164445",
+  "ports_unchanged": true,
+  "dense_region": [
+    3887.5,
+    -327.0,
+    1400.0,
+    900.0
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "scope": "SCRATCH ONLY; NOT ACCEPTED; source core and baseline unmodified",
+  "source_sha256": "898d808dff3dbf13bea28ee9fa6d2e21bcc91bb29c5f1e8aa5d11744f69f75af",
+  "diagram_invariants_passed": [
+    "test_demo_project_has_a_placed_scheme",
+    "test_every_object_of_the_model_is_placed_exactly_once",
+    "test_every_electrical_connection_is_drawn_by_one_route",
+    "test_routes_are_orthogonal_without_zero_length_segments",
+    "test_wire_starts_exactly_at_the_drawn_terminal",
+    "test_route_ends_on_its_node_symbol",
+    "test_every_equipment_type_resolves_to_a_real_symbol",
+    "test_node_connection_routes_keep_one_electrical_node",
+    "test_scheme_references_survive_validation",
+    "test_demo_network_has_the_declared_composition",
+    "test_demo_network_calculates_without_unresolved_settings"
+  ],
+  "old_equipment_parameters_except_ct_binding_preserved": true,
+  "all_old_ids_ports_roles_nodes_and_mode_positions_preserved": true,
+  "raw_existing_result_diffs": 35,
+  "raw_full_result_diffs": 419,
+  "memory_dedup_existing_result_diffs": 0,
+  "memory_dedup_full_result_diffs": 384,
+  "visible_labels": 184,
+  "label_conflicts_including_pinned_legacy_labels": 32,
+  "source_pinned_label_conflicts": 32,
+  "new_label_conflicts": 0
+}

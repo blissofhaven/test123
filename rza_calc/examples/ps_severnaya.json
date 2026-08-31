@@ -1,0 +1,2099 @@
+{
+  "format_version": 3,
+  "project": {
+    "name": "ПС Северная 35/10 кВ",
+    "object": "Пример схемы для проверки ядра расчёта",
+    "author": "",
+    "_warning": "УЧЕБНЫЙ ПРИМЕР. Параметры оборудования и коэффициенты не относятся к реальному объекту и не являются уставками."
+  },
+  "structure": {
+    "facilities": [],
+    "voltage_levels": [],
+    "bus_sections": [],
+    "bays": [],
+    "equipment": [],
+    "placements": []
+  },
+  "electrical_model": {
+    "name": "ПС Северная 35/10 кВ",
+    "revision": 58,
+    "neutral": {
+      "10": "isolated",
+      "35": "isolated",
+      "0.4": "earthed"
+    },
+    "extensions": {
+      "legacy_calculation": {
+        "schema_version": 1,
+        "source": "core.Network",
+        "generated_node_ids": [],
+        "generated_branch_ids": []
+      }
+    },
+    "voltage_classes": [
+      {
+        "id": "builtin.voltage.ac.220kv",
+        "nominal_voltage_v": 220000,
+        "display_name": "220 кВ",
+        "system_kind": "ac",
+        "extensions": {}
+      },
+      {
+        "id": "builtin.voltage.ac.110kv",
+        "nominal_voltage_v": 110000,
+        "display_name": "110 кВ",
+        "system_kind": "ac",
+        "extensions": {}
+      },
+      {
+        "id": "builtin.voltage.ac.35kv",
+        "nominal_voltage_v": 35000,
+        "display_name": "35 кВ",
+        "system_kind": "ac",
+        "extensions": {}
+      },
+      {
+        "id": "builtin.voltage.ac.10kv",
+        "nominal_voltage_v": 10000,
+        "display_name": "10 кВ",
+        "system_kind": "ac",
+        "extensions": {}
+      },
+      {
+        "id": "builtin.voltage.ac.6kv",
+        "nominal_voltage_v": 6000,
+        "display_name": "6 кВ",
+        "system_kind": "ac",
+        "extensions": {}
+      },
+      {
+        "id": "builtin.voltage.ac.0_4kv",
+        "nominal_voltage_v": 400,
+        "display_name": "0,4 кВ",
+        "system_kind": "ac",
+        "extensions": {}
+      }
+    ],
+    "equipment_types": [
+      {
+        "id": "builtin.external_grid",
+        "schema_version": 1,
+        "display_name": "Внешняя энергосистема",
+        "behavior_key": "source",
+        "port_definitions": [
+          {
+            "role": "terminal",
+            "display_name": "Вывод",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [],
+        "capabilities": [],
+        "allow_additional_properties": true,
+        "extensions": {}
+      },
+      {
+        "id": "builtin.generator",
+        "schema_version": 1,
+        "display_name": "Генератор",
+        "behavior_key": "generator",
+        "port_definitions": [
+          {
+            "role": "terminal",
+            "display_name": "Вывод",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [],
+        "capabilities": [],
+        "allow_additional_properties": true,
+        "extensions": {}
+      },
+      {
+        "id": "builtin.busbar",
+        "schema_version": 1,
+        "display_name": "Шина",
+        "behavior_key": "bus",
+        "port_definitions": [
+          {
+            "role": "terminal",
+            "display_name": "Электрический узел",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [],
+        "capabilities": [],
+        "allow_additional_properties": true,
+        "extensions": {}
+      },
+      {
+        "id": "builtin.connection_point",
+        "schema_version": 1,
+        "display_name": "Точка подключения",
+        "behavior_key": "bus",
+        "port_definitions": [
+          {
+            "role": "terminal",
+            "display_name": "Электрический узел",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [],
+        "capabilities": [],
+        "allow_additional_properties": true,
+        "extensions": {}
+      },
+      {
+        "id": "builtin.line",
+        "schema_version": 1,
+        "display_name": "Воздушная линия",
+        "behavior_key": "line",
+        "port_definitions": [
+          {
+            "role": "from",
+            "display_name": "Начало",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "to",
+            "display_name": "Конец",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [],
+        "capabilities": [],
+        "allow_additional_properties": true,
+        "extensions": {}
+      },
+      {
+        "id": "builtin.cable",
+        "schema_version": 1,
+        "display_name": "Кабельная линия",
+        "behavior_key": "line",
+        "port_definitions": [
+          {
+            "role": "from",
+            "display_name": "Начало",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "to",
+            "display_name": "Конец",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [],
+        "capabilities": [],
+        "allow_additional_properties": true,
+        "extensions": {}
+      },
+      {
+        "id": "builtin.circuit_breaker",
+        "schema_version": 1,
+        "display_name": "Выключатель",
+        "behavior_key": "switch",
+        "port_definitions": [
+          {
+            "role": "a",
+            "display_name": "A",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "b",
+            "display_name": "B",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [],
+        "capabilities": [
+          "switch.position"
+        ],
+        "allow_additional_properties": true,
+        "extensions": {}
+      },
+      {
+        "id": "builtin.transformer_2w",
+        "schema_version": 1,
+        "display_name": "Двухобмоточный трансформатор",
+        "behavior_key": "transformer_2w",
+        "port_definitions": [
+          {
+            "role": "hv",
+            "display_name": "ВН",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "hv",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "lv",
+            "display_name": "НН",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "lv",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [],
+        "capabilities": [],
+        "allow_additional_properties": true,
+        "extensions": {}
+      },
+      {
+        "id": "builtin.transformer_3w",
+        "schema_version": 1,
+        "display_name": "Трёхобмоточный трансформатор",
+        "behavior_key": "transformer_3w",
+        "port_definitions": [
+          {
+            "role": "hv",
+            "display_name": "ВН",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "hv",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "mv",
+            "display_name": "СН",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "mv",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "lv",
+            "display_name": "НН",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "lv",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [],
+        "capabilities": [],
+        "allow_additional_properties": true,
+        "extensions": {}
+      },
+      {
+        "id": "builtin.load",
+        "schema_version": 1,
+        "display_name": "Нагрузка",
+        "behavior_key": "load",
+        "port_definitions": [
+          {
+            "role": "terminal",
+            "display_name": "Вывод",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": "main",
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [],
+        "capabilities": [],
+        "allow_additional_properties": true,
+        "extensions": {}
+      },
+      {
+        "id": "compat.rza_calc.source",
+        "schema_version": 1,
+        "display_name": "Legacy: источник",
+        "behavior_key": "legacy.source",
+        "port_definitions": [
+          {
+            "role": "terminal",
+            "display_name": "Вывод",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [
+          {
+            "key": "legacy_payload",
+            "value_kind": "json",
+            "required": true,
+            "unit": "",
+            "default": null
+          }
+        ],
+        "capabilities": [
+          "legacy.calculation",
+          "legacy.switch.position"
+        ],
+        "allow_additional_properties": false,
+        "extensions": {
+          "compatibility_only": true
+        }
+      },
+      {
+        "id": "compat.rza_calc.generator",
+        "schema_version": 1,
+        "display_name": "Legacy: генератор",
+        "behavior_key": "legacy.generator",
+        "port_definitions": [
+          {
+            "role": "terminal",
+            "display_name": "Вывод",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [
+          {
+            "key": "legacy_payload",
+            "value_kind": "json",
+            "required": true,
+            "unit": "",
+            "default": null
+          }
+        ],
+        "capabilities": [
+          "legacy.calculation",
+          "legacy.switch.position"
+        ],
+        "allow_additional_properties": false,
+        "extensions": {
+          "compatibility_only": true
+        }
+      },
+      {
+        "id": "compat.rza_calc.line",
+        "schema_version": 1,
+        "display_name": "Legacy: линия",
+        "behavior_key": "legacy.line",
+        "port_definitions": [
+          {
+            "role": "from",
+            "display_name": "Начало",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "to",
+            "display_name": "Конец",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [
+          {
+            "key": "legacy_payload",
+            "value_kind": "json",
+            "required": true,
+            "unit": "",
+            "default": null
+          }
+        ],
+        "capabilities": [
+          "legacy.calculation",
+          "legacy.switch.position"
+        ],
+        "allow_additional_properties": false,
+        "extensions": {
+          "compatibility_only": true
+        }
+      },
+      {
+        "id": "compat.rza_calc.transformer_2w",
+        "schema_version": 1,
+        "display_name": "Legacy: трансформатор 2W",
+        "behavior_key": "legacy.transformer_2w",
+        "port_definitions": [
+          {
+            "role": "from",
+            "display_name": "Начало",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "to",
+            "display_name": "Конец",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [
+          {
+            "key": "legacy_payload",
+            "value_kind": "json",
+            "required": true,
+            "unit": "",
+            "default": null
+          }
+        ],
+        "capabilities": [
+          "legacy.calculation",
+          "legacy.switch.position"
+        ],
+        "allow_additional_properties": false,
+        "extensions": {
+          "compatibility_only": true
+        }
+      },
+      {
+        "id": "compat.rza_calc.tie",
+        "schema_version": 1,
+        "display_name": "Legacy: нулевая связь",
+        "behavior_key": "legacy.tie",
+        "port_definitions": [
+          {
+            "role": "from",
+            "display_name": "Начало",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "to",
+            "display_name": "Конец",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [
+          {
+            "key": "legacy_payload",
+            "value_kind": "json",
+            "required": true,
+            "unit": "",
+            "default": null
+          }
+        ],
+        "capabilities": [
+          "legacy.calculation",
+          "legacy.switch.position"
+        ],
+        "allow_additional_properties": false,
+        "extensions": {
+          "compatibility_only": true
+        }
+      },
+      {
+        "id": "compat.rza_calc.branch",
+        "schema_version": 1,
+        "display_name": "Legacy: ветвь",
+        "behavior_key": "legacy.branch",
+        "port_definitions": [
+          {
+            "role": "from",
+            "display_name": "Начало",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "to",
+            "display_name": "Конец",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [
+          {
+            "key": "legacy_payload",
+            "value_kind": "json",
+            "required": true,
+            "unit": "",
+            "default": null
+          }
+        ],
+        "capabilities": [
+          "legacy.calculation",
+          "legacy.switch.position"
+        ],
+        "allow_additional_properties": false,
+        "extensions": {
+          "compatibility_only": true
+        }
+      },
+      {
+        "id": "compat.rza_calc.transformer_3w",
+        "schema_version": 1,
+        "display_name": "Legacy: трансформатор 3W",
+        "behavior_key": "legacy.transformer_3w",
+        "port_definitions": [
+          {
+            "role": "hv",
+            "display_name": "ВН",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "mv",
+            "display_name": "СН",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          },
+          {
+            "role": "lv",
+            "display_name": "НН",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [
+          {
+            "key": "legacy_payload",
+            "value_kind": "json",
+            "required": true,
+            "unit": "",
+            "default": null
+          }
+        ],
+        "capabilities": [
+          "legacy.calculation",
+          "legacy.switch.position"
+        ],
+        "allow_additional_properties": false,
+        "extensions": {
+          "compatibility_only": true
+        }
+      },
+      {
+        "id": "compat.rza_calc.load",
+        "schema_version": 1,
+        "display_name": "Legacy: нагрузка",
+        "behavior_key": "legacy.load",
+        "port_definitions": [
+          {
+            "role": "terminal",
+            "display_name": "Вывод",
+            "kind_id": "builtin.port.ac_power",
+            "voltage_group": null,
+            "allowed_voltage_class_ids": null,
+            "required": true,
+            "max_connections": 1
+          }
+        ],
+        "property_definitions": [
+          {
+            "key": "legacy_payload",
+            "value_kind": "json",
+            "required": true,
+            "unit": "",
+            "default": null
+          }
+        ],
+        "capabilities": [
+          "legacy.calculation"
+        ],
+        "allow_additional_properties": false,
+        "extensions": {
+          "compatibility_only": true
+        }
+      }
+    ],
+    "equipment": [
+      {
+        "id": "eq_1c2192a02bb152d5801fc294972227c8",
+        "type_id": "compat.rza_calc.source",
+        "type_version": 1,
+        "name": "Система 35 кВ",
+        "port_ids": [
+          "port_c03fbc4b62495ecca4720bec15ef56d1"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "source",
+            "switchable": false,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": null,
+            "ct_node": null,
+            "ct_accuracy": "",
+            "breaker_t_off": null,
+            "terminal": "",
+            "prot": {
+              "mtz": true,
+              "to": true,
+              "ozz": false,
+              "t_mtz": null,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            },
+            "s_kz_max": 400,
+            "s_kz_min": 250,
+            "i_kz_max": null,
+            "i_kz_min": null,
+            "x_r_ratio": null
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "S",
+            "legacy_class": "SourceBranch",
+            "source_order": 0
+          }
+        }
+      },
+      {
+        "id": "eq_c21aa366334c5165b39fbc9c2c8e60f8",
+        "type_id": "compat.rza_calc.transformer_2w",
+        "type_version": 1,
+        "name": "Т1 35/10 кВ",
+        "port_ids": [
+          "port_2e49dd0db3df5403a8278ac55933393e",
+          "port_377d53eb1f1154d2a97c04bd14d76643"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "transformer",
+            "switchable": true,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              200,
+              5
+            ],
+            "ct_node": "b35",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ",
+            "prot": {
+              "mtz": true,
+              "to": false,
+              "ozz": false,
+              "t_mtz": null,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            },
+            "s_nom": 10000,
+            "u_hv": 35,
+            "u_lv": 10,
+            "uk": 7.5,
+            "p_k": 60,
+            "group": "Д/Ун-11",
+            "z_loop": null,
+            "i_inrush_ratio": 5
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": "CLOSED",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "T1",
+            "legacy_class": "TransformerBranch",
+            "source_order": 1
+          }
+        }
+      },
+      {
+        "id": "eq_15a7852ddb1258a18197303b61eaf9b6",
+        "type_id": "compat.rza_calc.transformer_2w",
+        "type_version": 1,
+        "name": "Т2 35/10 кВ",
+        "port_ids": [
+          "port_c901ac581c5758019e4c6dc279dbddaa",
+          "port_241e14fd5eed53d29220e372817975d8"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "transformer",
+            "switchable": true,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              200,
+              5
+            ],
+            "ct_node": "b35",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ",
+            "prot": {
+              "mtz": true,
+              "to": false,
+              "ozz": false,
+              "t_mtz": null,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            },
+            "s_nom": 10000,
+            "u_hv": 35,
+            "u_lv": 10,
+            "uk": 7.5,
+            "p_k": 60,
+            "group": "Д/Ун-11",
+            "z_loop": null,
+            "i_inrush_ratio": 5
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": "CLOSED",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "T2",
+            "legacy_class": "TransformerBranch",
+            "source_order": 2
+          }
+        }
+      },
+      {
+        "id": "eq_29fedca92c4c50be8d144115e207934a",
+        "type_id": "compat.rza_calc.tie",
+        "type_version": 1,
+        "name": "Ввод-1 10 кВ",
+        "port_ids": [
+          "port_8ca957d5c426518c94aaed728e543abb",
+          "port_92c9499e830155418e51dd8a76e5f057"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "tie",
+            "switchable": true,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              1000,
+              5
+            ],
+            "ct_node": "t1_lv",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ",
+            "prot": {
+              "mtz": true,
+              "to": false,
+              "ozz": false,
+              "t_mtz": null,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            }
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": "CLOSED",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "V1",
+            "legacy_class": "TieBranch",
+            "source_order": 3
+          }
+        }
+      },
+      {
+        "id": "eq_8bdcf581681853f8a4eb45741c2b3f44",
+        "type_id": "compat.rza_calc.tie",
+        "type_version": 1,
+        "name": "Ввод-2 10 кВ",
+        "port_ids": [
+          "port_edc147420b215476bfae9986fddac201",
+          "port_f6350536834f5c97843c5316e7b465f8"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "tie",
+            "switchable": true,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              1000,
+              5
+            ],
+            "ct_node": "t2_lv",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ",
+            "prot": {
+              "mtz": true,
+              "to": false,
+              "ozz": false,
+              "t_mtz": null,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            }
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": "CLOSED",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "V2",
+            "legacy_class": "TieBranch",
+            "source_order": 4
+          }
+        }
+      },
+      {
+        "id": "eq_4a7ffa2d14865649aa7137c02c750b21",
+        "type_id": "compat.rza_calc.tie",
+        "type_version": 1,
+        "name": "СВ 10 кВ",
+        "port_ids": [
+          "port_f5b09c9ed0ef563898fe3f0a30fab957",
+          "port_0cd4829c16f15776b804745385723a3a"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "tie",
+            "switchable": true,
+            "normally_closed": false,
+            "switch_with": null,
+            "ct_ratio": [
+              1000,
+              5
+            ],
+            "ct_node": "b10_1",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ",
+            "prot": {
+              "mtz": true,
+              "to": false,
+              "ozz": false,
+              "t_mtz": null,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            }
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": "OPEN",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "SV",
+            "legacy_class": "TieBranch",
+            "source_order": 5
+          }
+        }
+      },
+      {
+        "id": "eq_0644dbdc84fa5998817782d6756fbc82",
+        "type_id": "compat.rza_calc.line",
+        "type_version": 1,
+        "name": "Фидер-1 10 кВ",
+        "port_ids": [
+          "port_5428cdb3c6f459eb8500476b176ba690",
+          "port_1bdeaa514880529dacb5e5cc794ddaab"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "line",
+            "switchable": false,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              400,
+              5
+            ],
+            "ct_node": "b10_1",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ",
+            "prot": {
+              "mtz": true,
+              "to": true,
+              "ozz": true,
+              "t_mtz": null,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            },
+            "line_type": "cable",
+            "length_km": 3.2,
+            "brand": "ААБл",
+            "section_mm2": 150,
+            "material": "Al",
+            "n_parallel": 1,
+            "r0": null,
+            "x0": null,
+            "ic_per_km": 0.9
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "ic_per_km — ПРИМЕР, обязательно сверить с каталогом кабеля",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "F1",
+            "legacy_class": "LineBranch",
+            "source_order": 6
+          }
+        }
+      },
+      {
+        "id": "eq_3681c95948275e92919c82e50ac973bc",
+        "type_id": "compat.rza_calc.transformer_2w",
+        "type_version": 1,
+        "name": "КТП-1 10/0,4 кВ",
+        "port_ids": [
+          "port_86b485259f94529fac38a9e874bc34b5",
+          "port_18c1d167125952079b0d7100639addcf"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "transformer",
+            "switchable": false,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              100,
+              5
+            ],
+            "ct_node": "f1_end",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ",
+            "prot": {
+              "mtz": true,
+              "to": true,
+              "ozz": false,
+              "t_mtz": 0.5,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "behind_transformer",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            },
+            "s_nom": 1000,
+            "u_hv": 10,
+            "u_lv": 0.4,
+            "uk": 6.0,
+            "p_k": 12.2,
+            "group": "Д/Ун-11",
+            "z_loop": null,
+            "i_inrush_ratio": 8
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "TK1",
+            "legacy_class": "TransformerBranch",
+            "source_order": 7
+          }
+        }
+      },
+      {
+        "id": "eq_136e2e8c9a725af1b9ad2b4a2a09e545",
+        "type_id": "compat.rza_calc.line",
+        "type_version": 1,
+        "name": "Фидер-2 10 кВ",
+        "port_ids": [
+          "port_26d1e23af8df5005b6ce277c970946a6",
+          "port_a5fe3593c61950c6bc33e10165878075"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "line",
+            "switchable": false,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              300,
+              5
+            ],
+            "ct_node": "b10_1",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ",
+            "prot": {
+              "mtz": true,
+              "to": true,
+              "ozz": true,
+              "t_mtz": null,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            },
+            "line_type": "cable",
+            "length_km": 1.8,
+            "brand": "ААБл",
+            "section_mm2": 120,
+            "material": "Al",
+            "n_parallel": 1,
+            "r0": null,
+            "x0": null,
+            "ic_per_km": 0.85
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "ic_per_km — ПРИМЕР, обязательно сверить с каталогом кабеля",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "F2",
+            "legacy_class": "LineBranch",
+            "source_order": 8
+          }
+        }
+      },
+      {
+        "id": "eq_5465b63471355dbd8e594b1e73c04db4",
+        "type_id": "compat.rza_calc.line",
+        "type_version": 1,
+        "name": "Фидер-3 10 кВ",
+        "port_ids": [
+          "port_87586ae2bb5058759d1754aff40c1a58",
+          "port_34d9bd2564f251ef97758fc171952bd6"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "kind": "line",
+            "switchable": false,
+            "normally_closed": true,
+            "switch_with": null,
+            "ct_ratio": [
+              200,
+              5
+            ],
+            "ct_node": "b10_2",
+            "ct_accuracy": "",
+            "breaker_t_off": 0.06,
+            "terminal": "БМРЗ",
+            "prot": {
+              "mtz": true,
+              "to": true,
+              "ozz": true,
+              "t_mtz": null,
+              "t_to": null,
+              "t_ozz": null,
+              "to_reach": "line_end",
+              "k_szp": null,
+              "i_scale": null,
+              "backup_through_transformer": null,
+              "level": 0
+            },
+            "line_type": "cable",
+            "length_km": 5.0,
+            "brand": "ААБл",
+            "section_mm2": 95,
+            "material": "Al",
+            "n_parallel": 1,
+            "r0": null,
+            "x0": null,
+            "ic_per_km": 0.8
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "ic_per_km — ПРИМЕР, обязательно сверить с каталогом кабеля",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "branch",
+            "legacy_id": "F3",
+            "legacy_class": "LineBranch",
+            "source_order": 9
+          }
+        }
+      },
+      {
+        "id": "eq_0781c5360f025077bf1e03f46c28b3ec",
+        "type_id": "compat.rza_calc.load",
+        "type_version": 1,
+        "name": "Прочие КТП фидера-1",
+        "port_ids": [
+          "port_d76ae663901c5a2988a45f0354975c49"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "p_kw": 1800,
+            "cos_phi": 0.9,
+            "k_use": 1.0,
+            "k_szp": null,
+            "motor_share": null
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "load",
+            "legacy_id": "L_rp1",
+            "legacy_class": "Load",
+            "source_order": 0
+          }
+        }
+      },
+      {
+        "id": "eq_e964908bfd035e1bb23e44e51aee36b5",
+        "type_id": "compat.rza_calc.load",
+        "type_version": 1,
+        "name": "Нагрузка КТП-1",
+        "port_ids": [
+          "port_25ae0da575745c81953925c2079747e1"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "p_kw": 700,
+            "cos_phi": 0.9,
+            "k_use": 1.0,
+            "k_szp": null,
+            "motor_share": null
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "load",
+            "legacy_id": "L_ktp1",
+            "legacy_class": "Load",
+            "source_order": 1
+          }
+        }
+      },
+      {
+        "id": "eq_1805cc8489155748a7b8f8221a872385",
+        "type_id": "compat.rza_calc.load",
+        "type_version": 1,
+        "name": "Нагрузка фидера-2",
+        "port_ids": [
+          "port_13a05490ffab503b9c4b625a020c4d16"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "p_kw": 1500,
+            "cos_phi": 0.92,
+            "k_use": 1.0,
+            "k_szp": null,
+            "motor_share": null
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "load",
+            "legacy_id": "L_f2",
+            "legacy_class": "Load",
+            "source_order": 2
+          }
+        }
+      },
+      {
+        "id": "eq_88db0f9095df5b4dace96a24d4fed776",
+        "type_id": "compat.rza_calc.load",
+        "type_version": 1,
+        "name": "Нагрузка фидера-3",
+        "port_ids": [
+          "port_85685c397fc556a58eabdd29ca1e4633"
+        ],
+        "properties": {
+          "legacy_payload": {
+            "p_kw": 900,
+            "cos_phi": 0.88,
+            "k_use": 1.0,
+            "k_szp": null,
+            "motor_share": null
+          }
+        },
+        "voltage_class_by_group": {},
+        "normal_position": null,
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "load",
+            "legacy_id": "L_f3",
+            "legacy_class": "Load",
+            "source_order": 3
+          }
+        }
+      }
+    ],
+    "ports": [
+      {
+        "id": "port_c03fbc4b62495ecca4720bec15ef56d1",
+        "equipment_id": "eq_1c2192a02bb152d5801fc294972227c8",
+        "role": "terminal"
+      },
+      {
+        "id": "port_2e49dd0db3df5403a8278ac55933393e",
+        "equipment_id": "eq_c21aa366334c5165b39fbc9c2c8e60f8",
+        "role": "from"
+      },
+      {
+        "id": "port_377d53eb1f1154d2a97c04bd14d76643",
+        "equipment_id": "eq_c21aa366334c5165b39fbc9c2c8e60f8",
+        "role": "to"
+      },
+      {
+        "id": "port_c901ac581c5758019e4c6dc279dbddaa",
+        "equipment_id": "eq_15a7852ddb1258a18197303b61eaf9b6",
+        "role": "from"
+      },
+      {
+        "id": "port_241e14fd5eed53d29220e372817975d8",
+        "equipment_id": "eq_15a7852ddb1258a18197303b61eaf9b6",
+        "role": "to"
+      },
+      {
+        "id": "port_8ca957d5c426518c94aaed728e543abb",
+        "equipment_id": "eq_29fedca92c4c50be8d144115e207934a",
+        "role": "from"
+      },
+      {
+        "id": "port_92c9499e830155418e51dd8a76e5f057",
+        "equipment_id": "eq_29fedca92c4c50be8d144115e207934a",
+        "role": "to"
+      },
+      {
+        "id": "port_edc147420b215476bfae9986fddac201",
+        "equipment_id": "eq_8bdcf581681853f8a4eb45741c2b3f44",
+        "role": "from"
+      },
+      {
+        "id": "port_f6350536834f5c97843c5316e7b465f8",
+        "equipment_id": "eq_8bdcf581681853f8a4eb45741c2b3f44",
+        "role": "to"
+      },
+      {
+        "id": "port_f5b09c9ed0ef563898fe3f0a30fab957",
+        "equipment_id": "eq_4a7ffa2d14865649aa7137c02c750b21",
+        "role": "from"
+      },
+      {
+        "id": "port_0cd4829c16f15776b804745385723a3a",
+        "equipment_id": "eq_4a7ffa2d14865649aa7137c02c750b21",
+        "role": "to"
+      },
+      {
+        "id": "port_5428cdb3c6f459eb8500476b176ba690",
+        "equipment_id": "eq_0644dbdc84fa5998817782d6756fbc82",
+        "role": "from"
+      },
+      {
+        "id": "port_1bdeaa514880529dacb5e5cc794ddaab",
+        "equipment_id": "eq_0644dbdc84fa5998817782d6756fbc82",
+        "role": "to"
+      },
+      {
+        "id": "port_86b485259f94529fac38a9e874bc34b5",
+        "equipment_id": "eq_3681c95948275e92919c82e50ac973bc",
+        "role": "from"
+      },
+      {
+        "id": "port_18c1d167125952079b0d7100639addcf",
+        "equipment_id": "eq_3681c95948275e92919c82e50ac973bc",
+        "role": "to"
+      },
+      {
+        "id": "port_26d1e23af8df5005b6ce277c970946a6",
+        "equipment_id": "eq_136e2e8c9a725af1b9ad2b4a2a09e545",
+        "role": "from"
+      },
+      {
+        "id": "port_a5fe3593c61950c6bc33e10165878075",
+        "equipment_id": "eq_136e2e8c9a725af1b9ad2b4a2a09e545",
+        "role": "to"
+      },
+      {
+        "id": "port_87586ae2bb5058759d1754aff40c1a58",
+        "equipment_id": "eq_5465b63471355dbd8e594b1e73c04db4",
+        "role": "from"
+      },
+      {
+        "id": "port_34d9bd2564f251ef97758fc171952bd6",
+        "equipment_id": "eq_5465b63471355dbd8e594b1e73c04db4",
+        "role": "to"
+      },
+      {
+        "id": "port_d76ae663901c5a2988a45f0354975c49",
+        "equipment_id": "eq_0781c5360f025077bf1e03f46c28b3ec",
+        "role": "terminal"
+      },
+      {
+        "id": "port_25ae0da575745c81953925c2079747e1",
+        "equipment_id": "eq_e964908bfd035e1bb23e44e51aee36b5",
+        "role": "terminal"
+      },
+      {
+        "id": "port_13a05490ffab503b9c4b625a020c4d16",
+        "equipment_id": "eq_1805cc8489155748a7b8f8221a872385",
+        "role": "terminal"
+      },
+      {
+        "id": "port_85685c397fc556a58eabdd29ca1e4633",
+        "equipment_id": "eq_88db0f9095df5b4dace96a24d4fed776",
+        "role": "terminal"
+      }
+    ],
+    "electrical_nodes": [
+      {
+        "id": "node_06c4f2bf9e6151128b20f6940fdfb88f",
+        "name": "ОРУ 35 кВ",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.35kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "b35",
+            "legacy_class": "Node",
+            "source_order": 0,
+            "payload": {
+              "kind": "bus",
+              "section": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_ff6a2d3ab3255ea18d7b2926a614e242",
+        "name": "Т1, вывод 10 кВ",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "t1_lv",
+            "legacy_class": "Node",
+            "source_order": 1,
+            "payload": {
+              "kind": "point",
+              "section": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_a9687db32e34534da39f6e9c08816209",
+        "name": "Т2, вывод 10 кВ",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "t2_lv",
+            "legacy_class": "Node",
+            "source_order": 2,
+            "payload": {
+              "kind": "point",
+              "section": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_b4bb9b27151a50578a0a45b8ebf13e18",
+        "name": "1 СШ 10 кВ",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "b10_1",
+            "legacy_class": "Node",
+            "source_order": 3,
+            "payload": {
+              "kind": "bus",
+              "section": "1 СШ"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_5b39351db60b5c70a84d30a2480ad17f",
+        "name": "2 СШ 10 кВ",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "b10_2",
+            "legacy_class": "Node",
+            "source_order": 4,
+            "payload": {
+              "kind": "bus",
+              "section": "2 СШ"
+            }
+          }
+        }
+      },
+      {
+        "id": "node_28647ad1c2405e72928e382091971f0e",
+        "name": "РП-1, 10 кВ",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "f1_end",
+            "legacy_class": "Node",
+            "source_order": 5,
+            "payload": {
+              "kind": "bus",
+              "section": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_8e3f5dc26300572bae41c6d1a80eb0eb",
+        "name": "КТП-1, шины 0,4 кВ",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.0_4kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "ktp1_lv",
+            "legacy_class": "Node",
+            "source_order": 6,
+            "payload": {
+              "kind": "bus",
+              "section": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_3885d3a235175b6e976acdcaafdfff79",
+        "name": "Ф-2, конец линии",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "f2_end",
+            "legacy_class": "Node",
+            "source_order": 7,
+            "payload": {
+              "kind": "bus",
+              "section": null
+            }
+          }
+        }
+      },
+      {
+        "id": "node_ec150726f9f757079a6133811efcbde4",
+        "name": "Ф-3, конец линии",
+        "kind_id": "builtin.port.ac_power",
+        "declared_voltage_class_id": "builtin.voltage.ac.10kv",
+        "note": "",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "node",
+            "legacy_id": "f3_end",
+            "legacy_class": "Node",
+            "source_order": 8,
+            "payload": {
+              "kind": "bus",
+              "section": null
+            }
+          }
+        }
+      }
+    ],
+    "connections": [
+      {
+        "id": "conn_f480bf427ed755adb0321ca07a2c27fd",
+        "port_id": "port_c03fbc4b62495ecca4720bec15ef56d1",
+        "electrical_node_id": "node_06c4f2bf9e6151128b20f6940fdfb88f",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:S:terminal",
+            "legacy_class": "Connection",
+            "source_order": 0
+          }
+        }
+      },
+      {
+        "id": "conn_994a9938d5185d8dab7fa6aef8f10bef",
+        "port_id": "port_2e49dd0db3df5403a8278ac55933393e",
+        "electrical_node_id": "node_06c4f2bf9e6151128b20f6940fdfb88f",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:T1:from",
+            "legacy_class": "Connection",
+            "source_order": 1
+          }
+        }
+      },
+      {
+        "id": "conn_383485c51833541a9395346fa50e58a6",
+        "port_id": "port_377d53eb1f1154d2a97c04bd14d76643",
+        "electrical_node_id": "node_ff6a2d3ab3255ea18d7b2926a614e242",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:T1:to",
+            "legacy_class": "Connection",
+            "source_order": 1
+          }
+        }
+      },
+      {
+        "id": "conn_e919c290bb525f0696922fcfd5323d90",
+        "port_id": "port_c901ac581c5758019e4c6dc279dbddaa",
+        "electrical_node_id": "node_06c4f2bf9e6151128b20f6940fdfb88f",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:T2:from",
+            "legacy_class": "Connection",
+            "source_order": 2
+          }
+        }
+      },
+      {
+        "id": "conn_cebd7de65c2a51749b4b6edf3c94bf54",
+        "port_id": "port_241e14fd5eed53d29220e372817975d8",
+        "electrical_node_id": "node_a9687db32e34534da39f6e9c08816209",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:T2:to",
+            "legacy_class": "Connection",
+            "source_order": 2
+          }
+        }
+      },
+      {
+        "id": "conn_7a568e1eef66551384b4e75291455453",
+        "port_id": "port_8ca957d5c426518c94aaed728e543abb",
+        "electrical_node_id": "node_ff6a2d3ab3255ea18d7b2926a614e242",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:V1:from",
+            "legacy_class": "Connection",
+            "source_order": 3
+          }
+        }
+      },
+      {
+        "id": "conn_d2408168053a5cc5b522643b5e5cfd70",
+        "port_id": "port_92c9499e830155418e51dd8a76e5f057",
+        "electrical_node_id": "node_b4bb9b27151a50578a0a45b8ebf13e18",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:V1:to",
+            "legacy_class": "Connection",
+            "source_order": 3
+          }
+        }
+      },
+      {
+        "id": "conn_2d2a6a8ceb5b576db1cca5d6f2aae6ec",
+        "port_id": "port_edc147420b215476bfae9986fddac201",
+        "electrical_node_id": "node_a9687db32e34534da39f6e9c08816209",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:V2:from",
+            "legacy_class": "Connection",
+            "source_order": 4
+          }
+        }
+      },
+      {
+        "id": "conn_0eaea191ebbd5001a63367da17a84044",
+        "port_id": "port_f6350536834f5c97843c5316e7b465f8",
+        "electrical_node_id": "node_5b39351db60b5c70a84d30a2480ad17f",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:V2:to",
+            "legacy_class": "Connection",
+            "source_order": 4
+          }
+        }
+      },
+      {
+        "id": "conn_77c4d95b78cb5a17b21c4466d373080e",
+        "port_id": "port_f5b09c9ed0ef563898fe3f0a30fab957",
+        "electrical_node_id": "node_b4bb9b27151a50578a0a45b8ebf13e18",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:SV:from",
+            "legacy_class": "Connection",
+            "source_order": 5
+          }
+        }
+      },
+      {
+        "id": "conn_e5ab0ba1afe7534eb54429dccb6f0d14",
+        "port_id": "port_0cd4829c16f15776b804745385723a3a",
+        "electrical_node_id": "node_5b39351db60b5c70a84d30a2480ad17f",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:SV:to",
+            "legacy_class": "Connection",
+            "source_order": 5
+          }
+        }
+      },
+      {
+        "id": "conn_52c9c3089c25589f8909083ff6b41e08",
+        "port_id": "port_5428cdb3c6f459eb8500476b176ba690",
+        "electrical_node_id": "node_b4bb9b27151a50578a0a45b8ebf13e18",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:F1:from",
+            "legacy_class": "Connection",
+            "source_order": 6
+          }
+        }
+      },
+      {
+        "id": "conn_38714d73a6ea56659a4a7d7541b26a7e",
+        "port_id": "port_1bdeaa514880529dacb5e5cc794ddaab",
+        "electrical_node_id": "node_28647ad1c2405e72928e382091971f0e",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:F1:to",
+            "legacy_class": "Connection",
+            "source_order": 6
+          }
+        }
+      },
+      {
+        "id": "conn_efff907dcc805495976029757d59df58",
+        "port_id": "port_86b485259f94529fac38a9e874bc34b5",
+        "electrical_node_id": "node_28647ad1c2405e72928e382091971f0e",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:TK1:from",
+            "legacy_class": "Connection",
+            "source_order": 7
+          }
+        }
+      },
+      {
+        "id": "conn_b0d792d092665bff8a0b9607350bb4f1",
+        "port_id": "port_18c1d167125952079b0d7100639addcf",
+        "electrical_node_id": "node_8e3f5dc26300572bae41c6d1a80eb0eb",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:TK1:to",
+            "legacy_class": "Connection",
+            "source_order": 7
+          }
+        }
+      },
+      {
+        "id": "conn_17a7253179a8553cb12137fd42556039",
+        "port_id": "port_26d1e23af8df5005b6ce277c970946a6",
+        "electrical_node_id": "node_b4bb9b27151a50578a0a45b8ebf13e18",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:F2:from",
+            "legacy_class": "Connection",
+            "source_order": 8
+          }
+        }
+      },
+      {
+        "id": "conn_84c58cc74b7753089478655c15ad0ab8",
+        "port_id": "port_a5fe3593c61950c6bc33e10165878075",
+        "electrical_node_id": "node_3885d3a235175b6e976acdcaafdfff79",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:F2:to",
+            "legacy_class": "Connection",
+            "source_order": 8
+          }
+        }
+      },
+      {
+        "id": "conn_136cf7f8dc2d57168e3ae94e9964df18",
+        "port_id": "port_87586ae2bb5058759d1754aff40c1a58",
+        "electrical_node_id": "node_5b39351db60b5c70a84d30a2480ad17f",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:F3:from",
+            "legacy_class": "Connection",
+            "source_order": 9
+          }
+        }
+      },
+      {
+        "id": "conn_c27859f1cf1c5dcc88e3e38a051b9138",
+        "port_id": "port_34d9bd2564f251ef97758fc171952bd6",
+        "electrical_node_id": "node_ec150726f9f757079a6133811efcbde4",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "branch:F3:to",
+            "legacy_class": "Connection",
+            "source_order": 9
+          }
+        }
+      },
+      {
+        "id": "conn_f85d5a0e64465b618e917130af4b664b",
+        "port_id": "port_d76ae663901c5a2988a45f0354975c49",
+        "electrical_node_id": "node_28647ad1c2405e72928e382091971f0e",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "load:L_rp1:terminal",
+            "legacy_class": "Connection",
+            "source_order": 0
+          }
+        }
+      },
+      {
+        "id": "conn_f9b408995186541e97afcc3c15bfa51f",
+        "port_id": "port_25ae0da575745c81953925c2079747e1",
+        "electrical_node_id": "node_8e3f5dc26300572bae41c6d1a80eb0eb",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "load:L_ktp1:terminal",
+            "legacy_class": "Connection",
+            "source_order": 1
+          }
+        }
+      },
+      {
+        "id": "conn_34708ba2070757aeb9a6d497a6104c78",
+        "port_id": "port_13a05490ffab503b9c4b625a020c4d16",
+        "electrical_node_id": "node_3885d3a235175b6e976acdcaafdfff79",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "load:L_f2:terminal",
+            "legacy_class": "Connection",
+            "source_order": 2
+          }
+        }
+      },
+      {
+        "id": "conn_939ea8ff20135e0ba1b6c8ff7006297c",
+        "port_id": "port_85685c397fc556a58eabdd29ca1e4633",
+        "electrical_node_id": "node_ec150726f9f757079a6133811efcbde4",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "connection",
+            "legacy_id": "load:L_f3:terminal",
+            "legacy_class": "Connection",
+            "source_order": 3
+          }
+        }
+      }
+    ],
+    "operating_states": [
+      {
+        "id": "state_348af2c207915b0189308f8d2876b61a",
+        "name": "Нормальный",
+        "positions": {
+          "eq_c21aa366334c5165b39fbc9c2c8e60f8": "CLOSED",
+          "eq_15a7852ddb1258a18197303b61eaf9b6": "CLOSED",
+          "eq_29fedca92c4c50be8d144115e207934a": "CLOSED",
+          "eq_8bdcf581681853f8a4eb45741c2b3f44": "CLOSED",
+          "eq_4a7ffa2d14865649aa7137c02c750b21": "OPEN"
+        },
+        "system": "max",
+        "description": "Т1 и Т2 в работе, секции разделены, СВ отключён. Система в максимальном режиме.",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "mode",
+            "legacy_id": "m1",
+            "legacy_class": "Mode",
+            "source_order": 0,
+            "states": {
+              "T1": true,
+              "T2": true,
+              "V1": true,
+              "V2": true,
+              "SV": false
+            }
+          }
+        }
+      },
+      {
+        "id": "state_a4cd83cf477c5420beeb0a286b1d06fc",
+        "name": "Т1 отключён, СВ включён",
+        "positions": {
+          "eq_c21aa366334c5165b39fbc9c2c8e60f8": "OPEN",
+          "eq_15a7852ddb1258a18197303b61eaf9b6": "CLOSED",
+          "eq_29fedca92c4c50be8d144115e207934a": "OPEN",
+          "eq_8bdcf581681853f8a4eb45741c2b3f44": "CLOSED",
+          "eq_4a7ffa2d14865649aa7137c02c750b21": "CLOSED"
+        },
+        "system": "max",
+        "description": "Обе секции питаются от Т2 через СВ.",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "mode",
+            "legacy_id": "m2",
+            "legacy_class": "Mode",
+            "source_order": 1,
+            "states": {
+              "T1": false,
+              "T2": true,
+              "V1": false,
+              "V2": true,
+              "SV": true
+            }
+          }
+        }
+      },
+      {
+        "id": "state_0f5f38ce34e355368d812fa1ec0b8e9e",
+        "name": "Минимальный режим системы",
+        "positions": {
+          "eq_c21aa366334c5165b39fbc9c2c8e60f8": "CLOSED",
+          "eq_15a7852ddb1258a18197303b61eaf9b6": "CLOSED",
+          "eq_29fedca92c4c50be8d144115e207934a": "CLOSED",
+          "eq_8bdcf581681853f8a4eb45741c2b3f44": "CLOSED",
+          "eq_4a7ffa2d14865649aa7137c02c750b21": "OPEN"
+        },
+        "system": "min",
+        "description": "Нормальная схема, минимальная мощность КЗ питающей системы.",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "mode",
+            "legacy_id": "m3",
+            "legacy_class": "Mode",
+            "source_order": 2,
+            "states": {
+              "T1": true,
+              "T2": true,
+              "V1": true,
+              "V2": true,
+              "SV": false
+            }
+          }
+        }
+      },
+      {
+        "id": "state_b065f8589ab15554920472cece5e51a8",
+        "name": "Т1 отключён + минимальный режим",
+        "positions": {
+          "eq_c21aa366334c5165b39fbc9c2c8e60f8": "OPEN",
+          "eq_15a7852ddb1258a18197303b61eaf9b6": "CLOSED",
+          "eq_29fedca92c4c50be8d144115e207934a": "OPEN",
+          "eq_8bdcf581681853f8a4eb45741c2b3f44": "CLOSED",
+          "eq_4a7ffa2d14865649aa7137c02c750b21": "CLOSED"
+        },
+        "system": "min",
+        "description": "Наиболее тяжёлый режим для проверки чувствительности.",
+        "extensions": {
+          "legacy_calculation": {
+            "schema_version": 1,
+            "category": "mode",
+            "legacy_id": "m4",
+            "legacy_class": "Mode",
+            "source_order": 3,
+            "states": {
+              "T1": false,
+              "T2": true,
+              "V1": false,
+              "V2": true,
+              "SV": true
+            }
+          }
+        }
+      }
+    ]
+  },
+  "methodology": {
+    "file": "../data/methodology_default.json"
+  }
+}

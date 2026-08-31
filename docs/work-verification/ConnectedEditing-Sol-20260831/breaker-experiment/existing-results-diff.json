@@ -1,0 +1,317 @@
+[
+  {
+    "path": "protections/CF1_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 9.90084266716,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/CF1|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 88.7220023932,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/CF4_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 10.8735907221,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/CF4|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 186.707194349,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/CF5_2|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 38.843187859,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/CF5_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 8.51461509547,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/CF6_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 7.58260842313,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/CF6|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 47.7039747732,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/NF1_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 6.54576685997,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/NF1|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 24.6786366544,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/NF3_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 9.13722861103,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/NF3|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 57.5448883679,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/NF4_2|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 36.377261874,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/NF4_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 8.39336774448,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/NF5_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 8.36821728477,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/NF5|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 28.0911488639,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/SF1_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 7.25724672475,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/SF1|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 31.0613629144,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/SF2_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 7.39240088078,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/SF2|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 29.8045078936,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/SF4_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 7.36691035321,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/SF4|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 28.9424750876,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/SF5_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 7.28609195842,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/SF5|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 31.8550359058,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/VL110_2|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 48.833024469,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/VL110_3|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 39.265641635,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/VL35|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 16.4307350617,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/WF1_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 6.07441252786,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/WF1|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 19.4490189363,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/WF3_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 8.68073783087,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/WF3|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 43.6955265463,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/WF4_2|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 30.4605602482,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/WF4_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 8.00951295949,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/WF5_T|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 7.43836649998,
+      "required": 1.2,
+      "status": "ok"
+    }
+  },
+  {
+    "path": "protections/WF5|МТЗ/checks/Kч в зоне резервирования",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": 18.8551319677,
+      "required": 1.2,
+      "status": "ok"
+    }
+  }
+]

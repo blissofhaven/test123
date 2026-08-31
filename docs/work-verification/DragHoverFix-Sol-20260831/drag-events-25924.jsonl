@@ -1,0 +1,998 @@
+{"event": "native_setup", "clock": 488944.1354028, "auto": false, "platform": "windows", "style": "", "font": "Segoe UI,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0", "fingerprint": "b275e47230495c199e8c4ad0158838af0f3a3c14a2767fc85a98bbe7a1164445", "dpi": 1.0, "code_hashes": {"editor_scene.py": "aa6af228baaa41acf0dbabb55106a2f9267e130c7baeedc2fd979da8d12447ac", "label_layout.py": "99282cac9b239de2ced5f035dbc883e786ef3933085e60b65653279d2628d1cf"}}
+{"event": "candidate_kinds", "clock": 488944.1408367, "objects": [["representation_015873c21248439dad34b22648fe5612", "transformer_2w", "КТП Ф-4 400 кВ·А (Центральная)"], ["representation_03213b5ce0054cdcac9ceeaafb30e997", "load", "Нагрузка КТП Ф-1 (Западная)"], ["representation_0d18b731f5a34d108e03a3b2e5fbbf93", "circuit_breaker", "Ввод-2 10 кВ (Центральная)"], ["representation_0e4dabdc5bf3426ab0aacbd1e94fd2b1", "line_section", "Ф-4 10 кВ (Северная)"], ["representation_415716e05a9e4a6aa5b72926d521e886", "transformer_3w", "Т1 Центральная 110/35/10"], ["representation_8b51c9e7e2484f5f824070a4edfdd6e4", "source", "Энергосистема 110 кВ"]]}
+{"event": "event_start", "clock": 488944.1752571, "kind": "move", "point": [2812.5, 352.0]}
+{"event": "event_end", "clock": 488944.1789829, "kind": "move", "elapsed": 0.0037170000141486526, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_hover", "clock": 488944.2699922, "target": "representation_015873c21248439dad34b22648fe5612", "tooltip_visible": true}
+{"event": "event_start", "clock": 488944.2857409, "kind": "move", "point": [2725.0, 315.0]}
+{"event": "event_end", "clock": 488944.2872578, "kind": "move", "elapsed": 0.0015113999834284186, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488944.2872896, "kind": "move", "point": [2700.0, 290.0]}
+{"event": "event_end", "clock": 488944.2944606, "kind": "move", "elapsed": 0.0071579000214114785, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488944.2945245, "kind": "press", "point": [2700.0, 290.0]}
+{"event": "event_end", "clock": 488944.3040834, "kind": "press", "elapsed": 0.00955339998472482, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "select"}
+{"event": "event_start", "clock": 488944.3041333, "kind": "move", "point": [2728.7012574273817, 331.5745789630079]}
+{"event": "event_end", "clock": 488944.3509534, "kind": "move", "elapsed": 0.04681470000650734, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488944.3510017, "kind": "move", "point": [2753.033008588991, 321.81980515339467]}
+{"event": "event_end", "clock": 488944.3975294, "kind": "move", "elapsed": 0.046521499985828996, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488944.397578, "kind": "move", "point": [2769.2909649383464, 307.22075445642906]}
+{"event": "event_end", "clock": 488944.4463804, "kind": "move", "elapsed": 0.048792999994475394, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488944.4464379, "kind": "move", "point": [2775.0, 290.0]}
+{"event": "event_end", "clock": 488944.4881156, "kind": "move", "elapsed": 0.04167160001816228, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488944.4881692, "kind": "move", "point": [2769.2909649383464, 272.77924554357094]}
+{"event": "event_end", "clock": 488944.5288182, "kind": "move", "elapsed": 0.04063439997844398, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488944.5289079, "kind": "move", "point": [2753.033008588991, 258.1801948466054]}
+{"event": "event_end", "clock": 488944.5692882, "kind": "move", "elapsed": 0.040377400000579655, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488944.5693333, "kind": "move", "point": [2728.7012574273817, 248.4254210369921]}
+{"event": "event_end", "clock": 488944.6097994, "kind": "move", "elapsed": 0.04046079999534413, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488944.6098415, "kind": "move", "point": [2700.0, 245.0]}
+{"event": "event_end", "clock": 488944.6493405, "kind": "move", "elapsed": 0.03949490003287792, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488944.6493805, "kind": "move", "point": [2671.2987425726183, 248.42542103699208]}
+{"event": "event_end", "clock": 488944.7223825, "kind": "move", "elapsed": 0.07298689999151975, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488944.7224418, "kind": "move", "point": [2646.966991411009, 258.18019484660533]}
+{"event": "event_end", "clock": 488944.7664621, "kind": "move", "elapsed": 0.04401569999754429, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488944.7665115, "kind": "move", "point": [2630.7090350616536, 272.77924554357094]}
+{"event": "event_end", "clock": 488944.8074323, "kind": "move", "elapsed": 0.040917000034824014, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488944.807477, "kind": "move", "point": [2625.0, 290.0]}
+{"event": "event_end", "clock": 488944.8477625, "kind": "move", "elapsed": 0.04028150002704933, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488944.847806, "kind": "move", "point": [2630.7090350616536, 307.22075445642906]}
+{"event": "event_end", "clock": 488944.8876443, "kind": "move", "elapsed": 0.03983109997352585, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488944.8876999, "kind": "move", "point": [2646.966991411009, 321.8198051533946]}
+{"event": "event_end", "clock": 488944.9305358, "kind": "move", "elapsed": 0.042832300008740276, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488944.9305772, "kind": "move", "point": [2671.2987425726183, 331.57457896300787]}
+{"event": "event_end", "clock": 488944.9705237, "kind": "move", "elapsed": 0.03994270000839606, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488944.970565, "kind": "move", "point": [2700.0, 335.0]}
+{"event": "event_end", "clock": 488945.010665, "kind": "move", "elapsed": 0.040092999988701195, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488945.0107096, "kind": "move", "point": [2728.7012574273817, 331.5745789630079]}
+{"event": "event_end", "clock": 488945.0506626, "kind": "move", "elapsed": 0.039949199999682605, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488945.0507024, "kind": "move", "point": [2753.033008588991, 321.81980515339467]}
+{"event": "event_end", "clock": 488945.0908638, "kind": "move", "elapsed": 0.040147899999283254, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488945.090949, "kind": "move", "point": [2769.2909649383464, 307.22075445642906]}
+{"event": "event_end", "clock": 488945.1307544, "kind": "move", "elapsed": 0.039795199991203845, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488945.1308379, "kind": "move", "point": [2775.0, 290.0]}
+{"event": "event_end", "clock": 488945.1716157, "kind": "move", "elapsed": 0.04077369999140501, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488945.1716596, "kind": "move", "point": [2769.2909649383464, 272.77924554357094]}
+{"event": "event_end", "clock": 488945.2137099, "kind": "move", "elapsed": 0.04204309999477118, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488945.2137606, "kind": "move", "point": [2753.033008588991, 258.1801948466054]}
+{"event": "event_end", "clock": 488945.2578146, "kind": "move", "elapsed": 0.044044499984011054, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488945.2578688, "kind": "move", "point": [2728.7012574273817, 248.4254210369921]}
+{"event": "event_end", "clock": 488945.2991057, "kind": "move", "elapsed": 0.041232499992474914, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488945.299148, "kind": "move", "point": [2700.0, 245.0]}
+{"event": "event_end", "clock": 488945.3398624, "kind": "move", "elapsed": 0.04070740001043305, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488945.3399002, "kind": "key", "point": null}
+{"event": "event_end", "clock": 488945.3857721, "kind": "key", "elapsed": 0.04586449998896569, "calls": {"bridges": 1, "labels": 1}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488945.3858045, "kind": "release", "point": [2700.0, 245.0]}
+{"event": "event_end", "clock": 488945.3892055, "kind": "release", "elapsed": 0.003394800005480647, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_target_complete", "clock": 488945.3969988, "auto": false, "target": "representation_015873c21248439dad34b22648fe5612"}
+{"event": "event_start", "clock": 488945.4062866, "kind": "move", "point": [110.5, 1282.0]}
+{"event": "event_end", "clock": 488945.4117425, "kind": "move", "elapsed": 0.005449700052849948, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_hover", "clock": 488945.4987831, "target": "representation_03213b5ce0054cdcac9ceeaafb30e997", "tooltip_visible": true}
+{"event": "event_start", "clock": 488945.5089172, "kind": "move", "point": [25.0, 1315.0]}
+{"event": "event_end", "clock": 488945.5103749, "kind": "move", "elapsed": 0.0014491999754682183, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488945.5104384, "kind": "move", "point": [0.0, 1290.0]}
+{"event": "event_end", "clock": 488945.5105309, "kind": "move", "elapsed": 9.139999747276306e-05, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488945.5105513, "kind": "press", "point": [0.0, 1290.0]}
+{"event": "event_end", "clock": 488945.519647, "kind": "press", "elapsed": 0.00908960000379011, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "select"}
+{"event": "event_start", "clock": 488945.5196965, "kind": "move", "point": [28.701257427381734, 1331.574578963008]}
+{"event": "event_end", "clock": 488945.5606672, "kind": "move", "elapsed": 0.04096589999971911, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488945.5607136, "kind": "move", "point": [53.033008588991066, 1321.8198051533946]}
+{"event": "event_end", "clock": 488945.600858, "kind": "move", "elapsed": 0.04013919999124482, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488945.6009015, "kind": "move", "point": [69.2909649383465, 1307.220754456429]}
+{"event": "event_end", "clock": 488945.6440985, "kind": "move", "elapsed": 0.04319060000125319, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488945.6441423, "kind": "move", "point": [75.0, 1290.0]}
+{"event": "event_end", "clock": 488945.6839295, "kind": "move", "elapsed": 0.039783200016245246, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488945.68397, "kind": "move", "point": [69.2909649383465, 1272.779245543571]}
+{"event": "event_end", "clock": 488945.7298641, "kind": "move", "elapsed": 0.04588509997120127, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488945.7299397, "kind": "move", "point": [53.033008588991066, 1258.1801948466054]}
+{"event": "event_end", "clock": 488945.7714462, "kind": "move", "elapsed": 0.04149970004800707, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488945.7715004, "kind": "move", "point": [28.70125742738174, 1248.425421036992]}
+{"event": "event_end", "clock": 488945.8167045, "kind": "move", "elapsed": 0.045196799968834966, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488945.8167536, "kind": "move", "point": [9.184850993605149e-15, 1245.0]}
+{"event": "event_end", "clock": 488945.8571753, "kind": "move", "elapsed": 0.04041759995743632, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488945.8572175, "kind": "move", "point": [-28.701257427381726, 1248.425421036992]}
+{"event": "event_end", "clock": 488945.8972898, "kind": "move", "elapsed": 0.04006830003345385, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488945.8973305, "kind": "move", "point": [-53.03300858899106, 1258.1801948466054]}
+{"event": "event_end", "clock": 488945.9368302, "kind": "move", "elapsed": 0.039495599980000407, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488945.9368712, "kind": "move", "point": [-69.29096493834649, 1272.7792455435708]}
+{"event": "event_end", "clock": 488945.9804363, "kind": "move", "elapsed": 0.043561300029978156, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488945.9804771, "kind": "move", "point": [-75.0, 1290.0]}
+{"event": "event_end", "clock": 488946.0200038, "kind": "move", "elapsed": 0.03952300001401454, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488946.0200446, "kind": "move", "point": [-69.29096493834649, 1307.220754456429]}
+{"event": "event_end", "clock": 488946.059579, "kind": "move", "elapsed": 0.03952759999083355, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488946.0596245, "kind": "move", "point": [-53.03300858899107, 1321.8198051533946]}
+{"event": "event_end", "clock": 488946.1010524, "kind": "move", "elapsed": 0.041422100039198995, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488946.1011403, "kind": "move", "point": [-28.70125742738178, 1331.574578963008]}
+{"event": "event_end", "clock": 488946.1592955, "kind": "move", "elapsed": 0.05815160000929609, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488946.1593467, "kind": "move", "point": [-1.8369701987210297e-14, 1335.0]}
+{"event": "event_end", "clock": 488946.1994539, "kind": "move", "elapsed": 0.04010400001425296, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488946.1994968, "kind": "move", "point": [28.701257427381748, 1331.574578963008]}
+{"event": "event_end", "clock": 488946.2393086, "kind": "move", "elapsed": 0.03980799997225404, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488946.2393495, "kind": "move", "point": [53.03300858899105, 1321.8198051533946]}
+{"event": "event_end", "clock": 488946.2805528, "kind": "move", "elapsed": 0.04119340004399419, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488946.2806113, "kind": "move", "point": [69.29096493834649, 1307.2207544564292]}
+{"event": "event_end", "clock": 488946.3225495, "kind": "move", "elapsed": 0.04193349997512996, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488946.3225952, "kind": "move", "point": [75.0, 1290.0]}
+{"event": "event_end", "clock": 488946.3767565, "kind": "move", "elapsed": 0.05415349995018914, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488946.376818, "kind": "move", "point": [69.2909649383465, 1272.779245543571]}
+{"event": "event_end", "clock": 488946.4211084, "kind": "move", "elapsed": 0.04428130004089326, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488946.4211695, "kind": "move", "point": [53.03300858899112, 1258.1801948466054]}
+{"event": "event_end", "clock": 488946.4629045, "kind": "move", "elapsed": 0.04172960005234927, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488946.4629569, "kind": "move", "point": [28.701257427381787, 1248.425421036992]}
+{"event": "event_end", "clock": 488946.5103612, "kind": "move", "elapsed": 0.047395900008268654, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488946.5104169, "kind": "move", "point": [2.7554552980815446e-14, 1245.0]}
+{"event": "event_end", "clock": 488946.5577735, "kind": "move", "elapsed": 0.04734630003804341, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488946.5578241, "kind": "key", "point": null}
+{"event": "event_end", "clock": 488946.6029953, "kind": "key", "elapsed": 0.045162800000980496, "calls": {"bridges": 1, "labels": 1}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488946.6030415, "kind": "release", "point": [2.7554552980815446e-14, 1245.0]}
+{"event": "event_end", "clock": 488946.6046522, "kind": "release", "elapsed": 0.0016059000045061111, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_target_complete", "clock": 488946.6112266, "auto": false, "target": "representation_03213b5ce0054cdcac9ceeaafb30e997"}
+{"event": "event_start", "clock": 488946.6210346, "kind": "move", "point": [3091.5, -447.0]}
+{"event": "event_end", "clock": 488946.6250996, "kind": "move", "elapsed": 0.004059200000483543, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_hover", "clock": 488946.7215247, "target": "representation_0d18b731f5a34d108e03a3b2e5fbbf93", "tooltip_visible": true}
+{"event": "event_start", "clock": 488946.7332188, "kind": "move", "point": [3025.0, -480.0]}
+{"event": "event_end", "clock": 488946.7346606, "kind": "move", "elapsed": 0.0014370999997481704, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488946.7346925, "kind": "move", "point": [3000.0, -505.0]}
+{"event": "event_end", "clock": 488946.7347407, "kind": "move", "elapsed": 4.7499954234808683e-05, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488946.7347522, "kind": "press", "point": [3000.0, -505.0]}
+{"event": "event_end", "clock": 488946.743628, "kind": "press", "elapsed": 0.008869100012816489, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "select"}
+{"event": "event_start", "clock": 488946.7436781, "kind": "move", "point": [3028.7012574273817, -463.4254210369921]}
+{"event": "event_end", "clock": 488946.7912636, "kind": "move", "elapsed": 0.04757900000549853, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488946.7913196, "kind": "move", "point": [3053.033008588991, -473.18019484660533]}
+{"event": "event_end", "clock": 488946.8367555, "kind": "move", "elapsed": 0.045429499994497746, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488946.8368133, "kind": "move", "point": [3069.2909649383464, -487.77924554357094]}
+{"event": "event_end", "clock": 488946.8821625, "kind": "move", "elapsed": 0.045341999968513846, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488946.8822141, "kind": "move", "point": [3075.0, -505.0]}
+{"event": "event_end", "clock": 488946.9230528, "kind": "move", "elapsed": 0.04083470004843548, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488946.9230942, "kind": "move", "point": [3069.2909649383464, -522.2207544564291]}
+{"event": "event_end", "clock": 488946.965495, "kind": "move", "elapsed": 0.04239620000589639, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488946.9655368, "kind": "move", "point": [3053.033008588991, -536.8198051533947]}
+{"event": "event_end", "clock": 488947.0069268, "kind": "move", "elapsed": 0.04138600005535409, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488947.0069673, "kind": "move", "point": [3028.7012574273817, -546.5745789630079]}
+{"event": "event_end", "clock": 488947.0512471, "kind": "move", "elapsed": 0.04427600000053644, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488947.0512874, "kind": "move", "point": [3000.0, -550.0]}
+{"event": "event_end", "clock": 488947.0919926, "kind": "move", "elapsed": 0.04070140002295375, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488947.0920325, "kind": "move", "point": [2971.2987425726183, -546.5745789630079]}
+{"event": "event_end", "clock": 488947.1397821, "kind": "move", "elapsed": 0.047745599993504584, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488947.1398225, "kind": "move", "point": [2946.966991411009, -536.8198051533947]}
+{"event": "event_end", "clock": 488947.1807878, "kind": "move", "elapsed": 0.04096180002670735, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488947.1808311, "kind": "move", "point": [2930.7090350616536, -522.2207544564291]}
+{"event": "event_end", "clock": 488947.2221475, "kind": "move", "elapsed": 0.041301799996290356, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488947.2222529, "kind": "move", "point": [2925.0, -505.0]}
+{"event": "event_end", "clock": 488947.2657329, "kind": "move", "elapsed": 0.04346990003250539, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488947.2658055, "kind": "move", "point": [2930.7090350616536, -487.77924554357094]}
+{"event": "event_end", "clock": 488947.3122076, "kind": "move", "elapsed": 0.04639489995315671, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488947.3122677, "kind": "move", "point": [2946.966991411009, -473.1801948466054]}
+{"event": "event_end", "clock": 488947.3580989, "kind": "move", "elapsed": 0.04582249996019527, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488947.3581592, "kind": "move", "point": [2971.2987425726183, -463.42542103699213]}
+{"event": "event_end", "clock": 488947.4010208, "kind": "move", "elapsed": 0.04285670001991093, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488947.4010715, "kind": "move", "point": [3000.0, -460.0]}
+{"event": "event_end", "clock": 488947.4465277, "kind": "move", "elapsed": 0.045450499979779124, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488947.4465783, "kind": "move", "point": [3028.7012574273817, -463.4254210369921]}
+{"event": "event_end", "clock": 488947.4951915, "kind": "move", "elapsed": 0.048604499956127256, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488947.4952715, "kind": "move", "point": [3053.033008588991, -473.18019484660533]}
+{"event": "event_end", "clock": 488947.5370772, "kind": "move", "elapsed": 0.04180179996183142, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488947.5371339, "kind": "move", "point": [3069.2909649383464, -487.77924554357094]}
+{"event": "event_end", "clock": 488947.57987, "kind": "move", "elapsed": 0.04273139999713749, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488947.5799182, "kind": "move", "point": [3075.0, -505.0]}
+{"event": "event_end", "clock": 488947.6215593, "kind": "move", "elapsed": 0.04163639998296276, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488947.6216066, "kind": "move", "point": [3069.2909649383464, -522.2207544564291]}
+{"event": "event_end", "clock": 488947.6640346, "kind": "move", "elapsed": 0.042423599981702864, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488947.6640816, "kind": "move", "point": [3053.033008588991, -536.8198051533946]}
+{"event": "event_end", "clock": 488947.7065004, "kind": "move", "elapsed": 0.042414699972141534, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488947.7065455, "kind": "move", "point": [3028.7012574273817, -546.5745789630079]}
+{"event": "event_end", "clock": 488947.7482401, "kind": "move", "elapsed": 0.041688599972985685, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488947.7482903, "kind": "move", "point": [3000.0, -550.0]}
+{"event": "event_end", "clock": 488947.7902781, "kind": "move", "elapsed": 0.041983600007370114, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488947.7903127, "kind": "key", "point": null}
+{"event": "event_end", "clock": 488947.8370839, "kind": "key", "elapsed": 0.04676349996589124, "calls": {"bridges": 1, "labels": 1}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488947.8371198, "kind": "release", "point": [3000.0, -550.0]}
+{"event": "event_end", "clock": 488947.8388072, "kind": "release", "elapsed": 0.0016819000011309981, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_target_complete", "clock": 488947.8452885, "auto": false, "target": "representation_0d18b731f5a34d108e03a3b2e5fbbf93"}
+{"event": "event_start", "clock": 488947.855632, "kind": "move", "point": [4572.5, -35.0]}
+{"event": "event_end", "clock": 488947.8603813, "kind": "move", "elapsed": 0.004744399979244918, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_hover", "clock": 488947.9451577, "target": "representation_0e4dabdc5bf3426ab0aacbd1e94fd2b1", "tooltip_visible": true}
+{"event": "event_start", "clock": 488947.9562068, "kind": "move", "point": [4525.0, -100.0]}
+{"event": "event_end", "clock": 488947.9576991, "kind": "move", "elapsed": 0.0014874000335112214, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488947.9577335, "kind": "move", "point": [4500.0, -125.0]}
+{"event": "event_end", "clock": 488947.9577824, "kind": "move", "elapsed": 4.830001853406429e-05, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488947.9577944, "kind": "press", "point": [4500.0, -125.0]}
+{"event": "event_end", "clock": 488947.961327, "kind": "press", "elapsed": 0.0035295000416226685, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "select"}
+{"event": "event_start", "clock": 488947.9613701, "kind": "move", "point": [4528.701257427381, -83.4254210369921]}
+{"event": "event_end", "clock": 488948.0104016, "kind": "move", "elapsed": 0.049024099949747324, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488948.0104693, "kind": "move", "point": [4553.033008588991, -93.18019484660536]}
+{"event": "event_end", "clock": 488948.0596629, "kind": "move", "elapsed": 0.049188299977686256, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488948.0597113, "kind": "move", "point": [4569.290964938346, -107.77924554357097]}
+{"event": "event_end", "clock": 488948.1076652, "kind": "move", "elapsed": 0.047946900012902915, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488948.1077153, "kind": "move", "point": [4575.0, -125.0]}
+{"event": "event_end", "clock": 488948.1503353, "kind": "move", "elapsed": 0.042611800017766654, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488948.1503866, "kind": "move", "point": [4569.290964938346, -142.22075445642903]}
+{"event": "event_end", "clock": 488948.1922554, "kind": "move", "elapsed": 0.04186110000591725, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488948.1923057, "kind": "move", "point": [4553.033008588991, -156.81980515339464]}
+{"event": "event_end", "clock": 488948.2345735, "kind": "move", "elapsed": 0.04226010001730174, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488948.2347174, "kind": "move", "point": [4528.701257427382, -166.5745789630079]}
+{"event": "event_end", "clock": 488948.2802513, "kind": "move", "elapsed": 0.045526300033088773, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488948.2803024, "kind": "move", "point": [4500.0, -170.0]}
+{"event": "event_end", "clock": 488948.3230944, "kind": "move", "elapsed": 0.04278760001761839, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488948.3231377, "kind": "move", "point": [4471.298742572619, -166.57457896300792]}
+{"event": "event_end", "clock": 488948.3668758, "kind": "move", "elapsed": 0.043733099999371916, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488948.3669251, "kind": "move", "point": [4446.966991411009, -156.81980515339464]}
+{"event": "event_end", "clock": 488948.4087009, "kind": "move", "elapsed": 0.041771500022150576, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488948.4087457, "kind": "move", "point": [4430.709035061654, -142.22075445642906]}
+{"event": "event_end", "clock": 488948.4532754, "kind": "move", "elapsed": 0.04452529997797683, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488948.4533221, "kind": "move", "point": [4425.0, -125.00000000000001]}
+{"event": "event_end", "clock": 488948.4958995, "kind": "move", "elapsed": 0.042573200014885515, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488948.495942, "kind": "move", "point": [4430.709035061654, -107.77924554357095]}
+{"event": "event_end", "clock": 488948.5375954, "kind": "move", "elapsed": 0.04164920002222061, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488948.5376371, "kind": "move", "point": [4446.966991411009, -93.18019484660537]}
+{"event": "event_end", "clock": 488948.5798241, "kind": "move", "elapsed": 0.042182100005447865, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488948.5798754, "kind": "move", "point": [4471.298742572618, -83.4254210369921]}
+{"event": "event_end", "clock": 488948.6228755, "kind": "move", "elapsed": 0.042995500029064715, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488948.6231809, "kind": "move", "point": [4500.0, -80.0]}
+{"event": "event_end", "clock": 488948.6729195, "kind": "move", "elapsed": 0.04973440000321716, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488948.6729676, "kind": "move", "point": [4528.701257427382, -83.4254210369921]}
+{"event": "event_end", "clock": 488948.7147275, "kind": "move", "elapsed": 0.04175580001901835, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488948.714772, "kind": "move", "point": [4553.033008588991, -93.18019484660536]}
+{"event": "event_end", "clock": 488948.7557009, "kind": "move", "elapsed": 0.04092499997932464, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488948.7557422, "kind": "move", "point": [4569.290964938346, -107.77924554357094]}
+{"event": "event_end", "clock": 488948.7966044, "kind": "move", "elapsed": 0.04085819999454543, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488948.7966471, "kind": "move", "point": [4575.0, -124.99999999999999]}
+{"event": "event_end", "clock": 488948.8393048, "kind": "move", "elapsed": 0.04265369998756796, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488948.8393452, "kind": "move", "point": [4569.290964938346, -142.22075445642903]}
+{"event": "event_end", "clock": 488948.8801262, "kind": "move", "elapsed": 0.040777500020340085, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488948.8801667, "kind": "move", "point": [4553.033008588991, -156.8198051533946]}
+{"event": "event_end", "clock": 488948.9212849, "kind": "move", "elapsed": 0.04111420002300292, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488948.9213252, "kind": "move", "point": [4528.701257427382, -166.5745789630079]}
+{"event": "event_end", "clock": 488948.9619521, "kind": "move", "elapsed": 0.040623400011099875, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488948.9619929, "kind": "move", "point": [4500.0, -170.0]}
+{"event": "event_end", "clock": 488949.0032097, "kind": "move", "elapsed": 0.041213000018615276, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488949.0032424, "kind": "key", "point": null}
+{"event": "event_end", "clock": 488949.0492207, "kind": "key", "elapsed": 0.04597159998957068, "calls": {"bridges": 1, "labels": 1}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488949.0492533, "kind": "release", "point": [4500.0, -170.0]}
+{"event": "event_end", "clock": 488949.0516908, "kind": "release", "elapsed": 0.002425300015602261, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_target_complete", "clock": 488949.0585146, "auto": false, "target": "representation_0e4dabdc5bf3426ab0aacbd1e94fd2b1"}
+{"event": "event_start", "clock": 488949.0681859, "kind": "move", "point": [1532.5, -1213.0]}
+{"event": "event_end", "clock": 488949.0748265, "kind": "move", "elapsed": 0.006634000048507005, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_hover", "clock": 488949.1621335, "target": "representation_415716e05a9e4a6aa5b72926d521e886", "tooltip_visible": true}
+{"event": "event_start", "clock": 488949.1762183, "kind": "move", "point": [1450.0, -1250.0]}
+{"event": "event_end", "clock": 488949.178276, "kind": "move", "elapsed": 0.0020520000252872705, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488949.1783144, "kind": "move", "point": [1425.0, -1275.0]}
+{"event": "event_end", "clock": 488949.1784827, "kind": "move", "elapsed": 0.00016549997963011265, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488949.1785047, "kind": "press", "point": [1425.0, -1275.0]}
+{"event": "event_end", "clock": 488949.1924285, "kind": "press", "elapsed": 0.013916299969423562, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "select"}
+{"event": "event_start", "clock": 488949.1924848, "kind": "move", "point": [1453.7012574273817, -1233.425421036992]}
+{"event": "event_end", "clock": 488949.2505495, "kind": "move", "elapsed": 0.058058700000401586, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488949.2506069, "kind": "move", "point": [1478.0330085889912, -1243.1801948466054]}
+{"event": "event_end", "clock": 488949.3039244, "kind": "move", "elapsed": 0.05331129999831319, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488949.303978, "kind": "move", "point": [1494.2909649383464, -1257.779245543571]}
+{"event": "event_end", "clock": 488949.3641243, "kind": "move", "elapsed": 0.06013860000530258, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488949.3641842, "kind": "move", "point": [1500.0, -1275.0]}
+{"event": "event_end", "clock": 488949.4220057, "kind": "move", "elapsed": 0.05781710002338514, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488949.4220584, "kind": "move", "point": [1494.2909649383464, -1292.220754456429]}
+{"event": "event_end", "clock": 488949.4791573, "kind": "move", "elapsed": 0.0570945999934338, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488949.4792007, "kind": "move", "point": [1478.0330085889912, -1306.8198051533946]}
+{"event": "event_end", "clock": 488949.5384106, "kind": "move", "elapsed": 0.05920600000536069, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488949.5384523, "kind": "move", "point": [1453.7012574273817, -1316.574578963008]}
+{"event": "event_end", "clock": 488949.5925146, "kind": "move", "elapsed": 0.05405809998046607, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488949.592557, "kind": "move", "point": [1425.0, -1320.0]}
+{"event": "event_end", "clock": 488949.6519172, "kind": "move", "elapsed": 0.059355200035497546, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488949.6519633, "kind": "move", "point": [1396.2987425726183, -1316.574578963008]}
+{"event": "event_end", "clock": 488949.7142478, "kind": "move", "elapsed": 0.06227950000902638, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488949.7142946, "kind": "move", "point": [1371.9669914110088, -1306.8198051533946]}
+{"event": "event_end", "clock": 488949.7764776, "kind": "move", "elapsed": 0.06217569997534156, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488949.7765329, "kind": "move", "point": [1355.7090350616536, -1292.2207544564292]}
+{"event": "event_end", "clock": 488949.8381673, "kind": "move", "elapsed": 0.06163070001639426, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488949.8382088, "kind": "move", "point": [1350.0, -1275.0]}
+{"event": "event_end", "clock": 488949.895948, "kind": "move", "elapsed": 0.05773549998411909, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488949.8959886, "kind": "move", "point": [1355.7090350616536, -1257.779245543571]}
+{"event": "event_end", "clock": 488949.9512181, "kind": "move", "elapsed": 0.05522500001825392, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488949.9512669, "kind": "move", "point": [1371.9669914110088, -1243.1801948466054]}
+{"event": "event_end", "clock": 488950.0140923, "kind": "move", "elapsed": 0.06281770003261045, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488950.0141522, "kind": "move", "point": [1396.2987425726183, -1233.425421036992]}
+{"event": "event_end", "clock": 488950.074589, "kind": "move", "elapsed": 0.060431100020650774, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488950.0746485, "kind": "move", "point": [1425.0, -1230.0]}
+{"event": "event_end", "clock": 488950.1376574, "kind": "move", "elapsed": 0.06300480000209063, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488950.1377006, "kind": "move", "point": [1453.7012574273817, -1233.425421036992]}
+{"event": "event_end", "clock": 488950.1885634, "kind": "move", "elapsed": 0.050858100003097206, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488950.188616, "kind": "move", "point": [1478.0330085889912, -1243.1801948466054]}
+{"event": "event_end", "clock": 488950.2453127, "kind": "move", "elapsed": 0.0566926000174135, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488950.2453546, "kind": "move", "point": [1494.2909649383464, -1257.7792455435708]}
+{"event": "event_end", "clock": 488950.2933584, "kind": "move", "elapsed": 0.04799980000825599, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488950.2934032, "kind": "move", "point": [1500.0, -1275.0]}
+{"event": "event_end", "clock": 488950.3474453, "kind": "move", "elapsed": 0.05403560004197061, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488950.3475042, "kind": "move", "point": [1494.2909649383464, -1292.220754456429]}
+{"event": "event_end", "clock": 488950.4077612, "kind": "move", "elapsed": 0.06025260000023991, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488950.4078139, "kind": "move", "point": [1478.0330085889912, -1306.8198051533946]}
+{"event": "event_end", "clock": 488950.4608622, "kind": "move", "elapsed": 0.05304440000327304, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488950.4609098, "kind": "move", "point": [1453.7012574273817, -1316.574578963008]}
+{"event": "event_end", "clock": 488950.5225601, "kind": "move", "elapsed": 0.061645899957511574, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488950.5226115, "kind": "move", "point": [1425.0, -1320.0]}
+{"event": "event_end", "clock": 488950.5847102, "kind": "move", "elapsed": 0.062094599998090416, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488950.5847445, "kind": "key", "point": null}
+{"event": "event_end", "clock": 488950.6531736, "kind": "key", "elapsed": 0.0684202000265941, "calls": {"bridges": 1, "labels": 1}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488950.6532156, "kind": "release", "point": [1425.0, -1320.0]}
+{"event": "event_end", "clock": 488950.6549297, "kind": "release", "elapsed": 0.001708200026769191, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_target_complete", "clock": 488950.66255, "auto": false, "target": "representation_415716e05a9e4a6aa5b72926d521e886"}
+{"event": "event_start", "clock": 488950.6733983, "kind": "move", "point": [3548.5, -1640.0]}
+{"event": "event_end", "clock": 488950.678428, "kind": "move", "elapsed": 0.005023900012020022, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_hover", "clock": 488950.7672965, "target": "representation_8b51c9e7e2484f5f824070a4edfdd6e4", "tooltip_visible": true}
+{"event": "event_start", "clock": 488950.7821515, "kind": "move", "point": [3475.0, -1595.0]}
+{"event": "event_end", "clock": 488950.7842792, "kind": "move", "elapsed": 0.002122800040524453, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488950.7843153, "kind": "move", "point": [3450.0, -1620.0]}
+{"event": "event_end", "clock": 488950.7843766, "kind": "move", "elapsed": 6.0399994254112244e-05, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488950.7843934, "kind": "press", "point": [3450.0, -1620.0]}
+{"event": "event_end", "clock": 488950.7961899, "kind": "press", "elapsed": 0.011789700016379356, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "select"}
+{"event": "event_start", "clock": 488950.7962388, "kind": "move", "point": [3478.7012574273817, -1578.425421036992]}
+{"event": "event_end", "clock": 488950.8586825, "kind": "move", "elapsed": 0.062438699998892844, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488950.8587254, "kind": "move", "point": [3503.033008588991, -1588.1801948466054]}
+{"event": "event_end", "clock": 488950.9200937, "kind": "move", "elapsed": 0.06136320001678541, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488950.9201386, "kind": "move", "point": [3519.2909649383464, -1602.779245543571]}
+{"event": "event_end", "clock": 488950.9823704, "kind": "move", "elapsed": 0.06222469999920577, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488950.98242, "kind": "move", "point": [3525.0, -1620.0]}
+{"event": "event_end", "clock": 488951.0370717, "kind": "move", "elapsed": 0.05464320001192391, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488951.0371298, "kind": "move", "point": [3519.2909649383464, -1637.220754456429]}
+{"event": "event_end", "clock": 488951.0990491, "kind": "move", "elapsed": 0.06191589997615665, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488951.0990926, "kind": "move", "point": [3503.033008588991, -1651.8198051533946]}
+{"event": "event_end", "clock": 488951.1593839, "kind": "move", "elapsed": 0.060287300031632185, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488951.1594253, "kind": "move", "point": [3478.7012574273817, -1661.574578963008]}
+{"event": "event_end", "clock": 488951.2193782, "kind": "move", "elapsed": 0.059948100009933114, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488951.2194283, "kind": "move", "point": [3450.0, -1665.0]}
+{"event": "event_end", "clock": 488951.2721499, "kind": "move", "elapsed": 0.05271750001702458, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488951.2722001, "kind": "move", "point": [3421.2987425726183, -1661.574578963008]}
+{"event": "event_end", "clock": 488951.3283186, "kind": "move", "elapsed": 0.05611449998104945, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488951.3283616, "kind": "move", "point": [3396.966991411009, -1651.8198051533946]}
+{"event": "event_end", "clock": 488951.3868557, "kind": "move", "elapsed": 0.05848639999749139, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488951.3869224, "kind": "move", "point": [3380.7090350616536, -1637.2207544564292]}
+{"event": "event_end", "clock": 488951.4381686, "kind": "move", "elapsed": 0.051238899992313236, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488951.438233, "kind": "move", "point": [3375.0, -1620.0]}
+{"event": "event_end", "clock": 488951.5012608, "kind": "move", "elapsed": 0.06302350002806634, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488951.5013141, "kind": "move", "point": [3380.7090350616536, -1602.779245543571]}
+{"event": "event_end", "clock": 488951.5633055, "kind": "move", "elapsed": 0.061983800027519464, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488951.5633613, "kind": "move", "point": [3396.966991411009, -1588.1801948466054]}
+{"event": "event_end", "clock": 488951.6232833, "kind": "move", "elapsed": 0.05991639994317666, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488951.6233365, "kind": "move", "point": [3421.2987425726183, -1578.425421036992]}
+{"event": "event_end", "clock": 488951.6790706, "kind": "move", "elapsed": 0.05573019996518269, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488951.6791131, "kind": "move", "point": [3450.0, -1575.0]}
+{"event": "event_end", "clock": 488951.7386179, "kind": "move", "elapsed": 0.05950010003289208, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488951.7386683, "kind": "move", "point": [3478.7012574273817, -1578.425421036992]}
+{"event": "event_end", "clock": 488951.7871071, "kind": "move", "elapsed": 0.04843499994603917, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488951.7871493, "kind": "move", "point": [3503.033008588991, -1588.1801948466054]}
+{"event": "event_end", "clock": 488951.8465957, "kind": "move", "elapsed": 0.059441300050821155, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488951.8466423, "kind": "move", "point": [3519.2909649383464, -1602.7792455435708]}
+{"event": "event_end", "clock": 488951.9013802, "kind": "move", "elapsed": 0.05473319999873638, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488951.9014281, "kind": "move", "point": [3525.0, -1620.0]}
+{"event": "event_end", "clock": 488951.9515673, "kind": "move", "elapsed": 0.05013480002526194, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488951.9516164, "kind": "move", "point": [3519.2909649383464, -1637.220754456429]}
+{"event": "event_end", "clock": 488952.0129563, "kind": "move", "elapsed": 0.061336199985817075, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488952.013, "kind": "move", "point": [3503.033008588991, -1651.8198051533946]}
+{"event": "event_end", "clock": 488952.0673896, "kind": "move", "elapsed": 0.05438479996519163, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488952.0674393, "kind": "move", "point": [3478.7012574273817, -1661.574578963008]}
+{"event": "event_end", "clock": 488952.1213994, "kind": "move", "elapsed": 0.053951799985952675, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488952.1214854, "kind": "move", "point": [3450.0, -1665.0]}
+{"event": "event_end", "clock": 488952.1727575, "kind": "move", "elapsed": 0.05126490001566708, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488952.1728149, "kind": "key", "point": null}
+{"event": "event_end", "clock": 488952.2326681, "kind": "key", "elapsed": 0.05984529998386279, "calls": {"bridges": 1, "labels": 1}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488952.2327174, "kind": "release", "point": [3450.0, -1665.0]}
+{"event": "event_end", "clock": 488952.2364751, "kind": "release", "elapsed": 0.0037518999888561666, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_target_complete", "clock": 488952.2474399, "auto": false, "target": "representation_8b51c9e7e2484f5f824070a4edfdd6e4"}
+{"event": "event_start", "clock": 488952.257366, "kind": "move", "point": [771.0, -1070.0]}
+{"event": "event_end", "clock": 488952.2648346, "kind": "move", "elapsed": 0.00746269995579496, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_hover", "clock": 488952.3534075, "target": "representation_0e389966cc9041d28b927d88220ce26f", "tooltip_visible": true}
+{"event": "event_start", "clock": 488952.3637237, "kind": "move", "point": [812.0, -1025.0]}
+{"event": "event_end", "clock": 488952.3648241, "kind": "move", "elapsed": 0.0010949000134132802, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488952.3648579, "kind": "move", "point": [787.0, -1050.0]}
+{"event": "event_end", "clock": 488952.3649074, "kind": "move", "elapsed": 4.8900023102760315e-05, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488952.3649196, "kind": "press", "point": [787.0, -1050.0]}
+{"event": "event_end", "clock": 488952.3779888, "kind": "press", "elapsed": 0.013062199985142797, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "select"}
+{"event": "event_start", "clock": 488952.3780382, "kind": "move", "point": [815.7012574273817, -1008.4254210369921]}
+{"event": "event_end", "clock": 488952.420999, "kind": "move", "elapsed": 0.0429526999942027, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488952.4210588, "kind": "move", "point": [840.033008588991, -1018.1801948466053]}
+{"event": "event_end", "clock": 488952.4843007, "kind": "move", "elapsed": 0.06323640001937747, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488952.4843555, "kind": "move", "point": [856.2909649383465, -1032.779245543571]}
+{"event": "event_end", "clock": 488952.5539576, "kind": "move", "elapsed": 0.0695871000061743, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488952.5540463, "kind": "move", "point": [862.0, -1050.0]}
+{"event": "event_end", "clock": 488952.597568, "kind": "move", "elapsed": 0.0435179999913089, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488952.5976176, "kind": "move", "point": [856.2909649383465, -1067.220754456429]}
+{"event": "event_end", "clock": 488952.6596632, "kind": "move", "elapsed": 0.06204180000349879, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488952.6597054, "kind": "move", "point": [840.033008588991, -1081.8198051533946]}
+{"event": "event_end", "clock": 488952.7025487, "kind": "move", "elapsed": 0.04283759999088943, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488952.7026005, "kind": "move", "point": [815.7012574273817, -1091.574578963008]}
+{"event": "event_end", "clock": 488952.7653858, "kind": "move", "elapsed": 0.0627789999707602, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488952.7654411, "kind": "move", "point": [787.0, -1095.0]}
+{"event": "event_end", "clock": 488952.8281983, "kind": "move", "elapsed": 0.06275219999952242, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488952.8282516, "kind": "move", "point": [758.2987425726183, -1091.574578963008]}
+{"event": "event_end", "clock": 488952.8909637, "kind": "move", "elapsed": 0.06270759995095432, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488952.8910139, "kind": "move", "point": [733.966991411009, -1081.8198051533946]}
+{"event": "event_end", "clock": 488952.9432297, "kind": "move", "elapsed": 0.05221150000579655, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488952.9432723, "kind": "move", "point": [717.7090350616535, -1067.2207544564292]}
+{"event": "event_end", "clock": 488952.9850171, "kind": "move", "elapsed": 0.041740500018931925, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488952.9850598, "kind": "move", "point": [712.0, -1050.0]}
+{"event": "event_end", "clock": 488953.0438005, "kind": "move", "elapsed": 0.058735899976454675, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488953.0438502, "kind": "move", "point": [717.7090350616535, -1032.779245543571]}
+{"event": "event_end", "clock": 488953.0860029, "kind": "move", "elapsed": 0.04214889998547733, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488953.0860438, "kind": "move", "point": [733.966991411009, -1018.1801948466053]}
+{"event": "event_end", "clock": 488953.1272421, "kind": "move", "elapsed": 0.04119439999340102, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488953.1272837, "kind": "move", "point": [758.2987425726183, -1008.4254210369921]}
+{"event": "event_end", "clock": 488953.1770359, "kind": "move", "elapsed": 0.04974810004932806, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488953.177077, "kind": "move", "point": [787.0, -1005.0]}
+{"event": "event_end", "clock": 488953.2199433, "kind": "move", "elapsed": 0.04286139999749139, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488953.2199926, "kind": "move", "point": [815.7012574273817, -1008.4254210369921]}
+{"event": "event_end", "clock": 488953.2621467, "kind": "move", "elapsed": 0.04215039999689907, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488953.2621883, "kind": "move", "point": [840.033008588991, -1018.1801948466053]}
+{"event": "event_end", "clock": 488953.3129918, "kind": "move", "elapsed": 0.050799099961295724, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488953.3130406, "kind": "move", "point": [856.2909649383465, -1032.7792455435708]}
+{"event": "event_end", "clock": 488953.3710866, "kind": "move", "elapsed": 0.05803750001359731, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488953.3711533, "kind": "move", "point": [862.0, -1050.0]}
+{"event": "event_end", "clock": 488953.4355324, "kind": "move", "elapsed": 0.06437269999878481, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488953.4355935, "kind": "move", "point": [856.2909649383465, -1067.220754456429]}
+{"event": "event_end", "clock": 488953.5038765, "kind": "move", "elapsed": 0.06827219994738698, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488953.5039489, "kind": "move", "point": [840.0330085889912, -1081.8198051533946]}
+{"event": "event_end", "clock": 488953.5629496, "kind": "move", "elapsed": 0.058990999998059124, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488953.5630266, "kind": "move", "point": [815.7012574273817, -1091.574578963008]}
+{"event": "event_end", "clock": 488953.6175601, "kind": "move", "elapsed": 0.05452210002113134, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488953.6176403, "kind": "move", "point": [787.0, -1095.0]}
+{"event": "event_end", "clock": 488953.6731845, "kind": "move", "elapsed": 0.05553650000365451, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488953.673244, "kind": "key", "point": null}
+{"event": "event_end", "clock": 488953.7187464, "kind": "key", "elapsed": 0.04549240000778809, "calls": {"bridges": 1, "labels": 1}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488953.7187972, "kind": "release", "point": [787.0, -1095.0]}
+{"event": "event_end", "clock": 488953.719661, "kind": "release", "elapsed": 0.0008583000162616372, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_target_complete", "clock": 488953.7263063, "auto": false, "target": "representation_0e389966cc9041d28b927d88220ce26f"}
+{"event": "event_start", "clock": 488953.7363339, "kind": "move", "point": [594.5, 1160.0]}
+{"event": "event_end", "clock": 488953.7430812, "kind": "move", "elapsed": 0.006741899996995926, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_hover", "clock": 488953.8279823, "target": "representation_171514d0c2b148ed9b76ea41e5edf010", "tooltip_visible": true}
+{"event": "event_start", "clock": 488953.8391401, "kind": "move", "point": [625.0, 1205.0]}
+{"event": "event_end", "clock": 488953.840364, "kind": "move", "elapsed": 0.0012174000148661435, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488953.8404056, "kind": "move", "point": [600.0, 1180.0]}
+{"event": "event_end", "clock": 488953.8404723, "kind": "move", "elapsed": 6.579997716471553e-05, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488953.8404894, "kind": "press", "point": [600.0, 1180.0]}
+{"event": "event_end", "clock": 488953.8532611, "kind": "press", "elapsed": 0.012763599981553853, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "select"}
+{"event": "event_start", "clock": 488953.8533156, "kind": "move", "point": [628.7012574273817, 1221.574578963008]}
+{"event": "event_end", "clock": 488953.9126144, "kind": "move", "elapsed": 0.05928909999784082, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488953.9127273, "kind": "move", "point": [653.033008588991, 1211.8198051533946]}
+{"event": "event_end", "clock": 488953.9745686, "kind": "move", "elapsed": 0.06183189997682348, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488953.9746489, "kind": "move", "point": [669.2909649383465, 1197.220754456429]}
+{"event": "event_end", "clock": 488954.0417141, "kind": "move", "elapsed": 0.06705779995536432, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488954.0417765, "kind": "move", "point": [675.0, 1180.0]}
+{"event": "event_end", "clock": 488954.0841458, "kind": "move", "elapsed": 0.04236399999354035, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488954.0841976, "kind": "move", "point": [669.2909649383465, 1162.779245543571]}
+{"event": "event_end", "clock": 488954.1409641, "kind": "move", "elapsed": 0.05675609997706488, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488954.141036, "kind": "move", "point": [653.033008588991, 1148.1801948466054]}
+{"event": "event_end", "clock": 488954.1859421, "kind": "move", "elapsed": 0.044897800020407885, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488954.1860038, "kind": "move", "point": [628.7012574273817, 1138.425421036992]}
+{"event": "event_end", "clock": 488954.2419772, "kind": "move", "elapsed": 0.05596450000302866, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488954.2420449, "kind": "move", "point": [600.0, 1135.0]}
+{"event": "event_end", "clock": 488954.2893657, "kind": "move", "elapsed": 0.0473152999766171, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488954.2894196, "kind": "move", "point": [571.2987425726183, 1138.425421036992]}
+{"event": "event_end", "clock": 488954.3339862, "kind": "move", "elapsed": 0.04455670004244894, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488954.3340452, "kind": "move", "point": [546.966991411009, 1148.1801948466054]}
+{"event": "event_end", "clock": 488954.3819824, "kind": "move", "elapsed": 0.04792829998768866, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488954.3820479, "kind": "move", "point": [530.7090350616535, 1162.7792455435708]}
+{"event": "event_end", "clock": 488954.4460355, "kind": "move", "elapsed": 0.06398050003917888, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488954.4460972, "kind": "move", "point": [525.0, 1180.0]}
+{"event": "event_end", "clock": 488954.5036276, "kind": "move", "elapsed": 0.057519599969964474, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488954.5037027, "kind": "move", "point": [530.7090350616535, 1197.220754456429]}
+{"event": "event_end", "clock": 488954.5548565, "kind": "move", "elapsed": 0.05114649998722598, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488954.5549225, "kind": "move", "point": [546.966991411009, 1211.8198051533946]}
+{"event": "event_end", "clock": 488954.6172049, "kind": "move", "elapsed": 0.06227750005200505, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488954.6172781, "kind": "move", "point": [571.2987425726183, 1221.574578963008]}
+{"event": "event_end", "clock": 488954.6600799, "kind": "move", "elapsed": 0.04279750003479421, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488954.6601258, "kind": "move", "point": [600.0, 1225.0]}
+{"event": "event_end", "clock": 488954.7035472, "kind": "move", "elapsed": 0.043410199985373765, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488954.7036199, "kind": "move", "point": [628.7012574273817, 1221.574578963008]}
+{"event": "event_end", "clock": 488954.7654296, "kind": "move", "elapsed": 0.06180080003105104, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488954.7655076, "kind": "move", "point": [653.033008588991, 1211.8198051533946]}
+{"event": "event_end", "clock": 488954.8333784, "kind": "move", "elapsed": 0.06785890000173822, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488954.8334666, "kind": "move", "point": [669.2909649383465, 1197.2207544564292]}
+{"event": "event_end", "clock": 488954.8874886, "kind": "move", "elapsed": 0.054011099971830845, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488954.887581, "kind": "move", "point": [675.0, 1180.0]}
+{"event": "event_end", "clock": 488954.9458984, "kind": "move", "elapsed": 0.058307700033765286, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488954.9459696, "kind": "move", "point": [669.2909649383465, 1162.779245543571]}
+{"event": "event_end", "clock": 488955.0011635, "kind": "move", "elapsed": 0.05518950003897771, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488955.0012132, "kind": "move", "point": [653.0330085889912, 1148.1801948466054]}
+{"event": "event_end", "clock": 488955.0450036, "kind": "move", "elapsed": 0.04377950000343844, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488955.045086, "kind": "move", "point": [628.7012574273817, 1138.425421036992]}
+{"event": "event_end", "clock": 488955.1086196, "kind": "move", "elapsed": 0.06352670001797378, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488955.1086816, "kind": "move", "point": [600.0, 1135.0]}
+{"event": "event_end", "clock": 488955.1670277, "kind": "move", "elapsed": 0.058338899980299175, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488955.1670742, "kind": "key", "point": null}
+{"event": "event_end", "clock": 488955.2153351, "kind": "key", "elapsed": 0.04825490002986044, "calls": {"bridges": 1, "labels": 1}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488955.2153696, "kind": "release", "point": [600.0, 1135.0]}
+{"event": "event_end", "clock": 488955.2158869, "kind": "release", "elapsed": 0.0005130000063218176, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_target_complete", "clock": 488955.222312, "auto": false, "target": "representation_171514d0c2b148ed9b76ea41e5edf010"}
+{"event": "native_complete", "clock": 488956.7497565, "auto": false, "exceptions": 0, "screenshot": "native-mainwindow-loaded.png", "counts": {"bridges": 206, "labels": 206}}
+{"event": "native_setup", "clock": 488959.6195897, "auto": true, "platform": "windows", "style": "", "font": "Segoe UI,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0", "fingerprint": "b275e47230495c199e8c4ad0158838af0f3a3c14a2767fc85a98bbe7a1164445", "dpi": 1.0, "code_hashes": {"editor_scene.py": "aa6af228baaa41acf0dbabb55106a2f9267e130c7baeedc2fd979da8d12447ac", "label_layout.py": "99282cac9b239de2ced5f035dbc883e786ef3933085e60b65653279d2628d1cf"}}
+{"event": "candidate_kinds", "clock": 488959.6256557, "objects": [["representation_015873c21248439dad34b22648fe5612", "transformer_2w", "КТП Ф-4 400 кВ·А (Центральная)"], ["representation_03213b5ce0054cdcac9ceeaafb30e997", "load", "Нагрузка КТП Ф-1 (Западная)"], ["representation_0d18b731f5a34d108e03a3b2e5fbbf93", "circuit_breaker", "Ввод-2 10 кВ (Центральная)"], ["representation_0e4dabdc5bf3426ab0aacbd1e94fd2b1", "line_section", "Ф-4 10 кВ (Северная)"], ["representation_415716e05a9e4a6aa5b72926d521e886", "transformer_3w", "Т1 Центральная 110/35/10"], ["representation_8b51c9e7e2484f5f824070a4edfdd6e4", "source", "Энергосистема 110 кВ"]]}
+{"event": "event_start", "clock": 488959.6770695, "kind": "move", "point": [2812.5, 352.0]}
+{"event": "event_end", "clock": 488959.682018, "kind": "move", "elapsed": 0.004942399973515421, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_hover", "clock": 488959.7692931, "target": "representation_015873c21248439dad34b22648fe5612", "tooltip_visible": true}
+{"event": "event_start", "clock": 488959.7848257, "kind": "move", "point": [2725.0, 315.0]}
+{"event": "event_end", "clock": 488959.7873764, "kind": "move", "elapsed": 0.0025456000003032386, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488959.7874137, "kind": "move", "point": [2700.0, 290.0]}
+{"event": "event_end", "clock": 488959.7942694, "kind": "move", "elapsed": 0.006849199999123812, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488959.7943078, "kind": "press", "point": [2700.0, 290.0]}
+{"event": "event_end", "clock": 488959.8082187, "kind": "press", "elapsed": 0.013904499995987862, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "select"}
+{"event": "event_start", "clock": 488959.8082747, "kind": "move", "point": [2728.7012574273817, 331.5745789630079]}
+{"event": "event_end", "clock": 488959.8739702, "kind": "move", "elapsed": 0.06568870000774041, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488959.8740228, "kind": "move", "point": [2753.033008588991, 321.81980515339467]}
+{"event": "event_end", "clock": 488959.9180793, "kind": "move", "elapsed": 0.044050200027413666, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488959.9181372, "kind": "move", "point": [2769.2909649383464, 307.22075445642906]}
+{"event": "event_end", "clock": 488959.9900157, "kind": "move", "elapsed": 0.07186170003842562, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488959.9901268, "kind": "move", "point": [2775.0, 290.0]}
+{"event": "event_end", "clock": 488960.0556544, "kind": "move", "elapsed": 0.06552130001364276, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488960.0557186, "kind": "move", "point": [2769.2909649383464, 272.77924554357094]}
+{"event": "event_end", "clock": 488960.0994462, "kind": "move", "elapsed": 0.043722800037357956, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488960.099503, "kind": "move", "point": [2753.033008588991, 258.1801948466054]}
+{"event": "event_end", "clock": 488960.1491461, "kind": "move", "elapsed": 0.04963939997833222, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488960.149245, "kind": "move", "point": [2728.7012574273817, 248.4254210369921]}
+{"event": "event_end", "clock": 488960.1907879, "kind": "move", "elapsed": 0.041539199999533594, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488960.1908327, "kind": "move", "point": [2700.0, 245.0]}
+{"event": "event_end", "clock": 488960.2322938, "kind": "move", "elapsed": 0.04145680001238361, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488960.2323394, "kind": "move", "point": [2671.2987425726183, 248.42542103699208]}
+{"event": "event_end", "clock": 488960.2741976, "kind": "move", "elapsed": 0.04185420001158491, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488960.2742417, "kind": "move", "point": [2646.966991411009, 258.18019484660533]}
+{"event": "event_end", "clock": 488960.3163879, "kind": "move", "elapsed": 0.042142099991906434, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488960.3164319, "kind": "move", "point": [2630.7090350616536, 272.77924554357094]}
+{"event": "event_end", "clock": 488960.36208, "kind": "move", "elapsed": 0.045644500001799315, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488960.3621223, "kind": "move", "point": [2625.0, 290.0]}
+{"event": "event_end", "clock": 488960.4053946, "kind": "move", "elapsed": 0.04326750000473112, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488960.405443, "kind": "move", "point": [2630.7090350616536, 307.22075445642906]}
+{"event": "event_end", "clock": 488960.451867, "kind": "move", "elapsed": 0.04641829995671287, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488960.4519205, "kind": "move", "point": [2646.966991411009, 321.8198051533946]}
+{"event": "event_end", "clock": 488960.5150914, "kind": "move", "elapsed": 0.06316409999271855, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488960.515145, "kind": "move", "point": [2671.2987425726183, 331.57457896300787]}
+{"event": "event_end", "clock": 488960.5782837, "kind": "move", "elapsed": 0.06313389999559149, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488960.5783296, "kind": "move", "point": [2700.0, 335.0]}
+{"event": "event_end", "clock": 488960.6356421, "kind": "move", "elapsed": 0.057306200033053756, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488960.6356968, "kind": "move", "point": [2728.7012574273817, 331.5745789630079]}
+{"event": "event_end", "clock": 488960.7006301, "kind": "move", "elapsed": 0.06492490001255646, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488960.7006945, "kind": "move", "point": [2753.033008588991, 321.81980515339467]}
+{"event": "event_end", "clock": 488960.7643509, "kind": "move", "elapsed": 0.06365269998786971, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488960.7643957, "kind": "move", "point": [2769.2909649383464, 307.22075445642906]}
+{"event": "event_end", "clock": 488960.808678, "kind": "move", "elapsed": 0.04427820001728833, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488960.8087261, "kind": "move", "point": [2775.0, 290.0]}
+{"event": "event_end", "clock": 488960.8530612, "kind": "move", "elapsed": 0.0443313000141643, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488960.8531031, "kind": "move", "point": [2769.2909649383464, 272.77924554357094]}
+{"event": "event_end", "clock": 488960.8970654, "kind": "move", "elapsed": 0.04395649995421991, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488960.8971191, "kind": "move", "point": [2753.033008588991, 258.1801948466054]}
+{"event": "event_end", "clock": 488960.9537457, "kind": "move", "elapsed": 0.056620299990754575, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488960.9538014, "kind": "move", "point": [2728.7012574273817, 248.4254210369921]}
+{"event": "event_end", "clock": 488961.0181688, "kind": "move", "elapsed": 0.06436129997018725, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488961.0182281, "kind": "move", "point": [2700.0, 245.0]}
+{"event": "event_end", "clock": 488961.0805272, "kind": "move", "elapsed": 0.06229509995318949, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488961.0805643, "kind": "key", "point": null}
+{"event": "event_end", "clock": 488961.1277209, "kind": "key", "elapsed": 0.04714919999241829, "calls": {"bridges": 1, "labels": 1}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488961.1277603, "kind": "release", "point": [2700.0, 245.0]}
+{"event": "event_end", "clock": 488961.1300416, "kind": "release", "elapsed": 0.002275999984703958, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_target_complete", "clock": 488961.1406594, "auto": true, "target": "representation_015873c21248439dad34b22648fe5612"}
+{"event": "event_start", "clock": 488961.1501795, "kind": "move", "point": [110.5, 1282.0]}
+{"event": "event_end", "clock": 488961.1542137, "kind": "move", "elapsed": 0.004028600000310689, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_hover", "clock": 488961.2410038, "target": "representation_03213b5ce0054cdcac9ceeaafb30e997", "tooltip_visible": true}
+{"event": "event_start", "clock": 488961.2551363, "kind": "move", "point": [25.0, 1315.0]}
+{"event": "event_end", "clock": 488961.2572881, "kind": "move", "elapsed": 0.0021463000448420644, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488961.2573269, "kind": "move", "point": [0.0, 1290.0]}
+{"event": "event_end", "clock": 488961.2573871, "kind": "move", "elapsed": 5.9299985878169537e-05, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488961.2574034, "kind": "press", "point": [0.0, 1290.0]}
+{"event": "event_end", "clock": 488961.2702353, "kind": "press", "elapsed": 0.01282459998037666, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "select"}
+{"event": "event_start", "clock": 488961.2702958, "kind": "move", "point": [28.701257427381734, 1331.574578963008]}
+{"event": "event_end", "clock": 488961.3369177, "kind": "move", "elapsed": 0.06661640002857894, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488961.336976, "kind": "move", "point": [53.033008588991066, 1321.8198051533946]}
+{"event": "event_end", "clock": 488961.4012592, "kind": "move", "elapsed": 0.0642752000130713, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488961.4013317, "kind": "move", "point": [69.2909649383465, 1307.220754456429]}
+{"event": "event_end", "clock": 488961.4736159, "kind": "move", "elapsed": 0.07227419997798279, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488961.4736819, "kind": "move", "point": [75.0, 1290.0]}
+{"event": "event_end", "clock": 488961.538886, "kind": "move", "elapsed": 0.06519729999126866, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488961.538946, "kind": "move", "point": [69.2909649383465, 1272.779245543571]}
+{"event": "event_end", "clock": 488961.6044826, "kind": "move", "elapsed": 0.06552990002091974, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488961.6045446, "kind": "move", "point": [53.033008588991066, 1258.1801948466054]}
+{"event": "event_end", "clock": 488961.6682288, "kind": "move", "elapsed": 0.0636802000226453, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488961.6682742, "kind": "move", "point": [28.70125742738174, 1248.425421036992]}
+{"event": "event_end", "clock": 488961.7100571, "kind": "move", "elapsed": 0.041775899997446686, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488961.7101114, "kind": "move", "point": [9.184850993605149e-15, 1245.0]}
+{"event": "event_end", "clock": 488961.7689718, "kind": "move", "elapsed": 0.05885520001174882, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488961.7690234, "kind": "move", "point": [-28.701257427381726, 1248.425421036992]}
+{"event": "event_end", "clock": 488961.8330758, "kind": "move", "elapsed": 0.0640449000056833, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488961.8331218, "kind": "move", "point": [-53.03300858899106, 1258.1801948466054]}
+{"event": "event_end", "clock": 488961.8755748, "kind": "move", "elapsed": 0.04244760004803538, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488961.8957719, "kind": "move", "point": [-69.29096493834649, 1272.7792455435708]}
+{"event": "event_end", "clock": 488961.9411703, "kind": "move", "elapsed": 0.04539610003121197, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488961.9412185, "kind": "move", "point": [-75.0, 1290.0]}
+{"event": "event_end", "clock": 488962.0060221, "kind": "move", "elapsed": 0.06479819997912273, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488962.0060717, "kind": "move", "point": [-69.29096493834649, 1307.220754456429]}
+{"event": "event_end", "clock": 488962.0705568, "kind": "move", "elapsed": 0.0644787999917753, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488962.0706106, "kind": "move", "point": [-53.03300858899107, 1321.8198051533946]}
+{"event": "event_end", "clock": 488962.133319, "kind": "move", "elapsed": 0.0627039999817498, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488962.1333618, "kind": "move", "point": [-28.70125742738178, 1331.574578963008]}
+{"event": "event_end", "clock": 488962.1750327, "kind": "move", "elapsed": 0.041666300036013126, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488962.175077, "kind": "move", "point": [-1.8369701987210297e-14, 1335.0]}
+{"event": "event_end", "clock": 488962.2177422, "kind": "move", "elapsed": 0.04266030003782362, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488962.2177919, "kind": "move", "point": [28.701257427381748, 1331.574578963008]}
+{"event": "event_end", "clock": 488962.2635507, "kind": "move", "elapsed": 0.04575499997008592, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488962.2635913, "kind": "move", "point": [53.03300858899105, 1321.8198051533946]}
+{"event": "event_end", "clock": 488962.3233215, "kind": "move", "elapsed": 0.05972520000068471, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488962.3233713, "kind": "move", "point": [69.29096493834649, 1307.2207544564292]}
+{"event": "event_end", "clock": 488962.3852888, "kind": "move", "elapsed": 0.061913900019135326, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488962.38533, "kind": "move", "point": [75.0, 1290.0]}
+{"event": "event_end", "clock": 488962.4285503, "kind": "move", "elapsed": 0.04321440000785515, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488962.4286012, "kind": "move", "point": [69.2909649383465, 1272.779245543571]}
+{"event": "event_end", "clock": 488962.4908238, "kind": "move", "elapsed": 0.06221880001248792, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488962.4908657, "kind": "move", "point": [53.03300858899112, 1258.1801948466054]}
+{"event": "event_end", "clock": 488962.533059, "kind": "move", "elapsed": 0.04218709998531267, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488962.5331103, "kind": "move", "point": [28.701257427381787, 1248.425421036992]}
+{"event": "event_end", "clock": 488962.592972, "kind": "move", "elapsed": 0.05985560000408441, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488962.5930237, "kind": "move", "point": [2.7554552980815446e-14, 1245.0]}
+{"event": "event_end", "clock": 488962.6569667, "kind": "move", "elapsed": 0.06393830000888556, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488962.6570109, "kind": "key", "point": null}
+{"event": "event_end", "clock": 488962.7244226, "kind": "key", "elapsed": 0.06740509998053312, "calls": {"bridges": 1, "labels": 1}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488962.7244556, "kind": "release", "point": [2.7554552980815446e-14, 1245.0]}
+{"event": "event_end", "clock": 488962.7268852, "kind": "release", "elapsed": 0.0024212999851442873, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_target_complete", "clock": 488962.7337369, "auto": true, "target": "representation_03213b5ce0054cdcac9ceeaafb30e997"}
+{"event": "event_start", "clock": 488962.7449284, "kind": "move", "point": [3091.5, -447.0]}
+{"event": "event_end", "clock": 488962.7490574, "kind": "move", "elapsed": 0.004123399965465069, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_hover", "clock": 488962.8437898, "target": "representation_0d18b731f5a34d108e03a3b2e5fbbf93", "tooltip_visible": true}
+{"event": "event_start", "clock": 488962.8538325, "kind": "move", "point": [3025.0, -480.0]}
+{"event": "event_end", "clock": 488962.855261, "kind": "move", "elapsed": 0.0014244000194594264, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488962.8552916, "kind": "move", "point": [3000.0, -505.0]}
+{"event": "event_end", "clock": 488962.8553381, "kind": "move", "elapsed": 4.569999873638153e-05, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488962.8553495, "kind": "press", "point": [3000.0, -505.0]}
+{"event": "event_end", "clock": 488962.8639216, "kind": "press", "elapsed": 0.00856519996887073, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "select"}
+{"event": "event_start", "clock": 488962.8639696, "kind": "move", "point": [3028.7012574273817, -463.4254210369921]}
+{"event": "event_end", "clock": 488962.9132936, "kind": "move", "elapsed": 0.04931650002254173, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488962.9133502, "kind": "move", "point": [3053.033008588991, -473.18019484660533]}
+{"event": "event_end", "clock": 488962.9623402, "kind": "move", "elapsed": 0.04898340004729107, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488962.9623912, "kind": "move", "point": [3069.2909649383464, -487.77924554357094]}
+{"event": "event_end", "clock": 488963.0187743, "kind": "move", "elapsed": 0.056374099978711456, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488963.0188341, "kind": "move", "point": [3075.0, -505.0]}
+{"event": "event_end", "clock": 488963.0629332, "kind": "move", "elapsed": 0.04409390001092106, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488963.0629871, "kind": "move", "point": [3069.2909649383464, -522.2207544564291]}
+{"event": "event_end", "clock": 488963.1060547, "kind": "move", "elapsed": 0.04306100000394508, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488963.1061071, "kind": "move", "point": [3053.033008588991, -536.8198051533947]}
+{"event": "event_end", "clock": 488963.1501171, "kind": "move", "elapsed": 0.04400229995371774, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488963.1501807, "kind": "move", "point": [3028.7012574273817, -546.5745789630079]}
+{"event": "event_end", "clock": 488963.195147, "kind": "move", "elapsed": 0.04495910002151504, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488963.1952172, "kind": "move", "point": [3000.0, -550.0]}
+{"event": "event_end", "clock": 488963.2390691, "kind": "move", "elapsed": 0.04384169995319098, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488963.2391379, "kind": "move", "point": [2971.2987425726183, -546.5745789630079]}
+{"event": "event_end", "clock": 488963.2836698, "kind": "move", "elapsed": 0.04452260001562536, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488963.2837349, "kind": "move", "point": [2946.966991411009, -536.8198051533947]}
+{"event": "event_end", "clock": 488963.3274244, "kind": "move", "elapsed": 0.04368360002990812, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488963.3274832, "kind": "move", "point": [2930.7090350616536, -522.2207544564291]}
+{"event": "event_end", "clock": 488963.3722375, "kind": "move", "elapsed": 0.044747899984940886, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488963.3722949, "kind": "move", "point": [2925.0, -505.0]}
+{"event": "event_end", "clock": 488963.4208248, "kind": "move", "elapsed": 0.048523199977353215, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488963.4208893, "kind": "move", "point": [2930.7090350616536, -487.77924554357094]}
+{"event": "event_end", "clock": 488963.4771813, "kind": "move", "elapsed": 0.05628509999951348, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488963.4772445, "kind": "move", "point": [2946.966991411009, -473.1801948466054]}
+{"event": "event_end", "clock": 488963.5230551, "kind": "move", "elapsed": 0.04580339998938143, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488963.5231153, "kind": "move", "point": [2971.2987425726183, -463.42542103699213]}
+{"event": "event_end", "clock": 488963.5752572, "kind": "move", "elapsed": 0.052131100033875555, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488963.575338, "kind": "move", "point": [3000.0, -460.0]}
+{"event": "event_end", "clock": 488963.620416, "kind": "move", "elapsed": 0.04507029999513179, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488963.6204696, "kind": "move", "point": [3028.7012574273817, -463.4254210369921]}
+{"event": "event_end", "clock": 488963.6632148, "kind": "move", "elapsed": 0.042740700009744614, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488963.6632575, "kind": "move", "point": [3053.033008588991, -473.18019484660533]}
+{"event": "event_end", "clock": 488963.7168845, "kind": "move", "elapsed": 0.053623100044205785, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488963.7169254, "kind": "move", "point": [3069.2909649383464, -487.77924554357094]}
+{"event": "event_end", "clock": 488963.7587524, "kind": "move", "elapsed": 0.04182310000760481, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488963.7587934, "kind": "move", "point": [3075.0, -505.0]}
+{"event": "event_end", "clock": 488963.8011431, "kind": "move", "elapsed": 0.042344899964518845, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488963.8011872, "kind": "move", "point": [3069.2909649383464, -522.2207544564291]}
+{"event": "event_end", "clock": 488963.8433497, "kind": "move", "elapsed": 0.042158299998845905, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488963.8433918, "kind": "move", "point": [3053.033008588991, -536.8198051533946]}
+{"event": "event_end", "clock": 488963.8854643, "kind": "move", "elapsed": 0.04206850001355633, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488963.8855058, "kind": "move", "point": [3028.7012574273817, -546.5745789630079]}
+{"event": "event_end", "clock": 488963.9276009, "kind": "move", "elapsed": 0.0420911000110209, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488963.9276448, "kind": "move", "point": [3000.0, -550.0]}
+{"event": "event_end", "clock": 488963.9692797, "kind": "move", "elapsed": 0.04163120000157505, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488963.9693118, "kind": "key", "point": null}
+{"event": "event_end", "clock": 488964.0157286, "kind": "key", "elapsed": 0.04640859999926761, "calls": {"bridges": 1, "labels": 1}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488964.0157751, "kind": "release", "point": [3000.0, -550.0]}
+{"event": "event_end", "clock": 488964.0176219, "kind": "release", "elapsed": 0.0018408999894745648, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_target_complete", "clock": 488964.0247573, "auto": true, "target": "representation_0d18b731f5a34d108e03a3b2e5fbbf93"}
+{"event": "event_start", "clock": 488964.0350558, "kind": "move", "point": [4572.5, -35.0]}
+{"event": "event_end", "clock": 488964.0393506, "kind": "move", "elapsed": 0.004289800010155886, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_hover", "clock": 488964.1241124, "target": "representation_0e4dabdc5bf3426ab0aacbd1e94fd2b1", "tooltip_visible": true}
+{"event": "event_start", "clock": 488964.1337133, "kind": "move", "point": [4525.0, -100.0]}
+{"event": "event_end", "clock": 488964.1351833, "kind": "move", "elapsed": 0.0014656000421382487, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488964.1352138, "kind": "move", "point": [4500.0, -125.0]}
+{"event": "event_end", "clock": 488964.1352589, "kind": "move", "elapsed": 4.449998959898949e-05, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488964.1352701, "kind": "press", "point": [4500.0, -125.0]}
+{"event": "event_end", "clock": 488964.1383031, "kind": "press", "elapsed": 0.003030099964234978, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "select"}
+{"event": "event_start", "clock": 488964.1383416, "kind": "move", "point": [4528.701257427381, -83.4254210369921]}
+{"event": "event_end", "clock": 488964.1856154, "kind": "move", "elapsed": 0.047267100017052144, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488964.1856611, "kind": "move", "point": [4553.033008588991, -93.18019484660536]}
+{"event": "event_end", "clock": 488964.2282195, "kind": "move", "elapsed": 0.04255319997901097, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488964.2282621, "kind": "move", "point": [4569.290964938346, -107.77924554357097]}
+{"event": "event_end", "clock": 488964.2741295, "kind": "move", "elapsed": 0.045860899961553514, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488964.2741739, "kind": "move", "point": [4575.0, -125.0]}
+{"event": "event_end", "clock": 488964.3171828, "kind": "move", "elapsed": 0.04300479998346418, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488964.3172235, "kind": "move", "point": [4569.290964938346, -142.22075445642903]}
+{"event": "event_end", "clock": 488964.3603517, "kind": "move", "elapsed": 0.04312380001647398, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488964.3603934, "kind": "move", "point": [4553.033008588991, -156.81980515339464]}
+{"event": "event_end", "clock": 488964.4032359, "kind": "move", "elapsed": 0.04283859999850392, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488964.4032806, "kind": "move", "point": [4528.701257427382, -166.5745789630079]}
+{"event": "event_end", "clock": 488964.4533624, "kind": "move", "elapsed": 0.050074399972800165, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488964.4534113, "kind": "move", "point": [4500.0, -170.0]}
+{"event": "event_end", "clock": 488964.4973716, "kind": "move", "elapsed": 0.04395620001014322, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488964.4974145, "kind": "move", "point": [4471.298742572619, -166.57457896300792]}
+{"event": "event_end", "clock": 488964.5412974, "kind": "move", "elapsed": 0.043875600036699325, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488964.5413457, "kind": "move", "point": [4446.966991411009, -156.81980515339464]}
+{"event": "event_end", "clock": 488964.5844781, "kind": "move", "elapsed": 0.043127300043124706, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488964.5845211, "kind": "move", "point": [4430.709035061654, -142.22075445642906]}
+{"event": "event_end", "clock": 488964.6271316, "kind": "move", "elapsed": 0.04260640003485605, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488964.6271726, "kind": "move", "point": [4425.0, -125.00000000000001]}
+{"event": "event_end", "clock": 488964.6695018, "kind": "move", "elapsed": 0.04232499998761341, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488964.6695423, "kind": "move", "point": [4430.709035061654, -107.77924554357095]}
+{"event": "event_end", "clock": 488964.7131915, "kind": "move", "elapsed": 0.043644200020935386, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488964.7132331, "kind": "move", "point": [4446.966991411009, -93.18019484660537]}
+{"event": "event_end", "clock": 488964.7557981, "kind": "move", "elapsed": 0.04256089997943491, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488964.7558377, "kind": "move", "point": [4471.298742572618, -83.4254210369921]}
+{"event": "event_end", "clock": 488964.7990995, "kind": "move", "elapsed": 0.04325670003890991, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488964.7991406, "kind": "move", "point": [4500.0, -80.0]}
+{"event": "event_end", "clock": 488964.8421049, "kind": "move", "elapsed": 0.042956699966453016, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488964.8421508, "kind": "move", "point": [4528.701257427382, -83.4254210369921]}
+{"event": "event_end", "clock": 488964.8861773, "kind": "move", "elapsed": 0.04401900002267212, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488964.8862228, "kind": "move", "point": [4553.033008588991, -93.18019484660536]}
+{"event": "event_end", "clock": 488964.9285614, "kind": "move", "elapsed": 0.042334400000981987, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488964.9286014, "kind": "move", "point": [4569.290964938346, -107.77924554357094]}
+{"event": "event_end", "clock": 488964.97206, "kind": "move", "elapsed": 0.04345280001871288, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488964.9721132, "kind": "move", "point": [4575.0, -124.99999999999999]}
+{"event": "event_end", "clock": 488965.0148403, "kind": "move", "elapsed": 0.04271930002141744, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488965.0148916, "kind": "move", "point": [4569.290964938346, -142.22075445642903]}
+{"event": "event_end", "clock": 488965.0572905, "kind": "move", "elapsed": 0.04239170002983883, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488965.0573376, "kind": "move", "point": [4553.033008588991, -156.8198051533946]}
+{"event": "event_end", "clock": 488965.0995103, "kind": "move", "elapsed": 0.042168900021351874, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488965.0995503, "kind": "move", "point": [4528.701257427382, -166.5745789630079]}
+{"event": "event_end", "clock": 488965.1421534, "kind": "move", "elapsed": 0.04259920003823936, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488965.142195, "kind": "move", "point": [4500.0, -170.0]}
+{"event": "event_end", "clock": 488965.1845097, "kind": "move", "elapsed": 0.042311099998187274, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488965.1845421, "kind": "key", "point": null}
+{"event": "event_end", "clock": 488965.2311741, "kind": "key", "elapsed": 0.04662480001570657, "calls": {"bridges": 1, "labels": 1}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488965.2312097, "kind": "release", "point": [4500.0, -170.0]}
+{"event": "event_end", "clock": 488965.2328745, "kind": "release", "elapsed": 0.001658799999859184, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_target_complete", "clock": 488965.2393835, "auto": true, "target": "representation_0e4dabdc5bf3426ab0aacbd1e94fd2b1"}
+{"event": "event_start", "clock": 488965.2484191, "kind": "move", "point": [1532.5, -1213.0]}
+{"event": "event_end", "clock": 488965.2528174, "kind": "move", "elapsed": 0.0043947999947704375, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_hover", "clock": 488965.3380116, "target": "representation_415716e05a9e4a6aa5b72926d521e886", "tooltip_visible": true}
+{"event": "event_start", "clock": 488965.348491, "kind": "move", "point": [1450.0, -1250.0]}
+{"event": "event_end", "clock": 488965.3501074, "kind": "move", "elapsed": 0.0016109999851323664, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488965.3501407, "kind": "move", "point": [1425.0, -1275.0]}
+{"event": "event_end", "clock": 488965.3501892, "kind": "move", "elapsed": 4.7900015488266945e-05, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488965.3502004, "kind": "press", "point": [1425.0, -1275.0]}
+{"event": "event_end", "clock": 488965.3587738, "kind": "press", "elapsed": 0.008566400036215782, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "select"}
+{"event": "event_start", "clock": 488965.358821, "kind": "move", "point": [1453.7012574273817, -1233.425421036992]}
+{"event": "event_end", "clock": 488965.4018159, "kind": "move", "elapsed": 0.04298989998642355, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488965.4018593, "kind": "move", "point": [1478.0330085889912, -1243.1801948466054]}
+{"event": "event_end", "clock": 488965.4439644, "kind": "move", "elapsed": 0.04209969996009022, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488965.4440117, "kind": "move", "point": [1494.2909649383464, -1257.779245543571]}
+{"event": "event_end", "clock": 488965.4905042, "kind": "move", "elapsed": 0.04648560000350699, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488965.4905496, "kind": "move", "point": [1500.0, -1275.0]}
+{"event": "event_end", "clock": 488965.5329967, "kind": "move", "elapsed": 0.042443000013008714, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488965.5330382, "kind": "move", "point": [1494.2909649383464, -1292.220754456429]}
+{"event": "event_end", "clock": 488965.5788234, "kind": "move", "elapsed": 0.045780699991155416, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488965.578866, "kind": "move", "point": [1478.0330085889912, -1306.8198051533946]}
+{"event": "event_end", "clock": 488965.6206195, "kind": "move", "elapsed": 0.041749500029254705, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488965.6206605, "kind": "move", "point": [1453.7012574273817, -1316.574578963008]}
+{"event": "event_end", "clock": 488965.6624516, "kind": "move", "elapsed": 0.04178709996631369, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488965.6624918, "kind": "move", "point": [1425.0, -1320.0]}
+{"event": "event_end", "clock": 488965.704734, "kind": "move", "elapsed": 0.042238399968482554, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488965.7047738, "kind": "move", "point": [1396.2987425726183, -1316.574578963008]}
+{"event": "event_end", "clock": 488965.7610137, "kind": "move", "elapsed": 0.05623610003385693, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488965.7610542, "kind": "move", "point": [1371.9669914110088, -1306.8198051533946]}
+{"event": "event_end", "clock": 488965.8028257, "kind": "move", "elapsed": 0.04176669998560101, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488965.8028692, "kind": "move", "point": [1355.7090350616536, -1292.2207544564292]}
+{"event": "event_end", "clock": 488965.8448773, "kind": "move", "elapsed": 0.04200369998579845, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488965.8449226, "kind": "move", "point": [1350.0, -1275.0]}
+{"event": "event_end", "clock": 488965.8864916, "kind": "move", "elapsed": 0.04156479996163398, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488965.8865341, "kind": "move", "point": [1355.7090350616536, -1257.779245543571]}
+{"event": "event_end", "clock": 488965.9287955, "kind": "move", "elapsed": 0.042257599998265505, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488965.9288371, "kind": "move", "point": [1371.9669914110088, -1243.1801948466054]}
+{"event": "event_end", "clock": 488965.9908725, "kind": "move", "elapsed": 0.06203160004224628, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488965.9909136, "kind": "move", "point": [1396.2987425726183, -1233.425421036992]}
+{"event": "event_end", "clock": 488966.0330304, "kind": "move", "elapsed": 0.042112199997063726, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488966.0330763, "kind": "move", "point": [1425.0, -1230.0]}
+{"event": "event_end", "clock": 488966.0757495, "kind": "move", "elapsed": 0.04266899998765439, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488966.0757909, "kind": "move", "point": [1453.7012574273817, -1233.425421036992]}
+{"event": "event_end", "clock": 488966.117184, "kind": "move", "elapsed": 0.04138890001922846, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488966.1172248, "kind": "move", "point": [1478.0330085889912, -1243.1801948466054]}
+{"event": "event_end", "clock": 488966.1586229, "kind": "move", "elapsed": 0.04139420000137761, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488966.1586624, "kind": "move", "point": [1494.2909649383464, -1257.7792455435708]}
+{"event": "event_end", "clock": 488966.2006883, "kind": "move", "elapsed": 0.042021899949759245, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488966.200729, "kind": "move", "point": [1500.0, -1275.0]}
+{"event": "event_end", "clock": 488966.2428542, "kind": "move", "elapsed": 0.04212139995070174, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488966.2428948, "kind": "move", "point": [1494.2909649383464, -1292.220754456429]}
+{"event": "event_end", "clock": 488966.2843976, "kind": "move", "elapsed": 0.041498799982946366, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488966.2844381, "kind": "move", "point": [1478.0330085889912, -1306.8198051533946]}
+{"event": "event_end", "clock": 488966.3260426, "kind": "move", "elapsed": 0.0416003999998793, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488966.3260825, "kind": "move", "point": [1453.7012574273817, -1316.574578963008]}
+{"event": "event_end", "clock": 488966.3675187, "kind": "move", "elapsed": 0.04143189999740571, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488966.3675586, "kind": "move", "point": [1425.0, -1320.0]}
+{"event": "event_end", "clock": 488966.4089022, "kind": "move", "elapsed": 0.0413395999930799, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488966.4089339, "kind": "key", "point": null}
+{"event": "event_end", "clock": 488966.4544186, "kind": "key", "elapsed": 0.04547750001074746, "calls": {"bridges": 1, "labels": 1}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488966.4544539, "kind": "release", "point": [1425.0, -1320.0]}
+{"event": "event_end", "clock": 488966.4562306, "kind": "release", "elapsed": 0.0017645000480115414, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_target_complete", "clock": 488966.4629657, "auto": true, "target": "representation_415716e05a9e4a6aa5b72926d521e886"}
+{"event": "event_start", "clock": 488966.4716189, "kind": "move", "point": [3548.5, -1640.0]}
+{"event": "event_end", "clock": 488966.475895, "kind": "move", "elapsed": 0.0042708999826572835, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_hover", "clock": 488966.5665368, "target": "representation_8b51c9e7e2484f5f824070a4edfdd6e4", "tooltip_visible": true}
+{"event": "event_start", "clock": 488966.5765201, "kind": "move", "point": [3475.0, -1595.0]}
+{"event": "event_end", "clock": 488966.5779574, "kind": "move", "elapsed": 0.0014328000252135098, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488966.5779879, "kind": "move", "point": [3450.0, -1620.0]}
+{"event": "event_end", "clock": 488966.578036, "kind": "move", "elapsed": 4.730001091957092e-05, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488966.5780474, "kind": "press", "point": [3450.0, -1620.0]}
+{"event": "event_end", "clock": 488966.5865481, "kind": "press", "elapsed": 0.008493700006511062, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "select"}
+{"event": "event_start", "clock": 488966.5865973, "kind": "move", "point": [3478.7012574273817, -1578.425421036992]}
+{"event": "event_end", "clock": 488966.632042, "kind": "move", "elapsed": 0.045439900015480816, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488966.6320851, "kind": "move", "point": [3503.033008588991, -1588.1801948466054]}
+{"event": "event_end", "clock": 488966.6742616, "kind": "move", "elapsed": 0.04216940002515912, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488966.6743072, "kind": "move", "point": [3519.2909649383464, -1602.779245543571]}
+{"event": "event_end", "clock": 488966.7196801, "kind": "move", "elapsed": 0.0453663999796845, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488966.7197246, "kind": "move", "point": [3525.0, -1620.0]}
+{"event": "event_end", "clock": 488966.7614024, "kind": "move", "elapsed": 0.041673999978229403, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488966.7614423, "kind": "move", "point": [3519.2909649383464, -1637.220754456429]}
+{"event": "event_end", "clock": 488966.8024707, "kind": "move", "elapsed": 0.04102440003771335, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488966.8025103, "kind": "move", "point": [3503.033008588991, -1651.8198051533946]}
+{"event": "event_end", "clock": 488966.8443102, "kind": "move", "elapsed": 0.04179579997435212, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488966.8443517, "kind": "move", "point": [3478.7012574273817, -1661.574578963008]}
+{"event": "event_end", "clock": 488966.8874426, "kind": "move", "elapsed": 0.04308360000140965, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488966.8874878, "kind": "move", "point": [3450.0, -1665.0]}
+{"event": "event_end", "clock": 488966.9309172, "kind": "move", "elapsed": 0.04342479998013005, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488966.9309607, "kind": "move", "point": [3421.2987425726183, -1661.574578963008]}
+{"event": "event_end", "clock": 488966.9746442, "kind": "move", "elapsed": 0.04367889999412, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488966.9746901, "kind": "move", "point": [3396.966991411009, -1651.8198051533946]}
+{"event": "event_end", "clock": 488967.0195446, "kind": "move", "elapsed": 0.04485010000644252, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488967.0195944, "kind": "move", "point": [3380.7090350616536, -1637.2207544564292]}
+{"event": "event_end", "clock": 488967.0623219, "kind": "move", "elapsed": 0.0427235999959521, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488967.0623642, "kind": "move", "point": [3375.0, -1620.0]}
+{"event": "event_end", "clock": 488967.1040053, "kind": "move", "elapsed": 0.04163699998753145, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488967.1040463, "kind": "move", "point": [3380.7090350616536, -1602.779245543571]}
+{"event": "event_end", "clock": 488967.1453042, "kind": "move", "elapsed": 0.04125370003748685, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488967.1453446, "kind": "move", "point": [3396.966991411009, -1588.1801948466054]}
+{"event": "event_end", "clock": 488967.1872986, "kind": "move", "elapsed": 0.04194999998435378, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488967.187339, "kind": "move", "point": [3421.2987425726183, -1578.425421036992]}
+{"event": "event_end", "clock": 488967.2291447, "kind": "move", "elapsed": 0.041801500017754734, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488967.2291851, "kind": "move", "point": [3450.0, -1575.0]}
+{"event": "event_end", "clock": 488967.2718883, "kind": "move", "elapsed": 0.04269740002928302, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488967.2719408, "kind": "move", "point": [3478.7012574273817, -1578.425421036992]}
+{"event": "event_end", "clock": 488967.3151238, "kind": "move", "elapsed": 0.043174599995836616, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488967.315181, "kind": "move", "point": [3503.033008588991, -1588.1801948466054]}
+{"event": "event_end", "clock": 488967.3578803, "kind": "move", "elapsed": 0.04269500001100823, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488967.3579234, "kind": "move", "point": [3519.2909649383464, -1602.7792455435708]}
+{"event": "event_end", "clock": 488967.3995693, "kind": "move", "elapsed": 0.04164190002484247, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488967.3996134, "kind": "move", "point": [3525.0, -1620.0]}
+{"event": "event_end", "clock": 488967.4409345, "kind": "move", "elapsed": 0.041316699993330985, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488967.440976, "kind": "move", "point": [3519.2909649383464, -1637.220754456429]}
+{"event": "event_end", "clock": 488967.482443, "kind": "move", "elapsed": 0.04146310000214726, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488967.4824828, "kind": "move", "point": [3503.033008588991, -1651.8198051533946]}
+{"event": "event_end", "clock": 488967.5236087, "kind": "move", "elapsed": 0.04112179996445775, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488967.5236494, "kind": "move", "point": [3478.7012574273817, -1661.574578963008]}
+{"event": "event_end", "clock": 488967.5831168, "kind": "move", "elapsed": 0.059453200025018305, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488967.5832098, "kind": "move", "point": [3450.0, -1665.0]}
+{"event": "event_end", "clock": 488967.6246511, "kind": "move", "elapsed": 0.041438299987930804, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488967.6246832, "kind": "key", "point": null}
+{"event": "event_end", "clock": 488967.6708631, "kind": "key", "elapsed": 0.046173700015060604, "calls": {"bridges": 1, "labels": 1}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488967.6708964, "kind": "release", "point": [3450.0, -1665.0]}
+{"event": "event_end", "clock": 488967.672516, "kind": "release", "elapsed": 0.0016136000049300492, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_target_complete", "clock": 488967.6789605, "auto": true, "target": "representation_8b51c9e7e2484f5f824070a4edfdd6e4"}
+{"event": "event_start", "clock": 488967.6877206, "kind": "move", "point": [771.0, -1070.0]}
+{"event": "event_end", "clock": 488967.6923747, "kind": "move", "elapsed": 0.004648900008760393, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_hover", "clock": 488967.7808897, "target": "representation_0e389966cc9041d28b927d88220ce26f", "tooltip_visible": true}
+{"event": "event_start", "clock": 488967.7886808, "kind": "move", "point": [812.0, -1025.0]}
+{"event": "event_end", "clock": 488967.7897468, "kind": "move", "elapsed": 0.0010600999812595546, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488967.7897803, "kind": "move", "point": [787.0, -1050.0]}
+{"event": "event_end", "clock": 488967.7898337, "kind": "move", "elapsed": 5.2799994591623545e-05, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488967.7898455, "kind": "press", "point": [787.0, -1050.0]}
+{"event": "event_end", "clock": 488967.7983123, "kind": "press", "elapsed": 0.008460199984256178, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "select"}
+{"event": "event_start", "clock": 488967.7983594, "kind": "move", "point": [815.7012574273817, -1008.4254210369921]}
+{"event": "event_end", "clock": 488967.8402708, "kind": "move", "elapsed": 0.04190680000465363, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488967.8403127, "kind": "move", "point": [840.033008588991, -1018.1801948466053]}
+{"event": "event_end", "clock": 488967.882444, "kind": "move", "elapsed": 0.04212629998801276, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488967.8824863, "kind": "move", "point": [856.2909649383465, -1032.779245543571]}
+{"event": "event_end", "clock": 488967.9280743, "kind": "move", "elapsed": 0.045582199993077666, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488967.9281182, "kind": "move", "point": [862.0, -1050.0]}
+{"event": "event_end", "clock": 488967.9692908, "kind": "move", "elapsed": 0.04116900003282353, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488967.9693304, "kind": "move", "point": [856.2909649383465, -1067.220754456429]}
+{"event": "event_end", "clock": 488968.010895, "kind": "move", "elapsed": 0.04156079998938367, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488968.0109355, "kind": "move", "point": [840.033008588991, -1081.8198051533946]}
+{"event": "event_end", "clock": 488968.0521871, "kind": "move", "elapsed": 0.04124799999408424, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488968.0522305, "kind": "move", "point": [815.7012574273817, -1091.574578963008]}
+{"event": "event_end", "clock": 488968.093812, "kind": "move", "elapsed": 0.041577700001653284, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488968.0938518, "kind": "move", "point": [787.0, -1095.0]}
+{"event": "event_end", "clock": 488968.1354367, "kind": "move", "elapsed": 0.041577600000891834, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488968.1354838, "kind": "move", "point": [758.2987425726183, -1091.574578963008]}
+{"event": "event_end", "clock": 488968.1797974, "kind": "move", "elapsed": 0.04430829995544627, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488968.179842, "kind": "move", "point": [733.966991411009, -1081.8198051533946]}
+{"event": "event_end", "clock": 488968.2251016, "kind": "move", "elapsed": 0.04525219998322427, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488968.2251495, "kind": "move", "point": [717.7090350616535, -1067.2207544564292]}
+{"event": "event_end", "clock": 488968.2673038, "kind": "move", "elapsed": 0.04214709997177124, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488968.2673584, "kind": "move", "point": [712.0, -1050.0]}
+{"event": "event_end", "clock": 488968.308877, "kind": "move", "elapsed": 0.041515200049616396, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488968.3089183, "kind": "move", "point": [717.7090350616535, -1032.779245543571]}
+{"event": "event_end", "clock": 488968.3502646, "kind": "move", "elapsed": 0.04134249995695427, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488968.350306, "kind": "move", "point": [733.966991411009, -1018.1801948466053]}
+{"event": "event_end", "clock": 488968.3918587, "kind": "move", "elapsed": 0.041544699983205646, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488968.3919113, "kind": "move", "point": [758.2987425726183, -1008.4254210369921]}
+{"event": "event_end", "clock": 488968.4340102, "kind": "move", "elapsed": 0.042091800016351044, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488968.4340574, "kind": "move", "point": [787.0, -1005.0]}
+{"event": "event_end", "clock": 488968.4772338, "kind": "move", "elapsed": 0.04317239997908473, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488968.4772748, "kind": "move", "point": [815.7012574273817, -1008.4254210369921]}
+{"event": "event_end", "clock": 488968.5204024, "kind": "move", "elapsed": 0.04312049999134615, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488968.5204492, "kind": "move", "point": [840.033008588991, -1018.1801948466053]}
+{"event": "event_end", "clock": 488968.5638859, "kind": "move", "elapsed": 0.0434314000303857, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488968.5639305, "kind": "move", "point": [856.2909649383465, -1032.7792455435708]}
+{"event": "event_end", "clock": 488968.6055516, "kind": "move", "elapsed": 0.04161700000986457, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488968.6055968, "kind": "move", "point": [862.0, -1050.0]}
+{"event": "event_end", "clock": 488968.654177, "kind": "move", "elapsed": 0.0485762000316754, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488968.6542179, "kind": "move", "point": [856.2909649383465, -1067.220754456429]}
+{"event": "event_end", "clock": 488968.6958446, "kind": "move", "elapsed": 0.041621999989729375, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488968.6958872, "kind": "move", "point": [840.0330085889912, -1081.8198051533946]}
+{"event": "event_end", "clock": 488968.7383599, "kind": "move", "elapsed": 0.04245850001461804, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488968.7384471, "kind": "move", "point": [815.7012574273817, -1091.574578963008]}
+{"event": "event_end", "clock": 488968.7804158, "kind": "move", "elapsed": 0.04196489998139441, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488968.7804681, "kind": "move", "point": [787.0, -1095.0]}
+{"event": "event_end", "clock": 488968.8226235, "kind": "move", "elapsed": 0.04215130000375211, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488968.8226622, "kind": "key", "point": null}
+{"event": "event_end", "clock": 488968.8680605, "kind": "key", "elapsed": 0.0453918999992311, "calls": {"bridges": 1, "labels": 1}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488968.8680948, "kind": "release", "point": [787.0, -1095.0]}
+{"event": "event_end", "clock": 488968.8686365, "kind": "release", "elapsed": 0.0005373999592848122, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_target_complete", "clock": 488968.8750562, "auto": true, "target": "representation_0e389966cc9041d28b927d88220ce26f"}
+{"event": "event_start", "clock": 488968.883741, "kind": "move", "point": [785.0, 1180.0]}
+{"event": "event_end", "clock": 488968.8895577, "kind": "move", "elapsed": 0.005811500013805926, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_hover", "clock": 488968.9737243, "target": "representation_171514d0c2b148ed9b76ea41e5edf010", "tooltip_visible": true}
+{"event": "event_start", "clock": 488968.9815101, "kind": "move", "point": [625.0, 1205.0]}
+{"event": "event_end", "clock": 488968.9826024, "kind": "move", "elapsed": 0.0010876000160351396, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488968.9826333, "kind": "move", "point": [600.0, 1180.0]}
+{"event": "event_end", "clock": 488968.9826794, "kind": "move", "elapsed": 4.549999721348286e-05, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488968.9826901, "kind": "press", "point": [600.0, 1180.0]}
+{"event": "event_end", "clock": 488968.9917834, "kind": "press", "elapsed": 0.009086400037631392, "calls": {"bridges": 0, "labels": 0}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "select"}
+{"event": "event_start", "clock": 488968.9918303, "kind": "move", "point": [628.7012574273817, 1221.574578963008]}
+{"event": "event_end", "clock": 488969.0345731, "kind": "move", "elapsed": 0.04273569997167215, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488969.0346201, "kind": "move", "point": [653.033008588991, 1211.8198051533946]}
+{"event": "event_end", "clock": 488969.0768481, "kind": "move", "elapsed": 0.0422209000098519, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488969.0768968, "kind": "move", "point": [669.2909649383465, 1197.220754456429]}
+{"event": "event_end", "clock": 488969.1225074, "kind": "move", "elapsed": 0.045604599989019334, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488969.1225526, "kind": "move", "point": [675.0, 1180.0]}
+{"event": "event_end", "clock": 488969.1638975, "kind": "move", "elapsed": 0.04134110000450164, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488969.1639371, "kind": "move", "point": [669.2909649383465, 1162.779245543571]}
+{"event": "event_end", "clock": 488969.2057282, "kind": "move", "elapsed": 0.04178669996326789, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488969.2057748, "kind": "move", "point": [653.033008588991, 1148.1801948466054]}
+{"event": "event_end", "clock": 488969.2495923, "kind": "move", "elapsed": 0.043807499983813614, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488969.2496597, "kind": "move", "point": [628.7012574273817, 1138.425421036992]}
+{"event": "event_end", "clock": 488969.2976947, "kind": "move", "elapsed": 0.04802719998406246, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488969.2977544, "kind": "move", "point": [600.0, 1135.0]}
+{"event": "event_end", "clock": 488969.3433655, "kind": "move", "elapsed": 0.04560359998140484, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488969.3434253, "kind": "move", "point": [571.2987425726183, 1138.425421036992]}
+{"event": "event_end", "clock": 488969.3977601, "kind": "move", "elapsed": 0.05432599998312071, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488969.3978334, "kind": "move", "point": [546.966991411009, 1148.1801948466054]}
+{"event": "event_end", "clock": 488969.4531322, "kind": "move", "elapsed": 0.05528930004220456, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488969.4532032, "kind": "move", "point": [530.7090350616535, 1162.7792455435708]}
+{"event": "event_end", "clock": 488969.4994991, "kind": "move", "elapsed": 0.04627910000272095, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488969.4996021, "kind": "move", "point": [525.0, 1180.0]}
+{"event": "event_end", "clock": 488969.5473387, "kind": "move", "elapsed": 0.047730699996463954, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488969.5473929, "kind": "move", "point": [530.7090350616535, 1197.220754456429]}
+{"event": "event_end", "clock": 488969.5931452, "kind": "move", "elapsed": 0.04574610001873225, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488969.5931975, "kind": "move", "point": [546.966991411009, 1211.8198051533946]}
+{"event": "event_end", "clock": 488969.642445, "kind": "move", "elapsed": 0.04924160003429279, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488969.6424963, "kind": "move", "point": [571.2987425726183, 1221.574578963008]}
+{"event": "event_end", "clock": 488969.6872813, "kind": "move", "elapsed": 0.04477610002504662, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488969.6873401, "kind": "move", "point": [600.0, 1225.0]}
+{"event": "event_end", "clock": 488969.735476, "kind": "move", "elapsed": 0.048126399982720613, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488969.7355356, "kind": "move", "point": [628.7012574273817, 1221.574578963008]}
+{"event": "event_end", "clock": 488969.7901171, "kind": "move", "elapsed": 0.054572599998209625, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488969.7901742, "kind": "move", "point": [653.033008588991, 1211.8198051533946]}
+{"event": "event_end", "clock": 488969.8344332, "kind": "move", "elapsed": 0.044250499980989844, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488969.8344885, "kind": "move", "point": [669.2909649383465, 1197.2207544564292]}
+{"event": "event_end", "clock": 488969.8848279, "kind": "move", "elapsed": 0.05032999999821186, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488969.8848879, "kind": "move", "point": [675.0, 1180.0]}
+{"event": "event_end", "clock": 488969.9283079, "kind": "move", "elapsed": 0.04341129999374971, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488969.9283633, "kind": "move", "point": [669.2909649383465, 1162.779245543571]}
+{"event": "event_end", "clock": 488969.9749577, "kind": "move", "elapsed": 0.04658930003643036, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488969.9750053, "kind": "move", "point": [653.0330085889912, 1148.1801948466054]}
+{"event": "event_end", "clock": 488970.0181307, "kind": "move", "elapsed": 0.04311430000234395, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488970.0181844, "kind": "move", "point": [628.7012574273817, 1138.425421036992]}
+{"event": "event_end", "clock": 488970.0635033, "kind": "move", "elapsed": 0.045250500028487295, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488970.0636993, "kind": "move", "point": [600.0, 1135.0]}
+{"event": "event_end", "clock": 488970.1067979, "kind": "move", "elapsed": 0.04309500003000721, "calls": {"bridges": 1, "labels": 1}, "grabbed": "DiagramObjectItem", "starts": 1, "tool": "drag_object"}
+{"event": "event_start", "clock": 488970.1068308, "kind": "key", "point": null}
+{"event": "event_end", "clock": 488970.1558324, "kind": "key", "elapsed": 0.04899420001311228, "calls": {"bridges": 1, "labels": 1}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "event_start", "clock": 488970.1558703, "kind": "release", "point": [600.0, 1135.0]}
+{"event": "event_end", "clock": 488970.1571302, "kind": "release", "elapsed": 0.001254800008609891, "calls": {"bridges": 0, "labels": 0}, "grabbed": "NoneType", "starts": 0, "tool": "select"}
+{"event": "native_target_complete", "clock": 488970.1638309, "auto": true, "target": "representation_171514d0c2b148ed9b76ea41e5edf010"}
+{"event": "native_complete", "clock": 488971.4169663, "auto": true, "exceptions": 0, "screenshot": "native-mainwindow-auto.png", "counts": {"bridges": 206, "labels": 206}}

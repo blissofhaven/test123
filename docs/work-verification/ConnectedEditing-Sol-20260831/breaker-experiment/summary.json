@@ -1,0 +1,31 @@
+{
+  "new_breakers": 64,
+  "ct_rebindings": 47,
+  "new_closed_positions": 381,
+  "new_open_positions": 3,
+  "before": {
+    "network_nodes": 66,
+    "network_branches": 70,
+    "protections": 119,
+    "selectivity_pairs": 353
+  },
+  "after": {
+    "network_nodes": 130,
+    "network_branches": 134,
+    "protections": 119,
+    "selectivity_pairs": 353
+  },
+  "raw_existing_diff": 35,
+  "raw_full_diff": 419,
+  "memory_dedup_old_diff": 0,
+  "memory_dedup_new_existing_diff": 0,
+  "memory_dedup_new_full_diff": 384,
+  "diagnostics": [
+    {
+      "severity": "info",
+      "code": "legacy_compatibility_equipment",
+      "message": "Адаптировано compatibility equipment: 92.",
+      "object_id": ""
+    }
+  ]
+}

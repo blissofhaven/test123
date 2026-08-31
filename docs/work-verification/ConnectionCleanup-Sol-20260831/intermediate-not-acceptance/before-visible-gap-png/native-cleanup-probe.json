@@ -1,0 +1,196 @@
+{
+  "pid": 13692,
+  "platform": "windows",
+  "project_saved": false,
+  "source_sha256": "6bebd1052a76a17070393bf46ceaa776141d0bc58a3c6884f6e993547bee2215",
+  "electrical_fingerprint": "b275e47230495c199e8c4ad0158838af0f3a3c14a2767fc85a98bbe7a1164445",
+  "final_model_and_diagram_restored": true,
+  "qt_callback_errors": [],
+  "actions": [
+    {
+      "scenario": "actual-CF1-preview-commit-diagnostic",
+      "preview": [
+        [
+          1800.0,
+          254.0
+        ],
+        [
+          1800.0,
+          236.0
+        ],
+        [
+          1780.0,
+          236.0
+        ],
+        [
+          1780.0,
+          -410.0
+        ]
+      ],
+      "commit": [
+        [
+          1800.0,
+          254.0
+        ],
+        [
+          1800.0,
+          236.0
+        ],
+        [
+          1780.0,
+          236.0
+        ],
+        [
+          1780.0,
+          -410.0
+        ]
+      ],
+      "bus_fraction_preview": "0.016949152542372909",
+      "bus_fraction_commit": "0.016949152542372909"
+    },
+    {
+      "scenario": "CF1_T delete/reconnect",
+      "reject_kv": [
+        0.4,
+        110
+      ],
+      "accept_kv": 10,
+      "unchanged_port": "port_e6f4ac02723c5144b9ab9aa30de5afb1",
+      "undo_restores_original": true
+    },
+    {
+      "scenario": "Legacy whole VL by incident stroke",
+      "undo_restores_original": true,
+      "owner": "representation_bc0faf3ba8934732a390d3dbd3233828"
+    },
+    {
+      "scenario": "native overhead",
+      "creation_commands": 1,
+      "length_and_mark_edit_commands": 2,
+      "no_modal": true,
+      "undo_restores_original": true
+    },
+    {
+      "scenario": "native cable",
+      "creation_commands": 1,
+      "length_and_mark_edit_commands": 2,
+      "no_modal": true,
+      "undo_restores_original": true
+    }
+  ],
+  "frames": [
+    {
+      "phase": "native-cf1-disconnected",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native-cf1-disconnected.png",
+      "fingerprint": "6dbbdb4e63a6b302391afcb5650803bed23eea3345a289bd50b5956f5b7a55de",
+      "journal": 1,
+      "port_id": "port_e6f4ac02723c5144b9ab9aa30de5afb1",
+      "deleted_route": "route_4e2733fa23014708bc4d8522fca2f402",
+      "nominal_kv": 10,
+      "tail_route_removed": true
+    },
+    {
+      "phase": "native-cf1-reject-0_4",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native-cf1-reject-0_4.png",
+      "fingerprint": "6dbbdb4e63a6b302391afcb5650803bed23eea3345a289bd50b5956f5b7a55de",
+      "journal": 1,
+      "message": "Соединение запрещено: несовместимые классы напряжения — 10 кВ и 0,4 кВ."
+    },
+    {
+      "phase": "native-cf1-reject-110",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native-cf1-reject-110.png",
+      "fingerprint": "6dbbdb4e63a6b302391afcb5650803bed23eea3345a289bd50b5956f5b7a55de",
+      "journal": 1,
+      "message": "Соединение запрещено: несовместимые классы напряжения — 10 кВ и 110 кВ."
+    },
+    {
+      "phase": "native-cf1-connect-10-preview",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native-cf1-connect-10-preview.png",
+      "fingerprint": "6dbbdb4e63a6b302391afcb5650803bed23eea3345a289bd50b5956f5b7a55de",
+      "journal": 1,
+      "white_point": [
+        1780.0,
+        -410.0
+      ],
+      "bus_axis": -410.0
+    },
+    {
+      "phase": "native-cf1-connect-10-committed",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native-cf1-connect-10-committed.png",
+      "fingerprint": "0ef08e1e11eaec45517e494149c673c4574b06c5fa539ca4899edae9faec673c",
+      "journal": 2,
+      "ordinary_wire": true,
+      "menu_shown": false,
+      "route": "route_a1ef94f513cf45e09b4e79a1b28cc3fc",
+      "preserved_port": "port_e6f4ac02723c5144b9ab9aa30de5afb1",
+      "preview_matches_commit": true
+    },
+    {
+      "phase": "native-legacy-whole-line-preview",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native-legacy-whole-line-preview.png",
+      "fingerprint": "b275e47230495c199e8c4ad0158838af0f3a3c14a2767fc85a98bbe7a1164445",
+      "journal": 4,
+      "owner": "representation_bc0faf3ba8934732a390d3dbd3233828",
+      "grabbed_route": "route_85ecb4d8f23b4ef79e4707a6cd905aa3",
+      "electrical_fingerprint_preserved": true
+    },
+    {
+      "phase": "native-legacy-whole-line-committed",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native-legacy-whole-line-committed.png",
+      "fingerprint": "b275e47230495c199e8c4ad0158838af0f3a3c14a2767fc85a98bbe7a1164445",
+      "journal": 5,
+      "same_owner": true,
+      "arrow_not_separate": true
+    },
+    {
+      "phase": "native-new-overhead-unknown-inspector",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native-new-overhead-unknown-inspector.png",
+      "fingerprint": "7cb10958c3481d3b2232f34613e68090ad7113ab2cbcf779475018f5f0a52dd9",
+      "journal": 9,
+      "no_modal": true,
+      "length_mm": null,
+      "route": "route_07792e42f9c24f9fbb7a2e44eefa775a",
+      "section": "eq_870458f12a984be6a40b162188709f9a"
+    },
+    {
+      "phase": "native-new-overhead-entered-inspector",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native-new-overhead-entered-inspector.png",
+      "fingerprint": "1e7a5c5f89ca0db6297e6249998223922942bae63e251ac8ec6d8c1b4f36eae8",
+      "journal": 11,
+      "length_mm": 1250500,
+      "length_explicitly_entered": true,
+      "impedance_not_invented": true,
+      "mark": "ПРОВЕРОЧНАЯ МАРКА"
+    },
+    {
+      "phase": "native-new-cable-unknown-inspector",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native-new-cable-unknown-inspector.png",
+      "fingerprint": "332841090c9f8cdea0d8a946c18a4f9ed8301c41b13c5d7677f47242843f3c34",
+      "journal": 19,
+      "no_modal": true,
+      "length_mm": null,
+      "route": "route_389ef26b69524369a95175e5a8898159",
+      "section": "eq_f7777bd1808648fcbfc9ca71ef21973f"
+    },
+    {
+      "phase": "native-new-cable-entered-inspector",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native-new-cable-entered-inspector.png",
+      "fingerprint": "78227eeda8bf1f04cd533fa3d5e48948104943f4a4fe42542db560f99b885b08",
+      "journal": 21,
+      "length_mm": 1250500,
+      "length_explicitly_entered": true,
+      "impedance_not_invented": true,
+      "mark": "ПРОВЕРОЧНАЯ МАРКА"
+    },
+    {
+      "phase": "native-actual-wide-bus-white-contacts",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native-actual-wide-bus-white-contacts.png",
+      "fingerprint": "b275e47230495c199e8c4ad0158838af0f3a3c14a2767fc85a98bbe7a1164445",
+      "journal": 26,
+      "bus": "representation_fec4a4808b414750821a428b71651bcc",
+      "width": 708.0,
+      "height": 16.0,
+      "selected_frame_uses_band": true
+    }
+  ]
+}

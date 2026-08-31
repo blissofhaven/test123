@@ -1,0 +1,3512 @@
+{
+ "format_version": 1,
+ "project": {
+  "name": "ГТЭС Север — сеть 220/110/35/10/0,4 кВ",
+  "object": "Демонстрационная схема: генерация, три подстанции, фидеры, КТП",
+  "_warning": "УЧЕБНЫЙ ПРИМЕР. Параметры оборудования вымышлены и не относятся к реальному объекту."
+ },
+ "methodology": {
+  "file": "../data/methodology_default.json"
+ },
+ "neutral": {
+  "220": "earthed",
+  "110": "earthed",
+  "35": "isolated",
+  "10": "isolated",
+  "0.4": "earthed"
+ },
+ "nodes": [
+  {
+   "id": "b220",
+   "name": "ГТЭС Север, ГРУ 220 кВ",
+   "u_nom": 220
+  },
+  {
+   "id": "G1_bus",
+   "name": "ГТГ-1, выводы 10,5 кВ",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "G2_bus",
+   "name": "ГТГ-2, выводы 10,5 кВ",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "G3_bus",
+   "name": "ГТГ-3, выводы 10,5 кВ",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "G4_bus",
+   "name": "ГТГ-4, выводы 10,5 кВ",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "b110",
+   "name": "ОРУ 110 кВ",
+   "u_nom": 110
+  },
+  {
+   "id": "vost110",
+   "name": "ПС Восток, ОРУ 110 кВ",
+   "u_nom": 110
+  },
+  {
+   "id": "vost35",
+   "name": "ПС Восток, ОРУ 35 кВ",
+   "u_nom": 35
+  },
+  {
+   "id": "vost10_1",
+   "name": "ПС Восток, 1 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "1 СШ"
+  },
+  {
+   "id": "vost10_2",
+   "name": "ПС Восток, 2 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "2 СШ"
+  },
+  {
+   "id": "vost10_1_t",
+   "name": "Т1, вывод 10 кВ",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "vost10_2_t",
+   "name": "Т2, вывод 10 кВ",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "zap35",
+   "name": "ПС Запад, ОРУ 35 кВ",
+   "u_nom": 35
+  },
+  {
+   "id": "zap10",
+   "name": "ПС Запад, 10 кВ",
+   "u_nom": 10
+  },
+  {
+   "id": "yuzh110",
+   "name": "ПС Южная, ОРУ 110 кВ",
+   "u_nom": 110
+  },
+  {
+   "id": "yuzh10",
+   "name": "ПС Южная, 10 кВ",
+   "u_nom": 10
+  },
+  {
+   "id": "sev110",
+   "name": "ПС Северная, ОРУ 110 кВ",
+   "u_nom": 110
+  },
+  {
+   "id": "sev10_1",
+   "name": "ПС Северная, 1 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "1 СШ"
+  },
+  {
+   "id": "sev10_2",
+   "name": "ПС Северная, 2 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "2 СШ"
+  },
+  {
+   "id": "sev10_1_t",
+   "name": "Т1 Северная, вывод 10 кВ",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "sev10_2_t",
+   "name": "Т2 Северная, вывод 10 кВ",
+   "u_nom": 10,
+   "kind": "point"
+  },
+  {
+   "id": "K1_10_1",
+   "name": "КТП-1, 1 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "1 СШ"
+  },
+  {
+   "id": "K1_10_2",
+   "name": "КТП-1, 2 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "2 СШ"
+  },
+  {
+   "id": "K1_04_1",
+   "name": "КТП-1, 1 СШ 0,4 кВ",
+   "u_nom": 0.4,
+   "section": "1 СШ"
+  },
+  {
+   "id": "K1_04_2",
+   "name": "КТП-1, 2 СШ 0,4 кВ",
+   "u_nom": 0.4,
+   "section": "2 СШ"
+  },
+  {
+   "id": "K2_10_1",
+   "name": "КТП-2, 1 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "1 СШ"
+  },
+  {
+   "id": "K2_10_2",
+   "name": "КТП-2, 2 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "2 СШ"
+  },
+  {
+   "id": "K2_04_1",
+   "name": "КТП-2, 1 СШ 0,4 кВ",
+   "u_nom": 0.4,
+   "section": "1 СШ"
+  },
+  {
+   "id": "K2_04_2",
+   "name": "КТП-2, 2 СШ 0,4 кВ",
+   "u_nom": 0.4,
+   "section": "2 СШ"
+  },
+  {
+   "id": "K3_10_1",
+   "name": "КТП-3, 1 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "1 СШ"
+  },
+  {
+   "id": "K3_10_2",
+   "name": "КТП-3, 2 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "2 СШ"
+  },
+  {
+   "id": "K3_04_1",
+   "name": "КТП-3, 1 СШ 0,4 кВ",
+   "u_nom": 0.4,
+   "section": "1 СШ"
+  },
+  {
+   "id": "K3_04_2",
+   "name": "КТП-3, 2 СШ 0,4 кВ",
+   "u_nom": 0.4,
+   "section": "2 СШ"
+  },
+  {
+   "id": "K4_10_1",
+   "name": "КТП-4, 1 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "1 СШ"
+  },
+  {
+   "id": "K4_10_2",
+   "name": "КТП-4, 2 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "2 СШ"
+  },
+  {
+   "id": "K4_04_1",
+   "name": "КТП-4, 1 СШ 0,4 кВ",
+   "u_nom": 0.4,
+   "section": "1 СШ"
+  },
+  {
+   "id": "K4_04_2",
+   "name": "КТП-4, 2 СШ 0,4 кВ",
+   "u_nom": 0.4,
+   "section": "2 СШ"
+  },
+  {
+   "id": "K5_10_1",
+   "name": "КТП-5, 1 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "1 СШ"
+  },
+  {
+   "id": "K5_10_2",
+   "name": "КТП-5, 2 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "2 СШ"
+  },
+  {
+   "id": "K5_04_1",
+   "name": "КТП-5, 1 СШ 0,4 кВ",
+   "u_nom": 0.4,
+   "section": "1 СШ"
+  },
+  {
+   "id": "K5_04_2",
+   "name": "КТП-5, 2 СШ 0,4 кВ",
+   "u_nom": 0.4,
+   "section": "2 СШ"
+  },
+  {
+   "id": "K6_10_1",
+   "name": "КТП-6, 1 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "1 СШ"
+  },
+  {
+   "id": "K6_10_2",
+   "name": "КТП-6, 2 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "2 СШ"
+  },
+  {
+   "id": "K6_04_1",
+   "name": "КТП-6, 1 СШ 0,4 кВ",
+   "u_nom": 0.4,
+   "section": "1 СШ"
+  },
+  {
+   "id": "K6_04_2",
+   "name": "КТП-6, 2 СШ 0,4 кВ",
+   "u_nom": 0.4,
+   "section": "2 СШ"
+  },
+  {
+   "id": "K7_10_1",
+   "name": "КТП-7, 1 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "1 СШ"
+  },
+  {
+   "id": "K7_10_2",
+   "name": "КТП-7, 2 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "2 СШ"
+  },
+  {
+   "id": "K7_04_1",
+   "name": "КТП-7, 1 СШ 0,4 кВ",
+   "u_nom": 0.4,
+   "section": "1 СШ"
+  },
+  {
+   "id": "K7_04_2",
+   "name": "КТП-7, 2 СШ 0,4 кВ",
+   "u_nom": 0.4,
+   "section": "2 СШ"
+  },
+  {
+   "id": "K8_10_1",
+   "name": "КТП-8, 1 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "1 СШ"
+  },
+  {
+   "id": "K8_10_2",
+   "name": "КТП-8, 2 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "2 СШ"
+  },
+  {
+   "id": "K8_04_1",
+   "name": "КТП-8, 1 СШ 0,4 кВ",
+   "u_nom": 0.4,
+   "section": "1 СШ"
+  },
+  {
+   "id": "K8_04_2",
+   "name": "КТП-8, 2 СШ 0,4 кВ",
+   "u_nom": 0.4,
+   "section": "2 СШ"
+  },
+  {
+   "id": "K9_10_1",
+   "name": "КТП-9, 1 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "1 СШ"
+  },
+  {
+   "id": "K9_10_2",
+   "name": "КТП-9, 2 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "2 СШ"
+  },
+  {
+   "id": "K9_04_1",
+   "name": "КТП-9, 1 СШ 0,4 кВ",
+   "u_nom": 0.4,
+   "section": "1 СШ"
+  },
+  {
+   "id": "K9_04_2",
+   "name": "КТП-9, 2 СШ 0,4 кВ",
+   "u_nom": 0.4,
+   "section": "2 СШ"
+  },
+  {
+   "id": "K10_10_1",
+   "name": "КТП-10, 1 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "1 СШ"
+  },
+  {
+   "id": "K10_10_2",
+   "name": "КТП-10, 2 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "2 СШ"
+  },
+  {
+   "id": "K10_04_1",
+   "name": "КТП-10, 1 СШ 0,4 кВ",
+   "u_nom": 0.4,
+   "section": "1 СШ"
+  },
+  {
+   "id": "K10_04_2",
+   "name": "КТП-10, 2 СШ 0,4 кВ",
+   "u_nom": 0.4,
+   "section": "2 СШ"
+  },
+  {
+   "id": "K11_10_1",
+   "name": "КТП-11, 1 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "1 СШ"
+  },
+  {
+   "id": "K11_10_2",
+   "name": "КТП-11, 2 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "2 СШ"
+  },
+  {
+   "id": "K11_04_1",
+   "name": "КТП-11, 1 СШ 0,4 кВ",
+   "u_nom": 0.4,
+   "section": "1 СШ"
+  },
+  {
+   "id": "K11_04_2",
+   "name": "КТП-11, 2 СШ 0,4 кВ",
+   "u_nom": 0.4,
+   "section": "2 СШ"
+  },
+  {
+   "id": "K12_10_1",
+   "name": "КТП-12, 1 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "1 СШ"
+  },
+  {
+   "id": "K12_10_2",
+   "name": "КТП-12, 2 СШ 10 кВ",
+   "u_nom": 10,
+   "section": "2 СШ"
+  },
+  {
+   "id": "K12_04_1",
+   "name": "КТП-12, 1 СШ 0,4 кВ",
+   "u_nom": 0.4,
+   "section": "1 СШ"
+  },
+  {
+   "id": "K12_04_2",
+   "name": "КТП-12, 2 СШ 0,4 кВ",
+   "u_nom": 0.4,
+   "section": "2 СШ"
+  }
+ ],
+ "transformers3w": [
+  {
+   "id": "VT1",
+   "name": "Т1 ПС Восток 110/35/10",
+   "node_hv": "vost110",
+   "node_mv": "vost35",
+   "node_lv": "vost10_1_t",
+   "s_nom": 25000,
+   "u_hv": 110,
+   "u_mv": 35,
+   "u_lv": 10,
+   "uk_hm": 10.5,
+   "uk_hl": 17.0,
+   "uk_ml": 6.0,
+   "p_k": 140,
+   "group": "Ун/Ун/Д-0-11",
+   "i_inrush_ratio": 5,
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Bresler",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "VT2",
+   "name": "Т2 ПС Восток 110/35/10",
+   "node_hv": "vost110",
+   "node_mv": "vost35",
+   "node_lv": "vost10_2_t",
+   "s_nom": 25000,
+   "u_hv": 110,
+   "u_mv": 35,
+   "u_lv": 10,
+   "uk_hm": 10.5,
+   "uk_hl": 17.0,
+   "uk_ml": 6.0,
+   "p_k": 140,
+   "group": "Ун/Ун/Д-0-11",
+   "i_inrush_ratio": 5,
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Bresler",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  }
+ ],
+ "branches": [
+  {
+   "id": "G1",
+   "kind": "generator",
+   "name": "ГТГ-1",
+   "node_from": "GRID",
+   "node_to": "G1_bus",
+   "p_nom": 14.0,
+   "cos_phi": 0.8,
+   "u_nom": 10,
+   "xd2": 0.15,
+   "ct_ratio": [
+    1500,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "G1_bt",
+   "kind": "transformer",
+   "name": "Блочный Т ГТГ-1",
+   "node_from": "G1_bus",
+   "node_to": "b220",
+   "s_nom": 25000,
+   "u_hv": 10,
+   "u_lv": 220,
+   "uk": 11.5,
+   "group": "Ун/Д-11",
+   "switchable": false,
+   "switch_with": "G1",
+   "ct_ratio": [
+    1000,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Bresler",
+   "normally_closed": true
+  },
+  {
+   "id": "G2",
+   "kind": "generator",
+   "name": "ГТГ-2",
+   "node_from": "GRID",
+   "node_to": "G2_bus",
+   "p_nom": 14.0,
+   "cos_phi": 0.8,
+   "u_nom": 10,
+   "xd2": 0.15,
+   "ct_ratio": [
+    1500,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "G2_bt",
+   "kind": "transformer",
+   "name": "Блочный Т ГТГ-2",
+   "node_from": "G2_bus",
+   "node_to": "b220",
+   "s_nom": 25000,
+   "u_hv": 10,
+   "u_lv": 220,
+   "uk": 11.5,
+   "group": "Ун/Д-11",
+   "switchable": false,
+   "switch_with": "G2",
+   "ct_ratio": [
+    1000,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Bresler",
+   "normally_closed": true
+  },
+  {
+   "id": "G3",
+   "kind": "generator",
+   "name": "ГТГ-3",
+   "node_from": "GRID",
+   "node_to": "G3_bus",
+   "p_nom": 6.0,
+   "cos_phi": 0.8,
+   "u_nom": 10,
+   "xd2": 0.15,
+   "ct_ratio": [
+    800,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "G3_bt",
+   "kind": "transformer",
+   "name": "Блочный Т ГТГ-3",
+   "node_from": "G3_bus",
+   "node_to": "b220",
+   "s_nom": 10000,
+   "u_hv": 10,
+   "u_lv": 220,
+   "uk": 10.5,
+   "group": "Ун/Д-11",
+   "switchable": false,
+   "switch_with": "G3",
+   "ct_ratio": [
+    1000,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Bresler",
+   "normally_closed": true
+  },
+  {
+   "id": "G4",
+   "kind": "generator",
+   "name": "ГТГ-4",
+   "node_from": "GRID",
+   "node_to": "G4_bus",
+   "p_nom": 6.0,
+   "cos_phi": 0.8,
+   "u_nom": 10,
+   "xd2": 0.15,
+   "ct_ratio": [
+    800,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "G4_bt",
+   "kind": "transformer",
+   "name": "Блочный Т ГТГ-4",
+   "node_from": "G4_bus",
+   "node_to": "b220",
+   "s_nom": 10000,
+   "u_hv": 10,
+   "u_lv": 220,
+   "uk": 10.5,
+   "group": "Ун/Д-11",
+   "switchable": false,
+   "switch_with": "G4",
+   "ct_ratio": [
+    1000,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Bresler",
+   "normally_closed": true
+  },
+  {
+   "id": "AT1",
+   "kind": "transformer",
+   "name": "АТ-1 220/110",
+   "node_from": "b220",
+   "node_to": "b110",
+   "s_nom": 125000,
+   "u_hv": 220,
+   "u_lv": 110,
+   "uk": 11.0,
+   "p_k": 315,
+   "group": "Ун/Ун/Д",
+   "i_inrush_ratio": 5,
+   "ct_ratio": [
+    800,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Bresler",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "AT2",
+   "kind": "transformer",
+   "name": "АТ-2 220/110",
+   "node_from": "b220",
+   "node_to": "b110",
+   "s_nom": 125000,
+   "u_hv": 220,
+   "u_lv": 110,
+   "uk": 11.0,
+   "p_k": 315,
+   "group": "Ун/Ун/Д",
+   "i_inrush_ratio": 5,
+   "ct_ratio": [
+    800,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Bresler",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "VL110_1",
+   "kind": "line",
+   "name": "ВЛ-110-1",
+   "node_from": "b110",
+   "node_to": "vost110",
+   "line_type": "overhead",
+   "length_km": 22.0,
+   "brand": "АС-240",
+   "section_mm2": 240,
+   "material": "Al",
+   "x0": 0.405,
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Bresler",
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   },
+   "switchable": true,
+   "normally_closed": true
+  },
+  {
+   "id": "VL110_2",
+   "kind": "line",
+   "name": "ВЛ-110-2",
+   "node_from": "b110",
+   "node_to": "vost110",
+   "line_type": "overhead",
+   "length_km": 22.0,
+   "brand": "АС-240",
+   "section_mm2": 240,
+   "material": "Al",
+   "x0": 0.405,
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Bresler",
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   },
+   "switchable": true,
+   "normally_closed": true
+  },
+  {
+   "id": "VV1",
+   "kind": "tie",
+   "name": "Ввод-1 10 кВ (Восток)",
+   "node_from": "vost10_1_t",
+   "node_to": "vost10_1",
+   "ct_ratio": [
+    1500,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "VV2",
+   "kind": "tie",
+   "name": "Ввод-2 10 кВ (Восток)",
+   "node_from": "vost10_2_t",
+   "node_to": "vost10_2",
+   "ct_ratio": [
+    1500,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "VSV",
+   "kind": "tie",
+   "name": "СВ 10 кВ (Восток)",
+   "node_from": "vost10_1",
+   "node_to": "vost10_2",
+   "ct_ratio": [
+    1500,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "VL35",
+   "kind": "line",
+   "name": "ВЛ-35 на ПС Запад",
+   "node_from": "vost35",
+   "node_to": "zap35",
+   "line_type": "overhead",
+   "length_km": 14.0,
+   "brand": "АС-120",
+   "section_mm2": 120,
+   "material": "Al",
+   "x0": 0.414,
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Bresler",
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   },
+   "switchable": true,
+   "normally_closed": true
+  },
+  {
+   "id": "ZT1",
+   "kind": "transformer",
+   "name": "Т1 ПС Запад 35/10",
+   "node_from": "zap35",
+   "node_to": "zap10",
+   "s_nom": 10000,
+   "u_hv": 35,
+   "u_lv": 10,
+   "uk": 7.5,
+   "p_k": 60,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 5,
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "VL110_3",
+   "kind": "line",
+   "name": "ВЛ-110-3 на ПС Южную",
+   "node_from": "b110",
+   "node_to": "yuzh110",
+   "line_type": "overhead",
+   "length_km": 31.0,
+   "brand": "АС-185",
+   "section_mm2": 185,
+   "material": "Al",
+   "x0": 0.41,
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Bresler",
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   },
+   "switchable": true,
+   "normally_closed": true
+  },
+  {
+   "id": "YT1",
+   "kind": "transformer",
+   "name": "Т1 ПС Южная 110/10",
+   "node_from": "yuzh110",
+   "node_to": "yuzh10",
+   "s_nom": 25000,
+   "u_hv": 110,
+   "u_lv": 10,
+   "uk": 10.5,
+   "p_k": 120,
+   "group": "Ун/Д-11",
+   "i_inrush_ratio": 5,
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Bresler",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "VL110_4",
+   "kind": "line",
+   "name": "ВЛ-110-4 Северная",
+   "node_from": "b110",
+   "node_to": "sev110",
+   "line_type": "overhead",
+   "length_km": 31.0,
+   "brand": "АС-240",
+   "section_mm2": 240,
+   "material": "Al",
+   "x0": 0.405,
+   "ct_ratio": [
+    300,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "Bresler",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": false
+   }
+  },
+  {
+   "id": "ST1",
+   "kind": "transformer",
+   "name": "Т1 ПС Северная 110/10",
+   "node_from": "sev110",
+   "node_to": "sev10_1_t",
+   "s_nom": 16000,
+   "u_hv": 110,
+   "u_lv": 10,
+   "uk": 10.5,
+   "p_k": 85,
+   "group": "Ун/Д-11",
+   "i_inrush_ratio": 6,
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "ST2",
+   "kind": "transformer",
+   "name": "Т2 ПС Северная 110/10",
+   "node_from": "sev110",
+   "node_to": "sev10_2_t",
+   "s_nom": 16000,
+   "u_hv": 110,
+   "u_lv": 10,
+   "uk": 10.5,
+   "p_k": 85,
+   "group": "Ун/Д-11",
+   "i_inrush_ratio": 6,
+   "ct_ratio": [
+    200,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "SVV1",
+   "kind": "tie",
+   "name": "Ввод-1 10 кВ (Северная)",
+   "node_from": "sev10_1_t",
+   "node_to": "sev10_1",
+   "ct_ratio": [
+    1500,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "SVV2",
+   "kind": "tie",
+   "name": "Ввод-2 10 кВ (Северная)",
+   "node_from": "sev10_2_t",
+   "node_to": "sev10_2",
+   "ct_ratio": [
+    1500,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "SSV",
+   "kind": "tie",
+   "name": "СВ 10 кВ (Северная)",
+   "node_from": "sev10_1",
+   "node_to": "sev10_2",
+   "ct_ratio": [
+    1500,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "VF1",
+   "kind": "line",
+   "name": "Ф-1 (Восток)",
+   "node_from": "vost10_1",
+   "node_to": "K1_10_1",
+   "line_type": "cable",
+   "length_km": 2.4,
+   "brand": "ААБл",
+   "section_mm2": 150,
+   "material": "Al",
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "VF1R",
+   "kind": "line",
+   "name": "Ф-1Р (Восток)",
+   "node_from": "vost10_2",
+   "node_to": "K1_10_2",
+   "line_type": "cable",
+   "length_km": 2.8,
+   "brand": "ААБл",
+   "section_mm2": 150,
+   "material": "Al",
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "K1_SV10",
+   "kind": "tie",
+   "name": "СВ 10 кВ (КТП-1)",
+   "node_from": "K1_10_1",
+   "node_to": "K1_10_2",
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K1_T1",
+   "kind": "transformer",
+   "name": "КТП-1 Т1 10/0,4",
+   "node_from": "K1_10_1",
+   "node_to": "K1_04_1",
+   "s_nom": 630,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 11,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K1_T2",
+   "kind": "transformer",
+   "name": "КТП-1 Т2 10/0,4",
+   "node_from": "K1_10_2",
+   "node_to": "K1_04_2",
+   "s_nom": 630,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 11,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K1_SV04",
+   "kind": "tie",
+   "name": "СВ 0,4 кВ (КТП-1)",
+   "node_from": "K1_04_1",
+   "node_to": "K1_04_2",
+   "ct_ratio": [
+    1000,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "VF2",
+   "kind": "line",
+   "name": "Ф-2 (Восток)",
+   "node_from": "vost10_1",
+   "node_to": "K2_10_1",
+   "line_type": "cable",
+   "length_km": 2.8,
+   "brand": "ААБл",
+   "section_mm2": 150,
+   "material": "Al",
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "VF2R",
+   "kind": "line",
+   "name": "Ф-2Р (Восток)",
+   "node_from": "vost10_2",
+   "node_to": "K2_10_2",
+   "line_type": "cable",
+   "length_km": 3.2,
+   "brand": "ААБл",
+   "section_mm2": 150,
+   "material": "Al",
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "K2_SV10",
+   "kind": "tie",
+   "name": "СВ 10 кВ (КТП-2)",
+   "node_from": "K2_10_1",
+   "node_to": "K2_10_2",
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K2_T1",
+   "kind": "transformer",
+   "name": "КТП-2 Т1 10/0,4",
+   "node_from": "K2_10_1",
+   "node_to": "K2_04_1",
+   "s_nom": 630,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 11,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K2_T2",
+   "kind": "transformer",
+   "name": "КТП-2 Т2 10/0,4",
+   "node_from": "K2_10_2",
+   "node_to": "K2_04_2",
+   "s_nom": 630,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 11,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K2_SV04",
+   "kind": "tie",
+   "name": "СВ 0,4 кВ (КТП-2)",
+   "node_from": "K2_04_1",
+   "node_to": "K2_04_2",
+   "ct_ratio": [
+    1000,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "VF3",
+   "kind": "line",
+   "name": "Ф-3 (Восток)",
+   "node_from": "vost10_1",
+   "node_to": "K3_10_1",
+   "line_type": "cable",
+   "length_km": 3.2,
+   "brand": "ААБл",
+   "section_mm2": 150,
+   "material": "Al",
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "VF3R",
+   "kind": "line",
+   "name": "Ф-3Р (Восток)",
+   "node_from": "vost10_2",
+   "node_to": "K3_10_2",
+   "line_type": "cable",
+   "length_km": 3.6,
+   "brand": "ААБл",
+   "section_mm2": 150,
+   "material": "Al",
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "K3_SV10",
+   "kind": "tie",
+   "name": "СВ 10 кВ (КТП-3)",
+   "node_from": "K3_10_1",
+   "node_to": "K3_10_2",
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K3_T1",
+   "kind": "transformer",
+   "name": "КТП-3 Т1 10/0,4",
+   "node_from": "K3_10_1",
+   "node_to": "K3_04_1",
+   "s_nom": 400,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 11,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K3_T2",
+   "kind": "transformer",
+   "name": "КТП-3 Т2 10/0,4",
+   "node_from": "K3_10_2",
+   "node_to": "K3_04_2",
+   "s_nom": 400,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 11,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K3_SV04",
+   "kind": "tie",
+   "name": "СВ 0,4 кВ (КТП-3)",
+   "node_from": "K3_04_1",
+   "node_to": "K3_04_2",
+   "ct_ratio": [
+    1000,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "VF4",
+   "kind": "line",
+   "name": "Ф-4 (Восток)",
+   "node_from": "vost10_2",
+   "node_to": "K4_10_1",
+   "line_type": "cable",
+   "length_km": 3.6,
+   "brand": "ААБл",
+   "section_mm2": 150,
+   "material": "Al",
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "VF4R",
+   "kind": "line",
+   "name": "Ф-4Р (Восток)",
+   "node_from": "vost10_1",
+   "node_to": "K4_10_2",
+   "line_type": "cable",
+   "length_km": 4.0,
+   "brand": "ААБл",
+   "section_mm2": 150,
+   "material": "Al",
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "K4_SV10",
+   "kind": "tie",
+   "name": "СВ 10 кВ (КТП-4)",
+   "node_from": "K4_10_1",
+   "node_to": "K4_10_2",
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K4_T1",
+   "kind": "transformer",
+   "name": "КТП-4 Т1 10/0,4",
+   "node_from": "K4_10_1",
+   "node_to": "K4_04_1",
+   "s_nom": 630,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 11,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K4_T2",
+   "kind": "transformer",
+   "name": "КТП-4 Т2 10/0,4",
+   "node_from": "K4_10_2",
+   "node_to": "K4_04_2",
+   "s_nom": 630,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 11,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K4_SV04",
+   "kind": "tie",
+   "name": "СВ 0,4 кВ (КТП-4)",
+   "node_from": "K4_04_1",
+   "node_to": "K4_04_2",
+   "ct_ratio": [
+    1000,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "VF5",
+   "kind": "line",
+   "name": "Ф-5 (Восток)",
+   "node_from": "vost10_2",
+   "node_to": "K5_10_1",
+   "line_type": "cable",
+   "length_km": 4.0,
+   "brand": "ААБл",
+   "section_mm2": 150,
+   "material": "Al",
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "VF5R",
+   "kind": "line",
+   "name": "Ф-5Р (Восток)",
+   "node_from": "vost10_1",
+   "node_to": "K5_10_2",
+   "line_type": "cable",
+   "length_km": 4.4,
+   "brand": "ААБл",
+   "section_mm2": 150,
+   "material": "Al",
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "K5_SV10",
+   "kind": "tie",
+   "name": "СВ 10 кВ (КТП-5)",
+   "node_from": "K5_10_1",
+   "node_to": "K5_10_2",
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K5_T1",
+   "kind": "transformer",
+   "name": "КТП-5 Т1 10/0,4",
+   "node_from": "K5_10_1",
+   "node_to": "K5_04_1",
+   "s_nom": 400,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 11,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K5_T2",
+   "kind": "transformer",
+   "name": "КТП-5 Т2 10/0,4",
+   "node_from": "K5_10_2",
+   "node_to": "K5_04_2",
+   "s_nom": 400,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 11,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K5_SV04",
+   "kind": "tie",
+   "name": "СВ 0,4 кВ (КТП-5)",
+   "node_from": "K5_04_1",
+   "node_to": "K5_04_2",
+   "ct_ratio": [
+    1000,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "VF6",
+   "kind": "line",
+   "name": "Ф-6 (Восток)",
+   "node_from": "vost10_2",
+   "node_to": "K6_10_1",
+   "line_type": "cable",
+   "length_km": 4.4,
+   "brand": "ААБл",
+   "section_mm2": 150,
+   "material": "Al",
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "VF6R",
+   "kind": "line",
+   "name": "Ф-6Р (Восток)",
+   "node_from": "vost10_1",
+   "node_to": "K6_10_2",
+   "line_type": "cable",
+   "length_km": 4.800000000000001,
+   "brand": "ААБл",
+   "section_mm2": 150,
+   "material": "Al",
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "K6_SV10",
+   "kind": "tie",
+   "name": "СВ 10 кВ (КТП-6)",
+   "node_from": "K6_10_1",
+   "node_to": "K6_10_2",
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K6_T1",
+   "kind": "transformer",
+   "name": "КТП-6 Т1 10/0,4",
+   "node_from": "K6_10_1",
+   "node_to": "K6_04_1",
+   "s_nom": 630,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 11,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K6_T2",
+   "kind": "transformer",
+   "name": "КТП-6 Т2 10/0,4",
+   "node_from": "K6_10_2",
+   "node_to": "K6_04_2",
+   "s_nom": 630,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 11,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K6_SV04",
+   "kind": "tie",
+   "name": "СВ 0,4 кВ (КТП-6)",
+   "node_from": "K6_04_1",
+   "node_to": "K6_04_2",
+   "ct_ratio": [
+    1000,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "ZF1",
+   "kind": "line",
+   "name": "Ф-1 (Запад)",
+   "node_from": "zap10",
+   "node_to": "K7_10_1",
+   "line_type": "cable",
+   "length_km": 2.4,
+   "brand": "ААБл",
+   "section_mm2": 150,
+   "material": "Al",
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "ZF1R",
+   "kind": "line",
+   "name": "Ф-1Р (Запад)",
+   "node_from": "zap10",
+   "node_to": "K7_10_2",
+   "line_type": "cable",
+   "length_km": 2.8,
+   "brand": "ААБл",
+   "section_mm2": 150,
+   "material": "Al",
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "K7_SV10",
+   "kind": "tie",
+   "name": "СВ 10 кВ (КТП-7)",
+   "node_from": "K7_10_1",
+   "node_to": "K7_10_2",
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K7_T1",
+   "kind": "transformer",
+   "name": "КТП-7 Т1 10/0,4",
+   "node_from": "K7_10_1",
+   "node_to": "K7_04_1",
+   "s_nom": 400,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 11,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K7_T2",
+   "kind": "transformer",
+   "name": "КТП-7 Т2 10/0,4",
+   "node_from": "K7_10_2",
+   "node_to": "K7_04_2",
+   "s_nom": 400,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 11,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K7_SV04",
+   "kind": "tie",
+   "name": "СВ 0,4 кВ (КТП-7)",
+   "node_from": "K7_04_1",
+   "node_to": "K7_04_2",
+   "ct_ratio": [
+    1000,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "ZF2",
+   "kind": "line",
+   "name": "Ф-2 (Запад)",
+   "node_from": "zap10",
+   "node_to": "K8_10_1",
+   "line_type": "cable",
+   "length_km": 2.8,
+   "brand": "ААБл",
+   "section_mm2": 150,
+   "material": "Al",
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "ZF2R",
+   "kind": "line",
+   "name": "Ф-2Р (Запад)",
+   "node_from": "zap10",
+   "node_to": "K8_10_2",
+   "line_type": "cable",
+   "length_km": 3.2,
+   "brand": "ААБл",
+   "section_mm2": 150,
+   "material": "Al",
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "K8_SV10",
+   "kind": "tie",
+   "name": "СВ 10 кВ (КТП-8)",
+   "node_from": "K8_10_1",
+   "node_to": "K8_10_2",
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K8_T1",
+   "kind": "transformer",
+   "name": "КТП-8 Т1 10/0,4",
+   "node_from": "K8_10_1",
+   "node_to": "K8_04_1",
+   "s_nom": 400,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 11,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K8_T2",
+   "kind": "transformer",
+   "name": "КТП-8 Т2 10/0,4",
+   "node_from": "K8_10_2",
+   "node_to": "K8_04_2",
+   "s_nom": 400,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 11,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K8_SV04",
+   "kind": "tie",
+   "name": "СВ 0,4 кВ (КТП-8)",
+   "node_from": "K8_04_1",
+   "node_to": "K8_04_2",
+   "ct_ratio": [
+    1000,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "YF1",
+   "kind": "line",
+   "name": "Ф-1 (Южная)",
+   "node_from": "yuzh10",
+   "node_to": "K9_10_1",
+   "line_type": "cable",
+   "length_km": 2.4,
+   "brand": "ААБл",
+   "section_mm2": 150,
+   "material": "Al",
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "YF1R",
+   "kind": "line",
+   "name": "Ф-1Р (Южная)",
+   "node_from": "yuzh10",
+   "node_to": "K9_10_2",
+   "line_type": "cable",
+   "length_km": 2.8,
+   "brand": "ААБл",
+   "section_mm2": 150,
+   "material": "Al",
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "K9_SV10",
+   "kind": "tie",
+   "name": "СВ 10 кВ (КТП-9)",
+   "node_from": "K9_10_1",
+   "node_to": "K9_10_2",
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K9_T1",
+   "kind": "transformer",
+   "name": "КТП-9 Т1 10/0,4",
+   "node_from": "K9_10_1",
+   "node_to": "K9_04_1",
+   "s_nom": 630,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 11,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K9_T2",
+   "kind": "transformer",
+   "name": "КТП-9 Т2 10/0,4",
+   "node_from": "K9_10_2",
+   "node_to": "K9_04_2",
+   "s_nom": 630,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 11,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K9_SV04",
+   "kind": "tie",
+   "name": "СВ 0,4 кВ (КТП-9)",
+   "node_from": "K9_04_1",
+   "node_to": "K9_04_2",
+   "ct_ratio": [
+    1000,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "YF2",
+   "kind": "line",
+   "name": "Ф-2 (Южная)",
+   "node_from": "yuzh10",
+   "node_to": "K10_10_1",
+   "line_type": "cable",
+   "length_km": 2.8,
+   "brand": "ААБл",
+   "section_mm2": 150,
+   "material": "Al",
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "YF2R",
+   "kind": "line",
+   "name": "Ф-2Р (Южная)",
+   "node_from": "yuzh10",
+   "node_to": "K10_10_2",
+   "line_type": "cable",
+   "length_km": 3.2,
+   "brand": "ААБл",
+   "section_mm2": 150,
+   "material": "Al",
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "K10_SV10",
+   "kind": "tie",
+   "name": "СВ 10 кВ (КТП-10)",
+   "node_from": "K10_10_1",
+   "node_to": "K10_10_2",
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K10_T1",
+   "kind": "transformer",
+   "name": "КТП-10 Т1 10/0,4",
+   "node_from": "K10_10_1",
+   "node_to": "K10_04_1",
+   "s_nom": 630,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 11,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K10_T2",
+   "kind": "transformer",
+   "name": "КТП-10 Т2 10/0,4",
+   "node_from": "K10_10_2",
+   "node_to": "K10_04_2",
+   "s_nom": 630,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 11,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K10_SV04",
+   "kind": "tie",
+   "name": "СВ 0,4 кВ (КТП-10)",
+   "node_from": "K10_04_1",
+   "node_to": "K10_04_2",
+   "ct_ratio": [
+    1000,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "SF1",
+   "kind": "line",
+   "name": "Ф-1 (Северная)",
+   "node_from": "sev10_1",
+   "node_to": "K11_10_1",
+   "line_type": "cable",
+   "length_km": 2.4,
+   "brand": "ААБл",
+   "section_mm2": 150,
+   "material": "Al",
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "SF1R",
+   "kind": "line",
+   "name": "Ф-1Р (Северная)",
+   "node_from": "sev10_2",
+   "node_to": "K11_10_2",
+   "line_type": "cable",
+   "length_km": 2.8,
+   "brand": "ААБл",
+   "section_mm2": 150,
+   "material": "Al",
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "K11_SV10",
+   "kind": "tie",
+   "name": "СВ 10 кВ (КТП-11)",
+   "node_from": "K11_10_1",
+   "node_to": "K11_10_2",
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K11_T1",
+   "kind": "transformer",
+   "name": "КТП-11 Т1 10/0,4",
+   "node_from": "K11_10_1",
+   "node_to": "K11_04_1",
+   "s_nom": 630,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 11,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K11_T2",
+   "kind": "transformer",
+   "name": "КТП-11 Т2 10/0,4",
+   "node_from": "K11_10_2",
+   "node_to": "K11_04_2",
+   "s_nom": 630,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 11,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K11_SV04",
+   "kind": "tie",
+   "name": "СВ 0,4 кВ (КТП-11)",
+   "node_from": "K11_04_1",
+   "node_to": "K11_04_2",
+   "ct_ratio": [
+    1000,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "SF2",
+   "kind": "line",
+   "name": "Ф-2 (Северная)",
+   "node_from": "sev10_2",
+   "node_to": "K12_10_1",
+   "line_type": "cable",
+   "length_km": 2.8,
+   "brand": "ААБл",
+   "section_mm2": 150,
+   "material": "Al",
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "SF2R",
+   "kind": "line",
+   "name": "Ф-2Р (Северная)",
+   "node_from": "sev10_1",
+   "node_to": "K12_10_2",
+   "line_type": "cable",
+   "length_km": 3.2,
+   "brand": "ААБл",
+   "section_mm2": 150,
+   "material": "Al",
+   "ic_per_km": 0.9,
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": true,
+    "ozz": true
+   }
+  },
+  {
+   "id": "K12_SV10",
+   "kind": "tie",
+   "name": "СВ 10 кВ (КТП-12)",
+   "node_from": "K12_10_1",
+   "node_to": "K12_10_2",
+   "ct_ratio": [
+    400,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K12_T1",
+   "kind": "transformer",
+   "name": "КТП-12 Т1 10/0,4",
+   "node_from": "K12_10_1",
+   "node_to": "K12_04_1",
+   "s_nom": 400,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 11,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K12_T2",
+   "kind": "transformer",
+   "name": "КТП-12 Т2 10/0,4",
+   "node_from": "K12_10_2",
+   "node_to": "K12_04_2",
+   "s_nom": 400,
+   "u_hv": 10,
+   "u_lv": 0.4,
+   "uk": 5.5,
+   "p_k": 11,
+   "group": "Д/Ун-11",
+   "i_inrush_ratio": 8,
+   "ct_ratio": [
+    100,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": true,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  },
+  {
+   "id": "K12_SV04",
+   "kind": "tie",
+   "name": "СВ 0,4 кВ (КТП-12)",
+   "node_from": "K12_04_1",
+   "node_to": "K12_04_2",
+   "ct_ratio": [
+    1000,
+    5
+   ],
+   "breaker_t_off": 0.06,
+   "terminal": "БМРЗ",
+   "switchable": true,
+   "normally_closed": false,
+   "prot": {
+    "mtz": true,
+    "to": false,
+    "ozz": false
+   }
+  }
+ ],
+ "loads": [
+  {
+   "id": "L_K1_1",
+   "name": "Нагрузка КТП-1, 1 СШ",
+   "node": "K1_04_1",
+   "p_kw": 380,
+   "cos_phi": 0.9
+  },
+  {
+   "id": "L_K1_2",
+   "name": "Нагрузка КТП-1, 2 СШ",
+   "node": "K1_04_2",
+   "p_kw": 380,
+   "cos_phi": 0.9
+  },
+  {
+   "id": "L_K2_1",
+   "name": "Нагрузка КТП-2, 1 СШ",
+   "node": "K2_04_1",
+   "p_kw": 350,
+   "cos_phi": 0.9
+  },
+  {
+   "id": "L_K2_2",
+   "name": "Нагрузка КТП-2, 2 СШ",
+   "node": "K2_04_2",
+   "p_kw": 350,
+   "cos_phi": 0.9
+  },
+  {
+   "id": "L_K3_1",
+   "name": "Нагрузка КТП-3, 1 СШ",
+   "node": "K3_04_1",
+   "p_kw": 240,
+   "cos_phi": 0.9
+  },
+  {
+   "id": "L_K3_2",
+   "name": "Нагрузка КТП-3, 2 СШ",
+   "node": "K3_04_2",
+   "p_kw": 240,
+   "cos_phi": 0.9
+  },
+  {
+   "id": "L_K4_1",
+   "name": "Нагрузка КТП-4, 1 СШ",
+   "node": "K4_04_1",
+   "p_kw": 400,
+   "cos_phi": 0.9
+  },
+  {
+   "id": "L_K4_2",
+   "name": "Нагрузка КТП-4, 2 СШ",
+   "node": "K4_04_2",
+   "p_kw": 400,
+   "cos_phi": 0.9
+  },
+  {
+   "id": "L_K5_1",
+   "name": "Нагрузка КТП-5, 1 СШ",
+   "node": "K5_04_1",
+   "p_kw": 230,
+   "cos_phi": 0.9
+  },
+  {
+   "id": "L_K5_2",
+   "name": "Нагрузка КТП-5, 2 СШ",
+   "node": "K5_04_2",
+   "p_kw": 230,
+   "cos_phi": 0.9
+  },
+  {
+   "id": "L_K6_1",
+   "name": "Нагрузка КТП-6, 1 СШ",
+   "node": "K6_04_1",
+   "p_kw": 360,
+   "cos_phi": 0.9
+  },
+  {
+   "id": "L_K6_2",
+   "name": "Нагрузка КТП-6, 2 СШ",
+   "node": "K6_04_2",
+   "p_kw": 360,
+   "cos_phi": 0.9
+  },
+  {
+   "id": "L_K7_1",
+   "name": "Нагрузка КТП-7, 1 СШ",
+   "node": "K7_04_1",
+   "p_kw": 250,
+   "cos_phi": 0.9
+  },
+  {
+   "id": "L_K7_2",
+   "name": "Нагрузка КТП-7, 2 СШ",
+   "node": "K7_04_2",
+   "p_kw": 250,
+   "cos_phi": 0.9
+  },
+  {
+   "id": "L_K8_1",
+   "name": "Нагрузка КТП-8, 1 СШ",
+   "node": "K8_04_1",
+   "p_kw": 220,
+   "cos_phi": 0.9
+  },
+  {
+   "id": "L_K8_2",
+   "name": "Нагрузка КТП-8, 2 СШ",
+   "node": "K8_04_2",
+   "p_kw": 220,
+   "cos_phi": 0.9
+  },
+  {
+   "id": "L_K9_1",
+   "name": "Нагрузка КТП-9, 1 СШ",
+   "node": "K9_04_1",
+   "p_kw": 390,
+   "cos_phi": 0.9
+  },
+  {
+   "id": "L_K9_2",
+   "name": "Нагрузка КТП-9, 2 СШ",
+   "node": "K9_04_2",
+   "p_kw": 390,
+   "cos_phi": 0.9
+  },
+  {
+   "id": "L_K10_1",
+   "name": "Нагрузка КТП-10, 1 СШ",
+   "node": "K10_04_1",
+   "p_kw": 370,
+   "cos_phi": 0.9
+  },
+  {
+   "id": "L_K10_2",
+   "name": "Нагрузка КТП-10, 2 СШ",
+   "node": "K10_04_2",
+   "p_kw": 370,
+   "cos_phi": 0.9
+  },
+  {
+   "id": "L_K11_1",
+   "name": "Нагрузка КТП-11, 1 СШ",
+   "node": "K11_04_1",
+   "p_kw": 340,
+   "cos_phi": 0.9
+  },
+  {
+   "id": "L_K11_2",
+   "name": "Нагрузка КТП-11, 2 СШ",
+   "node": "K11_04_2",
+   "p_kw": 340,
+   "cos_phi": 0.9
+  },
+  {
+   "id": "L_K12_1",
+   "name": "Нагрузка КТП-12, 1 СШ",
+   "node": "K12_04_1",
+   "p_kw": 260,
+   "cos_phi": 0.9
+  },
+  {
+   "id": "L_K12_2",
+   "name": "Нагрузка КТП-12, 2 СШ",
+   "node": "K12_04_2",
+   "p_kw": 260,
+   "cos_phi": 0.9
+  }
+ ],
+ "modes": [
+  {
+   "id": "max",
+   "name": "Максимальный (все ГТГ)",
+   "system": "max",
+   "description": "Все четыре газотурбинных генератора в работе, СВ 10 кВ отключён.",
+   "states": {
+    "G1": true,
+    "G2": true,
+    "G3": true,
+    "G4": true,
+    "AT1": true,
+    "AT2": true,
+    "VL110_1": true,
+    "VL110_2": true,
+    "VV1": true,
+    "VV2": true,
+    "VSV": false,
+    "VL35": true,
+    "ZT1": true,
+    "VL110_3": true,
+    "YT1": true,
+    "VL110_4": true,
+    "ST1": true,
+    "ST2": true,
+    "SVV1": true,
+    "SVV2": true,
+    "SSV": false,
+    "VF1": true,
+    "VF1R": true,
+    "K1_SV10": false,
+    "K1_T1": true,
+    "K1_T2": true,
+    "K1_SV04": false,
+    "VF2": true,
+    "VF2R": true,
+    "K2_SV10": false,
+    "K2_T1": true,
+    "K2_T2": true,
+    "K2_SV04": false,
+    "VF3": true,
+    "VF3R": true,
+    "K3_SV10": false,
+    "K3_T1": true,
+    "K3_T2": true,
+    "K3_SV04": false,
+    "VF4": true,
+    "VF4R": true,
+    "K4_SV10": false,
+    "K4_T1": true,
+    "K4_T2": true,
+    "K4_SV04": false,
+    "VF5": true,
+    "VF5R": true,
+    "K5_SV10": false,
+    "K5_T1": true,
+    "K5_T2": true,
+    "K5_SV04": false,
+    "VF6": true,
+    "VF6R": true,
+    "K6_SV10": false,
+    "K6_T1": true,
+    "K6_T2": true,
+    "K6_SV04": false,
+    "ZF1": true,
+    "ZF1R": true,
+    "K7_SV10": false,
+    "K7_T1": true,
+    "K7_T2": true,
+    "K7_SV04": false,
+    "ZF2": true,
+    "ZF2R": true,
+    "K8_SV10": false,
+    "K8_T1": true,
+    "K8_T2": true,
+    "K8_SV04": false,
+    "YF1": true,
+    "YF1R": true,
+    "K9_SV10": false,
+    "K9_T1": true,
+    "K9_T2": true,
+    "K9_SV04": false,
+    "YF2": true,
+    "YF2R": true,
+    "K10_SV10": false,
+    "K10_T1": true,
+    "K10_T2": true,
+    "K10_SV04": false,
+    "SF1": true,
+    "SF1R": true,
+    "K11_SV10": false,
+    "K11_T1": true,
+    "K11_T2": true,
+    "K11_SV04": false,
+    "SF2": true,
+    "SF2R": true,
+    "K12_SV10": false,
+    "K12_T1": true,
+    "K12_T2": true,
+    "K12_SV04": false
+   }
+  },
+  {
+   "id": "min",
+   "name": "Минимальный (ГТГ-3, ГТГ-4)",
+   "system": "min",
+   "description": "В работе только две малые машины 6 МВт — наименьшие токи КЗ, самый тяжёлый режим для чувствительности.",
+   "states": {
+    "G1": false,
+    "G2": false,
+    "G3": true,
+    "G4": true,
+    "AT1": true,
+    "AT2": true,
+    "VL110_1": true,
+    "VL110_2": true,
+    "VV1": true,
+    "VV2": true,
+    "VSV": false,
+    "VL35": true,
+    "ZT1": true,
+    "VL110_3": true,
+    "YT1": true,
+    "VL110_4": true,
+    "ST1": true,
+    "ST2": true,
+    "SVV1": true,
+    "SVV2": true,
+    "SSV": false,
+    "VF1": true,
+    "VF1R": true,
+    "K1_SV10": false,
+    "K1_T1": true,
+    "K1_T2": true,
+    "K1_SV04": false,
+    "VF2": true,
+    "VF2R": true,
+    "K2_SV10": false,
+    "K2_T1": true,
+    "K2_T2": true,
+    "K2_SV04": false,
+    "VF3": true,
+    "VF3R": true,
+    "K3_SV10": false,
+    "K3_T1": true,
+    "K3_T2": true,
+    "K3_SV04": false,
+    "VF4": true,
+    "VF4R": true,
+    "K4_SV10": false,
+    "K4_T1": true,
+    "K4_T2": true,
+    "K4_SV04": false,
+    "VF5": true,
+    "VF5R": true,
+    "K5_SV10": false,
+    "K5_T1": true,
+    "K5_T2": true,
+    "K5_SV04": false,
+    "VF6": true,
+    "VF6R": true,
+    "K6_SV10": false,
+    "K6_T1": true,
+    "K6_T2": true,
+    "K6_SV04": false,
+    "ZF1": true,
+    "ZF1R": true,
+    "K7_SV10": false,
+    "K7_T1": true,
+    "K7_T2": true,
+    "K7_SV04": false,
+    "ZF2": true,
+    "ZF2R": true,
+    "K8_SV10": false,
+    "K8_T1": true,
+    "K8_T2": true,
+    "K8_SV04": false,
+    "YF1": true,
+    "YF1R": true,
+    "K9_SV10": false,
+    "K9_T1": true,
+    "K9_T2": true,
+    "K9_SV04": false,
+    "YF2": true,
+    "YF2R": true,
+    "K10_SV10": false,
+    "K10_T1": true,
+    "K10_T2": true,
+    "K10_SV04": false,
+    "SF1": true,
+    "SF1R": true,
+    "K11_SV10": false,
+    "K11_T1": true,
+    "K11_T2": true,
+    "K11_SV04": false,
+    "SF2": true,
+    "SF2R": true,
+    "K12_SV10": false,
+    "K12_T1": true,
+    "K12_T2": true,
+    "K12_SV04": false
+   }
+  },
+  {
+   "id": "one",
+   "name": "Одна машина (ГТГ-3)",
+   "system": "min",
+   "description": "Предельно лёгкий режим: работает один генератор 6 МВт.",
+   "states": {
+    "G1": false,
+    "G2": false,
+    "G3": true,
+    "G4": false,
+    "AT1": true,
+    "AT2": true,
+    "VL110_1": true,
+    "VL110_2": true,
+    "VV1": true,
+    "VV2": true,
+    "VSV": false,
+    "VL35": true,
+    "ZT1": true,
+    "VL110_3": true,
+    "YT1": true,
+    "VL110_4": true,
+    "ST1": true,
+    "ST2": true,
+    "SVV1": true,
+    "SVV2": true,
+    "SSV": false,
+    "VF1": true,
+    "VF1R": true,
+    "K1_SV10": false,
+    "K1_T1": true,
+    "K1_T2": true,
+    "K1_SV04": false,
+    "VF2": true,
+    "VF2R": true,
+    "K2_SV10": false,
+    "K2_T1": true,
+    "K2_T2": true,
+    "K2_SV04": false,
+    "VF3": true,
+    "VF3R": true,
+    "K3_SV10": false,
+    "K3_T1": true,
+    "K3_T2": true,
+    "K3_SV04": false,
+    "VF4": true,
+    "VF4R": true,
+    "K4_SV10": false,
+    "K4_T1": true,
+    "K4_T2": true,
+    "K4_SV04": false,
+    "VF5": true,
+    "VF5R": true,
+    "K5_SV10": false,
+    "K5_T1": true,
+    "K5_T2": true,
+    "K5_SV04": false,
+    "VF6": true,
+    "VF6R": true,
+    "K6_SV10": false,
+    "K6_T1": true,
+    "K6_T2": true,
+    "K6_SV04": false,
+    "ZF1": true,
+    "ZF1R": true,
+    "K7_SV10": false,
+    "K7_T1": true,
+    "K7_T2": true,
+    "K7_SV04": false,
+    "ZF2": true,
+    "ZF2R": true,
+    "K8_SV10": false,
+    "K8_T1": true,
+    "K8_T2": true,
+    "K8_SV04": false,
+    "YF1": true,
+    "YF1R": true,
+    "K9_SV10": false,
+    "K9_T1": true,
+    "K9_T2": true,
+    "K9_SV04": false,
+    "YF2": true,
+    "YF2R": true,
+    "K10_SV10": false,
+    "K10_T1": true,
+    "K10_T2": true,
+    "K10_SV04": false,
+    "SF1": true,
+    "SF1R": true,
+    "K11_SV10": false,
+    "K11_T1": true,
+    "K11_T2": true,
+    "K11_SV04": false,
+    "SF2": true,
+    "SF2R": true,
+    "K12_SV10": false,
+    "K12_T1": true,
+    "K12_T2": true,
+    "K12_SV04": false
+   }
+  },
+  {
+   "id": "t1off",
+   "name": "Т1 Восток отключён, СВ включён",
+   "system": "max",
+   "description": "Обе секции 10 кВ ПС Восток питаются от Т2 через секционный выключатель.",
+   "states": {
+    "G1": true,
+    "G2": true,
+    "G3": true,
+    "G4": true,
+    "AT1": true,
+    "AT2": true,
+    "VL110_1": true,
+    "VL110_2": true,
+    "VV1": false,
+    "VV2": true,
+    "VSV": true,
+    "VL35": true,
+    "ZT1": true,
+    "VL110_3": true,
+    "YT1": true,
+    "VL110_4": true,
+    "ST1": true,
+    "ST2": true,
+    "SVV1": true,
+    "SVV2": true,
+    "SSV": false,
+    "VF1": true,
+    "VF1R": true,
+    "K1_SV10": false,
+    "K1_T1": true,
+    "K1_T2": true,
+    "K1_SV04": false,
+    "VF2": true,
+    "VF2R": true,
+    "K2_SV10": false,
+    "K2_T1": true,
+    "K2_T2": true,
+    "K2_SV04": false,
+    "VF3": true,
+    "VF3R": true,
+    "K3_SV10": false,
+    "K3_T1": true,
+    "K3_T2": true,
+    "K3_SV04": false,
+    "VF4": true,
+    "VF4R": true,
+    "K4_SV10": false,
+    "K4_T1": true,
+    "K4_T2": true,
+    "K4_SV04": false,
+    "VF5": true,
+    "VF5R": true,
+    "K5_SV10": false,
+    "K5_T1": true,
+    "K5_T2": true,
+    "K5_SV04": false,
+    "VF6": true,
+    "VF6R": true,
+    "K6_SV10": false,
+    "K6_T1": true,
+    "K6_T2": true,
+    "K6_SV04": false,
+    "ZF1": true,
+    "ZF1R": true,
+    "K7_SV10": false,
+    "K7_T1": true,
+    "K7_T2": true,
+    "K7_SV04": false,
+    "ZF2": true,
+    "ZF2R": true,
+    "K8_SV10": false,
+    "K8_T1": true,
+    "K8_T2": true,
+    "K8_SV04": false,
+    "YF1": true,
+    "YF1R": true,
+    "K9_SV10": false,
+    "K9_T1": true,
+    "K9_T2": true,
+    "K9_SV04": false,
+    "YF2": true,
+    "YF2R": true,
+    "K10_SV10": false,
+    "K10_T1": true,
+    "K10_T2": true,
+    "K10_SV04": false,
+    "SF1": true,
+    "SF1R": true,
+    "K11_SV10": false,
+    "K11_T1": true,
+    "K11_T2": true,
+    "K11_SV04": false,
+    "SF2": true,
+    "SF2R": true,
+    "K12_SV10": false,
+    "K12_T1": true,
+    "K12_T2": true,
+    "K12_SV04": false,
+    "VT1": false
+   }
+  },
+  {
+   "id": "t1off_min",
+   "name": "Т1 отключён + минимальный",
+   "system": "min",
+   "description": "Сочетание ремонтной схемы и минимального состава генерации.",
+   "states": {
+    "G1": false,
+    "G2": false,
+    "G3": true,
+    "G4": true,
+    "AT1": true,
+    "AT2": true,
+    "VL110_1": true,
+    "VL110_2": true,
+    "VV1": false,
+    "VV2": true,
+    "VSV": true,
+    "VL35": true,
+    "ZT1": true,
+    "VL110_3": true,
+    "YT1": true,
+    "VL110_4": true,
+    "ST1": true,
+    "ST2": true,
+    "SVV1": true,
+    "SVV2": true,
+    "SSV": false,
+    "VF1": true,
+    "VF1R": true,
+    "K1_SV10": false,
+    "K1_T1": true,
+    "K1_T2": true,
+    "K1_SV04": false,
+    "VF2": true,
+    "VF2R": true,
+    "K2_SV10": false,
+    "K2_T1": true,
+    "K2_T2": true,
+    "K2_SV04": false,
+    "VF3": true,
+    "VF3R": true,
+    "K3_SV10": false,
+    "K3_T1": true,
+    "K3_T2": true,
+    "K3_SV04": false,
+    "VF4": true,
+    "VF4R": true,
+    "K4_SV10": false,
+    "K4_T1": true,
+    "K4_T2": true,
+    "K4_SV04": false,
+    "VF5": true,
+    "VF5R": true,
+    "K5_SV10": false,
+    "K5_T1": true,
+    "K5_T2": true,
+    "K5_SV04": false,
+    "VF6": true,
+    "VF6R": true,
+    "K6_SV10": false,
+    "K6_T1": true,
+    "K6_T2": true,
+    "K6_SV04": false,
+    "ZF1": true,
+    "ZF1R": true,
+    "K7_SV10": false,
+    "K7_T1": true,
+    "K7_T2": true,
+    "K7_SV04": false,
+    "ZF2": true,
+    "ZF2R": true,
+    "K8_SV10": false,
+    "K8_T1": true,
+    "K8_T2": true,
+    "K8_SV04": false,
+    "YF1": true,
+    "YF1R": true,
+    "K9_SV10": false,
+    "K9_T1": true,
+    "K9_T2": true,
+    "K9_SV04": false,
+    "YF2": true,
+    "YF2R": true,
+    "K10_SV10": false,
+    "K10_T1": true,
+    "K10_T2": true,
+    "K10_SV04": false,
+    "SF1": true,
+    "SF1R": true,
+    "K11_SV10": false,
+    "K11_T1": true,
+    "K11_T2": true,
+    "K11_SV04": false,
+    "SF2": true,
+    "SF2R": true,
+    "K12_SV10": false,
+    "K12_T1": true,
+    "K12_T2": true,
+    "K12_SV04": false,
+    "VT1": false
+   }
+  }
+ ]
+}

@@ -1,0 +1,56 @@
+{
+  "date": "2026-08-31",
+  "scope": "B3 and separate visual task merge",
+  "full_pytest": {
+    "passed": 1326,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 184.91,
+    "capture": "sys"
+  },
+  "targeted_joint": {
+    "passed": 430,
+    "seconds": 19.43
+  },
+  "post_documents": {
+    "passed": 94,
+    "seconds": 10.08
+  },
+  "baseline": {
+    "differences": 0,
+    "changed": false,
+    "log_changed": false,
+    "exit_code": 0
+  },
+  "demo": {
+    "checks": 119,
+    "ok": 116,
+    "fail": 3,
+    "unresolved": 0,
+    "table_exit_code": 1
+  },
+  "gui_smoke_exit_code": 0,
+  "gui": {
+    "png_count": 22,
+    "actual_qt": true,
+    "physical_mouse_acceptance": false,
+    "visible_demo_labels": 120,
+    "auto_conflicts": 0,
+    "analysis_conflicts": 0,
+    "clearance": 4,
+    "min_zoom": 0.6
+  },
+  "protected_input_files_unchanged": 56,
+  "donor_files_unchanged": 385,
+  "b3_labels_tests_preserved": 78,
+  "combined_new_tests": 8,
+  "test_count_arithmetic": "1085 + 235 donor modules + 8 integration - 2 restructured obsolete neutral-body colour parameters = 1326",
+  "next_stage_started": false,
+  "roadmap_version": "3.8",
+  "current_turn": "Max",
+  "known_limitations": [
+    "B3-PERF-001: dense scenario 77.67s",
+    "Typical methodology, not project-approved",
+    "Legacy explicit manual label positions preserved, automatic reset is an explicit command"
+  ]
+}

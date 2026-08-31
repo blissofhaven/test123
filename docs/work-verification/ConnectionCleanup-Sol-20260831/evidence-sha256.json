@@ -1,0 +1,357 @@
+[
+  {
+    "path": "audit_test_changes.py",
+    "bytes": 1926,
+    "sha256": "0801da081b13208f790cfd5ca58e9e5c0d739cd259b0f9749279b35d75cae5ca"
+  },
+  {
+    "path": "baseline-final.txt",
+    "bytes": 590,
+    "sha256": "ec60240cbcac043cb55b22e357bb4a57624115210f0146dd433b636a58fc4ef2"
+  },
+  {
+    "path": "baseline-input.txt",
+    "bytes": 590,
+    "sha256": "ec60240cbcac043cb55b22e357bb4a57624115210f0146dd433b636a58fc4ef2"
+  },
+  {
+    "path": "cli-check.txt",
+    "bytes": 11743,
+    "sha256": "24f8f0f9b7aac367aae16349fa40f692280e8412bfe7a3528b9ec6cbd953fbd4"
+  },
+  {
+    "path": "cli-table.txt",
+    "bytes": 19880,
+    "sha256": "6ee1631ac9485e28f3a01afa1a7215cd6475b07f4134a2742945150e9f1596b7"
+  },
+  {
+    "path": "demo-layout-migration.json",
+    "bytes": 1745,
+    "sha256": "245d64e09a5f7c8cfc0319cea7fcb46077327b1f0c5eeb34cb0f6d9abadc5807"
+  },
+  {
+    "path": "inventory.json",
+    "bytes": 1662,
+    "sha256": "01a44af52e45016ba1f82be930a430631be21e5f81a64f848b8692e7f3dee859"
+  },
+  {
+    "path": "inventory.ps1",
+    "bytes": 2493,
+    "sha256": "17119f9470b33be538d8ef05978765458d0b4f8ba96debf386020bc9e95fce55"
+  },
+  {
+    "path": "native_cleanup_probe.py",
+    "bytes": 15031,
+    "sha256": "d68c95df1fcc5b1bfe1fe5833e51f96c38fec0d33f9c15aef32e7e9ddd439069"
+  },
+  {
+    "path": "native_crossings_probe.py",
+    "bytes": 3454,
+    "sha256": "35c108fa438c5db0ccdc2094478840eeb89cb9cf467220c9265d3976c44ffb1d"
+  },
+  {
+    "path": "native-actual-wide-bus-white-contacts.png",
+    "bytes": 100243,
+    "sha256": "0073ff1e58ba289ab3441cf56dfa5b976c9d613b9916f0eed0507c02640c831f"
+  },
+  {
+    "path": "native-cf1-connect-10-committed.png",
+    "bytes": 162260,
+    "sha256": "76228908ccb1f862550111ad8d53b33d94671183baf5a340568ebd6c2bb175af"
+  },
+  {
+    "path": "native-cf1-connect-10-preview.png",
+    "bytes": 181788,
+    "sha256": "a85e51248c1213314e1a07f29912f8087bcdcc70d13c24ef5712571a61c5fd31"
+  },
+  {
+    "path": "native-cf1-disconnected.png",
+    "bytes": 116706,
+    "sha256": "0114d59a10278d20b7e314a7640a47246e5ed1c0be707937b77e7526d9e5152a"
+  },
+  {
+    "path": "native-cf1-reject-0_4.png",
+    "bytes": 151464,
+    "sha256": "8b211029e1764b06b78ce46d9946ea55a00bfac504434151f804731a83577402"
+  },
+  {
+    "path": "native-cf1-reject-110.png",
+    "bytes": 147261,
+    "sha256": "d2cb5175ce5308603e8993f9c19aacb3662041aad7a0989f8e60c375ae63fc85"
+  },
+  {
+    "path": "native-cleanup-probe.json",
+    "bytes": 7911,
+    "sha256": "bfb044ddacd3009de29ff871512a23a9f834ed371e2e6098eb89aaefbf4d2a59"
+  },
+  {
+    "path": "native-crossings-probe.json",
+    "bytes": 1502,
+    "sha256": "79faad0187c2a0a262be336a52296176d3cee7351aa68bf16c7285980a427acb"
+  },
+  {
+    "path": "native-final.txt",
+    "bytes": 427,
+    "sha256": "15b5ddb16042f3678ba5e5cbe9e00ce283fd35f363f864abd414b38d050a2434"
+  },
+  {
+    "path": "native-gap-pixel-audit.json",
+    "bytes": 4796,
+    "sha256": "12137e524f15dbf9dfeddc5b114b1548ab6c896b17b7af8455bda8af75095603"
+  },
+  {
+    "path": "native-legacy-whole-line-committed.png",
+    "bytes": 91027,
+    "sha256": "83d6c8e8c5913fbcce8dc1ce7068f7bfa10813aed156bb199cdbae5af0068631"
+  },
+  {
+    "path": "native-legacy-whole-line-preview.png",
+    "bytes": 90634,
+    "sha256": "5cfdf03735575d85c6f220c3fe132fbe71a79e406614b53fbe641dc7dc442d44"
+  },
+  {
+    "path": "native-new-cable-entered-inspector.png",
+    "bytes": 108318,
+    "sha256": "5393238a49e1474ad0627d9524e14b949688accda841c545116e0d39d92ddd0d"
+  },
+  {
+    "path": "native-new-cable-unknown-inspector.png",
+    "bytes": 107015,
+    "sha256": "c7f587d02f9272f1add255b1bee996814fe9e5ce0a609c29a465d8636e6d995e"
+  },
+  {
+    "path": "native-new-overhead-entered-inspector.png",
+    "bytes": 107825,
+    "sha256": "cce543cdae979bab7e5f189d46006990c828b21a8e76a71ef8b0f2b5f26cdc77"
+  },
+  {
+    "path": "native-new-overhead-unknown-inspector.png",
+    "bytes": 106470,
+    "sha256": "295eb42bbc5e435f2fe0b5a45f147ddc142ad6d00f4ed5273accff1e4704c5cb"
+  },
+  {
+    "path": "native-wide-bus-crossing-vs-connection-unselected.png",
+    "bytes": 89650,
+    "sha256": "2246ed74ec8b190a17ce8565f7bd5a7fa2879d1e3251b7f60eca28a18fb2488a"
+  },
+  {
+    "path": "native-wide-bus-crossing-vs-connection.png",
+    "bytes": 112426,
+    "sha256": "81976288f2598a73569d68c0cef17f37647489786bf070f2ca23a265f097d606"
+  },
+  {
+    "path": "pytest-final.txt",
+    "bytes": 3266,
+    "sha256": "a7c8f3f471eb5e3642d5e2ee1fd8982025fcdeb900deab26260053b75c58ad71"
+  },
+  {
+    "path": "pytest-final.xml",
+    "bytes": 279912,
+    "sha256": "83e19687e0300ab690103f48bef6741aacb24a926bf416f04b82ea3e92117448"
+  },
+  {
+    "path": "pytest-input.txt",
+    "bytes": 2987,
+    "sha256": "02f04bd50a9b69cca07934d9d9813c7490842e9efe6111b4bf29f5af53abe34b"
+  },
+  {
+    "path": "pytest-input.xml",
+    "bytes": 250778,
+    "sha256": "47dde3334677c1ab853569c69658dad4db8df3126317e26708530bdcce9b6ae6"
+  },
+  {
+    "path": "roadmap-final.txt",
+    "bytes": 100,
+    "sha256": "58961c51cd7c08b734aefecf8e62256f8c3718049b5c28ef7147735af109dede"
+  },
+  {
+    "path": "source-freeze.json",
+    "bytes": 29664,
+    "sha256": "a3b6148e759acfe798b5bc631a270ff00a6c7db7fa4d6fc3af33ffab79f92a6b"
+  },
+  {
+    "path": "test-change-audit.json",
+    "bytes": 4026,
+    "sha256": "e019a61e8cb24dc589f20942e4362fa0dbab86b6a726cb2ab57c3548ad49c86d"
+  },
+  {
+    "path": "verify.ps1",
+    "bytes": 1831,
+    "sha256": "39652a55a3015997edf17b9f628e000ce427eede88654edf2b2fcddafb9d2ff9"
+  },
+  {
+    "path": "intermediate-not-acceptance/native-before-visible-gap.txt",
+    "bytes": 346,
+    "sha256": "b0833b5bb7f1f2c64a53bca8b38d64a50c151957fa07066598c03a7d9fbf72f0"
+  },
+  {
+    "path": "intermediate-not-acceptance/pytest-before-visible-gap.txt",
+    "bytes": 3306,
+    "sha256": "6492d5f6899558b2b0b9937777e4a5100291e0906a610f21a51d0dca7e76fe27"
+  },
+  {
+    "path": "intermediate-not-acceptance/pytest-before-visible-gap.xml",
+    "bytes": 277764,
+    "sha256": "bf8e553e6ee2a09c88e2d2b53cd81e41b2c2ba6d9ba6fc1de9fae45800cde1f4"
+  },
+  {
+    "path": "intermediate-not-acceptance/pytest-integration-before-native-fixes.txt",
+    "bytes": 17215,
+    "sha256": "4c5232c6c418fb66ec5da6ee129e3e9811288946559c8242d15f5476e3d6f307"
+  },
+  {
+    "path": "intermediate-not-acceptance/pytest-integration-before-native-fixes.xml",
+    "bytes": 288925,
+    "sha256": "d45abb5fbce367ad4dad50e03d3224309edc3cfc41bd2c2f8f9b658d97278862"
+  },
+  {
+    "path": "intermediate-not-acceptance/source-freeze-before-visible-gap.json",
+    "bytes": 29515,
+    "sha256": "01b9c41d211868852d4cc9ec7ae27235137274e0c26fe4a283b015ccc39cf0a6"
+  },
+  {
+    "path": "intermediate-not-acceptance/source-freeze-integration-before-native-fixes.json",
+    "bytes": 29231,
+    "sha256": "c4f1f310db28ccb7bc00d949e4d853b88c98893e32aa8900f6c16f56a84ab2e2"
+  },
+  {
+    "path": "intermediate-not-acceptance/before-visible-gap-png/native-actual-wide-bus-white-contacts.png",
+    "bytes": 100243,
+    "sha256": "0073ff1e58ba289ab3441cf56dfa5b976c9d613b9916f0eed0507c02640c831f"
+  },
+  {
+    "path": "intermediate-not-acceptance/before-visible-gap-png/native-cf1-connect-10-committed.png",
+    "bytes": 162260,
+    "sha256": "76228908ccb1f862550111ad8d53b33d94671183baf5a340568ebd6c2bb175af"
+  },
+  {
+    "path": "intermediate-not-acceptance/before-visible-gap-png/native-cf1-connect-10-preview.png",
+    "bytes": 181788,
+    "sha256": "a85e51248c1213314e1a07f29912f8087bcdcc70d13c24ef5712571a61c5fd31"
+  },
+  {
+    "path": "intermediate-not-acceptance/before-visible-gap-png/native-cf1-disconnected.png",
+    "bytes": 116706,
+    "sha256": "0114d59a10278d20b7e314a7640a47246e5ed1c0be707937b77e7526d9e5152a"
+  },
+  {
+    "path": "intermediate-not-acceptance/before-visible-gap-png/native-cf1-reject-0_4.png",
+    "bytes": 151464,
+    "sha256": "8b211029e1764b06b78ce46d9946ea55a00bfac504434151f804731a83577402"
+  },
+  {
+    "path": "intermediate-not-acceptance/before-visible-gap-png/native-cf1-reject-110.png",
+    "bytes": 147261,
+    "sha256": "d2cb5175ce5308603e8993f9c19aacb3662041aad7a0989f8e60c375ae63fc85"
+  },
+  {
+    "path": "intermediate-not-acceptance/before-visible-gap-png/native-cleanup-probe.json",
+    "bytes": 7911,
+    "sha256": "747a2855805747c0e8a2a16560b504d3c07074503347b6753a7f16be5a33bed6"
+  },
+  {
+    "path": "intermediate-not-acceptance/before-visible-gap-png/native-crossings-probe.json",
+    "bytes": 1478,
+    "sha256": "afa27f78be4959847ccb286224f84781cceab0a6d70e4162433a65951ead6936"
+  },
+  {
+    "path": "intermediate-not-acceptance/before-visible-gap-png/native-legacy-whole-line-committed.png",
+    "bytes": 91030,
+    "sha256": "ffeddb786b306df281f01f497ba2afb06a29f71a26e589a394879dc712a6def7"
+  },
+  {
+    "path": "intermediate-not-acceptance/before-visible-gap-png/native-legacy-whole-line-preview.png",
+    "bytes": 90636,
+    "sha256": "8e1ee4f1f7b1ba63055b6ab84f5bd5543f77f3cc2ad4856cc4ad557eb55b085b"
+  },
+  {
+    "path": "intermediate-not-acceptance/before-visible-gap-png/native-new-cable-entered-inspector.png",
+    "bytes": 108337,
+    "sha256": "16633d480bb8412fa5e810a1c19d608fe27b466606a4775580088aca4bdd8831"
+  },
+  {
+    "path": "intermediate-not-acceptance/before-visible-gap-png/native-new-cable-unknown-inspector.png",
+    "bytes": 107033,
+    "sha256": "5c9fedb3febd79485c5593de2e12e18f09811aaba3ac0b0a2db1b750a3450906"
+  },
+  {
+    "path": "intermediate-not-acceptance/before-visible-gap-png/native-new-overhead-entered-inspector.png",
+    "bytes": 107674,
+    "sha256": "1a76958f7971e506fae1cc5719c16d5e043d33afa2e2a7f53a8f15f36f5086aa"
+  },
+  {
+    "path": "intermediate-not-acceptance/before-visible-gap-png/native-new-overhead-unknown-inspector.png",
+    "bytes": 106328,
+    "sha256": "0eb17534927c60c046dd1dc5a6269cf7dcf6dcc2363ba20c1251d26ef68b4d37"
+  },
+  {
+    "path": "intermediate-not-acceptance/before-visible-gap-png/native-wide-bus-crossing-vs-connection-unselected.png",
+    "bytes": 89642,
+    "sha256": "75017c2aaa01c7c777d8cc583df9ff37a443a0acda5ec2e81860f7fd5536eb5e"
+  },
+  {
+    "path": "intermediate-not-acceptance/before-visible-gap-png/native-wide-bus-crossing-vs-connection.png",
+    "bytes": 112293,
+    "sha256": "1bea3a3f2320b25d88ad188a8d5d07ceb374ad4408549dbda1e0e56ac66831ac"
+  },
+  {
+    "path": "intermediate-not-acceptance/failed-attempt-1939/native-cf1-connect-10-preview.png",
+    "bytes": 182016,
+    "sha256": "a075faba12ccde8a5842a48cd441b498e390c71b69c17dbadf1a805ff3f6adf1"
+  },
+  {
+    "path": "intermediate-not-acceptance/failed-attempt-1939/native-cf1-disconnected.png",
+    "bytes": 116731,
+    "sha256": "3b2d4757f400c512504160287ecaf9b391273a9e709420812e4b1c1f441a903b"
+  },
+  {
+    "path": "intermediate-not-acceptance/failed-attempt-1939/native-cf1-reject-0_4.png",
+    "bytes": 151608,
+    "sha256": "82fc52603e02de533c6dd1c4a0a37acf4d3ff33fd639c3bce28d8d27b1e077ca"
+  },
+  {
+    "path": "intermediate-not-acceptance/failed-attempt-1939/native-cf1-reject-110.png",
+    "bytes": 147801,
+    "sha256": "e4b7080daed1c262226d5ca5a2863fe9babbb5d16dcd845be33e15492cf19735"
+  },
+  {
+    "path": "intermediate-not-acceptance/failed-attempt-1939/native-cleanup-failure.json",
+    "bytes": 5559,
+    "sha256": "ac5ecf264ebfa569570af846b8707e9a9d339d0594514240047a3e36f3c62fe7"
+  },
+  {
+    "path": "intermediate-not-acceptance/failed-attempt-1939/native-cleanup-unaffected-failure.json",
+    "bytes": 8535,
+    "sha256": "9bc75b9ab0ac1c814d0f141019b0c4dfca5cede3d988babd64bfdc9ee1cd31b4"
+  },
+  {
+    "path": "intermediate-not-acceptance/failed-attempt-1939/native-crossings-failure.json",
+    "bytes": 417,
+    "sha256": "4d14bd24a8d56d3570915ccea070a26bf0d2f7d06e081bb08f1c25a10b0767d1"
+  },
+  {
+    "path": "intermediate-not-acceptance/failed-attempt-1939/native-legacy-whole-line-committed.png",
+    "bytes": 105718,
+    "sha256": "231b31731df9d24150ed233997d05314c12145c2c473520d77d176ffe33c0236"
+  },
+  {
+    "path": "intermediate-not-acceptance/failed-attempt-1939/native-legacy-whole-line-preview.png",
+    "bytes": 93262,
+    "sha256": "d4f2292b17d3484307739218b474b90017ea6d8b39df891889e67738af45868c"
+  },
+  {
+    "path": "intermediate-not-acceptance/failed-attempt-1939/native-new-overhead-unknown-inspector.png",
+    "bytes": 117358,
+    "sha256": "ed9caa36acc23087399b65dc10f1a8782321b31043fdbdb51e28b0c96bca6c42"
+  },
+  {
+    "path": "intermediate-not-acceptance/failed-attempt-1939/native-wide-bus-crossing-vs-connection-unselected.png",
+    "bytes": 89770,
+    "sha256": "66b6ba84b36cb1b6b7e51a7b29de1cbcadd2f835b02be83010c717a36d8719c6"
+  },
+  {
+    "path": "intermediate-not-acceptance/failed-attempt-1939/native-wide-bus-crossing-vs-connection.png",
+    "bytes": 112429,
+    "sha256": "c59fa933169b4cdfd0d76943d11b13abd2606b33a3706684f1fb4763b5a5fd09"
+  }
+]

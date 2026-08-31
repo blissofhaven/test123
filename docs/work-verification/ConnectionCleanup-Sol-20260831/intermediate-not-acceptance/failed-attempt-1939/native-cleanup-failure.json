@@ -1,0 +1,87 @@
+{
+  "exception": "Traceback (most recent call last):\n  File \"C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native_cleanup_probe.py\", line 164, in <module>\n    assert tuple((p.x, p.y) for p in connected.waypoints) == preview\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+  "errors": [
+    "Traceback (most recent call last):\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\gui\\editor_panels.py\", line 950, in <lambda>\n    self.canvas.commandCompleted.connect(lambda result: self.refresh())\n                                                        ~~~~~~~~~~~~^^\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\gui\\editor_panels.py\", line 979, in refresh\n    self._update_bottom_panel()\n    ~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\gui\\editor_panels.py\", line 1160, in _update_bottom_panel\n    adapter_available = project is not None and hasattr(\n                                                ~~~~~~~^\n        project, \"adapter_diagnostics\"\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\io\\project.py\", line 556, in __getattribute__\n    object.__getattribute__(self, \"refresh_calculation_view\")()\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\io\\project.py\", line 578, in refresh_calculation_view\n    adaptation = _adapt_project_model_or_blocked(model)\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\io\\project.py\", line 204, in _adapt_project_model_or_blocked\n    return _adapt_project_model(electrical_model)\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\io\\project.py\", line 181, in _adapt_project_model\n    return adapt_to_calculation(electrical_model, snapshots[0])\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\adapters\\legacy_calculation.py\", line 1731, in adapt_to_calculation\n    net.add_branch(branch)\n    ~~~~~~~~~~~~~~^^^^^^^^\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\core\\model.py\", line 379, in add_branch\n    raise ValueError(\n    ...<2 lines>...\n    )\nValueError: Ветвь «КТП Ф-1 630 кВ·А (Центральная)»: узел установки ТТ 'CF1_end' должен быть одним из концов ветви и не может быть GRID.\n"
+  ],
+  "frames": [
+    {
+      "phase": "native-cf1-disconnected",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native-cf1-disconnected.png",
+      "fingerprint": "eeb8f64ccc77ab6e813b0c0eefde0a52978a92538d45ecfc3c7eb8f1021dc696",
+      "journal": 1,
+      "port_id": "port_e6f4ac02723c5144b9ab9aa30de5afb1",
+      "deleted_route": "route_4e2733fa23014708bc4d8522fca2f402",
+      "nominal_kv": 10,
+      "tail_route_removed": true
+    },
+    {
+      "phase": "native-cf1-reject-0_4",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native-cf1-reject-0_4.png",
+      "fingerprint": "eeb8f64ccc77ab6e813b0c0eefde0a52978a92538d45ecfc3c7eb8f1021dc696",
+      "journal": 1,
+      "message": "Соединение запрещено: несовместимые классы напряжения — 10 кВ и 0,4 кВ."
+    },
+    {
+      "phase": "native-cf1-reject-110",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native-cf1-reject-110.png",
+      "fingerprint": "eeb8f64ccc77ab6e813b0c0eefde0a52978a92538d45ecfc3c7eb8f1021dc696",
+      "journal": 1,
+      "message": "Соединение запрещено: несовместимые классы напряжения — 10 кВ и 110 кВ."
+    },
+    {
+      "phase": "native-cf1-connect-10-preview",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native-cf1-connect-10-preview.png",
+      "fingerprint": "eeb8f64ccc77ab6e813b0c0eefde0a52978a92538d45ecfc3c7eb8f1021dc696",
+      "journal": 1,
+      "white_point": [
+        1780.0,
+        -410.0
+      ],
+      "bus_axis": -410.0
+    }
+  ],
+  "actions": [
+    {
+      "scenario": "actual-CF1-preview-commit-diagnostic",
+      "preview": [
+        [
+          1800.0,
+          254.0
+        ],
+        [
+          1800.0,
+          236.0
+        ],
+        [
+          1780.0,
+          236.0
+        ],
+        [
+          1780.0,
+          -410.0
+        ]
+      ],
+      "commit": [
+        [
+          1800.0,
+          254.0
+        ],
+        [
+          1800.0,
+          242.0
+        ],
+        [
+          1779.9999982,
+          242.0
+        ],
+        [
+          1779.9999982,
+          -410.0
+        ]
+      ],
+      "bus_fraction_preview": "0.01694915",
+      "bus_fraction_commit": "0.01694915"
+    }
+  ],
+  "source_unchanged": true
+}

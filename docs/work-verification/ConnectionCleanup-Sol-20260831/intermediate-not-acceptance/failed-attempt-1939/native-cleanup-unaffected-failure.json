@@ -1,0 +1,86 @@
+{
+  "exception": "Traceback (most recent call last):\n  File \"C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native_cleanup_probe.py\", line 175, in <module>\n    owner = next(item for item in canvas.scene._items_by_id.values() if item._name == \"ВЛ-110 Северная — Южная (резерв)\")\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native_cleanup_probe.py\", line 112, in inspector_value\n    raise AssertionError(key)\nAssertionError: line.length_m\n",
+  "errors": [
+    "Операция не выполнена: Тип 'compat.rza_calc.line': неизвестные свойства ['conductor_mark']."
+  ],
+  "frames": [
+    {
+      "phase": "native-legacy-whole-line-preview",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native-legacy-whole-line-preview.png",
+      "fingerprint": "b275e47230495c199e8c4ad0158838af0f3a3c14a2767fc85a98bbe7a1164445",
+      "journal": 0,
+      "owner": "representation_bc0faf3ba8934732a390d3dbd3233828",
+      "grabbed_route": "route_85ecb4d8f23b4ef79e4707a6cd905aa3",
+      "electrical_fingerprint_preserved": true
+    },
+    {
+      "phase": "native-legacy-whole-line-committed",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native-legacy-whole-line-committed.png",
+      "fingerprint": "b275e47230495c199e8c4ad0158838af0f3a3c14a2767fc85a98bbe7a1164445",
+      "journal": 1,
+      "same_owner": true,
+      "arrow_not_separate": true
+    },
+    {
+      "phase": "native-new-overhead-unknown-inspector",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native-new-overhead-unknown-inspector.png",
+      "fingerprint": "2432d4fb11e6c696edc47bdb2c0535040fb0b776889104939c38d2394131644b",
+      "journal": 5,
+      "no_modal": true,
+      "length_mm": null,
+      "route": "route_12dfbf9367cb4489b4b7249fa29d16c0",
+      "section": "eq_0a75efcf3bed494180622c52c9bd39a5"
+    }
+  ],
+  "actions": [
+    {
+      "scenario": "Legacy whole VL by incident stroke",
+      "undo_restores_original": true,
+      "owner": "representation_bc0faf3ba8934732a390d3dbd3233828"
+    },
+    {
+      "scenario": "before-native-edit",
+      "selected_reps": [],
+      "selected_routes": [
+        "route_12dfbf9367cb4489b4b7249fa29d16c0"
+      ],
+      "scene_reps": [],
+      "scene_routes": [
+        "route_12dfbf9367cb4489b4b7249fa29d16c0"
+      ]
+    },
+    {
+      "scenario": "selection-event",
+      "ids": [
+        "representation_bc0faf3ba8934732a390d3dbd3233828"
+      ],
+      "stack": "  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\gui\\editor_panels.py\", line 539, in _item_changed\n    self.propertyEdited.emit(str(key), value)\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\gui\\editor_panels.py\", line 1439, in _edit_property\n    self._edit_physical_line_property(key, value)\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\gui\\editor_panels.py\", line 1553, in _edit_physical_line_property\n    self.canvas.commandCompleted.emit(result)\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\gui\\editor_panels.py\", line 950, in <lambda>\n    self.canvas.commandCompleted.connect(lambda result: self.refresh())\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\gui\\editor_panels.py\", line 975, in refresh\n    self.canvas.refresh()\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\gui\\editor_scene.py\", line 7073, in refresh\n    self._restore_workspace_settings()\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\gui\\editor_scene.py\", line 8532, in _restore_workspace_settings\n    self.view.restore_viewport(desired)\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\gui\\editor_scene.py\", line 6056, in restore_viewport\n    self.resetTransform()\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\gui\\editor_scene.py\", line 5594, in mouseMoveEvent\n    super().mouseMoveEvent(event)\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\gui\\editor_scene.py\", line 1384, in sceneEvent\n    return super().sceneEvent(event)\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\gui\\editor_scene.py\", line 3430, in _selection_changed\n    self.representationSelectionChanged.emit(self.selected_representation_ids())\n  File \"C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native_cleanup_probe.py\", line 172, in <lambda>\n    \"unchanged_port\": port_id.value, \"undo_restores_original\": True})\n"
+    },
+    {
+      "scenario": "selection-event",
+      "ids": [
+        "representation_bc0faf3ba8934732a390d3dbd3233828"
+      ],
+      "stack": "  File \"C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native_unaffected_probe.py\", line 11, in <module>\n    exec(compile(source, str(script), \"exec\"))\n  File \"C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native_cleanup_probe.py\", line 173, in <module>\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\gui\\editor_panels.py\", line 538, in _item_changed\n    item.setBackground(1, QColor(Qt.GlobalColor.transparent))\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\gui\\editor_panels.py\", line 539, in _item_changed\n    self.propertyEdited.emit(str(key), value)\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\gui\\editor_panels.py\", line 1439, in _edit_property\n    self._edit_physical_line_property(key, value)\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\gui\\editor_panels.py\", line 1554, in _edit_physical_line_property\n    self.refresh()\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\gui\\editor_panels.py\", line 975, in refresh\n    self.canvas.refresh()\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\gui\\editor_scene.py\", line 7072, in refresh\n    self.scene.select_representations(selected)\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\gui\\editor_scene.py\", line 3375, in select_representations\n    self._set_object_selection(\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\gui\\editor_scene.py\", line 3389, in _set_object_selection\n    self._selection_changed()\n  File \"C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\gui\\editor_scene.py\", line 3430, in _selection_changed\n    self.representationSelectionChanged.emit(self.selected_representation_ids())\n  File \"C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\connection-cleanup-20260831\\native_cleanup_probe.py\", line 172, in <lambda>\n    \"unchanged_port\": port_id.value, \"undo_restores_original\": True})\n"
+    },
+    {
+      "scenario": "propertyEdited-return",
+      "key": "equipment.property.conductor_mark",
+      "selected_reps": [
+        "representation_bc0faf3ba8934732a390d3dbd3233828"
+      ],
+      "selected_routes": [],
+      "journal": 6
+    },
+    {
+      "scenario": "propertyEdited-return",
+      "key": "equipment.property.conductor_mark",
+      "selected_reps": [
+        "representation_bc0faf3ba8934732a390d3dbd3233828"
+      ],
+      "selected_routes": [],
+      "journal": 6
+    }
+  ],
+  "source_unchanged": true
+}

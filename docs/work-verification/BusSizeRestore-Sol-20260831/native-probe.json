@@ -1,0 +1,23 @@
+{
+  "platform": "windows",
+  "automated_not_manual": true,
+  "old_symbol_exact_match": true,
+  "old_symbol_size_cases": 5,
+  "white_contacts": 5,
+  "electrical_fingerprint": "b275e47230495c199e8c4ad0158838af0f3a3c14a2767fc85a98bbe7a1164445",
+  "demo_sha256": "6bebd1052a76a17070393bf46ceaa776141d0bc58a3c6884f6e993547bee2215",
+  "project_file_unchanged": true,
+  "qt_callback_errors": [],
+  "frames": [
+    {
+      "file": "native-thin-bus.png",
+      "selected": false,
+      "sha256": "4b44bfcf3a6b6f3096f26b88019fad368a79bfdcc2fcd2738e0190d0ae41de37"
+    },
+    {
+      "file": "native-thin-bus-selected.png",
+      "selected": true,
+      "sha256": "772efa09274efab2c987d91b27616c8d94df595703a264ebed7f9a4ebd24e821"
+    }
+  ]
+}

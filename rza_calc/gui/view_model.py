@@ -1,0 +1,619 @@
+# -*- coding: utf-8 -*-
+"""Подготовка данных проекта для GUI без зависимости от PySide6.
+
+Этот слой намеренно не содержит виджетов. Поэтому интерфейс можно менять,
+не затрагивая расчётное ядро, а преобразование данных проверяется обычными
+автоматическими тестами даже на машине без графической библиотеки.
+"""
+from __future__ import annotations
+
+from copy import deepcopy
+from dataclasses import asdict, dataclass, fields, is_dataclass
+from pathlib import Path
+from typing import Any, Iterable
+
+from ..core.engine import CalculationInputError, ProjectResult, run
+from ..core.model import GeneratorBranch, Mode
+from ..core.result import FAIL, OK, UNRESOLVED
+from ..io.project import ProjectData, load_project
+
+
+KIND_RU = {
+    "generator": "Генератор",
+    "source": "Питающая система",
+    "transformer": "Трансформатор",
+    "line": "Линия",
+    "tie": "Коммутационный аппарат",
+    "bus": "Шины",
+    "point": "Расчётная точка",
+    "load": "Нагрузка",
+    "power_plant": "Электростанция",
+    "substation": "Подстанция",
+    "switching_station": "Распределительный пункт",
+    "ktp": "КТП",
+}
+
+FIELD_RU = {
+    "id": "Идентификатор",
+    "name": "Наименование",
+    "kind": "Тип",
+    "u_nom": "Номинальное напряжение",
+    "node_from": "Начальный узел",
+    "node_to": "Конечный узел",
+    "section": "Секция",
+    "switchable": "Коммутируемый",
+    "normally_closed": "Нормальное состояние",
+    "ct_ratio": "Коэффициент ТТ",
+    "ct_node": "Место установки ТТ",
+    "terminal": "Терминал РЗА",
+    "breaker_t_off": "Время отключения выключателя",
+    "p_nom": "Активная мощность",
+    "s_nom": "Полная мощность",
+    "cos_phi": "cos φ",
+    "xd2": "x″d",
+    "u_hv": "Напряжение ВН",
+    "u_mv": "Напряжение СН",
+    "u_lv": "Напряжение НН",
+    "uk": "Напряжение КЗ",
+    "length_km": "Длина",
+    "brand": "Марка",
+    "section_mm2": "Сечение",
+    "p_kw": "Активная мощность",
+    "note": "Примечание",
+}
+
+
+@dataclass(frozen=True)
+class TreeEntry:
+    """Один пункт дерева навигации."""
+
+    key: str
+    title: str
+    kind: str
+    children: tuple["TreeEntry", ...] = ()
+    subtitle: str = ""
+
+
+@dataclass(frozen=True)
+class GeneratorStatus:
+    branch_id: str
+    name: str
+    power_mw: float
+    enabled: bool
+
+
+@dataclass(frozen=True)
+class PropertyRow:
+    label: str
+    value: str
+
+
+@dataclass(frozen=True)
+class SettingRow:
+    kind: str
+    current: str
+    time: str
+    mode: str
+    status: str
+
+
+@dataclass(frozen=True)
+class FaultRow:
+    mode_id: str
+    mode_name: str
+    i3_ka: float | None
+    i2_ka: float | None
+    error: str = ""
+
+
+def _fmt_number(value: float, digits: int = 2) -> str:
+    text = f"{value:.{digits}f}".rstrip("0").rstrip(".")
+    return text.replace(".", ",")
+
+
+def _human_value(name: str, value: Any) -> str:
+    if value is None or value == "":
+        return "—"
+    if isinstance(value, bool):
+        return "Да" if value else "Нет"
+    if name == "kind":
+        return KIND_RU.get(str(value), str(value))
+    if name == "normally_closed":
+        return "Включён" if value else "Отключён"
+    if name == "ct_ratio" and isinstance(value, (list, tuple)) and len(value) == 2:
+        return f"{_fmt_number(float(value[0]))} / {_fmt_number(float(value[1]))} А"
+    if isinstance(value, float):
+        suffix = {
+            "u_nom": " кВ", "u_hv": " кВ", "u_mv": " кВ", "u_lv": " кВ",
+            "length_km": " км", "section_mm2": " мм²", "p_kw": " кВт",
+            "p_nom": " МВт", "s_nom": " кВА", "breaker_t_off": " с",
+            "uk": " %",
+        }.get(name, "")
+        return _fmt_number(value) + suffix
+    if isinstance(value, (list, tuple)):
+        return ", ".join(str(item) for item in value)
+    if isinstance(value, dict):
+        return "; ".join(f"{key}: {val}" for key, val in value.items()) or "—"
+    return str(value)
+
+
+class ProjectViewModel:
+    """Состояние открытого проекта и представление данных для окна."""
+
+    def __init__(self, project: ProjectData, path: str | Path):
+        self.project = project
+        self.path = Path(path)
+        self.result: ProjectResult | None = None
+        self.calculation_error = ""
+        self.selected_kind = "node"
+        self.selected_id = next(iter(self.net.nodes), "")
+        self._enable_switching()
+        self.mode_id = self._preferred_mode()
+        self._custom_base = self.mode_id
+        self.recalculate()
+
+    @property
+    def net(self):
+        """Всегда возвращать актуальный расчётный view проекта.
+
+        UI не владеет сохранённой mutable-ссылкой на ``core.Network``: после
+        редактирования canonical ElectricalModel проект сам перестраивает
+        совместимое расчётное представление.
+
+        Пользовательский режим и признак коммутируемости живут только в этом
+        производном представлении, поэтому при каждом его перестроении они
+        восстанавливаются здесь. Иначе набранный вручную состав аппаратов
+        («открыл СВ, вывел Т2») молча исчезал после любой правки схемы, а
+        `mode_id` продолжал указывать на несуществующий режим.
+        """
+        network = self.project.network
+        if network is not self.__dict__.get("_applied_network"):
+            self.__dict__["_applied_network"] = network
+            self._enable_switching()
+            custom = self.__dict__.get("_custom_mode")
+            if custom is not None and custom.id not in network.modes:
+                try:
+                    network.add_mode(custom)
+                except ValueError:
+                    pass
+        return network
+
+    @classmethod
+    def open(cls, path: str | Path) -> "ProjectViewModel":
+        return cls(load_project(path), path)
+
+    def _preferred_mode(self) -> str:
+        if "max" in self.net.modes:
+            return "max"
+        return next(iter(self.net.modes), "")
+
+    @property
+    def mode(self) -> Mode | None:
+        return self.net.modes.get(self.mode_id)
+
+    def select_mode(self, mode_id: str) -> None:
+        if mode_id not in self.net.modes:
+            raise KeyError(f"Режим '{mode_id}' не найден.")
+        self.mode_id = mode_id
+        if mode_id != "gui_custom":
+            self._custom_base = mode_id
+
+    def ensure_custom_mode(self) -> Mode:
+        """Создать пользовательский режим в памяти из текущего режима."""
+        existing = self.net.modes.get("gui_custom")
+        if existing is not None:
+            self.__dict__["_custom_mode"] = existing
+            self.mode_id = existing.id
+            return existing
+        base = self.net.modes.get(self._custom_base) or self.mode
+        states = deepcopy(base.states) if base else {}
+        custom = Mode(
+            id="gui_custom",
+            name="Пользовательский",
+            states=states,
+            system=base.system if base else "max",
+            description="Пользовательский состав оборудования (пока только в памяти).",
+        )
+        self.net.add_mode(custom)
+        # Запомнить объект режима: расчётный view пересобирается при каждой
+        # правке канонической модели, и режим нужно вернуть в новый Network.
+        self.__dict__["_custom_mode"] = custom
+        self.mode_id = custom.id
+        return custom
+
+    def set_generator_enabled(self, branch_id: str, enabled: bool) -> None:
+        branch = self.net.branches.get(branch_id)
+        if not isinstance(branch, GeneratorBranch):
+            raise KeyError(f"Генератор '{branch_id}' не найден.")
+        custom = self.ensure_custom_mode()
+        custom.states[branch_id] = bool(enabled)
+
+    # ---------- карта электрических состояний ----------
+    def electrical_map(self):
+        """Единственный источник истины о напряжении и токах для схемы."""
+        from ..core.electrical import build_electrical_map
+        mode = self.mode
+        if mode is None:
+            return None
+        solver = None
+        if self.result is not None:
+            solver = self.result.ctx.solvers.get(mode.id)
+        currents = {}
+        if self.result is not None:
+            for branch_id, rows in self.result.results.items():
+                for item in rows.values():
+                    value = getattr(item, "i_work", None)
+                    if value is not None:
+                        currents[branch_id] = float(value)
+                        break
+        return build_electrical_map(self.net, mode, solver, currents)
+
+    def switch_closed(self, switch_id: str) -> bool:
+        from ..core.electrical import collect_switches, switch_closed
+        switches = collect_switches(self.net)
+        switch = switches.get(switch_id)
+        if switch is None or self.mode is None:
+            return False
+        return switch_closed(switch, self.net.branches[switch.branch_id], self.mode)
+
+    def toggle_switch(self, switch_id: str) -> bool:
+        """Транзакционное переключение аппарата.
+
+        Состояние меняется в пользовательском режиме, затем сеть пересчитывается.
+        Если расчёт не проходит, изменение откатывается и поднимается ошибка —
+        смешанного состояния «новые положения со старыми токами» не возникает.
+        """
+        from ..core.model import parse_switch_id
+        parsed = parse_switch_id(switch_id)
+        if parsed is None or parsed[0] not in self.net.branches:
+            raise KeyError(f"Выключатель '{switch_id}' не найден.")
+        branch = self.net.branches[parsed[0]]
+        if not getattr(branch, "switchable", False):
+            raise ValueError(
+                f"«{branch.name}»: состояние выключателя не хранится в модели, "
+                "переключить его нельзя."
+            )
+        custom = self.ensure_custom_mode()
+        had_key = switch_id in custom.states
+        previous = custom.states.get(switch_id)
+        new_state = not self.switch_closed(switch_id)
+        custom.states[switch_id] = new_state
+        if not self.recalculate():
+            if had_key:
+                custom.states[switch_id] = previous
+            else:
+                custom.states.pop(switch_id, None)
+            error = self.calculation_error
+            self.recalculate()
+            raise ValueError(error or "Расчёт не выполнен, переключение отменено.")
+        return new_state
+
+    def set_branch_enabled(self, branch_id: str, enabled: bool) -> None:
+        """Переключить любое коммутируемое присоединение из схемы."""
+        branch = self.net.branches.get(branch_id)
+        if branch is None:
+            raise KeyError(f"Присоединение '{branch_id}' не найдено.")
+        if not getattr(branch, "switchable", False):
+            raise ValueError(
+                f"«{branch.name}» не является коммутируемым: у присоединения "
+                "не задан выключатель."
+            )
+        custom = self.ensure_custom_mode()
+        custom.states[branch_id] = bool(enabled)
+
+    def toggle_branch(self, branch_id: str) -> bool:
+        """Инвертировать состояние присоединения. Возвращает новое состояние."""
+        branch = self.net.branches[branch_id]
+        mode = self.mode
+        closed = mode.is_closed(branch) if mode else branch.normally_closed
+        self.set_branch_enabled(branch_id, not closed)
+        return not closed
+
+    def is_branch_closed(self, branch_id: str) -> bool:
+        branch = self.net.branches.get(branch_id)
+        if branch is None:
+            return False
+        mode = self.mode
+        return mode.is_closed(branch) if mode else branch.normally_closed
+
+    def _enable_switching(self) -> None:
+        """Присоединение, у которого на схеме есть выключатель, коммутируемо.
+
+        В файлах формата 1 у линий и трансформаторов признак не проставлен,
+        поэтому ядро отказывалось принимать их состояние в режиме. Признак
+        выставляется по наличию паспортных данных выключателя и сохраняется
+        в проект при следующей записи.
+        """
+        for branch in self.net.branches.values():
+            if getattr(branch, "switchable", False):
+                continue
+            if not (getattr(branch, "breaker_t_off", None)
+                    or getattr(branch, "ct_ratio", None)):
+                continue
+            try:
+                branch.switchable = True
+            except Exception:
+                continue
+            if getattr(branch, "normally_closed", None) is None:
+                branch.normally_closed = True
+
+    def recalculate(self) -> bool:
+        blockers = self.project.calculation_blockers
+        if blockers:
+            self.result = None
+            details = "\n".join(
+                "• " + self.project.calculation_blocker_message(item)
+                for item in blockers[:8]
+            )
+            self.calculation_error = (
+                "Расчёт заблокирован: электрическая схема содержит "
+                "незавершённые или недопустимые подключения.\n" + details
+            )
+            return False
+        try:
+            current_network = self.project.network
+            self.result = run(current_network, self.project.methodology)
+            self.calculation_error = ""
+            return True
+        except CalculationInputError as exc:
+            self.result = None
+            self.calculation_error = str(exc)
+            return False
+        except Exception as exc:  # GUI должен показать ошибку, а не закрыться
+            self.result = None
+            self.calculation_error = f"Ошибка расчёта: {exc}"
+            return False
+
+    # ---------- верхняя панель ----------
+    def mode_choices(self) -> list[tuple[str, str]]:
+        return [(mode.id, mode.name) for mode in self.net.modes.values()
+                if mode.id != "gui_custom"]
+
+    def generators(self) -> list[GeneratorStatus]:
+        mode = self.mode
+        rows = []
+        for branch in self.net.branches.values():
+            if not isinstance(branch, GeneratorBranch):
+                continue
+            rows.append(GeneratorStatus(
+                branch.id,
+                branch.name,
+                float(branch.p_nom or 0.0),
+                mode.is_closed(branch) if mode else branch.normally_closed,
+            ))
+        return rows
+
+    def total_generation_mw(self) -> float:
+        return sum(item.power_mw for item in self.generators() if item.enabled)
+
+    # ---------- дерево ----------
+    def tree(self) -> tuple[TreeEntry, ...]:
+        if self.project.structure.facilities:
+            return tuple(self._facility_entry(item.id)
+                         for item in self.project.structure.root_facilities())
+        return (self._calculation_tree(),)
+
+    def _facility_entry(self, facility_id: str) -> TreeEntry:
+        structure = self.project.structure
+        obj = structure.facilities[facility_id]
+        children: list[TreeEntry] = []
+        children.extend(self._facility_entry(child.id)
+                        for child in structure.child_facilities(facility_id))
+        for level in structure.levels_of(facility_id):
+            level_children: list[TreeEntry] = []
+            for section in structure.sections_of(level.id):
+                level_children.append(TreeEntry(
+                    f"node:{section.calculation_node_id}" if section.calculation_node_id
+                    else f"section:{section.id}",
+                    section.name,
+                    "node" if section.calculation_node_id else "section",
+                ))
+            for bay in structure.bays_of(level.id):
+                equipment = tuple(TreeEntry(
+                    self._equipment_key(item), item.name, "equipment"
+                ) for item in structure.equipment_in_bay(bay.id))
+                level_children.append(TreeEntry(f"bay:{bay.id}", bay.name, "bay", equipment))
+            children.append(TreeEntry(
+                f"level:{level.id}", level.name, "level", tuple(level_children),
+                f"{_fmt_number(level.u_nom)} кВ",
+            ))
+        return TreeEntry(
+            f"facility:{obj.id}", obj.name, "facility", tuple(children),
+            KIND_RU.get(obj.kind, obj.kind),
+        )
+
+    def _equipment_key(self, equipment: Any) -> str:
+        for ref in equipment.calculation_refs:
+            if ref.kind in ("branch", "node", "load"):
+                return f"{ref.kind}:{ref.object_id}"
+        return f"equipment:{equipment.id}"
+
+    def _calculation_tree(self) -> TreeEntry:
+        """Честное резервное дерево для старого v1 без физической структуры."""
+        generators = [self._branch_entry(b) for b in self.net.branches.values()
+                      if b.kind == "generator"]
+        transformers = [self._branch_entry(b) for b in self.net.branches.values()
+                        if b.kind == "transformer"]
+        lines = [self._branch_entry(b) for b in self.net.branches.values()
+                 if b.kind == "line"]
+        switches = [self._branch_entry(b) for b in self.net.branches.values()
+                    if b.kind == "tie"]
+        levels: list[TreeEntry] = []
+        voltages = sorted({node.u_nom for node in self.net.nodes.values()}, reverse=True)
+        for voltage in voltages:
+            nodes = tuple(TreeEntry(
+                f"node:{node.id}", node.name, "node",
+                subtitle=f"{_fmt_number(node.u_nom)} кВ",
+            ) for node in self.net.nodes.values() if node.u_nom == voltage)
+            levels.append(TreeEntry(
+                f"voltage:{voltage}", f"Шины и точки {_fmt_number(voltage)} кВ",
+                "group", nodes,
+            ))
+        loads = tuple(TreeEntry(
+            f"load:{item.id}", item.name, "load", subtitle=f"{_fmt_number(item.p_kw)} кВт"
+        ) for item in self.net.loads.values())
+        groups = [
+            TreeEntry("group:generators", "Генераторные установки", "group", tuple(generators)),
+            TreeEntry("group:levels", "Уровни напряжения", "group", tuple(levels)),
+            TreeEntry("group:transformers", "Трансформаторы", "group", tuple(transformers)),
+            TreeEntry("group:lines", "Линии и фидеры", "group", tuple(lines)),
+            TreeEntry("group:switches", "Вводы и секционные связи", "group", tuple(switches)),
+            TreeEntry("group:loads", "Нагрузки", "group", loads),
+        ]
+        return TreeEntry("project:root", self.net.name, "project", tuple(groups),
+                         "Расчётная схема v1")
+
+    @staticmethod
+    def _branch_entry(branch: Any) -> TreeEntry:
+        subtitle = KIND_RU.get(branch.kind, branch.kind)
+        return TreeEntry(f"branch:{branch.id}", branch.name, "branch", subtitle=subtitle)
+
+    # ---------- выбранный объект ----------
+    def select(self, kind: str, object_id: str) -> None:
+        if kind == "node" and object_id in self.net.nodes:
+            self.selected_kind, self.selected_id = kind, object_id
+        elif kind == "branch" and object_id in self.net.branches:
+            self.selected_kind, self.selected_id = kind, object_id
+        elif kind == "load" and object_id in self.net.loads:
+            self.selected_kind, self.selected_id = kind, object_id
+
+    def selected_object(self) -> Any | None:
+        stores = {
+            "node": self.net.nodes,
+            "branch": self.net.branches,
+            "load": self.net.loads,
+        }
+        return stores.get(self.selected_kind, {}).get(self.selected_id)
+
+    def selection_title(self) -> str:
+        obj = self.selected_object()
+        return getattr(obj, "name", self.net.name)
+
+    def properties(self) -> list[PropertyRow]:
+        obj = self.selected_object()
+        if obj is None:
+            return []
+        if is_dataclass(obj):
+            names = [item.name for item in fields(obj)]
+            values = asdict(obj)
+        else:
+            names = list(vars(obj))
+            values = vars(obj)
+        preferred = [
+            "id", "name", "kind", "u_nom", "node_from", "node_to", "section",
+            "p_nom", "s_nom", "cos_phi", "u_hv", "u_lv", "uk", "length_km",
+            "brand", "section_mm2", "ct_ratio", "ct_node", "terminal",
+            "breaker_t_off", "switchable", "normally_closed", "note",
+        ]
+        order = preferred + [name for name in names if name not in preferred]
+        rows = []
+        for name in order:
+            if name not in values or name == "prot":
+                continue
+            value = values[name]
+            if value in (None, "", [], {}):
+                continue
+            rows.append(PropertyRow(FIELD_RU.get(name, name), _human_value(name, value)))
+        return rows
+
+    # ---------- расчётные результаты ----------
+    def selected_fault_node(self) -> str | None:
+        if self.selected_kind == "node":
+            return self.selected_id
+        if self.selected_kind == "load":
+            load = self.net.loads.get(self.selected_id)
+            return load.node if load else None
+        if self.selected_kind == "branch":
+            branch = self.net.branches.get(self.selected_id)
+            if branch is None:
+                return None
+            mode = self.mode
+            if mode is not None:
+                try:
+                    _, load_end, _ = self.net.orient(branch, mode)
+                    return load_end if load_end != "GRID" else None
+                except Exception:
+                    pass
+            return branch.node_to if branch.node_to != "GRID" else branch.node_from
+        return None
+
+    def fault_rows(self) -> list[FaultRow]:
+        node_id = self.selected_fault_node()
+        if self.result is None or not node_id:
+            return []
+        rows: list[FaultRow] = []
+        for mode in self.net.modes.values():
+            solver = self.result.ctx.solvers.get(mode.id)
+            if solver is None:
+                rows.append(FaultRow(mode.id, mode.name, None, None,
+                                     self.result.ctx.errors.get(mode.id, "Режим не рассчитан")))
+                continue
+            try:
+                sc = solver.at(node_id)
+                rows.append(FaultRow(mode.id, mode.name, sc.i3, sc.i2))
+            except Exception as exc:
+                rows.append(FaultRow(mode.id, mode.name, None, None, str(exc)))
+        return rows
+
+    def setting_rows(self) -> list[SettingRow]:
+        if self.result is None or self.selected_kind != "branch":
+            return []
+        by_kind = self.result.results.get(self.selected_id, {})
+        rows: list[SettingRow] = []
+        for kind in ("МТЗ", "ТО", "ОЗЗ"):
+            item = by_kind.get(kind)
+            if item is None:
+                continue
+            current = "—" if item.i_primary is None else f"{_fmt_number(item.i_primary)} А"
+            time = "—" if item.t is None else f"{_fmt_number(item.t)} с"
+            rows.append(SettingRow(
+                kind, current, time, item.governing_mode or "—", item.status,
+            ))
+        return rows
+
+    def selected_checks(self) -> list[tuple[str, str, str]]:
+        if self.result is None or self.selected_kind != "branch":
+            return []
+        rows: list[tuple[str, str, str]] = []
+        for protection in self.result.results.get(self.selected_id, {}).values():
+            for check in protection.checks:
+                value = "—" if check.value is None else _fmt_number(check.value)
+                rows.append((f"{protection.kind}: {check.name}", value, check.status))
+        return rows
+
+    def status_counts(self) -> dict[str, int]:
+        counts = {OK: 0, FAIL: 0, UNRESOLVED: 0}
+        if self.result is None:
+            counts[UNRESOLVED] = 1
+            return counts
+        for item in self.result.all_results():
+            counts[item.status] = counts.get(item.status, 0) + 1
+        return counts
+
+    def warnings(self) -> list[str]:
+        if self.calculation_error:
+            return [self.calculation_error]
+        return list(self.result.warnings if self.result else [])
+
+    def report_text(self) -> str:
+        """Короткая сводка для диалога GUI; экспорт файла появится отдельно."""
+        counts = self.status_counts()
+        lines = [
+            self.net.name,
+            f"Проект: {self.path}",
+            f"Режим отображения: {self.mode.name if self.mode else '—'}",
+            "",
+            f"Защит без нарушений: {counts.get(OK, 0)}",
+            f"Защит с нарушениями: {counts.get(FAIL, 0)}",
+            f"Требуют исходных данных: {counts.get(UNRESOLVED, 0)}",
+        ]
+        if self.warnings():
+            lines += ["", "Предупреждения:"] + [f"• {item}" for item in self.warnings()]
+        return "\n".join(lines)
+
+
+def iter_tree(entries: Iterable[TreeEntry]) -> Iterable[TreeEntry]:
+    """Плоский обход дерева, удобный для поиска и тестов."""
+    for entry in entries:
+        yield entry
+        yield from iter_tree(entry.children)

@@ -1,0 +1,37 @@
+{
+  "pid": 27284,
+  "source_sha256": "898d808dff3dbf13bea28ee9fa6d2e21bcc91bb29c5f1e8aa5d11744f69f75af",
+  "unknown_fields_have_no_default": true,
+  "explicit_hv": "110 kV",
+  "explicit_lv": "10 kV",
+  "same_apparatus_port_ids": true,
+  "undo_restores_entire_original_project": true,
+  "project_saved": false,
+  "qt_callback_errors": [],
+  "frames": [
+    {
+      "phase": "native-voltage-unknown",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\direct-connections-20260831\\native-voltage-unknown.png",
+      "inspector_width": 330,
+      "viewport_width": 300,
+      "column_widths": [
+        136,
+        120,
+        44,
+        0
+      ]
+    },
+    {
+      "phase": "native-voltage-hv110-lv10",
+      "png": "C:\\Users\\shock\\Documents\\Codex\\2026-08-30\\c-users-shock-onedrive-desktop-rza\\work\\direct-connections-20260831\\native-voltage-hv110-lv10.png",
+      "inspector_width": 330,
+      "viewport_width": 300,
+      "column_widths": [
+        136,
+        120,
+        44,
+        0
+      ]
+    }
+  ]
+}

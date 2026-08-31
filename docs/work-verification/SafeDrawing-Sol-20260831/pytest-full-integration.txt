@@ -1,0 +1,1107 @@
+........................................................................ [  4%]
+........................................................................ [  8%]
+........................................................................ [ 12%]
+........................................................................ [ 16%]
+........................................................................ [ 21%]
+........................................................................ [ 25%]
+.............FF......................................................... [ 29%]
+........................................................................ [ 33%]
+..........................FF............................................ [ 38%]
+........................................................................ [ 42%]
+........................................................................ [ 46%]
+........................................................................ [ 50%]
+................................FF...........F.......................... [ 55%]
+...................................................F.................... [ 59%]
+........................................................................ [ 63%]
+........................................................................ [ 67%]
+........................................................................ [ 72%]
+...............FF....................................................... [ 76%]
+.......................FFFF..F.........FFFFFFFF......................... [ 80%]
+........................................................................ [ 84%]
+........................................................................ [ 89%]
+........................................................................ [ 93%]
+....F................................................................... [ 97%]
+.........................................                                [100%]
+================================== FAILURES ===================================
+___ test_move_avoids_nonincident_apparatus_body_in_both_preview_and_commit ____
+
+self = <rza_calc.domain.electrical.ElectricalModel object at 0x0000027170732090>
+type_id = EquipmentTypeId(value='builtin.source'), version = 1
+
+    def equipment_type(self, type_id: EquipmentTypeId, version: int = 1
+                       ) -> EquipmentTypeDefinition:
+        try:
+>           return self._equipment_types[(type_id, version)]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           KeyError: (EquipmentTypeId(value='builtin.source'), 1)
+
+rza_calc\domain\electrical.py:1350: KeyError
+
+The above exception was the direct cause of the following exception:
+
+self = <rza_calc.editor.controller.ProjectEditorController object at 0x00000271707A9A30>
+description = 'Добавить оборудование'
+command = <function ProjectEditorController.add_equipment.<locals>.command at 0x0000027170E47C10>
+
+    def _execute(
+        self,
+        description: str,
+        command: Callable[[ProjectDraft], Any],
+    ) -> Any:
+        try:
+>           return self._history.execute(description, command).result
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+rza_calc\editor\controller.py:533: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+rza_calc\editor\history.py:423: in execute
+    result = command(draft)
+             ^^^^^^^^^^^^^^
+rza_calc\editor\controller.py:1594: in command
+    definition = draft.electrical_model.equipment_type(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <rza_calc.domain.electrical.ElectricalModel object at 0x0000027170732090>
+type_id = EquipmentTypeId(value='builtin.source'), version = 1
+
+    def equipment_type(self, type_id: EquipmentTypeId, version: int = 1
+                       ) -> EquipmentTypeDefinition:
+        try:
+            return self._equipment_types[(type_id, version)]
+        except KeyError as exc:
+>           raise DomainInvariantError(
+                f"Тип оборудования '{type_id}' версии {version} не зарегистрирован."
+            ) from exc
+E           rza_calc.domain.electrical.DomainInvariantError: Тип оборудования 'builtin.source' версии 1 не зарегистрирован.
+
+rza_calc\domain\electrical.py:1352: DomainInvariantError
+
+The above exception was the direct cause of the following exception:
+
+    def test_move_avoids_nonincident_apparatus_body_in_both_preview_and_commit():
+>       controller, first, second, route_id = _simple_connection()
+                                              ^^^^^^^^^^^^^^^^^^^^
+
+tests\test_editor_move_planner.py:108: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_editor_move_planner.py:96: in _simple_connection
+    first = controller.add_equipment("builtin.source", "S", x=0, y=0, voltage_class_by_group={"main": U10})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+rza_calc\editor\controller.py:1672: in add_equipment
+    return self._execute(tr("command.add_equipment"), command)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <rza_calc.editor.controller.ProjectEditorController object at 0x00000271707A9A30>
+description = 'Добавить оборудование'
+command = <function ProjectEditorController.add_equipment.<locals>.command at 0x0000027170E47C10>
+
+    def _execute(
+        self,
+        description: str,
+        command: Callable[[ProjectDraft], Any],
+    ) -> Any:
+        try:
+            return self._history.execute(description, command).result
+        except (DomainInvariantError, ProjectHistoryError, RoutingError) as exc:
+>           raise self._raise_user_error(exc) from exc
+E           rza_calc.editor.controller.EditorCommandError: Операция не выполнена: Тип оборудования 'builtin.source' версии 1 не зарегистрирован.
+
+rza_calc\editor\controller.py:535: EditorCommandError
+_________ test_impossible_route_rejects_preview_and_commit_atomically _________
+
+self = <rza_calc.domain.electrical.ElectricalModel object at 0x0000027170731C10>
+type_id = EquipmentTypeId(value='builtin.source'), version = 1
+
+    def equipment_type(self, type_id: EquipmentTypeId, version: int = 1
+                       ) -> EquipmentTypeDefinition:
+        try:
+>           return self._equipment_types[(type_id, version)]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           KeyError: (EquipmentTypeId(value='builtin.source'), 1)
+
+rza_calc\domain\electrical.py:1350: KeyError
+
+The above exception was the direct cause of the following exception:
+
+self = <rza_calc.editor.controller.ProjectEditorController object at 0x000002716E5C8E30>
+description = 'Добавить оборудование'
+command = <function ProjectEditorController.add_equipment.<locals>.command at 0x0000027170E47AB0>
+
+    def _execute(
+        self,
+        description: str,
+        command: Callable[[ProjectDraft], Any],
+    ) -> Any:
+        try:
+>           return self._history.execute(description, command).result
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+rza_calc\editor\controller.py:533: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+rza_calc\editor\history.py:423: in execute
+    result = command(draft)
+             ^^^^^^^^^^^^^^
+rza_calc\editor\controller.py:1594: in command
+    definition = draft.electrical_model.equipment_type(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <rza_calc.domain.electrical.ElectricalModel object at 0x0000027170731C10>
+type_id = EquipmentTypeId(value='builtin.source'), version = 1
+
+    def equipment_type(self, type_id: EquipmentTypeId, version: int = 1
+                       ) -> EquipmentTypeDefinition:
+        try:
+            return self._equipment_types[(type_id, version)]
+        except KeyError as exc:
+>           raise DomainInvariantError(
+                f"Тип оборудования '{type_id}' версии {version} не зарегистрирован."
+            ) from exc
+E           rza_calc.domain.electrical.DomainInvariantError: Тип оборудования 'builtin.source' версии 1 не зарегистрирован.
+
+rza_calc\domain\electrical.py:1352: DomainInvariantError
+
+The above exception was the direct cause of the following exception:
+
+    def test_impossible_route_rejects_preview_and_commit_atomically():
+>       controller, first, second, route_id = _simple_connection()
+                                              ^^^^^^^^^^^^^^^^^^^^
+
+tests\test_editor_move_planner.py:124: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_editor_move_planner.py:96: in _simple_connection
+    first = controller.add_equipment("builtin.source", "S", x=0, y=0, voltage_class_by_group={"main": U10})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+rza_calc\editor\controller.py:1672: in add_equipment
+    return self._execute(tr("command.add_equipment"), command)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <rza_calc.editor.controller.ProjectEditorController object at 0x000002716E5C8E30>
+description = 'Добавить оборудование'
+command = <function ProjectEditorController.add_equipment.<locals>.command at 0x0000027170E47AB0>
+
+    def _execute(
+        self,
+        description: str,
+        command: Callable[[ProjectDraft], Any],
+    ) -> Any:
+        try:
+            return self._history.execute(description, command).result
+        except (DomainInvariantError, ProjectHistoryError, RoutingError) as exc:
+>           raise self._raise_user_error(exc) from exc
+E           rza_calc.editor.controller.EditorCommandError: Операция не выполнена: Тип оборудования 'builtin.source' версии 1 не зарегистрирован.
+
+rza_calc\editor\controller.py:535: EditorCommandError
+____ test_manual_node_is_absent_but_port_connection_still_creates_one_node ____
+
+app = <PySide6.QtWidgets.QApplication(0x2716bcfb610) at 0x000002716E360400>
+
+    def test_manual_node_is_absent_but_port_connection_still_creates_one_node(app):
+        controller = controller_for("automatic-node")
+        first = controller.add_equipment("builtin.load", "Н1", x=100, y=260,
+                                         rotation_deg=90, voltage_class_by_group={"main": U10})
+        second = controller.add_equipment("builtin.load", "Н2", x=500, y=260,
+                                          rotation_deg=90, voltage_class_by_group={"main": U10})
+        workspace = EditorWorkspaceWidget(controller, confirm_deletions=False)
+        workspace.resize(1400, 800)
+        workspace.show()
+        QApplication.processEvents()
+        try:
+            tree = workspace.side_panel.library
+            payloads = []
+            for root_index in range(tree.topLevelItemCount()):
+                category = tree.topLevelItem(root_index)
+                for item_index in range(category.childCount()):
+                    payload = category.child(item_index).data(0, EquipmentLibraryTree.PAYLOAD_ROLE)
+                    if isinstance(payload, dict):
+                        payloads.append(payload)
+            assert not any(payload.get("symbol_key") in {"connection_point", "electrical_node"}
+                           or payload.get("symbol") in {"connection_point", "electrical_node"}
+                           for payload in payloads)
+            assert any(payload.get("symbol_key", payload.get("symbol")) == "busbar"
+                       for payload in payloads)
+            canvas = workspace.canvas
+            canvas.view.actual_size()
+            canvas.view.centerOn(300, 260)
+            first_port = canvas.scene._items_by_id[first.representation_id].port_item(first.port_ids[0])
+            second_port = canvas.scene._items_by_id[second.representation_id].port_item(second.port_ids[0])
+            nodes_before = set(controller.model.electrical_nodes)
+            journal_before = len(controller.journal)
+            canvas.scene.begin_connection(first_port)
+            canvas.scene.update_connection_cursor(second_port.scenePos())
+            assert canvas.scene._connection_target is not None
+            QTest.keyClick(canvas.view, Qt.Key.Key_Return)
+            QApplication.processEvents()
+            new_nodes = set(controller.model.electrical_nodes) - nodes_before
+>           assert len(new_nodes) == 1
+E           assert 0 == 1
+E            +  where 0 = len(set())
+
+tests\test_rotation_handle.py:392: AssertionError
+_ test_bus_rotation_keeps_fractional_connection_point_in_preview_commit_and_undo _
+
+app = <PySide6.QtWidgets.QApplication(0x2716bcfb610) at 0x000002716E360400>
+
+    def test_bus_rotation_keeps_fractional_connection_point_in_preview_commit_and_undo(app):
+        controller = controller_for("bus-fraction")
+        bus = controller.add_electrical_node(
+            "Шины 10 кВ", x=300, y=260, symbol_key="busbar", width=240, height=12,
+            rotation_deg=90, voltage_class_id=U10,
+        )
+        load = controller.add_equipment(
+            "builtin.load", "Нагрузка", x=100, y=420, rotation_deg=180,
+            voltage_class_by_group={"main": U10},
+        )
+        canvas = show_canvas(controller)
+        try:
+            source = canvas.scene._items_by_id[load.representation_id].port_item(load.port_ids[0])
+            canvas.scene.begin_connection(source)
+            canvas.scene.update_connection_cursor(QPointF(300, 320))
+            assert canvas.scene._connection_target.anchor_key == "0.75000000"
+            QTest.keyClick(canvas.view, Qt.Key.Key_Return)
+            QApplication.processEvents()
+>           route = next(iter(controller.diagram.routes.values()))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           StopIteration
+
+tests\test_rotation_handle.py:420: StopIteration
+___ test_canvas_connection_signal_commits_real_project_data_in_one_command ____
+
+    def test_canvas_connection_signal_commits_real_project_data_in_one_command() -> None:
+        _app()
+        controller = _controller()
+        source = controller.add_equipment("builtin.load", "Нагрузка-1", x=0, y=0,
+                                          voltage_class_by_group={"main": _U10})
+        target = controller.add_equipment("builtin.load", "Нагрузка-2", x=180, y=0,
+                                          voltage_class_by_group={"main": _U10})
+        canvas = EditorCanvas(controller)
+        source_port = canvas.scene._items_by_id[source.representation_id].port_item(source.port_ids[0])
+        target_port = canvas.scene._items_by_id[target.representation_id].port_item(target.port_ids[0])
+        assert source_port is not None and target_port is not None
+        journal_before = len(controller.journal)
+    
+        canvas.scene.begin_connection(source_port)
+        canvas.scene.update_connection_cursor(QPointF(60, 80))
+        canvas.scene._connection_tool.add_manual_vertex(60, 80)
+        canvas.scene.update_connection_cursor(target_port.mapToScene(QPointF()))
+        canvas.scene._emit_connection_draft()
+    
+>       assert len(controller.model.connections) == 2
+E       assert 0 == 2
+E        +  where 0 = len(mappingproxy({}))
+E        +    where mappingproxy({}) = <rza_calc.domain.electrical.ElectricalModel object at 0x000002717C3041D0>.connections
+E        +      where <rza_calc.domain.electrical.ElectricalModel object at 0x000002717C3041D0> = <rza_calc.editor.controller.ProjectEditorController object at 0x0000027176549670>.model
+
+tests\test_stage4_editor_interaction.py:296: AssertionError
+_ test_gui_physical_line_tool_creates_logical_line_and_line_section_in_one_command _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000271760814E0>
+
+    def test_gui_physical_line_tool_creates_logical_line_and_line_section_in_one_command(
+        monkeypatch,
+    ) -> None:
+        _app()
+        controller = _controller()
+        start = controller.add_electrical_node("Начало ВЛ", x=0, y=0, voltage_class_id=_U10)
+        end = controller.add_electrical_node("Конец ВЛ", x=300, y=120, voltage_class_id=_U10)
+        canvas = EditorCanvas(controller)
+        monkeypatch.setattr(
+            canvas,
+            "_ask_new_physical_line_parameters",
+            lambda draft: (
+                True,
+                "ВЛ-10 кВ №1",
+                PhysicalLineInput(
+                    1_250_000,
+                    DataConfirmation.CONFIRMED,
+                    impedance_confirmation=DataConfirmation.UNCONFIRMED,
+                ),
+            ),
+        )
+        start_point = canvas.scene._items_by_id[start.representation_id].scenePos()
+        end_point = canvas.scene._items_by_id[end.representation_id].scenePos()
+        history_before = len(controller.journal)
+    
+        assert canvas.scene.begin_physical_line(
+            name="Воздушная линия",
+            line_kind=LineKind.OVERHEAD,
+            scene_pos=start_point,
+        )
+        canvas.scene.update_physical_line_cursor(end_point)
+>       assert canvas.scene.finish_physical_line()
+E       assert False
+E        +  where False = finish_physical_line()
+E        +    where finish_physical_line = <rza_calc.gui.editor_scene.DiagramGraphicsScene(0x27171f771a0) at 0x0000027172DCB180>.finish_physical_line
+E        +      where <rza_calc.gui.editor_scene.DiagramGraphicsScene(0x27171f771a0) at 0x0000027172DCB180> = <rza_calc.gui.editor_scene.EditorCanvas(0x271784cda00) at 0x000002717242D3C0>.scene
+
+tests\test_stage4_editor_interaction.py:341: AssertionError
+______ test_physical_line_endpoint_handle_reconnects_same_branch_and_ids ______
+
+    def test_physical_line_endpoint_handle_reconnects_same_branch_and_ids() -> None:
+        _app()
+        controller = _controller()
+        voltage_id = VoltageClassId("builtin.voltage.ac.10kv")
+        start = controller.add_electrical_node(
+            "Начало", x=0, y=0, voltage_class_id=voltage_id
+        )
+        old_end = controller.add_electrical_node(
+            "Старый конец", x=400, y=0, voltage_class_id=voltage_id
+        )
+        new_end = controller.add_electrical_node(
+            "Новый конец", x=400, y=200, voltage_class_id=voltage_id
+        )
+        line = controller.create_physical_line(
+            "Переподключаемая ВЛ",
+            LineKind.OVERHEAD,
+            NodeTarget(start.node_id),
+            NodeTarget(old_end.node_id),
+            physical=PhysicalLineInput(3_000_000, DataConfirmation.CONFIRMED),
+        )
+        to_port = controller.model.port_by_role(line.section_id, "to").id
+        old_connection = controller.model.connection_for_port(to_port)
+        assert old_connection is not None
+        history_before = len(controller.journal)
+        canvas = EditorCanvas(controller)
+        route_item = canvas.scene._route_items_by_id[line.route_id]
+        route_item.setSelected(True)
+        assert set(route_item._endpoint_handles) == {True, False}
+    
+        assert canvas.scene.begin_route_endpoint_reconnect(
+            line.route_id, at_start=False
+        )
+        target_representation = controller.diagram.representations[
+            new_end.representation_id
+        ]
+        canvas.scene.update_connection_cursor(
+            QPointF(target_representation.x, target_representation.y)
+        )
+        assert canvas.scene._connection_target is not None
+>       assert (
+            canvas.scene._connection_target.feedback
+            is ConnectionTargetFeedback.COMPATIBLE
+        )
+E       AssertionError: assert <ConnectionTargetFeedback.INCOMPATIBLE: 'incompatible'> is <ConnectionTargetFeedback.COMPATIBLE: 'compatible'>
+E        +  where <ConnectionTargetFeedback.INCOMPATIBLE: 'incompatible'> = ConnectionTarget(kind=<ConnectionTargetKind.ELECTRICAL_NODE: 'electrical_node'>, x=400.0, y=200.0, target_id='node_463...message='Вывод находится внутри тела аппарата: проверьте размещение.', anchor_key='', route_id='', route_fraction=None).feedback
+E        +    where ConnectionTarget(kind=<ConnectionTargetKind.ELECTRICAL_NODE: 'electrical_node'>, x=400.0, y=200.0, target_id='node_463...message='Вывод находится внутри тела аппарата: проверьте размещение.', anchor_key='', route_id='', route_fraction=None) = <rza_calc.gui.editor_scene.DiagramGraphicsScene(0x2717861ff80) at 0x000002717A2AC740>._connection_target
+E        +      where <rza_calc.gui.editor_scene.DiagramGraphicsScene(0x2717861ff80) at 0x000002717A2AC740> = <rza_calc.gui.editor_scene.EditorCanvas(0x2717903bce0) at 0x000002717A2A9D80>.scene
+E        +  and   <ConnectionTargetFeedback.COMPATIBLE: 'compatible'> = ConnectionTargetFeedback.COMPATIBLE
+
+tests\test_stage4_editor_interaction.py:997: AssertionError
+______ test_removing_palette_entry_does_not_remove_auto_connection_nodes ______
+
+    def test_removing_palette_entry_does_not_remove_auto_connection_nodes() -> None:
+        controller = _controller()
+        first = controller.add_equipment("builtin.load", "Нагрузка 1", x=100, y=100)
+        second = controller.add_equipment("builtin.load", "Нагрузка 2", x=360, y=100)
+        first_port = controller.model.equipment[first.equipment_id].port_ids[0]
+        second_port = controller.model.equipment[second.equipment_id].port_ids[0]
+>       joined = controller.connect_ports(first_port, second_port)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_two_position_palette.py:103: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+rza_calc\editor\controller.py:1891: in connect_ports
+    return self._execute("Создать электрическое соединение", command)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+rza_calc\editor\controller.py:533: in _execute
+    return self._history.execute(description, command).result
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+rza_calc\editor\history.py:423: in execute
+    result = command(draft)
+             ^^^^^^^^^^^^^^
+rza_calc\editor\controller.py:1837: in command
+    self._guard_connection_voltage(draft.electrical_model, first_port_id, second_port_id)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+model = <rza_calc.domain.electrical.ElectricalModel object at 0x000002717A21FAD0>
+first = PortId(value='port_81cda30334e84370a33b40a8d8e04a20')
+second = PortId(value='port_8eb36297f3a847f5aeb59bb94c46d1af')
+
+    @staticmethod
+    def _guard_connection_voltage(model, first, second):
+        """Preflight before allocating nodes/ports or disconnecting a source.
+    
+        Only a newly created free endpoint may inherit a known peer voltage.
+        Existing unknown nodes/ports remain unknown and are never silently
+        assigned the target voltage merely to make a connection succeed.
+        """
+        def reference(value):
+            if isinstance(value, PortTarget):
+                return value.port_id
+            if isinstance(value, NodeTarget):
+                return value.node_id
+            if isinstance(value, NewNodeTarget):
+                return value.voltage_class_id
+            return value
+    
+        first_ref, second_ref = reference(first), reference(second)
+        if first_ref is None and isinstance(first, NewNodeTarget) and second_ref is not None:
+            known = endpoint_voltage(model, second_ref)
+            if not known.valid:
+                raise EditorCommandError(known.message)
+            first = replace(first, voltage_class_id=known.voltage_class_id)
+            first_ref = known.voltage_class_id
+        if second_ref is None and isinstance(second, NewNodeTarget) and first_ref is not None:
+            known = endpoint_voltage(model, first_ref)
+            if not known.valid:
+                raise EditorCommandError(known.message)
+            second = replace(second, voltage_class_id=known.voltage_class_id)
+            second_ref = known.voltage_class_id
+        if first_ref is None or second_ref is None:
+            raise EditorCommandError("Подключение запрещено: напряжение концов не определено. Задайте класс напряжения.")
+        compatibility = check_connection_voltage(model, first_ref, second_ref)
+        if not compatibility.valid:
+>           raise EditorCommandError(compatibility.message)
+E           rza_calc.editor.controller.EditorCommandError: Подключение запрещено: напряжение порта «Нагрузка 1: Вывод» не определено. Задайте класс напряжения.
+
+rza_calc\editor\controller.py:1811: EditorCommandError
+_ test_bus_preview_matches_canonical_collision_and_reuses_one_snapshot[40.0-True] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002716E3E0C20>
+delta = 40.0, allowed = True
+
+    @pytest.mark.parametrize("delta, allowed", ((40.0, True), (80.0, False)))
+    def test_bus_preview_matches_canonical_collision_and_reuses_one_snapshot(monkeypatch, delta, allowed):
+        global _APP
+        _APP = QApplication.instance() or QApplication([])
+        source_hash = hashlib.sha256(DEMO.read_bytes()).hexdigest()
+        canvas = editor_scene.EditorCanvas(ProjectEditorController(load_project(DEMO)))
+        controller = canvas.controller
+        before = _electrical_identity(controller)
+        errors = []
+        monkeypatch.setattr(sys, "excepthook", lambda kind, value, tb:
+                            errors.append("".join(traceback.format_exception(kind, value, tb))))
+        constructions = []
+        def counted_snapshot(*args, **kwargs):
+            snapshot = DiagramCollisionService(*args, **kwargs)
+            constructions.append(snapshot)
+            return snapshot
+        try:
+            canvas.resize(1100, 800)
+            canvas.show()
+            QApplication.processEvents()
+            canvas.view.actual_size()
+            canvas.set_snap_enabled(False)
+            item = next(item for item in canvas.scene._items_by_id.values()
+                        if item._name == "ЦЕНТРАЛЬНАЯ · 1 СШ 10 кВ")
+            canvas.scene.select_representations((item.representation_id,))
+            canvas.view.centerOn(item.pos())
+            canvas.view.setFocus()
+            QApplication.processEvents()
+            initial = QPointF(item.pos())
+            stored = controller.diagram
+            journal = len(controller.journal)
+            point = item.body_scene_rect().center() + QPointF(40, 0)
+            _mouse(canvas, "move", point + QPointF(0, 25))
+            _mouse(canvas, "move", point)
+            _mouse(canvas, "press", point)
+            monkeypatch.setattr(editor_scene, "DiagramCollisionService", counted_snapshot)
+            for fraction in (0.25, 0.5, 0.75, 1.0):
+                _mouse(canvas, "move", point + QPointF(delta * fraction, 0))
+                exact = DiagramCollisionService(stored, controller.model).check_move(
+                    (item.representation_id,), delta * fraction, 0)
+                assert bool(canvas.scene._drag_collision_ids) is not exact.allowed
+            assert len(constructions) == 1, "Do not reconstruct the whole collision index per pixel"
+            assert bool(canvas.scene._drag_collision_ids) is not allowed
+            assert controller.diagram is stored
+            _mouse(canvas, "release", point + QPointF(delta, 0))
+            assert item.pos() == initial + (QPointF(delta, 0) if allowed else QPointF())
+            assert len(controller.journal) == journal + int(allowed)
+            assert canvas.scene._drag_collision_snapshot is None
+            assert _electrical_identity(controller) == before
+            for terminal in ("escape", "sync"):
+                # A new gesture needs a fresh saved-state index, and neither
+                # cancellation nor a document refresh may retain that snapshot.
+                canvas.view.centerOn(item.pos())
+                canvas.view.setFocus()
+                QApplication.processEvents()
+                point = item.body_scene_rect().center() + QPointF(40, 0)
+                _mouse(canvas, "move", point + QPointF(0, 25))
+                _mouse(canvas, "move", point)
+                _mouse(canvas, "press", point)
+                assert canvas.scene._drag_collision_snapshot is None
+                count = len(constructions)
+                _mouse(canvas, "move", point + QPointF(10, 0))
+                _mouse(canvas, "move", point + QPointF(20, 0))
+                assert len(constructions) == count + 1
+>               assert canvas.scene._drag_collision_snapshot is constructions[-1]
+E               assert None is <rza_calc.editor.collision.DiagramCollisionService object at 0x000002710955E430>
+E                +  where None = <rza_calc.gui.editor_scene.DiagramGraphicsScene(0x271051af020) at 0x000002710646C980>._drag_collision_snapshot
+E                +    where <rza_calc.gui.editor_scene.DiagramGraphicsScene(0x271051af020) at 0x000002710646C980> = <rza_calc.gui.editor_scene.EditorCanvas(0x2710464b640) at 0x0000027106211200>.scene
+
+tests\test_ui_bus_crossings.py:237: AssertionError
+_ test_bus_preview_matches_canonical_collision_and_reuses_one_snapshot[80.0-False] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002710955E270>
+delta = 80.0, allowed = False
+
+    @pytest.mark.parametrize("delta, allowed", ((40.0, True), (80.0, False)))
+    def test_bus_preview_matches_canonical_collision_and_reuses_one_snapshot(monkeypatch, delta, allowed):
+        global _APP
+        _APP = QApplication.instance() or QApplication([])
+        source_hash = hashlib.sha256(DEMO.read_bytes()).hexdigest()
+        canvas = editor_scene.EditorCanvas(ProjectEditorController(load_project(DEMO)))
+        controller = canvas.controller
+        before = _electrical_identity(controller)
+        errors = []
+        monkeypatch.setattr(sys, "excepthook", lambda kind, value, tb:
+                            errors.append("".join(traceback.format_exception(kind, value, tb))))
+        constructions = []
+        def counted_snapshot(*args, **kwargs):
+            snapshot = DiagramCollisionService(*args, **kwargs)
+            constructions.append(snapshot)
+            return snapshot
+        try:
+            canvas.resize(1100, 800)
+            canvas.show()
+            QApplication.processEvents()
+            canvas.view.actual_size()
+            canvas.set_snap_enabled(False)
+            item = next(item for item in canvas.scene._items_by_id.values()
+                        if item._name == "ЦЕНТРАЛЬНАЯ · 1 СШ 10 кВ")
+            canvas.scene.select_representations((item.representation_id,))
+            canvas.view.centerOn(item.pos())
+            canvas.view.setFocus()
+            QApplication.processEvents()
+            initial = QPointF(item.pos())
+            stored = controller.diagram
+            journal = len(controller.journal)
+            point = item.body_scene_rect().center() + QPointF(40, 0)
+            _mouse(canvas, "move", point + QPointF(0, 25))
+            _mouse(canvas, "move", point)
+            _mouse(canvas, "press", point)
+            monkeypatch.setattr(editor_scene, "DiagramCollisionService", counted_snapshot)
+            for fraction in (0.25, 0.5, 0.75, 1.0):
+                _mouse(canvas, "move", point + QPointF(delta * fraction, 0))
+                exact = DiagramCollisionService(stored, controller.model).check_move(
+                    (item.representation_id,), delta * fraction, 0)
+>               assert bool(canvas.scene._drag_collision_ids) is not exact.allowed
+E               AssertionError: assert False is not False
+E                +  where False = bool(set())
+E                +    where set() = <rza_calc.gui.editor_scene.DiagramGraphicsScene(0x271051b0e20) at 0x00000271099CFD40>._drag_collision_ids
+E                +      where <rza_calc.gui.editor_scene.DiagramGraphicsScene(0x271051b0e20) at 0x00000271099CFD40> = <rza_calc.gui.editor_scene.EditorCanvas(0x2710464e8e0) at 0x000002716E2D7C80>.scene
+E                +  and   False = CollisionCheckResult(allowed=False, conflicts=(CollisionConflict(first_id=GraphicalRepresentationId(value='representat...e=OrientedRectangle(center_x=2202.0, center_y=-410.0, width=728.0, height=36.0, rotation_deg=0.0)),), safe_gap=20.0),)).allowed
+
+tests\test_ui_bus_crossings.py:213: AssertionError
+______ test_terminal_drag_previews_then_commits_one_ordinary_connection _______
+
+canvas_factory = <function canvas_factory.<locals>.create at 0x0000027122189170>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002716DF987C0>
+
+    def test_terminal_drag_previews_then_commits_one_ordinary_connection(canvas_factory, monkeypatch):
+        canvas, ports = _pair(canvas_factory)
+        before, journal = _state(canvas), len(canvas.controller.journal)
+        choices = []
+    
+        def choose(draft, position):
+            assert _state(canvas) == before
+            assert not canvas.scene.connection_active
+            assert canvas.scene._connection_press_position is None
+            choices.append((draft, position))
+            return "wire"
+    
+        monkeypatch.setattr(canvas, "_choose_connection_kind", choose)
+        _, end = _drag_start(canvas, ports)
+        assert _state(canvas) == before
+>       assert canvas.scene._connection_target.feedback is ConnectionTargetFeedback.COMPATIBLE
+E       AssertionError: assert <ConnectionTargetFeedback.INCOMPATIBLE: 'incompatible'> is <ConnectionTargetFeedback.COMPATIBLE: 'compatible'>
+E        +  where <ConnectionTargetFeedback.INCOMPATIBLE: 'incompatible'> = ConnectionTarget(kind=<ConnectionTargetKind.EQUIPMENT_PORT: 'equipment_port'>, x=200.0, y=0.0, target_id='port_5296f27...essage='Вывод находится внутри тела аппарата: проверьте размещение.', anchor_key='a', route_id='', route_fraction=None).feedback
+E        +    where ConnectionTarget(kind=<ConnectionTargetKind.EQUIPMENT_PORT: 'equipment_port'>, x=200.0, y=0.0, target_id='port_5296f27...essage='Вывод находится внутри тела аппарата: проверьте размещение.', anchor_key='a', route_id='', route_fraction=None) = <rza_calc.gui.editor_scene.DiagramGraphicsScene(0x2717e37b650) at 0x00000271223AE700>._connection_target
+E        +      where <rza_calc.gui.editor_scene.DiagramGraphicsScene(0x2717e37b650) at 0x00000271223AE700> = <rza_calc.gui.editor_scene.EditorCanvas(0x2710463b260) at 0x00000271223ADD80>.scene
+E        +  and   <ConnectionTargetFeedback.COMPATIBLE: 'compatible'> = ConnectionTargetFeedback.COMPATIBLE
+
+tests\test_ui_direct_connections.py:116: AssertionError
+___________ test_short_click_retains_click_click_without_type_popup ___________
+
+canvas_factory = <function canvas_factory.<locals>.create at 0x000002712218AFB0>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000027121D5CC20>
+
+    def test_short_click_retains_click_click_without_type_popup(canvas_factory, monkeypatch):
+        canvas, ports = _pair(canvas_factory)
+        monkeypatch.setattr(canvas, "_choose_connection_kind", lambda *_: pytest.fail("Click-click must not show a popup"))
+        _mouse(canvas, "click", ports[0].scenePos())
+        assert canvas.scene.connection_active and canvas.scene._connection_press_position is None
+        assert not canvas.controller.model.connections
+        _mouse(canvas, "click", ports[1].scenePos())
+>       assert len(canvas.controller.model.connections) == 2
+E       assert 0 == 2
+E        +  where 0 = len(mappingproxy({}))
+E        +    where mappingproxy({}) = <rza_calc.domain.electrical.ElectricalModel object at 0x0000027119C4DA90>.connections
+E        +      where <rza_calc.domain.electrical.ElectricalModel object at 0x0000027119C4DA90> = <rza_calc.editor.controller.ProjectEditorController object at 0x0000027121D6B470>.model
+E        +        where <rza_calc.editor.controller.ProjectEditorController object at 0x0000027121D6B470> = <rza_calc.gui.editor_scene.EditorCanvas(0x2710463b770) at 0x00000271206E5100>.controller
+
+tests\test_ui_direct_connections.py:134: AssertionError
+___ test_drag_physical_choice_asks_parameters_before_one_command[overhead] ____
+
+canvas_factory = <function canvas_factory.<locals>.create at 0x0000027122444040>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000027121D5E350>
+kind = <LineKind.OVERHEAD: 'overhead'>
+
+    @pytest.mark.parametrize("kind", (LineKind.OVERHEAD, LineKind.CABLE))
+    def test_drag_physical_choice_asks_parameters_before_one_command(canvas_factory, monkeypatch, kind):
+        canvas, ports = _pair(canvas_factory)
+        before, journal = _state(canvas), len(canvas.controller.journal)
+        monkeypatch.setattr(canvas, "_choose_connection_kind", lambda *_: kind.value)
+        asked = []
+    
+        def parameters(draft):
+            assert _state(canvas) == before and not canvas.controller.model.logical_lines
+            asked.append(draft)
+            return True, "Указанная пользователем линия", PhysicalLineInput(None, DataConfirmation.UNCONFIRMED)
+    
+        monkeypatch.setattr(canvas, "_ask_new_physical_line_parameters", parameters)
+        _, end = _drag_start(canvas, ports)
+        _mouse(canvas, "release", end)
+>       assert len(asked) == 1 and asked[0].line_kind == kind.value
+E       assert (0 == 1)
+E        +  where 0 = len([])
+
+tests\test_ui_direct_connections.py:153: AssertionError
+_____ test_drag_physical_choice_asks_parameters_before_one_command[cable] _____
+
+canvas_factory = <function canvas_factory.<locals>.create at 0x000002712218A2A0>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000027121D5E270>
+kind = <LineKind.CABLE: 'cable'>
+
+    @pytest.mark.parametrize("kind", (LineKind.OVERHEAD, LineKind.CABLE))
+    def test_drag_physical_choice_asks_parameters_before_one_command(canvas_factory, monkeypatch, kind):
+        canvas, ports = _pair(canvas_factory)
+        before, journal = _state(canvas), len(canvas.controller.journal)
+        monkeypatch.setattr(canvas, "_choose_connection_kind", lambda *_: kind.value)
+        asked = []
+    
+        def parameters(draft):
+            assert _state(canvas) == before and not canvas.controller.model.logical_lines
+            asked.append(draft)
+            return True, "Указанная пользователем линия", PhysicalLineInput(None, DataConfirmation.UNCONFIRMED)
+    
+        monkeypatch.setattr(canvas, "_ask_new_physical_line_parameters", parameters)
+        _, end = _drag_start(canvas, ports)
+        _mouse(canvas, "release", end)
+>       assert len(asked) == 1 and asked[0].line_kind == kind.value
+E       assert (0 == 1)
+E        +  where 0 = len([])
+
+tests\test_ui_direct_connections.py:153: AssertionError
+___ test_mismatched_voltage_is_red_and_release_cannot_show_choice_or_commit ___
+
+canvas_factory = <function canvas_factory.<locals>.create at 0x00000271224475E0>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002716DF2C8A0>
+
+    def test_mismatched_voltage_is_red_and_release_cannot_show_choice_or_commit(canvas_factory, monkeypatch):
+        canvas, ports = _pair(canvas_factory, target_voltage=U110)
+        before, journal = _state(canvas), len(canvas.controller.journal)
+        monkeypatch.setattr(canvas, "_choose_connection_kind", lambda *_: pytest.fail("Incompatible endpoints cannot commit"))
+        _, end = _drag_start(canvas, ports)
+        target = canvas.scene._connection_target
+        assert target.feedback is ConnectionTargetFeedback.INCOMPATIBLE
+>       assert "напряжения" in target.message and "110" in target.message and "10" in target.message
+E       AssertionError: assert ('напряжения' in 'Вывод находится внутри тела аппарата: проверьте размещение.')
+E        +  where 'Вывод находится внутри тела аппарата: проверьте размещение.' = ConnectionTarget(kind=<ConnectionTargetKind.EQUIPMENT_PORT: 'equipment_port'>, x=200.0, y=0.0, target_id='port_dd18015...essage='Вывод находится внутри тела аппарата: проверьте размещение.', anchor_key='a', route_id='', route_fraction=None).message
+
+tests\test_ui_direct_connections.py:183: AssertionError
+_ test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port[-1-0] _
+
+canvas_factory = <function canvas_factory.<locals>.create at 0x00000271251ED170>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002716DF9AC80>
+angle = 0, side = -1
+
+    @pytest.mark.parametrize("angle", (0, 90, 180, 270))
+    @pytest.mark.parametrize("side", (-1, 1))
+    def test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port(canvas_factory, monkeypatch, angle, side):
+        controller = _controller()
+        vertical = angle % 180 == 90
+        apparatus = controller.add_equipment("builtin.circuit_breaker", "Сбоку от шины",
+            x=0 if vertical else side * 260, y=side * 260 if vertical else 0,
+            voltage_class_by_group={"main": U10})
+        bus = controller.add_electrical_node("Шина", x=0, y=0, symbol_key="busbar_horizontal",
+                                            width=180, height=20, voltage_class_id=U10)
+        controller.rotate_representation(bus.representation_id, angle)
+        canvas = canvas_factory(controller)
+        canvas.view.centerOn(0, 0)
+        source = canvas.scene._items_by_id[apparatus.representation_id].port_item(apparatus.port_ids[0])
+        bus_item = canvas.scene._items_by_id[bus.representation_id]
+        point = QPointF(source.scenePos())
+        monkeypatch.setattr(canvas, "_choose_connection_kind", lambda *_: "wire")
+        _mouse(canvas, "press", point)
+        _mouse(canvas, "move", bus_item.scenePos())
+        target = canvas.scene._connection_target
+        local_source = bus_item.mapFromScene(point)
+        expected_fraction = 1.0 if local_source.x() > 0 else 0.0
+        expected = bus_item.mapToScene(QPointF((expected_fraction - .5) * 180, 0))
+        assert float(target.anchor_key) == expected_fraction
+        assert QPointF(target.x, target.y) == expected
+        assert source.scenePos() == point
+        _mouse(canvas, "release", bus_item.scenePos())
+>       route = next(iter(controller.diagram.routes.values()))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       StopIteration
+
+tests\test_ui_direct_connections.py:290: StopIteration
+_ test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port[-1-90] _
+
+canvas_factory = <function canvas_factory.<locals>.create at 0x00000271251ED590>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000271251CEAC0>
+angle = 90, side = -1
+
+    @pytest.mark.parametrize("angle", (0, 90, 180, 270))
+    @pytest.mark.parametrize("side", (-1, 1))
+    def test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port(canvas_factory, monkeypatch, angle, side):
+        controller = _controller()
+        vertical = angle % 180 == 90
+        apparatus = controller.add_equipment("builtin.circuit_breaker", "Сбоку от шины",
+            x=0 if vertical else side * 260, y=side * 260 if vertical else 0,
+            voltage_class_by_group={"main": U10})
+        bus = controller.add_electrical_node("Шина", x=0, y=0, symbol_key="busbar_horizontal",
+                                            width=180, height=20, voltage_class_id=U10)
+        controller.rotate_representation(bus.representation_id, angle)
+        canvas = canvas_factory(controller)
+        canvas.view.centerOn(0, 0)
+        source = canvas.scene._items_by_id[apparatus.representation_id].port_item(apparatus.port_ids[0])
+        bus_item = canvas.scene._items_by_id[bus.representation_id]
+        point = QPointF(source.scenePos())
+        monkeypatch.setattr(canvas, "_choose_connection_kind", lambda *_: "wire")
+        _mouse(canvas, "press", point)
+        _mouse(canvas, "move", bus_item.scenePos())
+        target = canvas.scene._connection_target
+        local_source = bus_item.mapFromScene(point)
+        expected_fraction = 1.0 if local_source.x() > 0 else 0.0
+        expected = bus_item.mapToScene(QPointF((expected_fraction - .5) * 180, 0))
+        assert float(target.anchor_key) == expected_fraction
+        assert QPointF(target.x, target.y) == expected
+        assert source.scenePos() == point
+        _mouse(canvas, "release", bus_item.scenePos())
+>       route = next(iter(controller.diagram.routes.values()))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       StopIteration
+
+tests\test_ui_direct_connections.py:290: StopIteration
+_ test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port[-1-180] _
+
+canvas_factory = <function canvas_factory.<locals>.create at 0x00000271251EE560>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000027123DC7690>
+angle = 180, side = -1
+
+    @pytest.mark.parametrize("angle", (0, 90, 180, 270))
+    @pytest.mark.parametrize("side", (-1, 1))
+    def test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port(canvas_factory, monkeypatch, angle, side):
+        controller = _controller()
+        vertical = angle % 180 == 90
+        apparatus = controller.add_equipment("builtin.circuit_breaker", "Сбоку от шины",
+            x=0 if vertical else side * 260, y=side * 260 if vertical else 0,
+            voltage_class_by_group={"main": U10})
+        bus = controller.add_electrical_node("Шина", x=0, y=0, symbol_key="busbar_horizontal",
+                                            width=180, height=20, voltage_class_id=U10)
+        controller.rotate_representation(bus.representation_id, angle)
+        canvas = canvas_factory(controller)
+        canvas.view.centerOn(0, 0)
+        source = canvas.scene._items_by_id[apparatus.representation_id].port_item(apparatus.port_ids[0])
+        bus_item = canvas.scene._items_by_id[bus.representation_id]
+        point = QPointF(source.scenePos())
+        monkeypatch.setattr(canvas, "_choose_connection_kind", lambda *_: "wire")
+        _mouse(canvas, "press", point)
+        _mouse(canvas, "move", bus_item.scenePos())
+        target = canvas.scene._connection_target
+        local_source = bus_item.mapFromScene(point)
+        expected_fraction = 1.0 if local_source.x() > 0 else 0.0
+        expected = bus_item.mapToScene(QPointF((expected_fraction - .5) * 180, 0))
+        assert float(target.anchor_key) == expected_fraction
+        assert QPointF(target.x, target.y) == expected
+        assert source.scenePos() == point
+        _mouse(canvas, "release", bus_item.scenePos())
+>       route = next(iter(controller.diagram.routes.values()))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       StopIteration
+
+tests\test_ui_direct_connections.py:290: StopIteration
+_ test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port[-1-270] _
+
+canvas_factory = <function canvas_factory.<locals>.create at 0x00000271251EF270>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002716E3E3E70>
+angle = 270, side = -1
+
+    @pytest.mark.parametrize("angle", (0, 90, 180, 270))
+    @pytest.mark.parametrize("side", (-1, 1))
+    def test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port(canvas_factory, monkeypatch, angle, side):
+        controller = _controller()
+        vertical = angle % 180 == 90
+        apparatus = controller.add_equipment("builtin.circuit_breaker", "Сбоку от шины",
+            x=0 if vertical else side * 260, y=side * 260 if vertical else 0,
+            voltage_class_by_group={"main": U10})
+        bus = controller.add_electrical_node("Шина", x=0, y=0, symbol_key="busbar_horizontal",
+                                            width=180, height=20, voltage_class_id=U10)
+        controller.rotate_representation(bus.representation_id, angle)
+        canvas = canvas_factory(controller)
+        canvas.view.centerOn(0, 0)
+        source = canvas.scene._items_by_id[apparatus.representation_id].port_item(apparatus.port_ids[0])
+        bus_item = canvas.scene._items_by_id[bus.representation_id]
+        point = QPointF(source.scenePos())
+        monkeypatch.setattr(canvas, "_choose_connection_kind", lambda *_: "wire")
+        _mouse(canvas, "press", point)
+        _mouse(canvas, "move", bus_item.scenePos())
+        target = canvas.scene._connection_target
+        local_source = bus_item.mapFromScene(point)
+        expected_fraction = 1.0 if local_source.x() > 0 else 0.0
+        expected = bus_item.mapToScene(QPointF((expected_fraction - .5) * 180, 0))
+        assert float(target.anchor_key) == expected_fraction
+        assert QPointF(target.x, target.y) == expected
+        assert source.scenePos() == point
+        _mouse(canvas, "release", bus_item.scenePos())
+>       route = next(iter(controller.diagram.routes.values()))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       StopIteration
+
+tests\test_ui_direct_connections.py:290: StopIteration
+_ test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port[1-0] __
+
+canvas_factory = <function canvas_factory.<locals>.create at 0x0000027125214930>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002716DF98D00>
+angle = 0, side = 1
+
+    @pytest.mark.parametrize("angle", (0, 90, 180, 270))
+    @pytest.mark.parametrize("side", (-1, 1))
+    def test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port(canvas_factory, monkeypatch, angle, side):
+        controller = _controller()
+        vertical = angle % 180 == 90
+        apparatus = controller.add_equipment("builtin.circuit_breaker", "Сбоку от шины",
+            x=0 if vertical else side * 260, y=side * 260 if vertical else 0,
+            voltage_class_by_group={"main": U10})
+        bus = controller.add_electrical_node("Шина", x=0, y=0, symbol_key="busbar_horizontal",
+                                            width=180, height=20, voltage_class_id=U10)
+        controller.rotate_representation(bus.representation_id, angle)
+        canvas = canvas_factory(controller)
+        canvas.view.centerOn(0, 0)
+        source = canvas.scene._items_by_id[apparatus.representation_id].port_item(apparatus.port_ids[0])
+        bus_item = canvas.scene._items_by_id[bus.representation_id]
+        point = QPointF(source.scenePos())
+        monkeypatch.setattr(canvas, "_choose_connection_kind", lambda *_: "wire")
+        _mouse(canvas, "press", point)
+        _mouse(canvas, "move", bus_item.scenePos())
+        target = canvas.scene._connection_target
+        local_source = bus_item.mapFromScene(point)
+        expected_fraction = 1.0 if local_source.x() > 0 else 0.0
+        expected = bus_item.mapToScene(QPointF((expected_fraction - .5) * 180, 0))
+        assert float(target.anchor_key) == expected_fraction
+        assert QPointF(target.x, target.y) == expected
+        assert source.scenePos() == point
+        _mouse(canvas, "release", bus_item.scenePos())
+>       route = next(iter(controller.diagram.routes.values()))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       StopIteration
+
+tests\test_ui_direct_connections.py:290: StopIteration
+_ test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port[1-90] _
+
+canvas_factory = <function canvas_factory.<locals>.create at 0x0000027125214D50>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002716E3E2350>
+angle = 90, side = 1
+
+    @pytest.mark.parametrize("angle", (0, 90, 180, 270))
+    @pytest.mark.parametrize("side", (-1, 1))
+    def test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port(canvas_factory, monkeypatch, angle, side):
+        controller = _controller()
+        vertical = angle % 180 == 90
+        apparatus = controller.add_equipment("builtin.circuit_breaker", "Сбоку от шины",
+            x=0 if vertical else side * 260, y=side * 260 if vertical else 0,
+            voltage_class_by_group={"main": U10})
+        bus = controller.add_electrical_node("Шина", x=0, y=0, symbol_key="busbar_horizontal",
+                                            width=180, height=20, voltage_class_id=U10)
+        controller.rotate_representation(bus.representation_id, angle)
+        canvas = canvas_factory(controller)
+        canvas.view.centerOn(0, 0)
+        source = canvas.scene._items_by_id[apparatus.representation_id].port_item(apparatus.port_ids[0])
+        bus_item = canvas.scene._items_by_id[bus.representation_id]
+        point = QPointF(source.scenePos())
+        monkeypatch.setattr(canvas, "_choose_connection_kind", lambda *_: "wire")
+        _mouse(canvas, "press", point)
+        _mouse(canvas, "move", bus_item.scenePos())
+        target = canvas.scene._connection_target
+        local_source = bus_item.mapFromScene(point)
+        expected_fraction = 1.0 if local_source.x() > 0 else 0.0
+        expected = bus_item.mapToScene(QPointF((expected_fraction - .5) * 180, 0))
+        assert float(target.anchor_key) == expected_fraction
+        assert QPointF(target.x, target.y) == expected
+        assert source.scenePos() == point
+        _mouse(canvas, "release", bus_item.scenePos())
+>       route = next(iter(controller.diagram.routes.values()))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       StopIteration
+
+tests\test_ui_direct_connections.py:290: StopIteration
+_ test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port[1-180] _
+
+canvas_factory = <function canvas_factory.<locals>.create at 0x0000027125215BC0>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000027125341780>
+angle = 180, side = 1
+
+    @pytest.mark.parametrize("angle", (0, 90, 180, 270))
+    @pytest.mark.parametrize("side", (-1, 1))
+    def test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port(canvas_factory, monkeypatch, angle, side):
+        controller = _controller()
+        vertical = angle % 180 == 90
+        apparatus = controller.add_equipment("builtin.circuit_breaker", "Сбоку от шины",
+            x=0 if vertical else side * 260, y=side * 260 if vertical else 0,
+            voltage_class_by_group={"main": U10})
+        bus = controller.add_electrical_node("Шина", x=0, y=0, symbol_key="busbar_horizontal",
+                                            width=180, height=20, voltage_class_id=U10)
+        controller.rotate_representation(bus.representation_id, angle)
+        canvas = canvas_factory(controller)
+        canvas.view.centerOn(0, 0)
+        source = canvas.scene._items_by_id[apparatus.representation_id].port_item(apparatus.port_ids[0])
+        bus_item = canvas.scene._items_by_id[bus.representation_id]
+        point = QPointF(source.scenePos())
+        monkeypatch.setattr(canvas, "_choose_connection_kind", lambda *_: "wire")
+        _mouse(canvas, "press", point)
+        _mouse(canvas, "move", bus_item.scenePos())
+        target = canvas.scene._connection_target
+        local_source = bus_item.mapFromScene(point)
+        expected_fraction = 1.0 if local_source.x() > 0 else 0.0
+        expected = bus_item.mapToScene(QPointF((expected_fraction - .5) * 180, 0))
+        assert float(target.anchor_key) == expected_fraction
+        assert QPointF(target.x, target.y) == expected
+        assert source.scenePos() == point
+        _mouse(canvas, "release", bus_item.scenePos())
+>       route = next(iter(controller.diagram.routes.values()))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       StopIteration
+
+tests\test_ui_direct_connections.py:290: StopIteration
+_ test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port[1-270] _
+
+canvas_factory = <function canvas_factory.<locals>.create at 0x00000271252168D0>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000027125342E40>
+angle = 270, side = 1
+
+    @pytest.mark.parametrize("angle", (0, 90, 180, 270))
+    @pytest.mark.parametrize("side", (-1, 1))
+    def test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port(canvas_factory, monkeypatch, angle, side):
+        controller = _controller()
+        vertical = angle % 180 == 90
+        apparatus = controller.add_equipment("builtin.circuit_breaker", "Сбоку от шины",
+            x=0 if vertical else side * 260, y=side * 260 if vertical else 0,
+            voltage_class_by_group={"main": U10})
+        bus = controller.add_electrical_node("Шина", x=0, y=0, symbol_key="busbar_horizontal",
+                                            width=180, height=20, voltage_class_id=U10)
+        controller.rotate_representation(bus.representation_id, angle)
+        canvas = canvas_factory(controller)
+        canvas.view.centerOn(0, 0)
+        source = canvas.scene._items_by_id[apparatus.representation_id].port_item(apparatus.port_ids[0])
+        bus_item = canvas.scene._items_by_id[bus.representation_id]
+        point = QPointF(source.scenePos())
+        monkeypatch.setattr(canvas, "_choose_connection_kind", lambda *_: "wire")
+        _mouse(canvas, "press", point)
+        _mouse(canvas, "move", bus_item.scenePos())
+        target = canvas.scene._connection_target
+        local_source = bus_item.mapFromScene(point)
+        expected_fraction = 1.0 if local_source.x() > 0 else 0.0
+        expected = bus_item.mapToScene(QPointF((expected_fraction - .5) * 180, 0))
+        assert float(target.anchor_key) == expected_fraction
+        assert QPointF(target.x, target.y) == expected
+        assert source.scenePos() == point
+        _mouse(canvas, "release", bus_item.scenePos())
+>       route = next(iter(controller.diagram.routes.values()))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       StopIteration
+
+tests\test_ui_direct_connections.py:290: StopIteration
+_ test_scene_sync_and_preview_preserve_domain_ids_waypoints_selection_and_hit_path _
+
+    def test_scene_sync_and_preview_preserve_domain_ids_waypoints_selection_and_hit_path():
+>       controller, canvas, route_ids = _canvas_with_crossing()
+                                        ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_visio_crossings.py:176: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_visio_crossings.py:159: in _canvas_with_crossing
+    connected = controller.connect_ports(
+rza_calc\editor\controller.py:1891: in connect_ports
+    return self._execute("Создать электрическое соединение", command)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+rza_calc\editor\controller.py:533: in _execute
+    return self._history.execute(description, command).result
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+rza_calc\editor\history.py:423: in execute
+    result = command(draft)
+             ^^^^^^^^^^^^^^
+rza_calc\editor\controller.py:1837: in command
+    self._guard_connection_voltage(draft.electrical_model, first_port_id, second_port_id)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+model = <rza_calc.domain.electrical.ElectricalModel object at 0x000002713FD66E10>
+first = PortId(value='port_ac8e3f4d441b4d9b8cd8c7812d0817dc')
+second = PortId(value='port_f25b8e55a51f4b3cafae27c00b090d60')
+
+    @staticmethod
+    def _guard_connection_voltage(model, first, second):
+        """Preflight before allocating nodes/ports or disconnecting a source.
+    
+        Only a newly created free endpoint may inherit a known peer voltage.
+        Existing unknown nodes/ports remain unknown and are never silently
+        assigned the target voltage merely to make a connection succeed.
+        """
+        def reference(value):
+            if isinstance(value, PortTarget):
+                return value.port_id
+            if isinstance(value, NodeTarget):
+                return value.node_id
+            if isinstance(value, NewNodeTarget):
+                return value.voltage_class_id
+            return value
+    
+        first_ref, second_ref = reference(first), reference(second)
+        if first_ref is None and isinstance(first, NewNodeTarget) and second_ref is not None:
+            known = endpoint_voltage(model, second_ref)
+            if not known.valid:
+                raise EditorCommandError(known.message)
+            first = replace(first, voltage_class_id=known.voltage_class_id)
+            first_ref = known.voltage_class_id
+        if second_ref is None and isinstance(second, NewNodeTarget) and first_ref is not None:
+            known = endpoint_voltage(model, first_ref)
+            if not known.valid:
+                raise EditorCommandError(known.message)
+            second = replace(second, voltage_class_id=known.voltage_class_id)
+            second_ref = known.voltage_class_id
+        if first_ref is None or second_ref is None:
+            raise EditorCommandError("Подключение запрещено: напряжение концов не определено. Задайте класс напряжения.")
+        compatibility = check_connection_voltage(model, first_ref, second_ref)
+        if not compatibility.valid:
+>           raise EditorCommandError(compatibility.message)
+E           rza_calc.editor.controller.EditorCommandError: Подключение запрещено: напряжение порта «Load 0-0: Вывод» не определено. Задайте класс напряжения.
+
+rza_calc\editor\controller.py:1811: EditorCommandError
+============================= slowest 8 durations =============================
+82.04s call     tests/test_stage3_requirements.py::test_17_project_with_1000_objects_opens_and_remains_manageable
+30.14s call     tests/test_stage2_topology_queries_legacy_scale.py::test_iterative_compiler_and_path_query_handle_5000_node_chain
+2.93s call     tests/test_stage3_project_commands.py::test_unconnected_editor_draft_saves_reopens_and_blocks_only_calculation
+2.40s call     tests/test_ui_interaction_orientation.py::test_full_project_roundtrip_keeps_orientation_mode
+1.49s call     tests/test_stage3_editor_gui.py::test_main_window_opens_editor_first_and_keeps_legacy_analysis
+1.38s call     tests/test_stage3_requirements.py::test_11_save_load_preserve_electrical_topology
+1.38s call     tests/test_stage1_project_v3.py::test_v1_to_v3_save_reload_is_idempotent_and_does_not_touch_source
+1.31s call     tests/test_project_format.py::test_three_winding_transformers_survive_v3_roundtrip
+=========================== short test summary info ===========================
+FAILED tests/test_editor_move_planner.py::test_move_avoids_nonincident_apparatus_body_in_both_preview_and_commit
+FAILED tests/test_editor_move_planner.py::test_impossible_route_rejects_preview_and_commit_atomically
+FAILED tests/test_rotation_handle.py::test_manual_node_is_absent_but_port_connection_still_creates_one_node
+FAILED tests/test_rotation_handle.py::test_bus_rotation_keeps_fractional_connection_point_in_preview_commit_and_undo
+FAILED tests/test_stage4_editor_interaction.py::test_canvas_connection_signal_commits_real_project_data_in_one_command
+FAILED tests/test_stage4_editor_interaction.py::test_gui_physical_line_tool_creates_logical_line_and_line_section_in_one_command
+FAILED tests/test_stage4_editor_interaction.py::test_physical_line_endpoint_handle_reconnects_same_branch_and_ids
+FAILED tests/test_two_position_palette.py::test_removing_palette_entry_does_not_remove_auto_connection_nodes
+FAILED tests/test_ui_bus_crossings.py::test_bus_preview_matches_canonical_collision_and_reuses_one_snapshot[40.0-True]
+FAILED tests/test_ui_bus_crossings.py::test_bus_preview_matches_canonical_collision_and_reuses_one_snapshot[80.0-False]
+FAILED tests/test_ui_direct_connections.py::test_terminal_drag_previews_then_commits_one_ordinary_connection
+FAILED tests/test_ui_direct_connections.py::test_short_click_retains_click_click_without_type_popup
+FAILED tests/test_ui_direct_connections.py::test_drag_physical_choice_asks_parameters_before_one_command[overhead]
+FAILED tests/test_ui_direct_connections.py::test_drag_physical_choice_asks_parameters_before_one_command[cable]
+FAILED tests/test_ui_direct_connections.py::test_mismatched_voltage_is_red_and_release_cannot_show_choice_or_commit
+FAILED tests/test_ui_direct_connections.py::test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port[-1-0]
+FAILED tests/test_ui_direct_connections.py::test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port[-1-90]
+FAILED tests/test_ui_direct_connections.py::test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port[-1-180]
+FAILED tests/test_ui_direct_connections.py::test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port[-1-270]
+FAILED tests/test_ui_direct_connections.py::test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port[1-0]
+FAILED tests/test_ui_direct_connections.py::test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port[1-90]
+FAILED tests/test_ui_direct_connections.py::test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port[1-180]
+FAILED tests/test_ui_direct_connections.py::test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port[1-270]
+FAILED tests/test_visio_crossings.py::test_scene_sync_and_preview_preserve_domain_ids_waypoints_selection_and_hit_path
+24 failed, 1673 passed in 230.05s (0:03:50)

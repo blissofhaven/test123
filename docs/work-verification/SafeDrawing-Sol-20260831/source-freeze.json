@@ -1,0 +1,782 @@
+[
+  {
+    "path": "rza_calc\\__init__.py",
+    "sha256": "a6a51a58a18ef54d80f1e8d2c16f91aa9e302c7c26e7a1058f85fdc406a55e65"
+  },
+  {
+    "path": "rza_calc\\__main__.py",
+    "sha256": "79ee6f134c5c5193377cf9b189cbdcc3e2095e49ba9cec310114441c15a917c4"
+  },
+  {
+    "path": "rza_calc\\cli.py",
+    "sha256": "032062ef396679705fd2cef36e9eb5d0d2503304d24a438fbf1b836515f2982b"
+  },
+  {
+    "path": "rza_calc\\version.py",
+    "sha256": "b5454ae06e83fc1442cfd17ef9afc36a0b257247deded0a0ee95c17ab52416e1"
+  },
+  {
+    "path": "rza_calc\\adapters\\__init__.py",
+    "sha256": "1f14e9690012a7615436ac0b82704c2a3f85916f48356feab54e2239fd929c98"
+  },
+  {
+    "path": "rza_calc\\adapters\\legacy_calculation.py",
+    "sha256": "452c6303c60744e1c254356cbc61aae195a6d8a2ca05053886c7d5861e8442b6"
+  },
+  {
+    "path": "rza_calc\\calculation\\__init__.py",
+    "sha256": "428af28320aba088c64f7a2e0a4baaa59f4f3c058d08f869a4d28be44c61cb64"
+  },
+  {
+    "path": "rza_calc\\calculation\\fault_location.py",
+    "sha256": "526dd6201097a9652b59b8d967c9b34fd8cbdd1c18c20474158f86c551a3f497"
+  },
+  {
+    "path": "rza_calc\\calculation\\projection.py",
+    "sha256": "f0827c9da2330a5c3731a00e9addf8b610dfdf51e8102730da236246864c9905"
+  },
+  {
+    "path": "rza_calc\\core\\__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "rza_calc\\core\\context.py",
+    "sha256": "593fa934a2bfa277ac28b3dd18a87442c8132b933eaad15be4429d1b689b8ab2"
+  },
+  {
+    "path": "rza_calc\\core\\electrical.py",
+    "sha256": "58e33ca235c5575829b4e1af3a9424ed7d89de3b4bd1cca977f1f198b2ea8ad5"
+  },
+  {
+    "path": "rza_calc\\core\\engine.py",
+    "sha256": "a2ee87b1e65ed668ec03c0b4ed765427e6fd5f9fcee2e0ec7588f87e92083268"
+  },
+  {
+    "path": "rza_calc\\core\\fingerprint.py",
+    "sha256": "fc99dd40a112ca4034be07ae5db569b831283705d76efc6be4904ef4725ec4a5"
+  },
+  {
+    "path": "rza_calc\\core\\impedance.py",
+    "sha256": "7191d6effbfd5714934328246a05f22a2bd5f5e78ec431490dd8a29e6e380f95"
+  },
+  {
+    "path": "rza_calc\\core\\load_current.py",
+    "sha256": "fc6ab66cbc1fe438037f0f6e053059922f480cdcac470aabb71f3186583e13e9"
+  },
+  {
+    "path": "rza_calc\\core\\methodology.py",
+    "sha256": "3d16e69d57a8515c6f14a0a016a6f1825597e44a53b2fff8c946655fa8f12b7c"
+  },
+  {
+    "path": "rza_calc\\core\\model.py",
+    "sha256": "261e6de028555a0463b848015e3770d4cd2bac58d6cc253c2fe2f68e8eb46a9d"
+  },
+  {
+    "path": "rza_calc\\core\\result.py",
+    "sha256": "9449e70b1eb1029076ca3026ed2195ecfb0d61a9a9cb812af1725915662bd05d"
+  },
+  {
+    "path": "rza_calc\\core\\selectivity.py",
+    "sha256": "6cd00987be48f15353a4171a386366b4dcead518a96d52a4fbfe1bdc991e2d32"
+  },
+  {
+    "path": "rza_calc\\core\\short_circuit.py",
+    "sha256": "e5dbba8bcdb4ee6110236dbf802ae7dcdd3b94b745e1f4febee772e4061d32b3"
+  },
+  {
+    "path": "rza_calc\\core\\trace.py",
+    "sha256": "ca961bcf1f20131a4f63060fd2e53bbe4aa75ca9358b2e557b89bcbcc8c3f2ed"
+  },
+  {
+    "path": "rza_calc\\core\\protections\\__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "rza_calc\\core\\protections\\mtz.py",
+    "sha256": "c913cfbc2ce6c5a3ddded0029f06ede3b063d7bf292d435d449c711c0088abb0"
+  },
+  {
+    "path": "rza_calc\\core\\protections\\ozz.py",
+    "sha256": "8154d4f3df15c237cae938b12c2b3cf459c53549ad9a2dfba2f406c8a1910b98"
+  },
+  {
+    "path": "rza_calc\\core\\protections\\selection.py",
+    "sha256": "1dee82eecb354803cd8d221a29aa558959e40388d5f1315018c1249c4263b3aa"
+  },
+  {
+    "path": "rza_calc\\core\\protections\\to.py",
+    "sha256": "6cadfa69344ab88cc013d8935bc1eebc24827fb5204ac713ac21c8cca7caefa1"
+  },
+  {
+    "path": "rza_calc\\data\\cables.json",
+    "sha256": "35a460c07d5cad4c07d92c484a872d199024c27bd7ba79cc99d2b63686abb336"
+  },
+  {
+    "path": "rza_calc\\data\\methodology_default.json",
+    "sha256": "fc48da91a35b29426407c8aa57188b22d1aa66b0832311517bfa5cef17ef69ae"
+  },
+  {
+    "path": "rza_calc\\data\\methodology_project_template.json",
+    "sha256": "96fa1d188276abe9c73b429b0d22d3cc74855d30cb7fe3a5a9b48f5f018d8d4b"
+  },
+  {
+    "path": "rza_calc\\domain\\__init__.py",
+    "sha256": "bdc7aea96c28b63c109cbbd666498be80c503562ba4feb0225803a246c411d71"
+  },
+  {
+    "path": "rza_calc\\domain\\catalog_snapshot.py",
+    "sha256": "560dd9da58463eeddaa45ccbe59a52c5d8b7d12898d69dc38112ad9c4c8c9a91"
+  },
+  {
+    "path": "rza_calc\\domain\\catalog.py",
+    "sha256": "5e88eff2fa4102cc8ed3ef86a382aedd0c4517fd4766255d6b285c0dbe2ae3ca"
+  },
+  {
+    "path": "rza_calc\\domain\\diagram.py",
+    "sha256": "538e813b869d0b77848ea4dbac6545ea3b2acb7f7eca2be82c142a860ecaa206"
+  },
+  {
+    "path": "rza_calc\\domain\\electrical.py",
+    "sha256": "26af68fa5acafcc3a4af9bf75d56819382f161042c8d91c2ecbc6be47dab2833"
+  },
+  {
+    "path": "rza_calc\\domain\\fingerprint.py",
+    "sha256": "fdb52f0610f3bacf07d40e8fc2b82cea2ad8f0d4a76f1bfbfb0e95c304e0f45c"
+  },
+  {
+    "path": "rza_calc\\domain\\history.py",
+    "sha256": "6889829b975ea0e8de583f69398c86581c69dd48064e96017d7ffa50ea19557f"
+  },
+  {
+    "path": "rza_calc\\domain\\model.py",
+    "sha256": "e95bfcdcbcb5fea6aee79a5bf35aad5d6205bbe1f59fe7505f0e50c54c34cdc4"
+  },
+  {
+    "path": "rza_calc\\editor\\__init__.py",
+    "sha256": "f677c466e3b49287d64938a0c9932968df33f44500ca34071ce4d21a3c067fda"
+  },
+  {
+    "path": "rza_calc\\editor\\collision.py",
+    "sha256": "803f4a6841d5612623abc92ff633ae51de098e0cd5c16cd83a59adad6cd1637b"
+  },
+  {
+    "path": "rza_calc\\editor\\connected_geometry.py",
+    "sha256": "eb5be00ec41747f56328f9e8456215be913c25b0b5c3c58adf5874913d14da66"
+  },
+  {
+    "path": "rza_calc\\editor\\connection_reflow.py",
+    "sha256": "b33481a766666f4336d79b49faa8e5edcefbd8761b3906db03dc6f8551cc1560"
+  },
+  {
+    "path": "rza_calc\\editor\\connection_tool.py",
+    "sha256": "193a8ed89b4cd7f4ecd81806e539219a70e4fb58ed4ef43e50837f97a99d83b5"
+  },
+  {
+    "path": "rza_calc\\editor\\connection_voltage.py",
+    "sha256": "711593f0db2d8004494fc500b58d96daafce7410a2941f274392bd2961a3fb53"
+  },
+  {
+    "path": "rza_calc\\editor\\controller.py",
+    "sha256": "1ef4517a6b3f83993e38b9828ea180ac42c085855e00a468bc6e9c35b2dce107"
+  },
+  {
+    "path": "rza_calc\\editor\\history.py",
+    "sha256": "c20ec4f69edb656a8dbdbd3bf5f094adcb73564d725f88110454f9c0fc6f697e"
+  },
+  {
+    "path": "rza_calc\\editor\\labels.py",
+    "sha256": "672dbfe5084dc20ce1406379185e51296302e69307329c3bb4c6f081150a5461"
+  },
+  {
+    "path": "rza_calc\\editor\\line_bridges.py",
+    "sha256": "f1a798512d238829680b32fedb771e6e88010fe532738d46d7554ba08bb1035e"
+  },
+  {
+    "path": "rza_calc\\editor\\orientation.py",
+    "sha256": "d7ac85e3e28e84fe9303f705b6884eeabbf921e4c7ae6e501867fccd376b299d"
+  },
+  {
+    "path": "rza_calc\\editor\\orthogonal_routing.py",
+    "sha256": "016d721bb35d1a4767d6c39f1b03f5c2f8c2517e160141c113fbe5b21edd95e6"
+  },
+  {
+    "path": "rza_calc\\editor\\placement.py",
+    "sha256": "8faac6da61ad82bc0d29d138635fb44fb2d7b4f8a40ad3d5b271029362cba1a3"
+  },
+  {
+    "path": "rza_calc\\editor\\state.py",
+    "sha256": "49b689a215ab1123940f8c12c179683d61473c252261a2e8d0fd20bcc11fb2bb"
+  },
+  {
+    "path": "rza_calc\\editor\\strings.py",
+    "sha256": "ddb70f43cb539b9295001bde66c5dc81eb48c3ec0b585379e030dd160a8f2d5b"
+  },
+  {
+    "path": "rza_calc\\editor\\symbol_svg.py",
+    "sha256": "95c005723d756e62d3ba46d524725a02eb10c0f0c33984fa1a1172d3eb3f3b29"
+  },
+  {
+    "path": "rza_calc\\editor\\symbols.py",
+    "sha256": "626a5ae2b5a95e0d332c8c806dab95d856d964d2a9521a4958720804925c6708"
+  },
+  {
+    "path": "rza_calc\\editor\\tool_state.py",
+    "sha256": "00c4d59ddce8094091b7ac09f0a6651d9fe379b7b927a6157d80880c37b1e55c"
+  },
+  {
+    "path": "rza_calc\\editor\\validation.py",
+    "sha256": "7b8d497fd25bc5ed4bd90a57880e66e4a56a6ef744331209e095f52fb55282d2"
+  },
+  {
+    "path": "rza_calc\\examples\\energoraion_v1.json",
+    "sha256": "1dd4a016c22cf6dceba69700088826ecdfba6410d19550c412aa55f6acaad3ae"
+  },
+  {
+    "path": "rza_calc\\examples\\energoraion.json",
+    "sha256": "898d808dff3dbf13bea28ee9fa6d2e21bcc91bb29c5f1e8aa5d11744f69f75af"
+  },
+  {
+    "path": "rza_calc\\examples\\gtes_sever_v1.json",
+    "sha256": "ac88723c7ebb6dbafea40cd857c33e2848bc75e1f7718b382fd0c24f9677af86"
+  },
+  {
+    "path": "rza_calc\\examples\\gtes_sever.json",
+    "sha256": "e51a23e41141a260f892117781e1d1eceb8056a118ed32a0a93b7add4182f0e8"
+  },
+  {
+    "path": "rza_calc\\examples\\ps_severnaya_v1.json",
+    "sha256": "140067751b657df9dec4ef691ede03e8b7e9570860144e5f7b55c5c14c9012f9"
+  },
+  {
+    "path": "rza_calc\\examples\\ps_severnaya.json",
+    "sha256": "263c089c133873deda9dd9f32174f47da58ff95a317e823c0caecc76c8378428"
+  },
+  {
+    "path": "rza_calc\\gui\\__init__.py",
+    "sha256": "589cf68dc825e2d1684d598e19e298ed844c4bc9514ae3b7e863c1d02b215d4d"
+  },
+  {
+    "path": "rza_calc\\gui\\__main__.py",
+    "sha256": "9c176a448a41adcf0239ccc63336291f1683e55655265e3c8e0771e21e651b2e"
+  },
+  {
+    "path": "rza_calc\\gui\\analysis_scheme.py",
+    "sha256": "35bf077e8445b9a824469596ec8c58a9ce21228340b58f5c9cb4292f2926653f"
+  },
+  {
+    "path": "rza_calc\\gui\\app.py",
+    "sha256": "0023102deaff54645ae688b6d9483b5e2dd576069d30c41e597800e4168b1373"
+  },
+  {
+    "path": "rza_calc\\gui\\editor_panels.py",
+    "sha256": "81f8ed0fb8ccc4436530bf575212c3b61bd5afeb80d95b80888c1aa836c53991"
+  },
+  {
+    "path": "rza_calc\\gui\\editor_scene.py",
+    "sha256": "31011cccda923503df5549f4e58c4c51b9b5d15172791cabf0a8f5b2a378c479"
+  },
+  {
+    "path": "rza_calc\\gui\\equipment_symbols.py",
+    "sha256": "46c6236025fe99b03932b83ec4125988fb3ddfce90cd9cf82cf7de9d6e125633"
+  },
+  {
+    "path": "rza_calc\\gui\\label_layout.py",
+    "sha256": "075b386ea566a17ffd1e13cd60e728726a650670002ac0f768752279fc58e123"
+  },
+  {
+    "path": "rza_calc\\gui\\main_window.py",
+    "sha256": "d18bcabafda866abddb417a01d9fd0b596d6312773761920b20d35ca1498e937"
+  },
+  {
+    "path": "rza_calc\\gui\\rotation_handle.py",
+    "sha256": "8956d5af231d6444f438e0bcf293aa3ec533e5382c0dee27f77ff118a0b78cdc"
+  },
+  {
+    "path": "rza_calc\\gui\\route_bridges.py",
+    "sha256": "69426608e8243172f361f6398ae84d5d74014848622586cfd2dd26cd51156e99"
+  },
+  {
+    "path": "rza_calc\\gui\\strings.py",
+    "sha256": "cfa7e84422e837cea248ce4a5905c9420bc1b68bf354c28bdaefd4b71b6ac641"
+  },
+  {
+    "path": "rza_calc\\gui\\theme.py",
+    "sha256": "c8fa3d3116195a293ed3403bcb51786c2cc942e704180e458865f55d83e729aa"
+  },
+  {
+    "path": "rza_calc\\gui\\view_model.py",
+    "sha256": "ee0b2666b1f59c789be13ef2c01ca288199106eeca1db7d27ca0e40b48306202"
+  },
+  {
+    "path": "rza_calc\\io\\__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "rza_calc\\io\\catalog_snapshot.py",
+    "sha256": "26512259d5dcb4c1aaf1c29f22baec9ed80305ca3fa55e0f8c6fcfe53014d3fa"
+  },
+  {
+    "path": "rza_calc\\io\\catalog.py",
+    "sha256": "e2f629b48bf7e2ffb9dec785e155b517c396c7907c0e9df5ce1ba4c9e424fc94"
+  },
+  {
+    "path": "rza_calc\\io\\diagram.py",
+    "sha256": "a8da6e77ec74b445a358dc02698864aa515008d7fccf150d7145a568231e203b"
+  },
+  {
+    "path": "rza_calc\\io\\electrical_model.py",
+    "sha256": "f774fbcb5b7b6162c03381c9a0910602b5648d72971c8deb0261bed04676b076"
+  },
+  {
+    "path": "rza_calc\\io\\project.py",
+    "sha256": "39f9b11579eafbd9a7e3e7bcc025745fb0f0910a377ac4fecc64b6ef5216fa51"
+  },
+  {
+    "path": "rza_calc\\topology\\__init__.py",
+    "sha256": "0b7d5d96c6853149559a4fd80fedb5991a81ac0d79df78a72deb012537f14dbf"
+  },
+  {
+    "path": "rza_calc\\topology\\engine.py",
+    "sha256": "307bcf09a867dfeff1441f4203dd42780fb81d719799af0167c050eb34ba0020"
+  },
+  {
+    "path": "rza_calc\\topology\\handlers.py",
+    "sha256": "c56c47d07b4813cd24642a9583adf9a1a8e3f1f7269ff68b5fc776c268a715d9"
+  },
+  {
+    "path": "rza_calc\\topology\\model.py",
+    "sha256": "bc02686a94b156b2b55f4020aeea23edacfa5c419070f90768fa7bf2331c603c"
+  },
+  {
+    "path": "tests\\baseline_snapshot.py",
+    "sha256": "8b4b69fb2bc6b9693c17a3731c2dcd3acfc871054e44c29418a65bc79ac66488"
+  },
+  {
+    "path": "tests\\benchmark_automatic_junctions.py",
+    "sha256": "2661cd8cc751080149b260397828d1e3cd8cc29a5080654dce3d421efd4afb6a"
+  },
+  {
+    "path": "tests\\benchmark_stage3_editor.py",
+    "sha256": "ca0c4c38dcc7d9a96f917a24bdb1d9953194aa4be98817429f2d87c1a9fee009"
+  },
+  {
+    "path": "tests\\benchmark_stage4_connections.py",
+    "sha256": "507b2fae21d2c8e5ae571b43e9e3f260253686adc863bcc86c9bddb6231c44a3"
+  },
+  {
+    "path": "tests\\benchmark_ui_interaction.py",
+    "sha256": "e6284d8ceda52e6cf84bedd5bedc682872ba31ccb7023f532e2a37847ad107c2"
+  },
+  {
+    "path": "tests\\run_tests.py",
+    "sha256": "bb20038805d20c847108f1fb290c2e13842ce0db8a8f5397df8c69c30630afb7"
+  },
+  {
+    "path": "tests\\test_a2_calculation_case.py",
+    "sha256": "4d91b0766b37f54226b25f5650982e27c22497fae7cecc081aa68c06965c17ca"
+  },
+  {
+    "path": "tests\\test_a2_calculation_regressions.py",
+    "sha256": "c7be07947a3e0ec6806ddc4873760ccffeb1aafcd81639ce8fcd89d4d450ea6b"
+  },
+  {
+    "path": "tests\\test_a2_cli_regressions.py",
+    "sha256": "bbc5490224f8d9e135b637fa91028a201068671d875b27dd057dc932facb769a"
+  },
+  {
+    "path": "tests\\test_a2_methodology_override.py",
+    "sha256": "74b45994db10860b5952bb5ffa53eb418728e4020a8b289549877dfde0c6a7fd"
+  },
+  {
+    "path": "tests\\test_a2_methodology_regressions.py",
+    "sha256": "fa90dcff160196656846df9eb71098a334fa8c762a6935e91fab291282f9c734"
+  },
+  {
+    "path": "tests\\test_automatic_junctions_catalogs.py",
+    "sha256": "9fc91e0e368330acadd8728352bfa314fff3f16a11c960b63e520f5cf30f8d4b"
+  },
+  {
+    "path": "tests\\test_automatic_junctions_domain.py",
+    "sha256": "3bd7abe5489de9c3bbe48072558e60da305e5c945916bd2de07280db6c0fbc48"
+  },
+  {
+    "path": "tests\\test_automatic_junctions_editor_commands.py",
+    "sha256": "1392898c81d8bcb7db668d4564ddd4d85a85d165d62b675fd54698924223d2a9"
+  },
+  {
+    "path": "tests\\test_automatic_junctions_gui.py",
+    "sha256": "bcfa91884d70bfefb8d2949d0f4768b52f63515966ffb932a54ca111df78be1c"
+  },
+  {
+    "path": "tests\\test_automatic_junctions_integration.py",
+    "sha256": "d3fb76ff94f7c9f660cbceb16e1f5bc1e0d8e3fab51a793ebdd0cd2c5b631b46"
+  },
+  {
+    "path": "tests\\test_automatic_junctions_requirements.py",
+    "sha256": "7ff224c34b840366c2cdb18f9c7f8b8f44ceef887f973f7858e2c80bb2497a04"
+  },
+  {
+    "path": "tests\\test_calculation_baseline.py",
+    "sha256": "d7e4bed09b60e98a57438b3b1ce501a7cf4fbe755942faf39061d4e058adc3d1"
+  },
+  {
+    "path": "tests\\test_cli_exit_codes.py",
+    "sha256": "337bdc23ba4b5c05f027786ee3d612e66ca330c08da4104d1975cc85770ee46c"
+  },
+  {
+    "path": "tests\\test_connection_reflow.py",
+    "sha256": "bfbf4d76fbc2504a5b69ade8242b62df2b32861b316efe282956aedc72f1612c"
+  },
+  {
+    "path": "tests\\test_control_examples.py",
+    "sha256": "a84cfe0e51ab5ff015fa05883d7f9877f67a049ce6a57b30b8a1af2b499f25fc"
+  },
+  {
+    "path": "tests\\test_core.py",
+    "sha256": "c6ce6a798c308f19d26401044a8785a075c8c99cdcd5e2b4c3b49aaaac473890"
+  },
+  {
+    "path": "tests\\test_demo_diagram.py",
+    "sha256": "fae088dacf749427f486546bdf8d3e896ff550b833104776aa8cefb96c85bb4d"
+  },
+  {
+    "path": "tests\\test_diagram_endpoint_index.py",
+    "sha256": "70b6a61882e8f1766012375284de0b8ca5d8f5f99dae855ca9b97f6542b8f6a2"
+  },
+  {
+    "path": "tests\\test_domain.py",
+    "sha256": "33bbe6ed6a37fc197b9d9977c953e1606055562f71d7bdbd07adbd549791cf53"
+  },
+  {
+    "path": "tests\\test_editor_move_planner.py",
+    "sha256": "a94af2d57a1e7b4a25df98ae5ec4d736a49431a17115685fc7714ab07998977e"
+  },
+  {
+    "path": "tests\\test_editor_voltage_guard.py",
+    "sha256": "7be962a6be7cbd3f008a3d5b8b346648fc0f0a65ce345408032865e5a1adc2f7"
+  },
+  {
+    "path": "tests\\test_electrical.py",
+    "sha256": "6db515b2b5c00051b3497195c31cfa3ab84da80e870bbe505a72f947bfd91db1"
+  },
+  {
+    "path": "tests\\test_equipment_placement_registry.py",
+    "sha256": "c7f29d3e073ff7728550dfe5441de615311adf0a3c78607a5a939cc333f0da18"
+  },
+  {
+    "path": "tests\\test_equipment_symbol_library.py",
+    "sha256": "7cd8f379703ec6f12390977949fdcda812ded6e952f8ea97af706f3a53d4e1fb"
+  },
+  {
+    "path": "tests\\test_gui_fault_diagnostics.py",
+    "sha256": "a66ce78af1ce7fa7db8f3904142c0151cdaac8217448d4fb5e5807d2c8dd8d7a"
+  },
+  {
+    "path": "tests\\test_gui_view_model.py",
+    "sha256": "e7e6f2da6e269e3fb24d76f6a044ef82564523b213d45c328ddeba0843d2a518"
+  },
+  {
+    "path": "tests\\test_history_validation_cache.py",
+    "sha256": "4cedddf1a5c696f45584d39f0c18573c6351353ac7a780e3da8000222257abb5"
+  },
+  {
+    "path": "tests\\test_integration.py",
+    "sha256": "55737f747e6d8785041b08eab7883bc3cafa0c527b8dae2b4ec21bd53ea62828"
+  },
+  {
+    "path": "tests\\test_methodology_provenance.py",
+    "sha256": "d0e4cfe1a7b63bc828d9e4dc662f9f84992e24924adfdd0ef61774d06e24babf"
+  },
+  {
+    "path": "tests\\test_project_format.py",
+    "sha256": "02e4f0e4f8c24d775c4557adf8eb30bb76a75796bf1dcec83a7e58280ca54997"
+  },
+  {
+    "path": "tests\\test_roadmap_consistency.py",
+    "sha256": "b05a30a6f63ad2612645c5cc111c75478611d35233d7cda305f0ee1b0f252fff"
+  },
+  {
+    "path": "tests\\test_rotation_handle.py",
+    "sha256": "78eb523eb7cd9570c6f26718e6911bef70a0ac24e65702a58ef4f887a4132469"
+  },
+  {
+    "path": "tests\\test_rotation_route_safety.py",
+    "sha256": "a80dbc2bb632336137608efdd144b6f0792d54c13c15aa86ae31e22810231609"
+  },
+  {
+    "path": "tests\\test_route_geometry_reflow.py",
+    "sha256": "66048f7da1f95fa90a608d2be93ad87090eea9ca6852385c5e7505c2a24286cd"
+  },
+  {
+    "path": "tests\\test_safe_hardening.py",
+    "sha256": "5b8e138e62801e3699aaad36c71284ce7dc75bbc1a099e2ec6e167b951e13f8b"
+  },
+  {
+    "path": "tests\\test_safety.py",
+    "sha256": "1d309dbe04874417697d010774bd01f8d9c086a0d4e751d1aa05af86d7aa1d09"
+  },
+  {
+    "path": "tests\\test_stage1_adapter_extensions.py",
+    "sha256": "c4ff214fd79a32b30b7e3b5f817abbe15e6b9672afe459caa1251fb3c5c75581"
+  },
+  {
+    "path": "tests\\test_stage1_catalog.py",
+    "sha256": "ade4ab74b454e1b7d88795d6371cca658db484436637eefb3d1eb08489f421bd"
+  },
+  {
+    "path": "tests\\test_stage1_domain.py",
+    "sha256": "3b65a7d91bdd61c43e765a38c554578fbae0b3bf34ed6e9ba8599824c2ad43b8"
+  },
+  {
+    "path": "tests\\test_stage1_project_v3.py",
+    "sha256": "e763109c41ff5c0ce591beb5f34920a876f013f22bf9d5090c91b48b1da629e4"
+  },
+  {
+    "path": "tests\\test_stage1_project_v4.py",
+    "sha256": "3aac60253e2fe564f288c9cd344cbc1ab92f7e70a92cdf53609cb5a9868d42eb"
+  },
+  {
+    "path": "tests\\test_stage1_recloser_topology.py",
+    "sha256": "794be5b31637577d1a5034b63395710ff5cb37761ffb6a6abce9bca832cf7e77"
+  },
+  {
+    "path": "tests\\test_stage1_symbols.py",
+    "sha256": "1ed8a578793210d2c3a6cabf8739cb4844af926e2ba7bfb0977f01bb0d92ffc4"
+  },
+  {
+    "path": "tests\\test_stage1_taps_reclosers.py",
+    "sha256": "2719a938a9583956694275fa0f0e4c081931ca2b1fc58302533fb8b6ef0f9284"
+  },
+  {
+    "path": "tests\\test_stage2_project_v5.py",
+    "sha256": "cb14a911dc7c0414b43063e546e5b3c7ee5f4f4b4363a963f21a84ed7592a502"
+  },
+  {
+    "path": "tests\\test_stage2_topology_connectivity.py",
+    "sha256": "ae9bc486410696320466e93b6a6f9ea207db83c85e594ae9ed724734cb5a97da"
+  },
+  {
+    "path": "tests\\test_stage2_topology_queries_legacy_scale.py",
+    "sha256": "1300c8e1e2edece3d713d2a68b5d0d99494546a7eebc52e35316903b39fa372f"
+  },
+  {
+    "path": "tests\\test_stage2_topology_state_cache.py",
+    "sha256": "558d9f4d43eba29ae5d3867774f5c82a8a48e112c8fe1f1243a05c93a08c1aad"
+  },
+  {
+    "path": "tests\\test_stage2_topology_voltage.py",
+    "sha256": "44e9695d4caee23e6ec8fb69155dea680cff2575dfd635e1cdfc70b0fbe064b3"
+  },
+  {
+    "path": "tests\\test_stage25_fault_locations.py",
+    "sha256": "bc21e2edc9fd0fe29bb425241b4081743691d835f5fc70f5d526b6277b3e5e00"
+  },
+  {
+    "path": "tests\\test_stage25_graphical_isolation.py",
+    "sha256": "4283d0acfab3dc8968e03af337dad6ee7aff739bfd401106fd0fc5b75d549ad4"
+  },
+  {
+    "path": "tests\\test_stage25_lines_history.py",
+    "sha256": "f5e0be3c3d398b7942e61be6676696b77b86c7861e148c0c6ca8cd6cef6d8627"
+  },
+  {
+    "path": "tests\\test_stage25_project_v6.py",
+    "sha256": "08de6df39d9ab4f08343b00b3990fa2e36e94e40766059f5a5adbf66626119e3"
+  },
+  {
+    "path": "tests\\test_stage25_projection_diagram_catalog.py",
+    "sha256": "cf2dde6ceb1c2cdc3ffcdef38f679c5a483d5a1428556cb23ee1f6fd0cdc65aa"
+  },
+  {
+    "path": "tests\\test_stage3_editor_gui.py",
+    "sha256": "b29e224d26a23c8ab722672f0c8fb0217daa9fb842b8f0cbdbe571a5e334a12c"
+  },
+  {
+    "path": "tests\\test_stage3_project_commands.py",
+    "sha256": "34fbd8e88877ed1dcb6338f83b7177a9491eea2ddac00494173948fb163c6cf2"
+  },
+  {
+    "path": "tests\\test_stage3_requirements.py",
+    "sha256": "82e4b5f3f50e938c1699983e583448bc7aa628223454f5edd69c831fb3d8a6b2"
+  },
+  {
+    "path": "tests\\test_stage4_domain_connections.py",
+    "sha256": "f61466e8ac786d55dddaecddf133583e1147cf9627d5e933ffb4226bbefdcfff"
+  },
+  {
+    "path": "tests\\test_stage4_editor_interaction.py",
+    "sha256": "8defcac9cf48d3c684da3b61c349cb0e199c186c09564af1f28ad3ffc9f6b1b5"
+  },
+  {
+    "path": "tests\\test_stage4_integration.py",
+    "sha256": "b245d99d2170fd0537d84d7913315cda8ee97014c7ed659051835f0e0fb7a5da"
+  },
+  {
+    "path": "tests\\test_stage4_project_v7.py",
+    "sha256": "8673e1c66fe01983a4d93e4ccd583b32c156ee6068046a2c2d1d9a321fd8b9d3"
+  },
+  {
+    "path": "tests\\test_stage4_requirements.py",
+    "sha256": "76efe2faaa1830b422e7c70a4769653a55d2f9c33c5924fed14892db0615c405"
+  },
+  {
+    "path": "tests\\test_stage4_saved_route_editing.py",
+    "sha256": "48d1931a496434c0fe56590cab1bc86cda1707ab1e885d3aff5e59f93243ddbf"
+  },
+  {
+    "path": "tests\\test_stage4_validation.py",
+    "sha256": "7fef0b799a72d7e27539f93bd485a3040dd172270440d664fe5afc08f0f53fec"
+  },
+  {
+    "path": "tests\\test_to_inrush_basis.py",
+    "sha256": "c2a12096d0dc3886b5883e9c64911b9f24fe226cfb8f9219cc307147ccf7d451"
+  },
+  {
+    "path": "tests\\test_two_position_palette.py",
+    "sha256": "dc5aeae74459b6f7e7d939b52f3473f7b4f1d4b26a495718394903cf06386c14"
+  },
+  {
+    "path": "tests\\test_two_position_policy.py",
+    "sha256": "8c1d74ca43b877e09f02b87f96e52029e266bf34262b1cf89ebd3d16746fa326"
+  },
+  {
+    "path": "tests\\test_ui_b2_voltage_colors.py",
+    "sha256": "6986e70d6dec85c074b90848ed7bc1ea49f77867c7bb343eac541e136e25f514"
+  },
+  {
+    "path": "tests\\test_ui_b3_label_geometry.py",
+    "sha256": "2766fbc579a5ce469ba0c78c53e25a94b62a76294f265ce21cc24e49eb7331d3"
+  },
+  {
+    "path": "tests\\test_ui_b3_labels.py",
+    "sha256": "a04d1348a348701fe5165d1d3c2e5b6709133e6602c72c1176436d48b7b1ccbf"
+  },
+  {
+    "path": "tests\\test_ui_b3_visual_merge.py",
+    "sha256": "ae3237e0764acf537a2b6543a5537c8130ae88e5d25982408bbad1ea89a1fd0a"
+  },
+  {
+    "path": "tests\\test_ui_bus_crossings.py",
+    "sha256": "4536b1851af1587575dbff2b4875bcf6ac44d8c7454808a0e6670fadf797ae56"
+  },
+  {
+    "path": "tests\\test_ui_connected_commands.py",
+    "sha256": "31dfb2e48eebadf1823cbe8c2ac1c95a28c7183704315caccfc6fc273b205add"
+  },
+  {
+    "path": "tests\\test_ui_connected_drag.py",
+    "sha256": "6bb8fc9f91ccb0293e645838ed1bb8d38b98c5f6c88f714d7d4ffa3ae6e9a773"
+  },
+  {
+    "path": "tests\\test_ui_direct_connections.py",
+    "sha256": "19458ecb47ca76569621c4bc8eadc737f3f56616d19999ddf65302cb1b7dffb5"
+  },
+  {
+    "path": "tests\\test_ui_drag_regressions.py",
+    "sha256": "7973dcf2e5e0b952ff6fc8b9945ad7f973d5cf3dd390ebef5ff319b19ae23d4f"
+  },
+  {
+    "path": "tests\\test_ui_interaction_collision.py",
+    "sha256": "89ecbe1a62bcab3c7ab3a49fc48407e8606e98f7d73f19f3e2c5ce7062c1af45"
+  },
+  {
+    "path": "tests\\test_ui_interaction_gui.py",
+    "sha256": "f6250569dae4fedc8c859c9ddfc6a2faa09ab7f83109f4fe0ffeefbd7b9e7065"
+  },
+  {
+    "path": "tests\\test_ui_interaction_orientation.py",
+    "sha256": "d93dde69eb8d7c27f8b76ab9a24c8b1bfdafc96de81214d7f3c3845d1cfa7056"
+  },
+  {
+    "path": "tests\\test_ui_interaction_regressions.py",
+    "sha256": "be0420d3d3d89e183c3d71c617fa023fbccc550b4f1e1024153d71936c429581"
+  },
+  {
+    "path": "tests\\test_ui_interaction_tool_state.py",
+    "sha256": "d6b97a94bbf9ef26e620250021719339631e30addbf8068a7f2653304f2d5607"
+  },
+  {
+    "path": "tests\\test_ui_line_direction.py",
+    "sha256": "7859e2a080e20510c4334de1e64e6515b4a8e91942a48f6f4ae3a38ccaf25513"
+  },
+  {
+    "path": "tests\\test_ui_text_selection.py",
+    "sha256": "c3aeab05bd8e860d93bbf397bf33e40d64cdcf40d5060c05bb6a33d5e9c0de6a"
+  },
+  {
+    "path": "tests\\test_ui_toolbar_readability.py",
+    "sha256": "0e2875033986d2b71380dbbb476c16be9325bf8952321a88bac2b44d1a8e1724"
+  },
+  {
+    "path": "tests\\test_visio_crossings.py",
+    "sha256": "9e4a7f4807a1f2c56f426116831cbfa7442a741c655a2934a1aea1b40748e204"
+  },
+  {
+    "path": "tests\\test_visio_style_integration.py",
+    "sha256": "b57a466167db73f51c74dd4d77522af158ef86a4bdcca49b7bc9109a1e9d818a"
+  },
+  {
+    "path": "tests\\test_visio_symbols.py",
+    "sha256": "67e2ff0c9852a4dfc195cc6f1796cccdd6deddeee8fe7529166d9a54242f3fa1"
+  },
+  {
+    "path": "tests\\test_voltage_basis.py",
+    "sha256": "5f08ab65e0adf21efa47c3e59338dba56fc3deb2c437d8103b597f2d507f149d"
+  },
+  {
+    "path": "tests\\test_voltage_inspector.py",
+    "sha256": "1058b2f1ca35852bfd61eabd7e5fb7b5235a4b59f22b01e2550fff52300adcf6"
+  },
+  {
+    "path": "tests\\baseline\\calculation_baseline.json",
+    "sha256": "eb117b54e6117a4c83f612215b6ef7126f1bd303bae524e73fc60649b671f9d0"
+  },
+  {
+    "path": "tests\\calculation_audit\\__init__.py",
+    "sha256": "752bb70e6c5f31e01dc09f707c5bc528010dca18f947c1cb9c9d8998b28fc282"
+  },
+  {
+    "path": "tests\\calculation_audit\\benchmark_kernel.py",
+    "sha256": "3d3575d33b7c40a4fe622c601f08eb2ffee35f981cc8b626bfe3ddfb6d03dfbe"
+  },
+  {
+    "path": "tests\\calculation_audit\\reference_solver.py",
+    "sha256": "03823e4699841054005790ee3713ebe0d556fd5ec992909736412fbd01d424c4"
+  },
+  {
+    "path": "tests\\calculation_audit\\test_benchmark_cases.py",
+    "sha256": "cf301ed9f118bbc7b8cbbd65c1c9fb2bde2d42e1d17bdbca21fb8bd8c0313cb7"
+  },
+  {
+    "path": "tests\\calculation_audit\\test_input_integrity.py",
+    "sha256": "50124bb05f79f462c24e30a7faf55dcf11723bad7087c4e6f2be34cd472fcc27"
+  },
+  {
+    "path": "tests\\calculation_audit\\test_numerical_boundaries.py",
+    "sha256": "b90121a9a5bc98374f7170625a47af7e3292a4dfa5ef87d7f73e53aa145f22e4"
+  },
+  {
+    "path": "tests\\calculation_audit\\test_topology_and_freshness.py",
+    "sha256": "96da56543030cb07dfc3b3f9c49e84e2d025ebf5f443c5718c2afaff025faf99"
+  },
+  {
+    "path": "tests\\work_verification\\automatic_junctions_gui_evidence.py",
+    "sha256": "7b06e07ec89a85e11609d0f6fbe407a0ffad54daa8791ff90c378d44eab090f7"
+  },
+  {
+    "path": "tests\\work_verification\\gui_evidence.py",
+    "sha256": "91a5a9135c426ec871e32d8ce1a46f9eeb3ec60aebfc20c3036b776d4b9c6625"
+  },
+  {
+    "path": "tests\\work_verification\\two_position_rotation_evidence.py",
+    "sha256": "ab6d2ee2edf70cd2fea64202d4e0053b7f0ec8603950e666c22b831b023e63ee"
+  },
+  {
+    "path": "tests\\work_verification\\ui_interaction_gui_evidence.py",
+    "sha256": "de231be2acbe3042dfa3012c8be9170957fde067924e8d88ee01fd04b1305173"
+  },
+  {
+    "path": "tests\\work_verification\\visio_style_evidence.py",
+    "sha256": "82d5fd29a1bf9975c4a918e3446f81aa01cfc30350fecf5c44c912dc1d188f6f"
+  }
+]
