@@ -186,7 +186,7 @@ def test_recloser_requires_normal_position_at_the_adapter_boundary():
     ] == ["recloser_normal_position_missing"]
 
 
-def test_line_section_prefers_domain_queries_and_maps_positive_sequence_only():
+def test_line_section_prefers_domain_queries_and_preserves_separate_sequences():
     model = _model_with_two_nodes("LineSection Domain API")
     logical_line, section, _ = model.create_logical_line(
         "Cable line",
@@ -241,11 +241,15 @@ def test_line_section_prefers_domain_queries_and_maps_positive_sequence_only():
     assert branch.n_parallel == 2
     assert branch.r0 == pytest.approx(0.125)
     assert branch.x0 == pytest.approx(0.081)
+    assert branch.r2_ohm_per_km == pytest.approx(0.126)
+    assert branch.x2_ohm_per_km == pytest.approx(0.082)
+    assert branch.r0_ohm_per_km == pytest.approx(0.9)
+    assert branch.x0_ohm_per_km == pytest.approx(1.7)
     assert branch.ic_per_km == pytest.approx(1.25)
     assert branch.switchable is False
     assert any(
         diagnostic.code == "line_section_properties_not_used"
-        and "r0_ohm_per_km" in diagnostic.message
+        and "custom_parameters" in diagnostic.message
         for diagnostic in result.diagnostics
     )
 

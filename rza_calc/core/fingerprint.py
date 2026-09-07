@@ -16,7 +16,24 @@ from enum import Enum
 from typing import Any
 
 from .methodology import Methodology
-from .model import Network
+from .model import Branch, Network
+
+
+# Adding absent optional inputs must not invalidate previously saved passports.
+# Supplied sequence values, including numeric zero, DO affect the fingerprint.
+_OPTIONAL_SEQUENCE_FIELDS = frozenset({
+    "r2_ohm", "x2_ohm", "r0_ohm", "x0_ohm", "sequence_reference_kv",
+    "zero_sequence_connection", "sequence_phase_shift_deg",
+    "r2_ohm_per_km", "x2_ohm_per_km", "r0_ohm_per_km", "x0_ohm_per_km",
+})
+
+
+def _absent_sequence_field(value, name):
+    if not isinstance(value, Branch):
+        return False
+    field_value = getattr(value, name)
+    return (name in _OPTIONAL_SEQUENCE_FIELDS and field_value is None) or (
+        name == "negative_sequence_equal_positive" and field_value is False)
 
 
 def _key(value: Any) -> str:
@@ -42,6 +59,7 @@ def _normalise(value: Any) -> Any:
         return {
             item.name: _normalise(getattr(value, item.name))
             for item in fields(value)
+            if not _absent_sequence_field(value, item.name)
         }
     if isinstance(value, Mapping):
         return {

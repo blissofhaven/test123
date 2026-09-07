@@ -947,6 +947,8 @@ def builtin_equipment_types() -> tuple[EquipmentTypeDefinition, ...]:
         PropertyDefinition("x2_ohm_per_km", "number", unit="ohm/km"),
         PropertyDefinition("r0_ohm_per_km", "number", unit="ohm/km"),
         PropertyDefinition("x0_ohm_per_km", "number", unit="ohm/km"),
+        PropertyDefinition("negative_sequence_equal_positive", "boolean", default=False),
+        PropertyDefinition("zero_sequence_connection", "string"),
         PropertyDefinition(
             "capacitive_current_a_per_km", "number", unit="A/km", default=0.0
         ),

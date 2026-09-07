@@ -362,6 +362,15 @@ class ShortCircuitSolver:
             * self.distribution_factor_complex(branch, fault_node)
         )
 
+    def fault_at(self, node_id: str, spec):
+        """Explicit three-phase, phase-phase or grounded fault at one node.
+
+        Sequence data is loaded lazily. Missing zero-sequence parameters do
+        not prevent the existing three-phase/protection path from running.
+        """
+        from .sequence_network import SequenceFaultSolver
+        return SequenceFaultSolver(self).fault_at(node_id, spec)
+
     def at(self, node_id: str) -> ScResult:
         net, m = self.net, self.m
         node = net.node(node_id)

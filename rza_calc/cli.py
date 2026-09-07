@@ -12,6 +12,8 @@ GUI на PySide6 надстраивается сверху и вызывает �
     check                    проверить модель и профиль методики
     modes                    список режимов
     sc                       токи КЗ по всем узлам и режимам
+    sc --fault-type <тип> [--node <id>] [--mode <id>]
+                             фазные токи и напряжения: 3ph, 2ph, 1ph_g, 2ph_g
     table                    сводная таблица уставок всей ПС
     feeder <id>              карточка результата по присоединению
     explain <id> <защита>    полный протокол расчёта (кнопка «?»)
@@ -37,6 +39,11 @@ replay-case выводит полный протокол и возвращает
     2   расчёт НЕ выполнен: блокирующая ошибка исходных данных, отсутствующий
         файл, неизвестная команда
 
+Для sc с опциями код 0 означает, что все запрошенные случаи КЗ рассчитаны,
+3 — хотя бы один случай не завершён, 2 — ошибка запроса/исходных данных.
+Эта команда не оценивает прохождение уставок защит. sc без опций сохраняет
+прежний формат и прежние коды возврата.
+
 Команда `check` проверяет ИСХОДНЫЕ ДАННЫЕ, поэтому возвращает только 0 или 2:
 непройденная уставка — не дефект модели и не повод считать проверку данных
 проваленной. Раньше `check` возвращал 1 из-за чужого результата, и по нему
@@ -50,6 +57,7 @@ from pathlib import Path
 
 from .core import selectivity as sel
 from .core.engine import CalculationCase, ProjectResult, render_table, run, summary_table
+from .core.fault_types import FaultSpec, FaultType
 from .core.result import FAIL, OK, UNRESOLVED
 from .core.trace import fmt
 
@@ -68,6 +76,89 @@ INPUT_ONLY_COMMANDS = ("check", "modes")
 
 class CliInputError(ValueError):
     """Неизвестный объект запроса, а не отрицательный результат защиты."""
+
+
+def _parse_sc_options(args: list[str]) -> dict[str, str]:
+    """Разбирать запрос до расчёта и не игнорировать опечатки в опциях."""
+    options: dict[str, str] = {}
+    allowed = {"--fault-type": "fault_type", "--node": "node_id", "--mode": "mode_id"}
+    index = 0
+    while index < len(args):
+        flag, equals, value = args[index].partition("=")
+        if flag not in allowed:
+            raise CliInputError(f"Неизвестный аргумент sc: {args[index]}")
+        key = allowed[flag]
+        if key in options:
+            raise CliInputError(f"Опция {flag} указана повторно.")
+        if not equals:
+            index += 1
+            if index >= len(args) or args[index].startswith("--"):
+                raise CliInputError(f"После {flag} требуется значение.")
+            value = args[index]
+        if not value:
+            raise CliInputError(f"После {flag} требуется значение.")
+        options[key] = value
+        index += 1
+    if "fault_type" in options:
+        try:
+            FaultType(options["fault_type"])
+        except ValueError as exc:
+            raise CliInputError("Неизвестный тип КЗ. Допустимы: 3ph, 2ph, 1ph_g, 2ph_g.") from exc
+    return options
+
+
+def _phasor(value: complex, unit: str) -> str:
+    value = complex(value)
+    return f"{fmt(value.real)} {value.imag:+.6g}j {unit}; |·| = {fmt(abs(value))} {unit}"
+
+
+def cmd_selected_sc(pr: ProjectResult, *, fault_type: str = "3ph",
+                    node_id: str | None = None, mode_id: str | None = None) -> tuple[str, bool]:
+    """Выбранный вид КЗ; bool означает хотя бы один незавершённый случай."""
+    net = pr.ctx.net
+    try:
+        kind = FaultType(fault_type)
+    except ValueError as exc:
+        raise CliInputError("Неизвестный тип КЗ. Допустимы: 3ph, 2ph, 1ph_g, 2ph_g.") from exc
+    if node_id is not None and node_id not in net.nodes:
+        raise CliInputError(f"Узел '{node_id}' не найден.")
+    if mode_id is not None and mode_id not in net.modes:
+        raise CliInputError(f"Режим '{mode_id}' не найден.")
+    nodes = [net.nodes[node_id]] if node_id is not None else list(net.nodes.values())
+    modes = [net.modes[mode_id]] if mode_id is not None else list(net.modes.values())
+    labels = {
+        FaultType.THREE_PHASE: "Трёхфазное КЗ",
+        FaultType.LINE_LINE: "Двухфазное КЗ B–C",
+        FaultType.LINE_GROUND: "Однофазное КЗ A–земля",
+        FaultType.LINE_LINE_GROUND: "Двухфазное КЗ B–C–земля",
+    }
+    out = [_title(f"{labels[kind]} ({kind.value})")]
+    out.append("  Фазные токи и остаточные напряжения в точке КЗ; Zповр = 0 Ом.")
+    unresolved = False
+    for node in nodes:
+        for mode in modes:
+            out.append(f"\n  {node.name} [{node.id}] · {mode.name} [{mode.id}]")
+            solver = pr.ctx.solvers.get(mode.id)
+            if solver is None:
+                unresolved = True
+                out.append("  НЕ РАССЧИТАНО [MODE_UNAVAILABLE]: " +
+                           pr.ctx.errors.get(mode.id, "Режим не рассчитан."))
+                continue
+            try:
+                result = solver.fault_at(node.id, FaultSpec(kind))
+            except Exception as exc:
+                unresolved = True
+                out.append(f"  НЕ РАССЧИТАНО [{getattr(exc, 'code', 'CALCULATION_ERROR')}]: {exc}")
+                continue
+            for phase, current, voltage in zip("ABC", result.iabc_ka, result.vabc_kv):
+                out.append(f"  I{phase}: {_phasor(current, 'кА')}")
+                out.append(f"  U{phase}: {_phasor(voltage, 'кВ')}")
+            out.append(f"  3I0: {_phasor(result.residual_current_ka, 'кА')}")
+            for assumption in result.assumptions:
+                out.append(f"  Допущение: {assumption}")
+    out.append("\n  Напряжения фаз — относительно земли, токи — первичные на ступени точки КЗ.")
+    out.append("  Выбор вида повреждения относится к этому расчёту ТКЗ; уставки защит не изменены.")
+    return "\n".join(out), unresolved
 
 
 def _hr(ch: str = "─") -> str:
@@ -338,6 +429,13 @@ def main(argv: list[str] | None = None) -> int:
 
     cmd = argv[1] if len(argv) > 1 else "report"
     args = argv[2:]
+    sc_options = {}
+    if cmd == "sc":
+        try:
+            sc_options = _parse_sc_options(args)
+        except CliInputError as exc:
+            print(f"Ошибка запроса: {exc}")
+            return EXIT_INPUT_ERROR
     if cmd == "replay-case" and len(args) != 1:
         print("Ошибка запроса: replay-case требует один путь сохранённого паспорта.")
         return EXIT_INPUT_ERROR
@@ -363,6 +461,10 @@ def main(argv: list[str] | None = None) -> int:
         elif cmd == "modes":
             print(cmd_modes(pr))
         elif cmd == "sc":
+            if sc_options:
+                text, unresolved = cmd_selected_sc(pr, **sc_options)
+                print(text)
+                return EXIT_UNRESOLVED if unresolved else EXIT_OK
             print(cmd_sc(pr))
         elif cmd == "table":
             print(cmd_table(pr))

@@ -1028,6 +1028,71 @@ def _line_section_geometry(
     return length_km, str(line_type), frozenset(consumed)
 
 
+def _line_sequence_fields(
+    rows: list[tuple[Any, float, str, dict[str, Any]]],
+    payload: dict[str, Any],
+    consumed: set[str],
+) -> None:
+    """Carry explicit sequences without mistaking legacy r0/x0 for Z0.
+
+    Every construction segment must supply both components.  A partial
+    sequence stays absent in the DTO; the original values remain in the
+    canonical project and in the adapter's unused-property diagnostic.
+    The DTO's parallel count is retained for a simple segment, or accounted
+    for while producing a series equivalent for a composite section.
+    """
+    properties = [row[3] for row in rows]
+    for sequence in (2, 0):
+        keys = (f"r{sequence}_ohm_per_km", f"x{sequence}_ohm_per_km")
+        if not all(all(item.get(key) is not None for key in keys) for item in properties):
+            continue
+        if len(rows) == 1:
+            for key in keys:
+                payload[key] = properties[0][key]
+        else:
+            total_length = sum(row[1] for row in rows)
+            # An unknown segment length is not a zero-length conductor.
+            if total_length <= 0 or any(row[1] <= 0 for row in rows):
+                continue
+            target_parallel = payload.get("n_parallel", 1)
+            for key in keys:
+                total = 0.0
+                for _, length_km, _, item in rows:
+                    parallel = item.get("parallel_count", 1)
+                    if isinstance(parallel, bool) or not isinstance(parallel, int) or parallel < 1:
+                        raise LegacyCalculationAdapterError(
+                            "LineSection: parallel_count должен быть положительным целым."
+                        )
+                    total += _finite_number(item[key], context=f"LineSection: {key}") * length_km / parallel
+                payload[key] = total * target_parallel / total_length
+        consumed.update(keys)
+
+    equal_key = "negative_sequence_equal_positive"
+    if any(equal_key in item for item in properties):
+        consumed.add(equal_key)
+        if all(item.get(equal_key) is True for item in properties):
+            payload[equal_key] = True
+
+    connection_key = "zero_sequence_connection"
+    connections = [item.get(connection_key) for item in properties]
+    if len(rows) == 1:
+        if connections[0] is not None:
+            payload[connection_key] = connections[0]
+            consumed.add(connection_key)
+    elif any(value is not None for value in connections):
+        if all(value in (None, "series") for value in connections):
+            payload[connection_key] = "series"
+        elif all(value == "blocked" for value in connections):
+            payload[connection_key] = "blocked"
+        else:
+            # A lost zero-sequence barrier must not become the conventional
+            # default series line.  Segment shunts and mixed topologies need
+            # a richer equivalent; this marker is rejected ONLY by the new
+            # zero-sequence calculation, without blocking legacy 3ph.
+            payload[connection_key] = "unsupported_composite"
+        consumed.add(connection_key)
+
+
 def _line_section_payload(
     model: ElectricalModel,
     equipment: EquipmentInstance,
@@ -1168,6 +1233,7 @@ def _line_section_payload(
             f"Расчёт линии '{equipment.name}' заблокирован: {block_reason}.",
             equipment.id.value,
         ))
+        _line_sequence_fields(segment_rows, payload, consumed)
         unused = set().union(
             *(set(item[3]) for item in segment_rows)
         ) - consumed
@@ -1216,6 +1282,7 @@ def _line_section_payload(
                     f"{block_reason}.",
                     equipment.id.value,
                 ))
+        _line_sequence_fields(segment_rows, payload, consumed)
         unused = set(properties) - consumed
         return payload, frozenset(unused), tuple(diagnostics)
 
@@ -1319,6 +1386,7 @@ def _line_section_payload(
             f"расчёт заблокирован: {block_reason}.",
             equipment.id.value,
         ))
+    _line_sequence_fields(segment_rows, payload, consumed)
     unused = set().union(*(set(item) for item in all_properties)) - consumed
     return payload, frozenset(unused), tuple(diagnostics)
 

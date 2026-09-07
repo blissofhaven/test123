@@ -13,9 +13,33 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from ..core.engine import CalculationInputError, ProjectResult, run
+from ..core.fault_types import FaultSpec, FaultType
 from ..core.model import GeneratorBranch, Mode
 from ..core.result import FAIL, OK, UNRESOLVED
 from ..io.project import ProjectData, load_project
+
+
+FAULT_TYPE_LABELS = {
+    FaultType.THREE_PHASE: "Трёхфазное КЗ",
+    FaultType.LINE_LINE: "Двухфазное КЗ (B–C)",
+    FaultType.LINE_GROUND: "Однофазное КЗ на землю (A)",
+    FaultType.LINE_LINE_GROUND: "Двухфазное КЗ на землю (B–C)",
+}
+
+FAULT_STATUS_LABELS = {
+    "MISSING_SEQUENCE_DATA": "Нет исходных данных",
+    "NOT_ENERGIZED": "Нет питания",
+    "NO_ZERO_SEQUENCE_RETURN_PATH": "Нет контура нулевой последовательности",
+    "NO_SEQUENCE_RETURN_PATH": "Нет контура последовательности",
+    "NUMERIC_FAILURE": "Численная ошибка",
+    "INVALID_INPUT": "Ошибка данных",
+    "MODE_UNAVAILABLE": "Режим не рассчитан",
+    "CALCULATION_ERROR": "Расчёт не выполнен",
+}
+
+
+def fault_status_label(code: str) -> str:
+    return FAULT_STATUS_LABELS.get(code, "Расчёт не выполнен")
 
 
 KIND_RU = {
@@ -104,6 +128,12 @@ class FaultRow:
     i3_ka: float | None
     i2_ka: float | None
     error: str = ""
+    fault_type: FaultType = FaultType.THREE_PHASE
+    iabc_ka: tuple[complex, ...] | None = None
+    vabc_kv: tuple[complex, ...] | None = None
+    residual_current_ka: complex | None = None
+    status_code: str = ""
+    assumptions: tuple[str, ...] = ()
 
 
 def _fmt_number(value: float, digits: int = 2) -> str:
@@ -146,6 +176,7 @@ class ProjectViewModel:
         self.result: ProjectResult | None = None
         self.calculation_error = ""
         self.selected_kind = "node"
+        self.selected_fault_type = FaultType.THREE_PHASE
         self.selected_id = next(iter(self.net.nodes), "")
         self._enable_switching()
         self.mode_id = self._preferred_mode()
@@ -517,6 +548,13 @@ class ProjectViewModel:
         return rows
 
     # ---------- расчётные результаты ----------
+    def select_fault_type(self, value: FaultType | str) -> None:
+        """Вид повреждения меняет только запрос результата, не модель сети."""
+        self.selected_fault_type = FaultType(value)
+
+    def fault_type_label(self) -> str:
+        return FAULT_TYPE_LABELS[self.selected_fault_type]
+
     def selected_fault_node(self) -> str | None:
         if self.selected_kind == "node":
             return self.selected_id
@@ -546,14 +584,54 @@ class ProjectViewModel:
             solver = self.result.ctx.solvers.get(mode.id)
             if solver is None:
                 rows.append(FaultRow(mode.id, mode.name, None, None,
-                                     self.result.ctx.errors.get(mode.id, "Режим не рассчитан")))
+                                     self.result.ctx.errors.get(mode.id, "Режим не рассчитан"),
+                                     self.selected_fault_type, status_code="MODE_UNAVAILABLE"))
                 continue
+            # Старые поля нужны потребителям прежней таблицы и не означают,
+            # что выбранное несимметричное повреждение рассчитано по i2.
+            i3 = i2 = None
             try:
                 sc = solver.at(node_id)
-                rows.append(FaultRow(mode.id, mode.name, sc.i3, sc.i2))
+                i3, i2 = sc.i3, sc.i2
+            except Exception:
+                # Новое повреждение имеет собственный результат/диагностику;
+                # не блокировать его ошибкой прежнего вспомогательного API.
+                pass
+            try:
+                fault = solver.fault_at(node_id, FaultSpec(self.selected_fault_type))
+                rows.append(FaultRow(
+                    mode.id, mode.name, i3, i2, fault_type=self.selected_fault_type,
+                    iabc_ka=tuple(fault.iabc_ka), vabc_kv=tuple(fault.vabc_kv),
+                    residual_current_ka=fault.residual_current_ka,
+                    assumptions=tuple(fault.assumptions),
+                ))
             except Exception as exc:
-                rows.append(FaultRow(mode.id, mode.name, None, None, str(exc)))
+                rows.append(FaultRow(
+                    mode.id, mode.name, i3, i2, str(exc), self.selected_fault_type,
+                    status_code=str(getattr(exc, "code", "CALCULATION_ERROR")),
+                ))
         return rows
+
+    def fault_details_text(self, rows: list[FaultRow] | None = None) -> str:
+        """Фазные значения и причина недоступности для текущего режима."""
+        rows = self.fault_rows() if rows is None else rows
+        row = next((item for item in rows if item.mode_id == self.mode_id), None)
+        title = self.fault_type_label()
+        if row is None:
+            return title + ": " + (self.calculation_error or "Нет результата для выбранного узла и режима.")
+        lines = [f"{title} · {row.mode_name}"]
+        if row.error:
+            lines.append(f"{fault_status_label(row.status_code)}: {row.error}")
+        else:
+            for phase, current, voltage in zip("ABC", row.iabc_ka or (), row.vabc_kv or ()):
+                lines.append(f"Фаза {phase}: |I| = {_fmt_number(abs(current), 4)} кА; "
+                             f"|Uф| = {_fmt_number(abs(voltage), 4)} кВ")
+            if row.residual_current_ka is not None:
+                lines.append(f"|3I0| = {_fmt_number(abs(row.residual_current_ka), 4)} кА")
+            lines.extend(str(item) for item in row.assumptions)
+        lines.append("Uф — остаточное напряжение фазы относительно земли в точке КЗ. "
+                     "Токи — первичные, на ступени выбранного узла. Zповр = 0 Ом.")
+        return "\n".join(lines)
 
     def setting_rows(self) -> list[SettingRow]:
         if self.result is None or self.selected_kind != "branch":
@@ -609,6 +687,9 @@ class ProjectViewModel:
         ]
         if self.warnings():
             lines += ["", "Предупреждения:"] + [f"• {item}" for item in self.warnings()]
+        point = self.selected_fault_node()
+        point_name = self.net.nodes[point].name if point in self.net.nodes else "—"
+        lines += ["", f"Точка КЗ: {point_name}", self.fault_details_text()]
         return "\n".join(lines)
 
 

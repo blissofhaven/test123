@@ -75,6 +75,20 @@ class Branch:
     terminal: str = ""                            # тип терминала РЗА
     prot: ProtectionSettings = field(default_factory=ProtectionSettings)
     note: str = ""
+    # Explicit sequence equivalents.  Absolute impedances are in ohms on
+    # sequence_reference_kv, not on the solver's common calculation base.
+    # The zero-sequence equivalent INCLUDES every applicable 3*Zn term;
+    # the solver must never add a neutral impedance to it a second time.
+    r2_ohm: float | None = field(default=None, kw_only=True)
+    x2_ohm: float | None = field(default=None, kw_only=True)
+    r0_ohm: float | None = field(default=None, kw_only=True)
+    x0_ohm: float | None = field(default=None, kw_only=True)
+    sequence_reference_kv: float | None = field(default=None, kw_only=True)
+    negative_sequence_equal_positive: bool = field(default=False, kw_only=True)
+    # None means not supplied, not an ungrounded or an ideal connection.
+    zero_sequence_connection: str | None = field(default=None, kw_only=True)
+    # From node_from to node_to; meaningful only for TransformerBranch.
+    sequence_phase_shift_deg: float | None = field(default=None, kw_only=True)
 
     @property
     def has_protection_point(self) -> bool:
@@ -214,6 +228,12 @@ class LineBranch(Branch):
     n_parallel: int = 1
     r0: float | None = None            # Ом/км — если задано, перекрывает справочник
     x0: float | None = None            # Ом/км
+    # Canonical sequence names.  Historical r0/x0 above remain POSITIVE
+    # sequence per-km values and must never be interpreted as zero sequence.
+    r2_ohm_per_km: float | None = field(default=None, kw_only=True)
+    x2_ohm_per_km: float | None = field(default=None, kw_only=True)
+    r0_ohm_per_km: float | None = field(default=None, kw_only=True)
+    x0_ohm_per_km: float | None = field(default=None, kw_only=True)
     ic_per_km: float | None = None     # А/км, ёмкостный ток ОЗЗ (по каталогу)
     # Канонический проект может хранить конструкцию, которую старое ядро пока
     # не умеет честно свести к одному LineBranch. DTO остаётся доступным для

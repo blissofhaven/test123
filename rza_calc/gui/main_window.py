@@ -26,7 +26,7 @@ from ..io.project import save_project
 from .editor_panels import EditorWorkspaceWidget
 from .analysis_scheme import AnalysisSchemeView
 from .theme import COLORS, DiagramColorMode, voltage_stroke
-from .view_model import ProjectViewModel, TreeEntry
+from .view_model import FAULT_TYPE_LABELS, ProjectViewModel, TreeEntry, fault_status_label
 
 
 def _clear_layout(layout) -> None:
@@ -64,6 +64,32 @@ def _set_rows(table: QTableWidget, rows: list[list[str]]) -> None:
             elif value in ("Не определено", "?"):
                 item.setForeground(QColor(COLORS["amber"]))
             table.setItem(row_index, column, item)
+
+
+def _phase_magnitudes(values) -> str:
+    if values is None:
+        return "—"
+    return " / ".join(f"{abs(value):.4f}".rstrip("0").rstrip(".").replace(".", ",")
+                      for value in values)
+
+
+def _fault_status(row) -> str:
+    if row.error:
+        return f"{fault_status_label(row.status_code)}: {row.error}"
+    return "С допущением" if row.assumptions else "Рассчитано"
+
+
+def _fault_table_widths(table: QTableWidget) -> None:
+    table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
+    table.horizontalHeader().setStretchLastSection(True)
+
+
+def _set_fault_rows(table: QTableWidget, rows: list[list[str]]) -> None:
+    _set_rows(table, rows)
+    for index, values in enumerate(rows):
+        # Длинная причина доступна и у режима, который сейчас не выбран
+        # в шапке: таблица может сокращать текст по ширине колонки.
+        table.item(index, len(values) - 1).setToolTip(values[-1])
 
 
 class GeneratorCard(QFrame):
@@ -931,11 +957,18 @@ class InspectorPanel(QWidget):
         layout.addLayout(top)
         self.tabs = QTabWidget()
         self.properties_table = _table(["Параметр", "Значение"])
-        self.fault_table = _table(["Режим", "Iкз(3), кА", "Iкз(2), кА"])
+        self.fault_table = _table(["Режим", "IA / IB / IC, кА", "UA / UB / UC, кВ", "Результат"])
+        _fault_table_widths(self.fault_table)
+        fault_page = QWidget()
+        fault_layout = QVBoxLayout(fault_page)
+        self.fault_title = QLabel()
+        self.fault_title.setWordWrap(True)
+        fault_layout.addWidget(self.fault_title)
+        fault_layout.addWidget(self.fault_table)
         self.settings_table = _table(["Защита", "Iсз", "t", "Статус"])
         self.links_list = QListWidget()
         self.tabs.addTab(self.properties_table, "Параметры")
-        self.tabs.addTab(self.fault_table, "ТКЗ")
+        self.tabs.addTab(fault_page, "ТКЗ")
         self.tabs.addTab(self.settings_table, "РЗА")
         self.tabs.addTab(self.links_list, "Связи")
         layout.addWidget(self.tabs, 1)
@@ -955,11 +988,11 @@ class InspectorPanel(QWidget):
         self.title.setText(vm.selection_title())
         _set_rows(self.properties_table, [[row.label, row.value] for row in vm.properties()])
         fault_rows = []
+        self.fault_title.setText(vm.fault_type_label() + "\nФазные величины в точке КЗ; Zповр = 0 Ом")
         for row in vm.fault_rows():
-            i3 = "—" if row.i3_ka is None else f"{row.i3_ka:.2f}".replace(".", ",")
-            i2 = "—" if row.i2_ka is None else f"{row.i2_ka:.2f}".replace(".", ",")
-            fault_rows.append([row.mode_name, i3, i2])
-        _set_rows(self.fault_table, fault_rows)
+            fault_rows.append([row.mode_name, _phase_magnitudes(row.iabc_ka),
+                               _phase_magnitudes(row.vabc_kv), _fault_status(row)])
+        _set_fault_rows(self.fault_table, fault_rows)
         status_text = {OK: "Норма", FAIL: "Ошибка", UNRESOLVED: "Не определено"}
         _set_rows(self.settings_table, [
             [row.kind, row.current, row.time, status_text.get(row.status, row.status)]
@@ -989,6 +1022,8 @@ class InspectorPanel(QWidget):
 
 
 class BottomPanel(QWidget):
+    faultTypeSelected = Signal(str)
+
     def __init__(self, vm: ProjectViewModel, parent=None):
         super().__init__(parent)
         self.setObjectName("bottomPanel")
@@ -1008,8 +1043,29 @@ class BottomPanel(QWidget):
         self.loads_table = _table(["Нагрузка", "Узел", "P, кВт", "cos φ"])
         loads_page = self._page(self.loads_table)
 
-        self.fault_table = _table(["Точка КЗ", "Режим", "Iкз(3), кА", "Iкз(2), кА"])
-        fault_page = self._page(self.fault_table)
+        self.fault_table = _table(["Точка КЗ", "Режим", "IA / IB / IC, кА", "UA / UB / UC, кВ", "Результат"])
+        _fault_table_widths(self.fault_table)
+        fault_page = QWidget()
+        fault_layout = QVBoxLayout(fault_page)
+        fault_controls = QHBoxLayout()
+        fault_controls.addWidget(QLabel("Вид повреждения:"))
+        self.fault_type_combo = QComboBox()
+        self.fault_type_combo.setObjectName("faultTypeCombo")
+        for kind, label in FAULT_TYPE_LABELS.items():
+            self.fault_type_combo.addItem(label, kind.value)
+        self.fault_type_combo.currentIndexChanged.connect(
+            lambda index: self.faultTypeSelected.emit(str(self.fault_type_combo.itemData(index)))
+            if index >= 0 else None
+        )
+        fault_controls.addWidget(self.fault_type_combo)
+        fault_controls.addStretch()
+        fault_layout.addLayout(fault_controls)
+        fault_layout.addWidget(self.fault_table)
+        self.fault_details = QPlainTextEdit()
+        self.fault_details.setObjectName("faultDetails")
+        self.fault_details.setReadOnly(True)
+        self.fault_details.setMaximumHeight(115)
+        fault_layout.addWidget(self.fault_details)
 
         self.settings_table = _table(["Выбранный объект", "Защита", "Iсз", "t", "Режим", "Статус"])
         settings_page = self._page(self.settings_table)
@@ -1068,13 +1124,18 @@ class BottomPanel(QWidget):
         point = vm.selected_fault_node()
         point_name = vm.net.nodes[point].name if point in vm.net.nodes else "—"
         fault_rows = []
-        for item in vm.fault_rows():
+        self.fault_type_combo.blockSignals(True)
+        self.fault_type_combo.setCurrentIndex(self.fault_type_combo.findData(vm.selected_fault_type.value))
+        self.fault_type_combo.blockSignals(False)
+        selected_fault_rows = vm.fault_rows()
+        for item in selected_fault_rows:
             fault_rows.append([
                 point_name, item.mode_name,
-                "—" if item.i3_ka is None else f"{item.i3_ka:.2f}".replace(".", ","),
-                "—" if item.i2_ka is None else f"{item.i2_ka:.2f}".replace(".", ","),
+                _phase_magnitudes(item.iabc_ka), _phase_magnitudes(item.vabc_kv),
+                _fault_status(item),
             ])
-        _set_rows(self.fault_table, fault_rows)
+        _set_fault_rows(self.fault_table, fault_rows)
+        self.fault_details.setPlainText(vm.fault_details_text(selected_fault_rows))
         status_text = {OK: "Норма", FAIL: "Ошибка", UNRESOLVED: "Не определено"}
         _set_rows(self.settings_table, [[
             vm.selection_title(), row.kind, row.current, row.time, row.mode,
@@ -1175,6 +1236,7 @@ class MainWindow(QMainWindow):
         )
 
         self.header.modeSelected.connect(self._select_mode)
+        self.bottom.faultTypeSelected.connect(self._select_fault_type)
         self.header.customRequested.connect(self._custom_mode)
         self.header.generatorChanged.connect(self._generator_changed)
         self.header.recalcRequested.connect(self._recalculate)
@@ -1290,6 +1352,12 @@ class MainWindow(QMainWindow):
         self.vm.select_mode(mode_id)
         self.refresh()
         self.statusBar().showMessage(f"Выбран режим: {self.vm.mode.name}", 4000)
+
+    def _select_fault_type(self, value: str) -> None:
+        self.vm.select_fault_type(value)
+        self.inspector.refresh(self.vm)
+        self.bottom.refresh(self.vm)
+        self.statusBar().showMessage(self.vm.fault_type_label(), 4000)
 
     def _custom_mode(self) -> None:
         self.vm.ensure_custom_mode()
