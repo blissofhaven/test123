@@ -25,6 +25,7 @@ from ..editor import ProjectEditorController
 from ..io.project import save_project
 from .editor_panels import EditorWorkspaceWidget
 from .analysis_scheme import AnalysisSchemeView
+from .project_settings import ProjectSettings
 from .theme import COLORS, DiagramColorMode, voltage_stroke
 from .view_model import FAULT_TYPE_LABELS, ProjectViewModel, TreeEntry, fault_status_label
 
@@ -1097,20 +1098,24 @@ class BottomPanel(QWidget):
         return page
 
     def refresh(self, vm: ProjectViewModel) -> None:
+        # ProjectViewModel.net validates the canonical fingerprint on every
+        # access. Read once for these synchronous tables, then reacquire on
+        # the next refresh; result consumers keep their own freshness guards.
+        net = vm.net
         counts = vm.status_counts()
         warning = " • ".join(vm.warnings()) or "Исходные данные загружены"
         self.network_text.setText(
-            f"<b>{vm.net.name}</b><br>"
-            f"{len(vm.net.nodes)} узлов • {len(vm.net.branches)} ветвей • "
-            f"{len(vm.net.loads)} нагрузок • {len(vm.net.modes)} режимов<br><br>"
+            f"<b>{net.name}</b><br>"
+            f"{len(net.nodes)} узлов • {len(net.branches)} ветвей • "
+            f"{len(net.loads)} нагрузок • {len(net.modes)} режимов<br><br>"
             f"Результаты: <span style='color:{COLORS['green']}'>{counts.get(OK, 0)} в норме</span> • "
             f"<span style='color:{COLORS['red']}'>{counts.get(FAIL, 0)} нарушений</span> • "
             f"<span style='color:{COLORS['amber']}'>{counts.get(UNRESOLVED, 0)} не определено</span>"
             f"<br><br><span style='color:{COLORS['amber']}'>{warning}</span>"
         )
         mode_rows = []
-        for mode in vm.net.modes.values():
-            enabled = [branch.name for branch in vm.net.branches.values()
+        for mode in net.modes.values():
+            enabled = [branch.name for branch in net.branches.values()
                        if isinstance(branch, GeneratorBranch) and mode.is_closed(branch)]
             system_name = {
                 "max": "Максимальная",
@@ -1119,12 +1124,12 @@ class BottomPanel(QWidget):
             mode_rows.append([mode.name, system_name, ", ".join(enabled) or "Нет"])
         _set_rows(self.modes_table, mode_rows)
         _set_rows(self.loads_table, [[
-            item.name, vm.net.nodes[item.node].name if item.node in vm.net.nodes else item.node,
+            item.name, net.nodes[item.node].name if item.node in net.nodes else item.node,
             f"{item.p_kw:g}", f"{item.cos_phi:g}",
-        ] for item in vm.net.loads.values()])
+        ] for item in net.loads.values()])
 
         point = vm.selected_fault_node()
-        point_name = vm.net.nodes[point].name if point in vm.net.nodes else "—"
+        point_name = net.nodes[point].name if point in net.nodes else "—"
         fault_rows = []
         self.fault_type_combo.blockSignals(True)
         self.fault_type_combo.setCurrentIndex(self.fault_type_combo.findData(vm.selected_fault_type.value))
@@ -1171,9 +1176,12 @@ class TextDialog(QDialog):
 class MainWindow(QMainWindow):
     _projectInputChanged = Signal()
 
-    def __init__(self, vm: ProjectViewModel):
+    def __init__(self, vm: ProjectViewModel, *, project_settings: ProjectSettings | None = None):
         super().__init__()
         self.vm = vm
+        # Only app.main opts into persistence. Embedded/test windows do not
+        # alter the user's next startup, even if they open or save projects.
+        self._project_settings = project_settings
         self.setWindowTitle(f"РЗА-Про — {vm.net.name}")
         self.setMinimumSize(1250, 760)
         self.resize(1680, 980)
@@ -1301,6 +1309,16 @@ class MainWindow(QMainWindow):
             3000,
         )
 
+    def _remember_project_path(self) -> str:
+        if self._project_settings is None:
+            return ""
+        try:
+            if self._project_settings.remember_project(self.vm.path):
+                return ""
+        except OSError:
+            pass
+        return "Не удалось запомнить проект для следующего запуска."
+
     def _save_editor_project(self) -> None:
         """Сохранить обе канонические модели одним штатным project writer."""
         try:
@@ -1312,10 +1330,13 @@ class MainWindow(QMainWindow):
                 f"Файл: {self.vm.path}\n\n{exc}",
             )
             return
+        persistence_notice = self._remember_project_path()
         self.editor_workspace.refresh()
         message = "Проект сохранён"
         if backup is not None:
             message += f"; резервная копия: {backup.name}"
+        if persistence_notice:
+            message += f". {persistence_notice}"
         self.statusBar().showMessage(message, 7000)
 
     def _open_project_dialog(self) -> None:
@@ -1328,20 +1349,28 @@ class MainWindow(QMainWindow):
         )
         if not path:
             return
+        replacement = None
         try:
-            replacement = MainWindow(ProjectViewModel.open(path))
+            replacement = MainWindow(
+                ProjectViewModel.open(path), project_settings=self._project_settings
+            )
+            replacement.showMaximized()
         except Exception as exc:
+            if replacement is not None:
+                replacement.close()
             QMessageBox.critical(
                 self,
                 "Не удалось открыть проект",
                 f"Файл: {path}\n\n{exc}",
             )
             return
+        persistence_notice = replacement._remember_project_path()
+        if persistence_notice:
+            replacement.statusBar().showMessage(f"Проект открыт. {persistence_notice}")
         application = QApplication.instance()
         windows = getattr(application, "_rza_project_windows", [])
         windows.append(replacement)
         setattr(application, "_rza_project_windows", windows)
-        replacement.showMaximized()
         self.close()
 
     def _validate_editor_project(self) -> None:

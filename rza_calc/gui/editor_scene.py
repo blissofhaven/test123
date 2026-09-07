@@ -3045,6 +3045,14 @@ class DiagramGraphicsScene(QGraphicsScene):
         }
         self._syncing = True
         try:
+            # Contact handles are Qt children of the bus representation. Drop
+            # our registry entries while those parents are still alive; once
+            # a removed parent wrapper is released, Qt deletes its children.
+            removed = set(self._items_by_id) - set(wanted)
+            for key, handle in tuple(self._bus_attachment_handles.items()):
+                owner = handle.parentItem()
+                if owner is not None and owner.representation_id in removed:
+                    self._remove_bus_attachment_handle(key)
             for representation_id in tuple(self._items_by_id):
                 if representation_id not in wanted:
                     item = self._items_by_id.pop(representation_id)
@@ -3152,6 +3160,12 @@ class DiagramGraphicsScene(QGraphicsScene):
         )
         self.update()
 
+    def _remove_bus_attachment_handle(self, key: tuple[DiagramRouteId, bool]) -> None:
+        handle = self._bus_attachment_handles.pop(key)
+        handle.setParentItem(None)
+        if handle.scene() is not None:
+            self.removeItem(handle)
+
     def _refresh_visual_labels_and_connections(self) -> None:
         """Refresh presentation from explicit route anchors, never from proximity."""
         bus_points: dict[GraphicalRepresentationId, list[QPointF]] = {}
@@ -3180,10 +3194,7 @@ class DiagramGraphicsScene(QGraphicsScene):
                         wanted_handles[(route.id, at_start)] = (item, local)
         for key in tuple(self._bus_attachment_handles):
             if key not in wanted_handles:
-                handle = self._bus_attachment_handles.pop(key)
-                handle.setParentItem(None)
-                if handle.scene() is not None:
-                    self.removeItem(handle)
+                self._remove_bus_attachment_handle(key)
         occupied = set()
         # Duplicate routes sharing one explicit contact get one visible handle.
         for key in sorted(wanted_handles, key=lambda value: (value[0].value, value[1])):

@@ -155,9 +155,14 @@ class EquipmentLibraryTree(QTreeWidget):
 
 class ProjectEquipmentPanel(QWidget):
     representationSelectionRequested = Signal(object)
+    graphicsSelectionRequested = Signal(object, object)
+    pageSelectionRequested = Signal(object)
     placementRequested = Signal(object)
 
     REPRESENTATION_ROLE = Qt.ItemDataRole.UserRole + 21
+    PAGE_ROLE = Qt.ItemDataRole.UserRole + 24
+    ROUTE_ROLE = Qt.ItemDataRole.UserRole + 25
+    LARGE_PAGE_COUNT = 8
 
     def __init__(self, parent: QWidget | None = None):
         super().__init__(parent)
@@ -170,22 +175,45 @@ class ProjectEquipmentPanel(QWidget):
         self.project_tree.setHeaderHidden(True)
         self.project_tree.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
         self.project_tree.itemSelectionChanged.connect(self._project_selection_changed)
+        self.project_tree.itemClicked.connect(self._project_item_activated)
+        self.project_tree.itemActivated.connect(self._project_item_activated)
         self.library = EquipmentLibraryTree()
         self.library.placementRequested.connect(self.placementRequested.emit)
         self.tabs.addTab(self.project_tree, ui_text("panel.project"))
         self.tabs.addTab(self.library, ui_text("panel.equipment"))
         self.search.textChanged.connect(self._filter)
+        self.tabs.currentChanged.connect(lambda _index: self._filter(self.search.text()))
         layout = QVBoxLayout(self)
         layout.setContentsMargins(10, 10, 8, 8)
         layout.addWidget(self.search)
         layout.addWidget(self.tabs, 1)
         self._syncing = False
+        self._document_id = None
+        self._page_expansion: dict[str, bool] = {}
+        self._searching = False
+
+    def _remember_page_expansion(self) -> None:
+        for index in range(self.project_tree.topLevelItemCount()):
+            item = self.project_tree.topLevelItem(index)
+            page_id = item.data(0, self.PAGE_ROLE)
+            if page_id:
+                self._page_expansion[str(page_id)] = item.isExpanded()
 
     def refresh(self, controller: Any) -> None:
+        if self._document_id != controller.diagram.id:
+            self._document_id = controller.diagram.id
+            self._page_expansion.clear()
+        elif not self._searching:
+            self._remember_page_expansion()
         selected = {
             str(item.data(0, self.REPRESENTATION_ROLE))
             for item in self.project_tree.selectedItems()
             if item.data(0, self.REPRESENTATION_ROLE)
+        }
+        selected_routes = {
+            str(item.data(0, self.ROUTE_ROLE))
+            for item in self.project_tree.selectedItems()
+            if item.data(0, self.ROUTE_ROLE)
         }
         self._syncing = True
         try:
@@ -193,11 +221,21 @@ class ProjectEquipmentPanel(QWidget):
             representations_by_page: dict[PageId, list[Any]] = {}
             for representation in controller.diagram.representations.values():
                 representations_by_page.setdefault(representation.page_id, []).append(representation)
-            for page in sorted(controller.diagram.pages.values(), key=lambda row: (row.order, row.id.value)):
+            routes_by_page: dict[PageId, list[Any]] = {}
+            for route in controller.diagram.routes.values():
+                if route.equipment_id is not None:
+                    routes_by_page.setdefault(route.page_id, []).append(route)
+            pages = sorted(controller.diagram.pages.values(), key=lambda row: (row.order, row.id.value))
+            active_page = getattr(getattr(controller, "workspace_state", None), "active_page_id", None)
+            if not any(page.id.value == active_page for page in pages):
+                active_page = pages[0].id.value if pages else None
+            for page in pages:
                 page_item = QTreeWidgetItem([page.name])
+                page_item.setData(0, self.PAGE_ROLE, page.id.value)
                 page_font = page_item.font(0)
                 page_font.setBold(True)
                 page_item.setFont(0, page_font)
+                self.project_tree.addTopLevelItem(page_item)
                 for representation in sorted(
                     representations_by_page.get(page.id, ()),
                     key=lambda row: (row.z_index, row.id.value),
@@ -205,16 +243,30 @@ class ProjectEquipmentPanel(QWidget):
                     title = representation.label or self._target_name(controller, representation)
                     child = QTreeWidgetItem([title])
                     child.setData(0, self.REPRESENTATION_ROLE, representation.id.value)
-                    child.setToolTip(0, representation.id.value)
-                    child.setSelected(representation.id.value in selected)
+                    child.setToolTip(0, self._target_name(controller, representation)
+                                     + "\n" + representation.id.value)
                     page_item.addChild(child)
-                self.project_tree.addTopLevelItem(page_item)
-                page_item.setExpanded(True)
+                    child.setSelected(representation.id.value in selected)
+                for route in sorted(routes_by_page.get(page.id, ()), key=lambda row: row.id.value):
+                    child = QTreeWidgetItem([self._target_name(controller, route)])
+                    child.setData(0, self.ROUTE_ROLE, route.id.value)
+                    child.setToolTip(0, route.id.value)
+                    page_item.addChild(child)
+                    child.setSelected(route.id.value in selected_routes)
+                expanded = self._page_expansion.setdefault(
+                    page.id.value,
+                    len(pages) <= self.LARGE_PAGE_COUNT or page.id.value == active_page,
+                )
+                page_item.setExpanded(expanded)
 
             placed_equipment = {
                 item.equipment_id for item in controller.diagram.representations.values()
                 if item.equipment_id is not None
             }
+            placed_equipment.update(
+                route.equipment_id for route in controller.diagram.routes.values()
+                if route.equipment_id is not None
+            )
             unplaced = [
                 item for item in controller.model.equipment.values()
                 if item.id not in placed_equipment
@@ -280,9 +332,28 @@ class ProjectEquipmentPanel(QWidget):
         try:
             iterator = QTreeWidgetItemIteratorCompat(self.project_tree)
             for item in iterator:
-                item.setSelected(str(item.data(0, self.REPRESENTATION_ROLE) or "") in wanted)
+                value = item.data(0, self.REPRESENTATION_ROLE)
+                if value:
+                    item.setSelected(str(value) in wanted)
         finally:
             self._syncing = False
+
+    def select_routes(self, ids: object) -> None:
+        wanted = {getattr(item, "value", str(item)) for item in (ids or ())}
+        self._syncing = True
+        try:
+            for item in QTreeWidgetItemIteratorCompat(self.project_tree):
+                value = item.data(0, self.ROUTE_ROLE)
+                if value:
+                    item.setSelected(str(value) in wanted)
+        finally:
+            self._syncing = False
+
+    def _project_item_activated(self, item: QTreeWidgetItem, column: int) -> None:
+        del column
+        page_id = item.data(0, self.PAGE_ROLE)
+        if page_id and not self._syncing:
+            self.pageSelectionRequested.emit(PageId(str(page_id)))
 
     def set_repeat_placement(self, enabled: bool) -> None:
         self.library.set_repeat_enabled(enabled)
@@ -291,21 +362,40 @@ class ProjectEquipmentPanel(QWidget):
         if self._syncing:
             return
         values = []
+        routes = []
         for item in self.project_tree.selectedItems():
             value = item.data(0, self.REPRESENTATION_ROLE)
             if value:
                 values.append(GraphicalRepresentationId(str(value)))
+            route_id = item.data(0, self.ROUTE_ROLE)
+            if route_id:
+                routes.append(DiagramRouteId(str(route_id)))
         self.representationSelectionRequested.emit(tuple(values))
+        self.graphicsSelectionRequested.emit(tuple(values), tuple(routes))
+        if not values and not routes:
+            current = self.project_tree.currentItem()
+            if current is not None and current.isSelected():
+                self._project_item_activated(current, 0)
 
     def _filter(self, text: str) -> None:
         needle = text.strip().casefold()
+        if needle and not self._searching:
+            self._remember_page_expansion()
+        elif not needle and self._searching:
+            for index in range(self.project_tree.topLevelItemCount()):
+                item = self.project_tree.topLevelItem(index)
+                page_id = item.data(0, self.PAGE_ROLE)
+                if page_id:
+                    item.setExpanded(self._page_expansion.get(str(page_id), False))
+        self._searching = bool(needle)
         tree = self.project_tree if self.tabs.currentIndex() == 0 else self.library
 
         def visit(item: QTreeWidgetItem) -> bool:
             child_visible = False
             for index in range(item.childCount()):
                 child_visible = visit(item.child(index)) or child_visible
-            visible = not needle or needle in item.text(0).casefold() or child_visible
+            visible = (not needle or needle in item.text(0).casefold()
+                       or needle in item.toolTip(0).casefold() or child_visible)
             item.setHidden(not visible)
             if needle and child_visible:
                 item.setExpanded(True)
@@ -950,7 +1040,8 @@ class EditorWorkspaceWidget(QWidget):
         )
         self.command_bar.scale_combo.currentIndexChanged.connect(self._scale_selected)
         self.side_panel.placementRequested.connect(self.canvas.view.begin_placement)
-        self.side_panel.representationSelectionRequested.connect(self._tree_selection)
+        self.side_panel.graphicsSelectionRequested.connect(self._tree_graphics_selection)
+        self.side_panel.pageSelectionRequested.connect(self._tree_page_selection)
         self.canvas.selectionChanged.connect(self._canvas_selection)
         self.canvas.routeSelectionChanged.connect(self._canvas_route_selection)
         self.canvas.commandCompleted.connect(lambda result: self.refresh())
@@ -978,8 +1069,13 @@ class EditorWorkspaceWidget(QWidget):
         return self.canvas.view
 
     def refresh(self) -> None:
+        routes = self.canvas.scene.selected_route_ids()
         self.canvas.refresh()
         self.side_panel.refresh(self.controller)
+        for route_id in routes:
+            item = self.canvas.scene._route_items_by_id.get(route_id)
+            if item is not None:
+                item.setSelected(True)
         self.command_bar.refresh(self.controller)
         self._update_inspector()
         self._update_bottom_panel()
@@ -1001,6 +1097,8 @@ class EditorWorkspaceWidget(QWidget):
 
     def _canvas_route_selection(self, ids: object) -> None:
         self._selected_route_ids = tuple(ids or ())
+        self.side_panel.select_routes(self._selected_route_ids)
+        self.bottom_panel.set_selected_count(len(self._selected_ids) + len(self._selected_route_ids))
         self._update_inspector()
 
     def _focus_properties(self, object_id: object) -> None:
@@ -1018,7 +1116,7 @@ class EditorWorkspaceWidget(QWidget):
             if linked_page:
                 candidate = PageId(str(linked_page))
                 if candidate in self.controller.diagram.pages:
-                    self.canvas.show_page(candidate)
+                    self._tree_page_selection(candidate)
         elif isinstance(object_id, DiagramRouteId):
             route = self.controller.diagram.routes.get(object_id)
             if route is not None and route.equipment_id in self.controller.model.line_sections:
@@ -1046,16 +1144,33 @@ class EditorWorkspaceWidget(QWidget):
         self.statusMessage.emit(ui_text("status.properties_focused"))
 
     def _tree_selection(self, ids: object) -> None:
-        self._selected_ids = tuple(ids or ())
-        if self._selected_ids:
-            first = self.controller.diagram.representations.get(self._selected_ids[0])
-            if first is not None and first.page_id != self.canvas.page_id:
-                self.canvas.show_page(first.page_id)
-        self.canvas.scene.select_representations(self._selected_ids)
+        self._tree_graphics_selection(ids, ())
+
+    def _tree_page_selection(self, page_id: PageId) -> None:
+        if page_id in self.controller.diagram.pages and page_id != self.canvas.page_id:
+            self.canvas.show_page(page_id)
+            self.canvas.view.fit_all()
+
+    def _tree_graphics_selection(self, ids: object, route_ids: object) -> None:
+        representations = tuple(ids or ())
+        routes = tuple(route_ids or ())
+        first = next((self.controller.diagram.representations[item] for item in representations
+                      if item in self.controller.diagram.representations), None)
+        if first is None:
+            first = next((self.controller.diagram.routes[item] for item in routes
+                          if item in self.controller.diagram.routes), None)
+        if first is not None:
+            self._tree_page_selection(first.page_id)
+        self.canvas.scene.select_representations(representations)
+        for route_id in routes:
+            item = self.canvas.scene._route_items_by_id.get(route_id)
+            if item is not None:
+                item.setSelected(True)
         self._update_inspector()
-        self.bottom_panel.set_selected_count(len(self._selected_ids))
-        if self._selected_ids:
-            item = self.canvas.scene._items_by_id.get(self._selected_ids[0])
+        self.bottom_panel.set_selected_count(len(self._selected_ids) + len(self._selected_route_ids))
+        if first is not None:
+            item = (self.canvas.scene._items_by_id.get(first.id)
+                    or self.canvas.scene._route_items_by_id.get(first.id))
             if item is not None:
                 self.canvas.view.ensureVisible(item, 80, 80)
 
@@ -1232,6 +1347,21 @@ class EditorWorkspaceWidget(QWidget):
                            if item in self.controller.diagram.routes)
             if len(routes) == 1 and routes[0].equipment_id in self.controller.model.line_sections:
                 return self._physical_line_fields(routes[0])
+            if len(routes) == 1 and routes[0].equipment_id in self.controller.model.equipment:
+                route = routes[0]
+                equipment = self.controller.model.equipment[route.equipment_id]
+                definition = self.controller.model.equipment_type(equipment.type_id, equipment.type_version)
+                legacy_fields = self._legacy_line_fields(equipment, definition)
+                if legacy_fields:
+                    return (
+                        PropertyField("equipment.name", "Наименование", equipment.name,
+                                      ui_text("group.general"), editable=False, source="Экземпляр"),
+                        *legacy_fields,
+                        PropertyField("service.equipment_id", "ID ветви", equipment.id.value,
+                                      ui_text("group.service"), editable=False),
+                        PropertyField("service.route_id", "ID трассы", route.id.value,
+                                      ui_text("group.service"), editable=False),
+                    ), equipment.name
             return (), ui_text("property.none")
         if len(ids) > 1:
             return (
