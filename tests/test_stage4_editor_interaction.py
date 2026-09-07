@@ -393,11 +393,15 @@ def test_gui_drop_on_physical_line_creates_real_tap_and_keeps_main_line(
     )
     monkeypatch.setattr(
         canvas,
-        "_ask_branch_parameters",
-        lambda: (
+        "_ask_dragged_connection_kind",
+        lambda screen_pos: "cable",
+    )
+    monkeypatch.setattr(
+        canvas,
+        "_ask_new_physical_line_parameters",
+        lambda draft: (
             True,
             "Отпайка к КТП-1",
-            LineKind.CABLE,
             PhysicalLineInput(750_000, DataConfirmation.CONFIRMED),
         ),
     )
@@ -405,17 +409,31 @@ def test_gui_drop_on_physical_line_creates_real_tap_and_keeps_main_line(
     midpoint = QPointF(200, 0)
     assert source_port is not None
     history_before = len(controller.journal)
+    original_sections = dict(controller.model.line_sections)
+    original_connections = dict(controller.model.connections)
+    original_diagram = controller.diagram
 
     canvas.scene.begin_connection(source_port)
     canvas.scene.update_connection_cursor(midpoint)
     assert canvas.scene._connection_target is not None
     assert canvas.scene._connection_target.kind is ConnectionTargetKind.PHYSICAL_LINE
-    canvas.scene._emit_connection_draft()
+    # A physical branch requires the user's explicit КЛ choice after drawing.
+    # The no-screen-position seam commits a simple wire to the new tap.
+    canvas.scene._emit_connection_draft(
+        screen_pos=canvas.view.viewport().mapToGlobal(canvas.view.mapFromScene(midpoint))
+    )
 
     main_line = controller.model.logical_lines[main.logical_line_id]
     assert len(main_line.section_equipment_ids) == 2
     assert main.section_id not in controller.model.line_sections
     assert len(controller.model.line_sections) == 3
+    main_sections = [controller.model.line_sections[identifier]
+                     for identifier in main_line.section_equipment_ids]
+    assert [section.length_mm for section in main_sections] == [4_000_000, 6_000_000]
+    branch, = [section for identifier, section in controller.model.line_sections.items()
+               if identifier not in main_line.section_equipment_ids]
+    assert controller.model.logical_lines[branch.logical_line_id].line_kind is LineKind.CABLE
+    assert branch.length_mm == 750_000
     junctions = [
         node_id
         for node_id in controller.model.electrical_nodes
@@ -426,6 +444,11 @@ def test_gui_drop_on_physical_line_creates_real_tap_and_keeps_main_line(
     ]
     assert len(junctions) == 1
     assert len(controller.journal) == history_before + 1
+    controller.diagram.require_valid_targets(controller.model)
+    controller.undo()
+    assert dict(controller.model.line_sections) == original_sections
+    assert dict(controller.model.connections) == original_connections
+    assert dict(controller.diagram.routes) == dict(original_diagram.routes)
 
 
 def test_gui_reconnects_existing_port_to_physical_line_tap_atomically(

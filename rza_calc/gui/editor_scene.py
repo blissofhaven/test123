@@ -106,7 +106,7 @@ from ..editor.collision import (
     geometry_for_equipment_preview,
 )
 from ..editor.labels import LabelContent, present_label, present_route_label
-from .label_layout import MIN_LABEL_ZOOM, layout_labels, wrap_text
+from .label_layout import MIN_LABEL_ZOOM, layout_labels, wrap_text, wrapped_label_text
 from ..editor.orthogonal_routing import (
     build_orthogonal_route,
     normalize_route,
@@ -355,6 +355,7 @@ class ConnectedDragGesture:
     dy: float = 0.0
     fraction: float | None = None
     preview_routes: tuple[DiagramRoute, ...] = ()
+    preview_input: tuple[object, ...] | None = None
 
 
 class DiagramLabelItem(QGraphicsSimpleTextItem):
@@ -2979,7 +2980,7 @@ class DiagramGraphicsScene(QGraphicsScene):
             text = content.display_name
             if individual_visible and show_parameters and content.parameter:
                 text += ("\n" if text else "") + content.parameter
-            label.setText(wrap_text(text, label.font()) if individual_visible else text)
+            label.setText(wrapped_label_text(label, text) if individual_visible else text)
             label.setPos(item._label_preferred_position)
             label.setRotation(-item.rotation())
             item._label_requested_visible = bool(text) and show_labels and individual_visible
@@ -5043,7 +5044,21 @@ class DiagramGraphicsScene(QGraphicsScene):
             return
         point = QPointF(position)
         bypass_snap = bool(modifiers & Qt.KeyboardModifier.AltModifier)
-        if gesture.kind == "bus":
+        # The immutable document owns all endpoint/obstacle inputs for a
+        # gesture. Repeated pixels within one snap cell need no new geometry,
+        # crossings or label layout. Waypoint equality cannot be used here:
+        # extending an end segment allocates fresh temporary waypoint IDs.
+        source = (id(self._document), id(route))
+        if point == gesture.start:
+            if not gesture.preview_routes:
+                return
+            preview_input = (*source, "origin")
+            if preview_input == gesture.preview_input:
+                return
+            gesture.dx = gesture.dy = 0.0
+            gesture.fraction = None
+            rows = (route,)
+        elif gesture.kind == "bus":
             anchor = route.start_anchor if gesture.at_start else route.end_anchor
             bus = self._items_by_id.get(anchor.representation_id)
             if bus is None:
@@ -5057,6 +5072,9 @@ class DiagramGraphicsScene(QGraphicsScene):
             local = bus.mapFromScene(point)
             fraction = (local.y() / bus._height if bus._height > bus._width else local.x() / bus._width) + 0.5
             gesture.fraction = min(1.0, max(0.0, fraction))
+            preview_input = (*source, "bus", gesture.fraction)
+            if preview_input == gesture.preview_input:
+                return
             from ..editor.controller import EditorCommandError
             try:
                 rows = self._bus_attachment_preview(gesture.route_id, at_start=gesture.at_start, fraction=gesture.fraction)
@@ -5074,9 +5092,13 @@ class DiagramGraphicsScene(QGraphicsScene):
             if self._snap_enabled and not bypass_snap:
                 offset = round((origin + offset) / self._grid_size) * self._grid_size - origin
             gesture.dx, gesture.dy = (0.0, offset) if horizontal else (offset, 0.0)
+            preview_input = (*source, "segment", gesture.dx, gesture.dy)
+            if preview_input == gesture.preview_input:
+                return
             points = shift_route_segment(route, gesture.segment_index, dx=gesture.dx, dy=gesture.dy)
             rows = (replace(route, waypoints=points),)
         rows = tuple(rows)
+        gesture.preview_input = preview_input
         wanted = {row.id for row in rows}
         for previous in gesture.preview_routes:
             if previous.id not in wanted:
@@ -5628,6 +5650,9 @@ class DiagramGraphicsScene(QGraphicsScene):
             return
         if self._connected_drag is not None:
             if event.button() == Qt.MouseButton.LeftButton:
+                # Qt may deliver release at a new position/modifier without
+                # an intervening move. Commit that exact final input.
+                self.update_connected_drag(event.scenePos(), event.modifiers())
                 self.finish_connected_drag()
             event.accept()
             return
@@ -6224,6 +6249,10 @@ class DiagramGraphicsView(QGraphicsView):
         self.setFrameShape(QFrame.Shape.NoFrame)
         self.setRenderHints(QPainter.RenderHint.Antialiasing | QPainter.RenderHint.TextAntialiasing)
         self.setViewportUpdateMode(QGraphicsView.ViewportUpdateMode.MinimalViewportUpdate)
+        # Keep the identical rasterized grid between foreground-only updates.
+        # Qt invalidates this cache on view changes; set_grid explicitly
+        # invalidates BackgroundLayer for visibility and spacing changes.
+        self.setCacheMode(QGraphicsView.CacheModeFlag.CacheBackground)
         self.setTransformationAnchor(QGraphicsView.ViewportAnchor.AnchorUnderMouse)
         self.setResizeAnchor(QGraphicsView.ViewportAnchor.AnchorViewCenter)
         self.setDragMode(QGraphicsView.DragMode.RubberBandDrag)
@@ -6937,6 +6966,9 @@ class DiagramGraphicsView(QGraphicsView):
         return super().viewportEvent(event)
 
     def drawBackground(self, painter: QPainter, rect: QRectF) -> None:  # noqa: N802
+        # Qt's background-cache painter does not inherit the viewport hints.
+        # Preserve the same antialiased grid raster in both paint paths.
+        painter.setRenderHints(self.renderHints())
         painter.fillRect(rect, QColor("#FBFCFE"))
         if not self.diagram_scene.grid_visible:
             return

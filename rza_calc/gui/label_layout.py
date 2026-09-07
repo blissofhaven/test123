@@ -7,18 +7,77 @@ to the document: only an explicit editor command changes its manual/auto mode.
 from __future__ import annotations
 
 import math
+import weakref
 from dataclasses import dataclass
 from collections import defaultdict
 from functools import lru_cache
 
 from PySide6.QtCore import QPointF, QRectF, Qt
-from PySide6.QtGui import QFontMetricsF, QPainterPath, QPainterPathStroker
+from PySide6.QtGui import QFont, QFontMetricsF, QGuiApplication, QPainterPath, QPainterPathStroker
 
 from ..editor.labels import label_is_manual
 
 LABEL_CLEARANCE = 4.0
 MIN_LABEL_ZOOM = 0.6
 LABEL_WRAP_WIDTH = 220.0
+
+_font_database_application = None
+_font_database_generation = 0
+
+
+def _font_database_changed():
+    global _font_database_generation
+    _font_database_generation += 1
+
+
+def _font_generation(application):
+    global _font_database_application
+    if application is not None and (
+        _font_database_application is None
+        or _font_database_application() is not application
+    ):
+        _font_database_application = weakref.ref(application)
+        application.fontDatabaseChanged.connect(_font_database_changed)
+        _font_database_changed()
+    return _font_database_generation
+
+
+@dataclass(frozen=True)
+class _WrappedLabelText:
+    text: str
+    font: QFont
+    application_font: QFont
+    dpi: float
+    width: float
+    font_generation: int
+    wrapped: str
+
+
+def wrapped_label_text(label, text):
+    """Reuse only the last wrapping result owned by this live text item.
+
+    Geometry and collision layout are deliberately absent: they still update
+    for each preview. Font values are copied rather than keyed by their mutable
+    identity or a partial string serialization. No Qt metrics survive a call.
+    """
+    text = str(text)
+    font = label.font()
+    application = QGuiApplication.instance()
+    application_font = application.font() if application is not None else QFont()
+    generation = _font_generation(application)
+    dpi = QFontMetricsF(font).fontDpi()
+    previous = getattr(label, "_rza_wrapped_label_text", None)
+    if previous is not None and (
+        previous.text == text and previous.font == font
+        and previous.application_font == application_font and previous.dpi == dpi
+        and previous.width == LABEL_WRAP_WIDTH and previous.font_generation == generation
+    ):
+        return previous.wrapped
+    wrapped = wrap_text(text, font)
+    label._rza_wrapped_label_text = _WrappedLabelText(
+        text, QFont(font), QFont(application_font), dpi, LABEL_WRAP_WIDTH, generation, wrapped,
+    )
+    return wrapped
 
 
 def wrap_text(text, font):
