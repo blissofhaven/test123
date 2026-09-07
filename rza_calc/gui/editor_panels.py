@@ -1061,7 +1061,7 @@ class EditorWorkspaceWidget(QWidget):
         self.side_panel.pageSelectionRequested.connect(self._tree_page_selection)
         self.canvas.selectionChanged.connect(self._canvas_selection)
         self.canvas.routeSelectionChanged.connect(self._canvas_route_selection)
-        self.canvas.commandCompleted.connect(lambda result: self.refresh())
+        self.canvas.commandCompleted.connect(self._canvas_command_completed)
         self.canvas.errorOccurred.connect(self._show_error)
         self.canvas.statusMessage.connect(self.statusMessage.emit)
         self.canvas.toolStateChanged.connect(self.command_bar.set_tool_state)
@@ -1085,9 +1085,18 @@ class EditorWorkspaceWidget(QWidget):
     def view(self):
         return self.canvas.view
 
-    def refresh(self) -> None:
+    def _canvas_command_completed(self, result: object) -> None:
+        del result
+        # EditorCanvas already synchronized its scene before this signal.
+        # Rebuild the dependent panels once, preserving the selected routes.
+        synchronized = (self.scene._document is self.controller.diagram
+                        and self.scene._model is self.controller.model)
+        self.refresh(refresh_canvas=not synchronized)
+
+    def refresh(self, *, refresh_canvas: bool = True) -> None:
         routes = self.canvas.scene.selected_route_ids()
-        self.canvas.refresh()
+        if refresh_canvas:
+            self.canvas.refresh()
         self.side_panel.refresh(self.controller)
         for route_id in routes:
             item = self.canvas.scene._route_items_by_id.get(route_id)
@@ -1677,7 +1686,6 @@ class EditorWorkspaceWidget(QWidget):
             self._show_error(str(exc))
             return
         self.canvas.commandCompleted.emit(result)
-        self.refresh()
 
     def _edit_physical_line_property(self, key: str, value: Any) -> None:
         route = self.controller.diagram.routes.get(self._selected_route_ids[0])
@@ -1707,7 +1715,6 @@ class EditorWorkspaceWidget(QWidget):
             self._show_error(str(exc))
             return
         self.canvas.commandCompleted.emit(result)
-        self.refresh()
 
 
 def _graphics_mapping(extensions: Mapping[str, Any]) -> dict[str, Any]:

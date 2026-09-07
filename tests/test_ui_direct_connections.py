@@ -11,7 +11,7 @@ from pathlib import Path
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
 import pytest
-from PySide6.QtCore import QEvent, QPoint, QPointF, Qt
+from PySide6.QtCore import QEvent, QPoint, QPointF, Qt, QTimer
 from PySide6.QtGui import QFocusEvent
 from PySide6.QtTest import QTest
 from PySide6.QtWidgets import QApplication, QInputDialog, QMenu
@@ -158,18 +158,48 @@ def test_short_click_click_asks_the_same_type_as_a_drag(canvas_factory, monkeypa
 
 
 @pytest.mark.parametrize("kind", (LineKind.OVERHEAD, LineKind.CABLE))
-def test_physical_palette_creates_one_unconfirmed_branch_without_modal_parameters(canvas_factory, monkeypatch, kind):
+def test_physical_palette_can_create_one_unconfirmed_branch_from_the_parameter_dialog(canvas_factory, monkeypatch, kind):
+    from rza_calc.gui.line_parameters import LineParametersDialog
+    from PySide6.QtWidgets import QDialogButtonBox
     canvas, ports = _pair(canvas_factory)
     before, journal = _state(canvas), len(canvas.controller.journal)
-    monkeypatch.setattr(QInputDialog, "getText", lambda *_args, **_kwargs: pytest.fail("Physical creation must not open a modal"))
-    monkeypatch.setattr(QInputDialog, "getDouble", lambda *_args, **_kwargs: pytest.fail("Length belongs in the inspector"))
+    monkeypatch.setattr(QInputDialog, "getText", lambda *_args, **_kwargs: pytest.fail("Use the single line parameter dialog"))
+    monkeypatch.setattr(QInputDialog, "getDouble", lambda *_args, **_kwargs: pytest.fail("Drafts do not require a physical length"))
     start, end = (port.scenePos() for port in ports)
     canvas.view.begin_placement({"target_kind": "physical_line", "type_id": "physical_line." + kind.value, "name": "Новая физическая линия"})
     _mouse(canvas, "click", start)
     assert canvas.scene.physical_line_active
     _mouse(canvas, "move", end)
     assert _state(canvas) == before and not canvas.controller.model.logical_lines
-    _mouse(canvas, "click", end)
+    seen = []
+    poll, watchdog = QTimer(canvas), QTimer(canvas)
+    watchdog.setSingleShot(True)
+    def answer():
+        dialog = next((widget for widget in QApplication.topLevelWidgets()
+            if isinstance(widget, LineParametersDialog) and widget.isVisible()
+            and widget.parent() is canvas), None)
+        if dialog is None:
+            return
+        poll.stop()
+        seen.append(_state(canvas))
+        dialog.mode_combo.setCurrentIndex(dialog.mode_combo.findData("draft"))
+        QTest.mouseClick(dialog.buttons.button(QDialogButtonBox.StandardButton.Ok), Qt.MouseButton.LeftButton)
+        watchdog.stop()
+    def timeout():
+        poll.stop()
+        for dialog in QApplication.topLevelWidgets():
+            if isinstance(dialog, LineParametersDialog) and dialog.isVisible():
+                dialog.reject()
+    poll.timeout.connect(answer)
+    watchdog.timeout.connect(timeout)
+    poll.start(1)
+    watchdog.start(1500)
+    try:
+        _mouse(canvas, "click", end)
+    finally:
+        poll.stop()
+        watchdog.stop()
+    assert seen == [before]
     assert len(canvas.controller.journal) == journal + 1
     line = next(iter(canvas.controller.model.logical_lines.values()))
     section = next(iter(canvas.controller.model.line_sections.values()))

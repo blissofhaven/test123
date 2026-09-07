@@ -1752,6 +1752,25 @@ def adapt_to_calculation(
             diagnostics.extend(line_diagnostics)
         else:
             payload = _plain_payload(model, equipment, behavior)
+        if (behavior_key == "legacy.line"
+                and "rza_calc.protection_zone_review" in equipment.extensions):
+            # A split of a protected compatibility branch changes load_end.
+            # Preserve CT/protection inputs, but never silently reinterpret its
+            # original main protection zone as a less strict reserve zone.
+            # Presence of the marker blocks even a malformed/false flag; there
+            # is no checkbox that can establish the missing protection contract.
+            review = equipment.extensions["rza_calc.protection_zone_review"]
+            reason = (review.get("reason") if isinstance(review, Mapping) else None)
+            if not isinstance(reason, str) or not reason.strip():
+                reason = "После создания отпайки требуется подтвердить зону защиты исходной линии."
+            existing_reason = payload.get("calculation_block_reason")
+            if isinstance(existing_reason, str) and existing_reason.strip():
+                reason = existing_reason + "; " + reason
+            payload["calculation_block_reason"] = reason
+            diagnostics.append(AdapterDiagnostic(
+                "error", "line_protection_zone_review_required", reason,
+                equipment.id.value,
+            ))
         if not behavior.compatibility:
             _native_defaults(equipment, behavior_key, payload)
         if unused_properties:

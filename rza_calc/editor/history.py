@@ -8,8 +8,9 @@ from threading import RLock
 from typing import Any, Callable, Generic, Protocol, TypeVar
 
 from rza_calc.domain.catalog_snapshot import ProjectCatalogSnapshots
+from rza_calc.domain.catalog import CatalogEntry, CatalogId, UserCatalog
 from rza_calc.domain.diagram import DiagramDocument
-from rza_calc.domain.electrical import ChangeSet, ElectricalModel, thaw_json
+from rza_calc.domain.electrical import ChangeSet, DomainInvariantError, ElectricalModel, thaw_json
 from rza_calc.domain.history import ElectricalModelMemento
 
 from .state import WORKSPACE_EXTENSION_KEY
@@ -36,6 +37,25 @@ class ProjectDraft:
     electrical_model: ElectricalModel
     diagram: DiagramDocument
     catalog_snapshots: ProjectCatalogSnapshots
+    user_catalog: UserCatalog | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class UserCatalogMemento:
+    """Immutable user templates; a draft never shares the mutable catalog map."""
+    id: CatalogId
+    entries: tuple[CatalogEntry, ...]
+
+    @classmethod
+    def capture(cls, catalog: UserCatalog | None) -> "UserCatalogMemento | None":
+        if catalog is None:
+            return None
+        if not isinstance(catalog, UserCatalog):
+            raise TypeError("История проекта требует UserCatalog.")
+        return cls(catalog.id, tuple(catalog.entries.values()))
+
+    def to_catalog(self) -> UserCatalog:
+        return UserCatalog(self.entries, catalog_id=self.id)
 
 
 @dataclass(frozen=True, slots=True)
@@ -43,6 +63,7 @@ class ProjectMemento:
     electrical: ElectricalModelMemento
     diagram: DiagramDocument
     catalog_snapshots: ProjectCatalogSnapshots
+    user_catalog: UserCatalogMemento | None = None
 
     @classmethod
     def capture(cls, project: EditableProject) -> "ProjectMemento":
@@ -50,6 +71,7 @@ class ProjectMemento:
             ElectricalModelMemento.capture(project.electrical_model),
             project.diagram,
             project.catalog_snapshots,
+            UserCatalogMemento.capture(getattr(project, 'user_catalog', None)),
         )
 
     @classmethod
@@ -58,6 +80,7 @@ class ProjectMemento:
             ElectricalModelMemento.capture(draft.electrical_model),
             draft.diagram,
             draft.catalog_snapshots,
+            UserCatalogMemento.capture(draft.user_catalog),
         )
 
 
@@ -242,6 +265,7 @@ class ProjectCommandHistory:
         self._known_electrical_revision = self._project.electrical_model.revision
         self._known_diagram = self._project.diagram
         self._known_catalog_snapshots = self._project.catalog_snapshots
+        self._known_user_catalog = UserCatalogMemento.capture(getattr(self._project, 'user_catalog', None))
 
     def _require_known_current(self) -> None:
         if (
@@ -249,6 +273,7 @@ class ProjectCommandHistory:
             != self._known_electrical_revision
             or self._project.diagram != self._known_diagram
             or self._project.catalog_snapshots != self._known_catalog_snapshots
+            or UserCatalogMemento.capture(getattr(self._project, 'user_catalog', None)) != self._known_user_catalog
         ):
             raise ProjectHistoryError(tr("error.external_change"))
 
@@ -278,6 +303,22 @@ class ProjectCommandHistory:
                 "Команда создала повреждённые каталожные ссылки:\n- "
                 + "\n- ".join(catalog_problems)
             )
+        if memento.user_catalog is not None:
+            # The same instance contract used when saving/loading a project.
+            # A new template must be serializable and usable by this model.
+            for entry in memento.user_catalog.to_catalog().entries.values():
+                try:
+                    parameters = entry.instance_parameters()
+                    model.validate_equipment_parameters(
+                        parameters.type_id, type_version=parameters.type_version,
+                        properties=parameters.properties,
+                        voltage_class_by_group=parameters.voltage_class_by_group,
+                        normal_position=parameters.normal_position,
+                    )
+                except DomainInvariantError as exc:
+                    raise ProjectHistoryError(
+                        f"Запись справочника '{entry.display_name}' некорректна: {exc}"
+                    ) from exc
         # Обновляем кэш только после успешной проверки всех трёх частей.
         # Ошибка диаграммы/каталога не должна пометить электрическую модель
         # проверенной в составе повреждённого ProjectMemento.
@@ -289,6 +330,7 @@ class ProjectCommandHistory:
             _same_electrical(first.electrical, second.electrical)
             and _same_diagram(first.diagram, second.diagram)
             and first.catalog_snapshots == second.catalog_snapshots
+            and first.user_catalog == second.user_catalog
         )
 
     def _apply(
@@ -306,7 +348,7 @@ class ProjectCommandHistory:
             if preserve_workspace else target.diagram
         )
         normalized = ProjectMemento(
-            target.electrical, target_diagram, target.catalog_snapshots
+            target.electrical, target_diagram, target.catalog_snapshots, target.user_catalog
         )
         if target_already_validated and preserve_workspace:
             raise ProjectHistoryError(
@@ -320,7 +362,8 @@ class ProjectCommandHistory:
             current.electrical, normalized.electrical
         )
         diagram_changed = not _same_diagram(current.diagram, target_diagram)
-        catalog_changed = current.catalog_snapshots != target.catalog_snapshots
+        user_catalog_changed = current.user_catalog != target.user_catalog
+        catalog_changed = current.catalog_snapshots != target.catalog_snapshots or user_catalog_changed
 
         if electrical_changed:
             staged = normalized.electrical.to_model()
@@ -354,6 +397,8 @@ class ProjectCommandHistory:
             )
         if catalog_changed:
             self._project.catalog_snapshots = target.catalog_snapshots
+        if user_catalog_changed:
+            self._project.user_catalog = target.user_catalog.to_catalog() if target.user_catalog is not None else None
 
         if electrical_changed or diagram_changed or catalog_changed:
             self._project_revision += 1
@@ -419,6 +464,7 @@ class ProjectCommandHistory:
                 before.electrical.to_model(),
                 before.diagram,
                 before.catalog_snapshots,
+                before.user_catalog.to_catalog() if before.user_catalog is not None else None,
             )
             result = command(draft)
             self._require_known_current()

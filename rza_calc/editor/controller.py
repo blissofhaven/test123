@@ -11,7 +11,8 @@ import math
 from dataclasses import dataclass, field, replace
 from typing import Any, Callable, Iterable, Mapping
 
-from rza_calc.domain.catalog_snapshot import CatalogBinding
+from rza_calc.domain.catalog import CatalogEntry
+from rza_calc.domain.catalog_snapshot import CatalogBinding, CatalogEntrySnapshot
 from rza_calc.domain.history import ElectricalModelMemento
 from rza_calc.domain.diagram import (
     DiagramDocument,
@@ -147,6 +148,7 @@ class NodeTarget:
     anchor_key: str = ""
     x: float | None = None
     y: float | None = None
+    route_id: DiagramRouteId | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -160,6 +162,14 @@ class NewNodeTarget:
 
 
 ConnectionTarget = PortTarget | NodeTarget | NewNodeTarget
+
+
+@dataclass(frozen=True, slots=True)
+class _VoltagePreviewMemo:
+    model: ElectricalModel
+    inputs: ElectricalModelMemento
+    endpoints: tuple[tuple[str, Any], tuple[str, Any]]
+    result: VoltageCompatibility
 
 
 @dataclass(frozen=True, slots=True)
@@ -214,7 +224,7 @@ class ConfirmedLineLengthResult:
 
 @dataclass(frozen=True, slots=True)
 class TapEditResult:
-    main_logical_line_id: LogicalLineId
+    main_logical_line_id: LogicalLineId | None
     branch_logical_line_id: LogicalLineId
     removed_section_id: EquipmentId
     first_section_id: EquipmentId
@@ -299,13 +309,22 @@ class RemoveTapEditResult:
 
 @dataclass(frozen=True, slots=True)
 class LineTapConnectionEditResult:
-    main_logical_line_id: LogicalLineId
+    main_logical_line_id: LogicalLineId | None
     removed_section_id: EquipmentId
     first_section_id: EquipmentId
     second_section_id: EquipmentId
     tap_node_id: ElectricalNodeId
-    connection_id: ConnectionId
+    connection_id: ConnectionId | None
     route_ids: tuple[DiagramRouteId, ...] = ()
+
+
+@dataclass(frozen=True, slots=True)
+class _TapSplit:
+    logical_line_id: LogicalLineId | None
+    removed_section_id: EquipmentId
+    first_section_id: EquipmentId
+    second_section_id: EquipmentId
+    tap_node_id: ElectricalNodeId
 
 
 @dataclass(frozen=True, slots=True)
@@ -800,6 +819,57 @@ class ProjectEditorController:
         return representation
 
     @classmethod
+    def _resolve_conductor_target(
+        cls, draft: ProjectDraft, target: NodeTarget, page_id: PageId,
+    ) -> _ResolvedTarget:
+        """Split graphical ink at a junction; reuse the electrical node unchanged."""
+        route = draft.diagram.routes.get(target.route_id)
+        if (route is None or route.page_id != page_id
+                or route.kind is not DiagramRouteKind.NODE_CONNECTION
+                or route.electrical_node_id != target.node_id):
+            raise EditorCommandError("Выбранный проводник не представляет этот электрический узел на странице.")
+        if (target.x is None or target.y is None
+                or not all(math.isfinite(value) for value in (target.x, target.y))):
+            raise EditorCommandError("Для присоединения к проводнику нужна точная точка на схеме.")
+        x, y = target.x, target.y
+        def coincides(point):
+            return math.isclose(x, point.x, abs_tol=1e-8, rel_tol=0) and math.isclose(y, point.y, abs_tol=1e-8, rel_tol=0)
+        for anchor, point in ((route.start_anchor, route.waypoints[0]),
+                              (route.end_anchor, route.waypoints[-1])):
+            if coincides(point):
+                return _ResolvedTarget(target.node_id, anchor.representation_id,
+                    anchor.kind, anchor.target_port_id, anchor.anchor_key)
+        index = next((index for index, (a, b) in enumerate(zip(route.waypoints, route.waypoints[1:]))
+            if min(a.x, b.x) - 1e-8 <= x <= max(a.x, b.x) + 1e-8
+            and min(a.y, b.y) - 1e-8 <= y <= max(a.y, b.y) + 1e-8
+            and ((a.x == b.x and math.isclose(x, a.x, abs_tol=1e-8, rel_tol=0))
+                 or (a.y == b.y and math.isclose(y, a.y, abs_tol=1e-8, rel_tol=0)))), None)
+        if index is None:
+            raise EditorCommandError("Точка присоединения больше не лежит на выбранном проводнике.")
+        representation = GraphicalRepresentation(
+            GraphicalRepresentationId.new(), page_id, RepresentationTargetKind.ELECTRICAL_NODE,
+            electrical_node_id=target.node_id, x=x, y=y, symbol_key="connection_point",
+            extensions={"graphics": {"width": 8.0, "height": 8.0, "label_visible": False}},
+        )
+        anchor = RouteEndpointAnchor(RouteAnchorKind.ELECTRICAL_NODE, representation.id, target.node_id)
+        left = list(route.waypoints[:index + 1])
+        right = list(route.waypoints[index + 1:])
+        if not coincides(left[-1]):
+            left.append(RouteWaypoint(RouteWaypointId.new(), x, y))
+        if not coincides(right[0]):
+            right.insert(0, RouteWaypoint(RouteWaypointId.new(), x, y))
+        # A saved bend may become a junction; its old ID remains in one half.
+        elif left[-1].id == right[0].id:
+            right[0] = replace(right[0], id=RouteWaypointId.new())
+        routes = dict(draft.diagram.routes)
+        routes[route.id] = replace(route, end_anchor=anchor, waypoints=tuple(left))
+        second = replace(route, id=DiagramRouteId.new(), start_anchor=anchor, waypoints=tuple(right))
+        routes[second.id] = second
+        draft.diagram = replace(draft.diagram,
+            representations={**draft.diagram.representations, representation.id: representation}, routes=routes)
+        return _ResolvedTarget(target.node_id, representation.id, RouteAnchorKind.ELECTRICAL_NODE)
+
+    @classmethod
     def _resolve_connection_target(
         cls,
         draft: ProjectDraft,
@@ -814,6 +884,8 @@ class ProjectEditorController:
             node = model.electrical_nodes.get(target.node_id)
             if node is None:
                 raise EditorCommandError("Электрический узел не найден.")
+            if target.route_id is not None:
+                return cls._resolve_conductor_target(draft, target, page_id)
             if target.representation_id is not None:
                 representation = cls._require_representation(
                     draft.diagram, target.representation_id
@@ -1249,6 +1321,7 @@ class ProjectEditorController:
         previous_representations: Mapping[GraphicalRepresentationId, GraphicalRepresentation]
         | None = None,
         obstacles: tuple[RoutingObstacle, ...] | None = None,
+        preserve_node_direction_ids: tuple[GraphicalRepresentationId, ...] = (),
     ) -> DiagramRoute:
         """Локально перестроить одну трассу, сохранив ручные точки и их ID."""
 
@@ -1275,6 +1348,12 @@ class ProjectEditorController:
                 start_direction = direction_toward_point(start.x, start.y, end.x, end.y)
             if route.end_anchor.kind is RouteAnchorKind.BUS:
                 end_direction = direction_toward_point(end.x, end.y, start.x, start.y)
+        if route.start_anchor.representation_id in preserve_node_direction_ids:
+            peer = route.waypoints[1]
+            start_direction = direction_toward_point(start.x, start.y, peer.x, peer.y)
+        if route.end_anchor.representation_id in preserve_node_direction_ids:
+            peer = route.waypoints[-2]
+            end_direction = direction_toward_point(end.x, end.y, peer.x, peer.y)
         manual_rows = tuple(
             item
             for item in route.waypoints[1:-1]
@@ -1791,12 +1870,50 @@ class ProjectEditorController:
         inserting a line need the same voltage check. This method does not
         authorize an electrical topology operation by itself.
         """
-        model = self.model._transaction_copy()
+        def semantic_endpoint(value):
+            if isinstance(value, PortTarget):
+                value = value.port_id
+            elif isinstance(value, NodeTarget):
+                value = value.node_id
+            elif isinstance(value, NewNodeTarget):
+                voltage = value.voltage_class_id
+                return (("new_node", voltage)
+                        if voltage is None or isinstance(voltage, VoltageClassId)
+                        else None)
+            if isinstance(value, PortId):
+                return ("port", value)
+            if isinstance(value, ElectricalNodeId):
+                return ("node", value)
+            if isinstance(value, VoltageClassId):
+                return ("voltage_class", value)
+            return None  # Unsupported inputs must take the ordinary guard.
+
+        live_model = self.model
+        endpoints = (semantic_endpoint(first), semantic_endpoint(second))
+        # Memento copies every canonical store. Their records and nested JSON
+        # are immutable, so replacement/direct same-revision edits compare
+        # unequal without serializing the whole model on every mouse move.
+        inputs = ElectricalModelMemento.capture(live_model)
+        cached = getattr(self, "_voltage_preview_memo", None)
+        cacheable = all(endpoint is not None for endpoint in endpoints)
+        if (cacheable and cached is not None and cached.model is live_model
+                and cached.endpoints == endpoints and cached.inputs == inputs):
+            return cached.result
+        self._voltage_preview_memo = None
+        model = live_model._transaction_copy()
         try:
             _, _, voltage = self._guard_connection_voltage(model, first, second, adopt=True)
-            return VoltageCompatibility(True, "Соединение допустимо.", voltage)
+            result = VoltageCompatibility(True, "Соединение допустимо.", voltage)
         except (DomainInvariantError, EditorCommandError) as exc:
-            return VoltageCompatibility(False, str(exc))
+            result = VoltageCompatibility(False, str(exc))
+        # Never retain a result under an input signature captured before a
+        # concurrent/reentrant edit. Commit still performs its own preflight.
+        if (cacheable and self.model is live_model
+                and ElectricalModelMemento.capture(live_model) == inputs):
+            self._voltage_preview_memo = _VoltagePreviewMemo(
+                live_model, inputs, endpoints, result,
+            )
+        return result
 
     def validate_connection(
         self,
@@ -2006,6 +2123,59 @@ class ProjectEditorController:
 
         return self._execute("Создать электрическое соединение", command)
 
+    def connect_from_node(
+        self, source: NodeTarget, target: ConnectionTarget, *,
+        page_id: PageId | str | None = None,
+        route_waypoints: Iterable[RouteWaypoint] | None = None,
+    ) -> ConnectionEditResult:
+        """An explicit zero-impedance conductor, including bus-to-bus joins.
+
+        Merge the electrical nodes and every saved graphical reference in one
+        transaction. The domain merge guard prevents shorting an apparatus.
+        """
+        self._require_edit()
+        if not isinstance(source, NodeTarget):
+            raise EditorCommandError("Начало соединения должно быть электрическим узлом.")
+
+        def command(draft: ProjectDraft) -> ConnectionEditResult:
+            model = draft.electrical_model
+            selected_page = self._resolve_page(draft, page_id)
+            first, second, _ = self._guard_connection_voltage(model, source, target, adopt=True)
+            start = self._resolve_connection_target(draft, first, selected_page)
+            end = self._resolve_connection_target(draft, second, selected_page)
+            if start.node_id == end.node_id:
+                raise EditorCommandError("Уже соединено одним электрическим узлом; провод не добавлен.")
+            model.merge_nodes(start.node_id, end.node_id)
+            def remap(anchor):
+                return (replace(anchor, electrical_node_id=start.node_id)
+                        if anchor.electrical_node_id == end.node_id else anchor)
+            draft.diagram = replace(
+                draft.diagram,
+                representations={key: (replace(row, electrical_node_id=start.node_id)
+                    if row.electrical_node_id == end.node_id else row)
+                    for key, row in draft.diagram.representations.items()},
+                routes={key: replace(row, start_anchor=remap(row.start_anchor),
+                    end_anchor=remap(row.end_anchor), electrical_node_id=(start.node_id
+                        if row.electrical_node_id == end.node_id else row.electrical_node_id))
+                    for key, row in draft.diagram.routes.items()},
+            )
+            route = DiagramRoute(
+                DiagramRouteId.new(), selected_page, DiagramRouteKind.NODE_CONNECTION,
+                RouteEndpointAnchor(start.anchor_kind, start.representation_id, start.node_id,
+                    target_port_id=start.target_port_id, anchor_key=start.anchor_key),
+                RouteEndpointAnchor(end.anchor_kind, end.representation_id, start.node_id,
+                    target_port_id=end.target_port_id, anchor_key=end.anchor_key),
+                electrical_node_id=start.node_id,
+                waypoints=self._effective_route_waypoints(
+                    draft.diagram.representations[start.representation_id],
+                    draft.diagram.representations[end.representation_id], route_waypoints),
+            )
+            self._add_route(draft, route)
+            return ConnectionEditResult(start.node_id, tuple(
+                row.id for row in model.connections.values()
+                if row.electrical_node_id == start.node_id), route.id)
+        return self._execute("Соединить электрические узлы проводом", command)
+
     def connect_port_to_node(
         self,
         port_id: PortId,
@@ -2153,6 +2323,15 @@ class ProjectEditorController:
                 raise EditorCommandError("Электрический порт не найден.")
             if model.connection_for_port(port_id) is None:
                 raise EditorCommandError("Переподключаемый порт ещё не подключён.")
+            if any(route.kind is DiagramRouteKind.EQUIPMENT_BRANCH
+                   and any(anchor.target_port_id == port_id
+                           and anchor.branch_port_id != port_id
+                           for anchor in (route.start_anchor, route.end_anchor))
+                   for route in draft.diagram.routes.values()):
+                raise EditorCommandError(
+                    "К выводу привязана физическая линия. Для переноса конца линии "
+                    "используйте её конечный маркер; перенос аппарата меняет только геометрию."
+                )
             _, normalized_target, _ = self._guard_connection_voltage(model, port_id, target, adopt=True)
             resolved = self._resolve_connection_target(
                 draft, normalized_target, selected_page
@@ -2392,6 +2571,41 @@ class ProjectEditorController:
         draft.diagram = _diagram_with_routes(draft.diagram, routes)
         return replace(resolved, node_id=node.id)
 
+    @staticmethod
+    def _line_catalog_properties(draft, line_kind, physical, entry, remember, voltage_id):
+        properties = dict(physical.properties)
+        if entry is None:
+            if remember:
+                raise EditorCommandError("Для сохранения марки нужна запись справочника.")
+            return properties
+        expected_type = draft.electrical_model._line_section_type_id(LineKind(line_kind))
+        if entry.equipment_type_id != expected_type or entry.equipment_type_version != 1:
+            raise EditorCommandError("Запись справочника не соответствует выбранному виду линии.")
+        if any(value != voltage_id for value in entry.voltage_class_by_group.values()):
+            raise EditorCommandError("Класс напряжения записи справочника не соответствует концам линии.")
+        catalog = getattr(draft, "user_catalog", None)
+        if catalog is None:
+            raise EditorCommandError("В проекте отсутствует пользовательский справочник.")
+        if remember:
+            existing = catalog.entries.get(entry.id)
+            if existing is None:
+                catalog.add(entry)
+            elif existing != entry:
+                raise EditorCommandError("Запись справочника уже существует с другими параметрами. Сохраните новую марку.")
+        elif catalog.entries.get(entry.id) != entry:
+            raise EditorCommandError("Выбранная запись справочника была изменена. Выберите её заново.")
+        return {**entry.properties, **properties}
+
+    @staticmethod
+    def _bind_line_catalog(draft, equipment_id, physical, entry):
+        if entry is None:
+            return
+        binding = CatalogBinding(equipment_id,
+            CatalogEntrySnapshot.from_entry(entry, source_catalog_id=draft.user_catalog.id),
+            instance_overrides={key: value for key, value in physical.properties.items()
+                if key not in entry.properties or value != entry.properties[key]})
+        draft.catalog_snapshots = draft.catalog_snapshots.with_binding(binding)
+
     def create_physical_line(
         self,
         name: str,
@@ -2406,6 +2620,8 @@ class ProjectEditorController:
         feeder_id: FeederId | None = None,
         route_waypoints: Iterable[RouteWaypoint] | None = None,
         split_shared_node: bool = False,
+        catalog_entry: CatalogEntry | None = None,
+        remember_catalog_entry: bool = False,
     ) -> PhysicalLineEditResult:
         self._require_edit()
         if not isinstance(physical, PhysicalLineInput):
@@ -2416,6 +2632,8 @@ class ProjectEditorController:
             normalized_start, normalized_end, voltage_id = self._guard_connection_voltage(
                 draft.electrical_model, start_target, end_target, adopt=True,
             )
+            properties = self._line_catalog_properties(draft, line_kind, physical,
+                catalog_entry, remember_catalog_entry, voltage_id)
             start = self._resolve_connection_target(
                 draft, normalized_start, selected_page
             )
@@ -2430,7 +2648,12 @@ class ProjectEditorController:
                     raise EditorCommandError(
                         "Физическая линия должна соединять два разных узла."
                     )
-                start = self._detach_port_to_new_node(draft, start, end)
+                if start.target_port_id is not None:
+                    start = self._detach_port_to_new_node(draft, start, end)
+                elif end.target_port_id is not None:
+                    end = self._detach_port_to_new_node(draft, end, start)
+                else:
+                    raise EditorCommandError("Вставить линию в общий узел можно только у вывода оборудования.")
             model = draft.electrical_model
             logical_line, section, _ = model.create_logical_line(
                 name,
@@ -2440,12 +2663,13 @@ class ProjectEditorController:
                 physical.length_mm,
                 voltage_class_id=voltage_id,
                 inherited_properties=inherited_properties,
-                section_properties=physical.properties,
+                section_properties=properties,
                 note=note,
                 length_confirmation=physical.length_confirmation,
                 impedance_confirmation=physical.impedance_confirmation,
                 feeder_id=feeder_id,
             )
+            self._bind_line_catalog(draft, section.equipment_id, physical, catalog_entry)
             branch_from_port = model.port_by_role(section.equipment_id, "from").id
             branch_to_port = model.port_by_role(section.equipment_id, "to").id
             start_representation = draft.diagram.representations[
@@ -2647,182 +2871,108 @@ class ProjectEditorController:
 
         return self._execute("Подтвердить длину линии", command)
 
+    def _split_line_for_tap(self, draft, section_id, offset_mm) -> _TapSplit:
+        model = draft.electrical_model
+        if section_id in model.line_sections:
+            split = model.split_line_section(section_id, offset_mm)
+            self._split_catalog_binding(draft, section_id,
+                (split.first_section_id, split.second_section_id))
+            logical_id = split.logical_line_id
+        else:
+            # Imported snapshots need an explicit migration policy. Do not
+            # silently clone a binding with protection or absolute impedances.
+            if section_id in draft.catalog_snapshots.bindings:
+                raise EditorCommandError("Отпайка импортированной линии со связью справочника требует отдельного переноса параметров.")
+            from .legacy_line_split import split_legacy_line
+            split = split_legacy_line(model, section_id, offset_mm)
+            logical_id = None
+        return _TapSplit(logical_id, section_id, split.first_section_id,
+                         split.second_section_id, split.tap_node_id)
+
+    def _tap_route_inputs(self, draft, section_id, page_id, tap_route_id, tap_x, tap_y):
+        if tap_route_id is not None:
+            source = draft.diagram.routes.get(DiagramRouteId(str(tap_route_id)))
+            if (source is None or source.equipment_id != section_id
+                    or source.kind is not DiagramRouteKind.EQUIPMENT_BRANCH
+                    or (page_id is not None and source.page_id != self._page_id(page_id))):
+                raise EditorCommandError("Выбранная графическая трасса отпайки больше не соответствует линии и листу.")
+        else:
+            source = self._route_for_equipment(draft.diagram, section_id,
+                self._page_id(page_id) if page_id is not None else None)
+        page = source.page_id if source is not None and page_id is None else self._resolve_page(draft, page_id)
+        original_from = draft.electrical_model.port_by_role(section_id, "from").id
+        if source is None:
+            a, b, first, last = self._section_route_endpoints(draft, section_id, page, None)
+            source = DiagramRoute(DiagramRouteId.new(), page, DiagramRouteKind.EQUIPMENT_BRANCH,
+                a, b, equipment_id=section_id, waypoints=self._route_waypoints(first, last))
+        views = tuple(route for route in draft.diagram.routes.values()
+            if route.equipment_id == section_id and route.kind is DiagramRouteKind.EQUIPMENT_BRANCH) or (source,)
+        x, y = (self._route_midpoint(source) if tap_x is None else
+            (_finite(tap_x, "Координата X отпайки"), _finite(tap_y, "Координата Y отпайки")))
+        return source, views, page, original_from, x, y
+
     def create_tap(
-        self,
-        section_id: EquipmentId,
-        offset_mm: int | None,
-        branch_name: str,
-        branch_kind: LineKind,
-        branch_target: ConnectionTarget,
-        *,
-        physical: PhysicalLineInput,
-        page_id: PageId | str | None = None,
+        self, section_id: EquipmentId, offset_mm: int | None,
+        branch_name: str, branch_kind: LineKind, branch_target: ConnectionTarget, *,
+        physical: PhysicalLineInput, page_id: PageId | str | None = None,
         route_waypoints: Iterable[RouteWaypoint] | None = None,
-        tap_x: float | None = None,
-        tap_y: float | None = None,
+        tap_x: float | None = None, tap_y: float | None = None,
+        catalog_entry: CatalogEntry | None = None, remember_catalog_entry: bool = False,
+        tap_route_id: DiagramRouteId | None = None,
     ) -> TapEditResult:
-        """Create a real junction and three physical routes as one undo step."""
+        """Split every view and add one outgoing physical branch atomically."""
         self._require_edit()
         if not isinstance(physical, PhysicalLineInput):
             raise EditorCommandError("Не заданы физические параметры отпайки.")
         if (tap_x is None) != (tap_y is None):
-            raise EditorCommandError(
-                "Графическое положение отпайки задаётся двумя координатами."
-            )
+            raise EditorCommandError("Графическое положение отпайки задаётся двумя координатами.")
 
         def command(draft: ProjectDraft) -> TapEditResult:
-            source_voltage = self._line_connection_voltage(draft.electrical_model, section_id)
-            _, normalized_target, _ = self._guard_connection_voltage(
-                draft.electrical_model, source_voltage, branch_target,
-            )
-            source_route = self._route_for_equipment(
-                draft.diagram,
-                section_id,
-                self._page_id(page_id) if page_id is not None else None,
-            )
-            selected_page = (
-                source_route.page_id
-                if source_route is not None and page_id is None
-                else self._resolve_page(draft, page_id)
-            )
-            start_anchor, end_anchor, start_representation, end_representation = (
-                self._section_route_endpoints(
-                    draft, section_id, selected_page, source_route
-                )
-            )
-            if tap_x is None:
-                if source_route is not None:
-                    junction_x, junction_y = self._route_midpoint(source_route)
-                else:
-                    junction_x = (start_representation.x + end_representation.x) / 2.0
-                    junction_y = (start_representation.y + end_representation.y) / 2.0
-            else:
-                workspace = EditorWorkspaceState.from_diagram(draft.diagram)
-                junction_x, junction_y = self._snap_with_state(
-                    _finite(tap_x, "Координата X отпайки"),
-                    _finite(tap_y, "Координата Y отпайки"),
-                    workspace,
-                )
-
-            branch = self._resolve_connection_target(
-                draft,
-                normalized_target,
-                selected_page,
-                fallback_x=junction_x,
-                fallback_y=junction_y + 140.0,
-            )
-            split, branch_line, branch_section, _ = (
-                draft.electrical_model.create_tap_line(
-                    section_id,
-                    offset_mm,
-                    branch_name,
-                    branch_kind,
-                    branch.node_id,
-                    physical.length_mm,
-                    branch_section_properties=physical.properties,
-                    branch_length_confirmation=physical.length_confirmation,
-                    branch_impedance_confirmation=physical.impedance_confirmation,
-                )
-            )
-            self._split_catalog_binding(
-                draft,
-                split.removed_section_id,
-                (split.first_section_id, split.second_section_id),
-            )
-            tap_node = draft.electrical_model.electrical_nodes[split.tap_node_id]
-            tap_representation = self._ensure_node_representation(
-                draft,
-                tap_node.id,
-                selected_page,
-                name=tap_node.name,
-                x=junction_x,
-                y=junction_y,
-                symbol_key="line_tap",
-            )
-            route_values = {
-                route_id: route
-                for route_id, route in draft.diagram.routes.items()
-                if route.equipment_id != section_id
-            }
-            if len(route_values) != len(draft.diagram.routes):
-                draft.diagram = _diagram_with_routes(draft.diagram, route_values)
-
             model = draft.electrical_model
-            first_from = model.port_by_role(split.first_section_id, "from").id
-            first_to = model.port_by_role(split.first_section_id, "to").id
-            second_from = model.port_by_role(split.second_section_id, "from").id
-            second_to = model.port_by_role(split.second_section_id, "to").id
-            branch_from = model.port_by_role(branch_section.equipment_id, "from").id
-            branch_to = model.port_by_role(branch_section.equipment_id, "to").id
-            tap_for_first = RouteEndpointAnchor(
-                RouteAnchorKind.ELECTRICAL_NODE,
-                tap_representation.id,
-                split.tap_node_id,
-                branch_port_id=first_to,
-            )
-            tap_for_second = replace(tap_for_first, branch_port_id=second_from)
-            tap_for_branch = replace(tap_for_first, branch_port_id=branch_from)
-            target_representation = draft.diagram.representations[
-                branch.representation_id
-            ]
-            routes = (
-                DiagramRoute(
-                    DiagramRouteId.new(),
-                    selected_page,
-                    DiagramRouteKind.EQUIPMENT_BRANCH,
-                    replace(start_anchor, branch_port_id=first_from),
-                    tap_for_first,
-                    equipment_id=split.first_section_id,
-                    waypoints=self._route_waypoints(
-                        start_representation, tap_representation
-                    ),
-                ),
-                DiagramRoute(
-                    DiagramRouteId.new(),
-                    selected_page,
-                    DiagramRouteKind.EQUIPMENT_BRANCH,
-                    tap_for_second,
-                    replace(end_anchor, branch_port_id=second_to),
-                    equipment_id=split.second_section_id,
-                    waypoints=self._route_waypoints(
-                        tap_representation, end_representation
-                    ),
-                ),
-                DiagramRoute(
-                    DiagramRouteId.new(),
-                    selected_page,
-                    DiagramRouteKind.EQUIPMENT_BRANCH,
-                    tap_for_branch,
-                    RouteEndpointAnchor(
-                        branch.anchor_kind,
-                        branch.representation_id,
-                        branch.node_id,
-                        branch_port_id=branch_to,
-                        target_port_id=branch.target_port_id,
-                        anchor_key=branch.anchor_key,
-                    ),
-                    equipment_id=branch_section.equipment_id,
-                    waypoints=self._effective_route_waypoints(
-                        tap_representation,
-                        target_representation,
-                        route_waypoints,
-                    ),
-                ),
-            )
-            for route in routes:
-                self._add_route(draft, route)
-            return TapEditResult(
-                split.logical_line_id,
-                branch_line.id,
-                split.removed_section_id,
-                split.first_section_id,
-                split.second_section_id,
-                branch_section.equipment_id,
-                split.tap_node_id,
-                tuple(item.id for item in routes),
-            )
+            voltage = self._line_connection_voltage(model, section_id)
+            properties = self._line_catalog_properties(draft, branch_kind, physical,
+                catalog_entry, remember_catalog_entry, voltage)
+            _, normalized_target, _ = self._guard_connection_voltage(
+                model, voltage, branch_target, adopt=True)
+            source, views, page, original_from, x, y = self._tap_route_inputs(
+                draft, section_id, page_id, tap_route_id, tap_x, tap_y)
+            branch = self._resolve_connection_target(draft, normalized_target, page,
+                fallback_x=x, fallback_y=y + 140.0)
+            split = self._split_line_for_tap(draft, section_id, offset_mm)
+            branch_line, branch_section, _ = model.create_logical_line(
+                branch_name, branch_kind, split.tap_node_id, branch.node_id,
+                physical.length_mm, voltage_class_id=voltage,
+                section_properties=properties,
+                length_confirmation=physical.length_confirmation,
+                impedance_confirmation=physical.impedance_confirmation)
+            self._bind_line_catalog(draft, branch_section.equipment_id, physical, catalog_entry)
+            from .tap_routes import split_physical_route_views
+            draft.diagram, tap, route_ids = split_physical_route_views(
+                draft.diagram, views, original_from_port=original_from,
+                first_equipment_id=split.first_section_id, second_equipment_id=split.second_section_id,
+                first_ports=(model.port_by_role(split.first_section_id, "from").id,
+                             model.port_by_role(split.first_section_id, "to").id),
+                second_ports=(model.port_by_role(split.second_section_id, "from").id,
+                              model.port_by_role(split.second_section_id, "to").id),
+                tap_node_id=split.tap_node_id, selected_route_id=source.id,
+                selected_point=(x, y), midpoint=self._route_midpoint,
+                outer_anchor=lambda anchor, point, page: (anchor, None))
+            target_representation = draft.diagram.representations[branch.representation_id]
+            route = DiagramRoute(DiagramRouteId.new(), page, DiagramRouteKind.EQUIPMENT_BRANCH,
+                RouteEndpointAnchor(RouteAnchorKind.ELECTRICAL_NODE, tap.id, split.tap_node_id,
+                    branch_port_id=model.port_by_role(branch_section.equipment_id, "from").id),
+                RouteEndpointAnchor(branch.anchor_kind, branch.representation_id, branch.node_id,
+                    branch_port_id=model.port_by_role(branch_section.equipment_id, "to").id,
+                    target_port_id=branch.target_port_id, anchor_key=branch.anchor_key),
+                equipment_id=branch_section.equipment_id,
+                waypoints=self._effective_route_waypoints(tap, target_representation, route_waypoints))
+            self._add_route(draft, route)
+            return TapEditResult(split.logical_line_id, branch_line.id, split.removed_section_id,
+                split.first_section_id, split.second_section_id, branch_section.equipment_id,
+                split.tap_node_id, (*route_ids, route.id))
 
         return self._execute("Создать отпайку", command)
+
 
     def attach_equipment_to_line(
         self,
@@ -3119,224 +3269,168 @@ class ProjectEditorController:
         return self._execute("Подключить оборудование ответвлением", command)
 
     def reconnect_port_to_tap(
-        self,
-        port_id: PortId,
-        section_id: EquipmentId,
-        offset_mm: int | None,
-        *,
+        self, port_id: PortId, section_id: EquipmentId, offset_mm: int | None, *,
         page_id: PageId | str | None = None,
         route_waypoints: Iterable[RouteWaypoint] | None = None,
         source_representation_id: GraphicalRepresentationId | None = None,
-        source_anchor_key: str = "",
-        tap_x: float | None = None,
-        tap_y: float | None = None,
+        source_anchor_key: str = "", tap_x: float | None = None, tap_y: float | None = None,
+        tap_route_id: DiagramRouteId | None = None,
     ) -> LineTapConnectionEditResult:
-        """Split a physical line and connect/reconnect one existing port to it."""
+        """Connect a free port or reconnect an occupied one with a plain wire."""
+        return self._wire_to_tap(PortTarget(port_id, source_representation_id, source_anchor_key),
+            section_id, offset_mm, page_id=page_id, route_waypoints=route_waypoints,
+            tap_x=tap_x, tap_y=tap_y, tap_route_id=tap_route_id)
+
+    def connect_node_to_tap(
+        self, source: NodeTarget, section_id: EquipmentId, offset_mm: int | None, *,
+        page_id: PageId | str | None = None,
+        route_waypoints: Iterable[RouteWaypoint] | None = None,
+        tap_x: float | None = None, tap_y: float | None = None,
+        tap_route_id: DiagramRouteId | None = None,
+    ) -> LineTapConnectionEditResult:
+        """Split and connect an existing bus/conductor node in one transaction."""
+        if not isinstance(source, NodeTarget):
+            raise EditorCommandError("Начало провода должно представлять электрический узел.")
+        return self._wire_to_tap(source, section_id, offset_mm, page_id=page_id,
+            route_waypoints=route_waypoints, tap_x=tap_x, tap_y=tap_y, tap_route_id=tap_route_id)
+
+    def _wire_to_tap(
+        self, source: PortTarget | NodeTarget, section_id: EquipmentId,
+        offset_mm: int | None, *, page_id=None, route_waypoints=None, tap_x=None, tap_y=None,
+        tap_route_id=None,
+    ) -> LineTapConnectionEditResult:
         self._require_edit()
         if (tap_x is None) != (tap_y is None):
-            raise EditorCommandError(
-                "Графическое положение отпайки задаётся двумя координатами."
-            )
+            raise EditorCommandError("Графическое положение отпайки задаётся двумя координатами.")
 
         def command(draft: ProjectDraft) -> LineTapConnectionEditResult:
             model = draft.electrical_model
-            port = model.ports.get(port_id)
-            if port is None:
-                raise EditorCommandError("Электрический порт не найден.")
-            if port.equipment_id == section_id:
-                raise EditorCommandError(
-                    "Нельзя присоединить разрезаемый участок к самому себе."
-                )
-            if port.equipment_id in model.line_sections:
-                raise EditorCommandError(
-                    "Конец другой физической линии подключается отдельной "
-                    "командой объединения ветвей."
-                )
-            self._guard_connection_voltage(model, port_id, self._line_connection_voltage(model, section_id), adopt=True)
-            source_route = self._route_for_equipment(
-                draft.diagram,
-                section_id,
-                self._page_id(page_id) if page_id is not None else None,
-            )
-            selected_page = (
-                source_route.page_id
-                if source_route is not None and page_id is None
-                else self._resolve_page(draft, page_id)
-            )
-            start_anchor, end_anchor, start_representation, end_representation = (
-                self._section_route_endpoints(
-                    draft, section_id, selected_page, source_route
-                )
-            )
-            source_representation = self._equipment_representation(
-                draft,
-                port.equipment_id,
-                selected_page,
-                source_representation_id,
-            )
-            if tap_x is None:
-                if source_route is not None:
-                    junction_x, junction_y = self._route_midpoint(source_route)
+            port = model.ports.get(source.port_id) if isinstance(source, PortTarget) else None
+            if isinstance(source, PortTarget):
+                if port is None:
+                    raise EditorCommandError("Электрический порт не найден.")
+                if port.equipment_id == section_id:
+                    raise EditorCommandError("Нельзя присоединить разрезаемый участок к самому себе.")
+                if port.equipment_id in model.line_sections:
+                    raise EditorCommandError("Конец другой физической линии подключается отдельной командой объединения ветвей.")
+            self._guard_connection_voltage(model, source,
+                self._line_connection_voltage(model, section_id), adopt=True)
+            source_route, views, selected_page, original_from, junction_x, junction_y = self._tap_route_inputs(
+                draft, section_id, page_id, tap_route_id, tap_x, tap_y)
+            if isinstance(source, NodeTarget):
+                resolved = self._resolve_connection_target(draft, source, selected_page)
+                source_representation = draft.diagram.representations[resolved.representation_id]
+            else:
+                source_representation = self._equipment_representation(draft, port.equipment_id,
+                    selected_page, source.representation_id)
+
+            split = self._split_line_for_tap(draft, section_id, offset_mm)
+            connection_id = None
+            if isinstance(source, NodeTarget):
+                # Keep the user's existing node and all its prior connections.
+                # The domain guard rejects an attempted shunt of a line half.
+                model.merge_nodes(resolved.node_id, split.tap_node_id)
+                # The review marker records current split nodes, unlike its
+                # immutable original source/zone fields. Remap only this tap.
+                from .legacy_line_split import REVIEW_MARKER
+                for equipment in tuple(model.equipment.values()):
+                    review = equipment.extensions.get(REVIEW_MARKER)
+                    if isinstance(review, Mapping) and split.tap_node_id.value in review.get("split_node_ids", ()):
+                        marker = {**review, "split_node_ids": [
+                            resolved.node_id.value if key == split.tap_node_id.value else key
+                            for key in review["split_node_ids"]]}
+                        model._equipment[equipment.id] = replace(equipment,
+                            extensions={**equipment.extensions, REVIEW_MARKER: marker})
+                split = replace(split, tap_node_id=resolved.node_id)
+                source_anchor = RouteEndpointAnchor(resolved.anchor_kind,
+                    resolved.representation_id, split.tap_node_id,
+                    target_port_id=resolved.target_port_id, anchor_key=resolved.anchor_key)
+            else:
+                existing = model.connection_for_port(source.port_id)
+                if existing is None:
+                    connection, _ = model.connect_port(source.port_id, split.tap_node_id)
                 else:
-                    junction_x = (start_representation.x + end_representation.x) / 2.0
-                    junction_y = (start_representation.y + end_representation.y) / 2.0
-            else:
-                workspace = EditorWorkspaceState.from_diagram(draft.diagram)
-                junction_x, junction_y = self._snap_with_state(
-                    _finite(tap_x, "Координата X отпайки"),
-                    _finite(tap_y, "Координата Y отпайки"),
-                    workspace,
-                )
+                    connection, _ = model.reconnect_port(source.port_id, split.tap_node_id)
+                connection_id = connection.id
+                source_anchor = RouteEndpointAnchor(RouteAnchorKind.EQUIPMENT_PORT,
+                    source_representation.id, split.tap_node_id, target_port_id=source.port_id,
+                    anchor_key=source.anchor_key)
+                # Only the explicitly moved terminal's old zero-impedance
+                # leads disappear. Other terminals and other sheets survive.
+                draft.diagram = _diagram_with_routes(draft.diagram, {
+                    key: route for key, route in draft.diagram.routes.items()
+                    if not (route.kind is DiagramRouteKind.NODE_CONNECTION
+                        and any(anchor.target_port_id == source.port_id
+                                for anchor in (route.start_anchor, route.end_anchor)))})
 
-            split = model.split_line_section(section_id, offset_mm)
-            self._split_catalog_binding(
-                draft,
-                split.removed_section_id,
-                (split.first_section_id, split.second_section_id),
-            )
-            existing = model.connection_for_port(port_id)
-            if existing is None:
-                connection, _ = model.connect_port(port_id, split.tap_node_id)
-            else:
-                connection, _ = model.reconnect_port(port_id, split.tap_node_id)
-            tap_node = model.electrical_nodes[split.tap_node_id]
-            tap_representation = self._ensure_node_representation(
-                draft,
-                tap_node.id,
-                selected_page,
-                name=tap_node.name,
-                x=junction_x,
-                y=junction_y,
-                symbol_key="line_tap",
-            )
+            detached = {}
+            def outer_anchor(anchor, point, page):
+                target_connection = (model.connection_for_port(anchor.target_port_id)
+                                     if anchor.target_port_id is not None else None)
+                if anchor.target_port_id is None or (target_connection is not None
+                        and target_connection.electrical_node_id == anchor.electrical_node_id):
+                    return anchor, None
+                key = (page, anchor.electrical_node_id, anchor.target_port_id)
+                if key not in detached:
+                    detached[key] = GraphicalRepresentation(GraphicalRepresentationId.new(), page,
+                        RepresentationTargetKind.ELECTRICAL_NODE, electrical_node_id=anchor.electrical_node_id,
+                        x=point.x, y=point.y, symbol_key="connection_point",
+                        extensions={"graphics": {"width": 8.0, "height": 8.0, "label_visible": False}})
+                row = detached[key]
+                return RouteEndpointAnchor(RouteAnchorKind.ELECTRICAL_NODE, row.id,
+                    anchor.electrical_node_id, branch_port_id=anchor.branch_port_id), row
 
-            def safe_outer_anchor(
-                anchor: RouteEndpointAnchor,
-                fallback_representation: GraphicalRepresentation,
-            ) -> tuple[RouteEndpointAnchor, GraphicalRepresentation]:
-                target_connection = (
-                    model.connection_for_port(anchor.target_port_id)
-                    if anchor.target_port_id is not None
-                    else None
-                )
-                if (
-                    anchor.target_port_id is None
-                    or (
-                        target_connection is not None
-                        and target_connection.electrical_node_id
-                        == anchor.electrical_node_id
-                    )
-                ):
-                    return anchor, fallback_representation
-                node = model.electrical_nodes[anchor.electrical_node_id]
-                representation = self._ensure_node_representation(
-                    draft,
-                    node.id,
-                    selected_page,
-                    name=node.name,
-                    x=fallback_representation.x,
-                    y=fallback_representation.y,
-                )
-                return (
-                    RouteEndpointAnchor(
-                        RouteAnchorKind.ELECTRICAL_NODE,
-                        representation.id,
-                        node.id,
-                        branch_port_id=anchor.branch_port_id,
-                        anchor_key=anchor.anchor_key,
-                    ),
-                    representation,
-                )
+            from .tap_routes import split_physical_route_views
+            draft.diagram, tap_representation, route_ids = split_physical_route_views(
+                draft.diagram, views, original_from_port=original_from,
+                first_equipment_id=split.first_section_id, second_equipment_id=split.second_section_id,
+                first_ports=(model.port_by_role(split.first_section_id, "from").id,
+                             model.port_by_role(split.first_section_id, "to").id),
+                second_ports=(model.port_by_role(split.second_section_id, "from").id,
+                              model.port_by_role(split.second_section_id, "to").id),
+                tap_node_id=split.tap_node_id, selected_route_id=source_route.id,
+                selected_point=(junction_x, junction_y), midpoint=self._route_midpoint,
+                outer_anchor=outer_anchor)
+            # Other branches may share the explicitly moved apparatus port.
+            # Repair every old graphical anchor into the same local fallback.
+            repaired = {}
+            extra_representations = {}
+            for route in draft.diagram.routes.values():
+                start, extra = outer_anchor(route.start_anchor, route.waypoints[0], route.page_id)
+                if extra is not None:
+                    extra_representations[extra.id] = extra
+                end, extra = outer_anchor(route.end_anchor, route.waypoints[-1], route.page_id)
+                if extra is not None:
+                    extra_representations[extra.id] = extra
+                if start != route.start_anchor or end != route.end_anchor:
+                    repaired[route.id] = replace(route, start_anchor=start, end_anchor=end)
+            if repaired:
+                draft.diagram = replace(draft.diagram,
+                    routes={**draft.diagram.routes, **repaired},
+                    representations={**draft.diagram.representations, **extra_representations})
+            lead = DiagramRoute(DiagramRouteId.new(), selected_page, DiagramRouteKind.NODE_CONNECTION,
+                source_anchor, RouteEndpointAnchor(RouteAnchorKind.ELECTRICAL_NODE,
+                    tap_representation.id, split.tap_node_id), electrical_node_id=split.tap_node_id,
+                waypoints=self._effective_route_waypoints(source_representation, tap_representation, route_waypoints))
+            if route_waypoints is None:
+                lead = self._reroute_to_current_port_anchors(draft, lead,
+                    obstacles=self._page_routing_obstacles(draft, selected_page))
+            self._add_route(draft, lead)
+            if detached:
+                from .tap_routes import separate_detached_terminals
+                detached_ids = {row.id for row in detached.values()}
+                draft.diagram = separate_detached_terminals(draft.diagram, detached.values(),
+                    obstacles_for_page=lambda page: self._page_routing_obstacles(draft, page),
+                    reroute=lambda route, obstacles, preserve_direction: self._reroute_to_current_port_anchors(draft, route,
+                        obstacles=obstacles, preserve_node_direction_ids=tuple(
+                            anchor.representation_id for anchor in (route.start_anchor, route.end_anchor)
+                            if preserve_direction and anchor.kind is RouteAnchorKind.ELECTRICAL_NODE
+                            and anchor.representation_id not in detached_ids)))
+            return LineTapConnectionEditResult(split.logical_line_id, split.removed_section_id,
+                split.first_section_id, split.second_section_id, split.tap_node_id,
+                connection_id, (*route_ids, lead.id))
 
-            start_anchor, start_representation = safe_outer_anchor(
-                start_anchor, start_representation
-            )
-            end_anchor, end_representation = safe_outer_anchor(
-                end_anchor, end_representation
-            )
-            routes = {
-                route_id: route
-                for route_id, route in draft.diagram.routes.items()
-                if route.equipment_id != section_id
-                and not (
-                    route.kind is DiagramRouteKind.NODE_CONNECTION
-                    and any(
-                        anchor.target_port_id == port_id
-                        for anchor in (route.start_anchor, route.end_anchor)
-                    )
-                )
-            }
-            draft.diagram = _diagram_with_routes(draft.diagram, routes)
-            first_from = model.port_by_role(split.first_section_id, "from").id
-            first_to = model.port_by_role(split.first_section_id, "to").id
-            second_from = model.port_by_role(split.second_section_id, "from").id
-            second_to = model.port_by_role(split.second_section_id, "to").id
-            tap_first = RouteEndpointAnchor(
-                RouteAnchorKind.ELECTRICAL_NODE,
-                tap_representation.id,
-                split.tap_node_id,
-                branch_port_id=first_to,
-            )
-            created_routes = (
-                DiagramRoute(
-                    DiagramRouteId.new(),
-                    selected_page,
-                    DiagramRouteKind.EQUIPMENT_BRANCH,
-                    replace(start_anchor, branch_port_id=first_from),
-                    tap_first,
-                    equipment_id=split.first_section_id,
-                    waypoints=self._route_waypoints(
-                        start_representation, tap_representation
-                    ),
-                ),
-                DiagramRoute(
-                    DiagramRouteId.new(),
-                    selected_page,
-                    DiagramRouteKind.EQUIPMENT_BRANCH,
-                    replace(tap_first, branch_port_id=second_from),
-                    replace(end_anchor, branch_port_id=second_to),
-                    equipment_id=split.second_section_id,
-                    waypoints=self._route_waypoints(
-                        tap_representation, end_representation
-                    ),
-                ),
-                DiagramRoute(
-                    DiagramRouteId.new(),
-                    selected_page,
-                    DiagramRouteKind.NODE_CONNECTION,
-                    RouteEndpointAnchor(
-                        RouteAnchorKind.EQUIPMENT_PORT,
-                        source_representation.id,
-                        split.tap_node_id,
-                        target_port_id=port_id,
-                        anchor_key=source_anchor_key,
-                    ),
-                    RouteEndpointAnchor(
-                        RouteAnchorKind.ELECTRICAL_NODE,
-                        tap_representation.id,
-                        split.tap_node_id,
-                    ),
-                    electrical_node_id=split.tap_node_id,
-                    waypoints=self._effective_route_waypoints(
-                        source_representation,
-                        tap_representation,
-                        route_waypoints,
-                    ),
-                ),
-            )
-            for route in created_routes:
-                self._add_route(draft, route)
-            return LineTapConnectionEditResult(
-                split.logical_line_id,
-                split.removed_section_id,
-                split.first_section_id,
-                split.second_section_id,
-                split.tap_node_id,
-                connection.id,
-                tuple(item.id for item in created_routes),
-            )
-
-        return self._execute("Подключить порт к отпайке", command)
+        return self._execute("Подключить провод к отпайке", command)
 
     def insert_series_equipment(
         self,
@@ -4469,7 +4563,11 @@ class ProjectEditorController:
                     moved, anchor, fallback, previous_representations=original.representations),
                 obstacles_for_pair=lambda first, second: by_page[first.page_id],
             )
-            moved.diagram = replace(moved.diagram, representations=values, routes=routes)
+            # The endpoint/obstacle readers below use only representations;
+            # the candidate route is passed explicitly. Rebuild their drawing
+            # snapshot only when reflow moved an additional connection node.
+            if values != moved.diagram.representations:
+                moved.diagram = replace(moved.diagram, representations=values)
             for key, route in shifted.items():
                 if route == original.routes[key] or routes[key] != route:
                     continue

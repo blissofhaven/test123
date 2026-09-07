@@ -184,3 +184,37 @@ def test_reflow_save_reload_preserves_all_domain_and_graphical_ids(pair, tmp_pat
     assert reopened.diagram.representations == project.diagram.representations
     assert reopened.diagram.routes == project.diagram.routes
     assert EXAMPLE.read_bytes() == original_bytes
+
+
+def test_reflow_resolves_ports_in_one_pass_and_rebuilds_after_external_change(pair):
+    from types import SimpleNamespace
+    project, node, pair_routes, breaker = pair
+    reps = dict(project.diagram.representations)
+    reps[breaker.id] = replace(breaker, y=breaker.y - 180)
+    def no_scan(port_id):
+        raise AssertionError("Preview must not scan the full model per port")
+    model = SimpleNamespace(connections=dict(project.electrical_model.connections),
+                            connection_for_port=no_scan)
+    updated, _ = _run(project, reps, project.diagram.routes, {breaker.id}, model=model)
+    assert updated[node.id] != node
+    # The index is local to a call, never reused after an external topology edit.
+    model.connections["extra"] = SimpleNamespace(electrical_node_id=node.electrical_node_id)
+    updated, routes = _run(project, reps, project.diagram.routes, {breaker.id}, model=model)
+    assert updated[node.id] == node
+    assert all(routes[row.id] == row for row in pair_routes)
+
+
+def test_reflow_index_preserves_first_port_match_even_for_diagnostic_model(pair):
+    from types import SimpleNamespace
+    project, node, pair_routes, breaker = pair
+    reps = dict(project.diagram.representations)
+    reps[breaker.id] = replace(breaker, y=breaker.y - 180)
+    route = pair_routes[0]
+    outer = route.end_anchor if route.start_anchor.representation_id == node.id else route.start_anchor
+    wrong_node = next(key for key in project.electrical_model.electrical_nodes if key != node.electrical_node_id)
+    connections = {"first_duplicate": SimpleNamespace(port_id=outer.target_port_id, electrical_node_id=wrong_node),
+                   **project.electrical_model.connections}
+    model = SimpleNamespace(connections=connections)
+    updated, routes = _run(project, reps, project.diagram.routes, {breaker.id}, model=model)
+    assert updated[node.id] == node
+    assert all(routes[row.id] == row for row in pair_routes)

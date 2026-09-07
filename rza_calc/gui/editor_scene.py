@@ -54,6 +54,7 @@ from PySide6.QtWidgets import (
     QLabel,
     QMenu,
     QMessageBox,
+    QPushButton,
     QSizePolicy,
     QVBoxLayout,
     QWidget,
@@ -2163,7 +2164,7 @@ class DiagramRouteItem(QGraphicsObject):
     def _sync_endpoint_handles(self) -> None:
         physical = (
             self.route.kind is DiagramRouteKind.EQUIPMENT_BRANCH
-            and self.route.equipment_id in self._model.line_sections
+            and _is_directional_line(self._model, self.route.equipment_id)
             and len(self.route.waypoints) >= 2
         )
         wanted = {
@@ -2975,7 +2976,7 @@ class DiagramGraphicsScene(QGraphicsScene):
             label = item._label
             content = item._label_content
             individual_visible = _boolean(_graphics_extensions(item.representation), "label_visible", True)
-            text = content.name
+            text = content.display_name
             if individual_visible and show_parameters and content.parameter:
                 text += ("\n" if text else "") + content.parameter
             label.setText(wrap_text(text, label.font()) if individual_visible else text)
@@ -3700,11 +3701,22 @@ class DiagramGraphicsScene(QGraphicsScene):
             return self._connection_voltage_preview(first, second)
         return check_connection_voltage(self._model, first, second)
 
+    @classmethod
+    def _tap_entry_direction(cls, route, point, approach) -> RouteDirection:
+        """Enter a tapped segment perpendicularly, without overlapping it."""
+        projected = cls._project_to_route(route, point)
+        if projected is not None and projected[1] == "vertical":
+            return RouteDirection.RIGHT if approach.x >= point.x() else RouteDirection.LEFT
+        return RouteDirection.DOWN if approach.y >= point.y() else RouteDirection.UP
+
     def _compatibility_for_port(
         self, source_port_id: PortId, target_port_id: PortId,
         *, allow_line_insertion: bool = False,
     ) -> tuple[ConnectionTargetFeedback, str]:
         assert self._model is not None
+        if isinstance(source_port_id, ElectricalNodeId):
+            return self._compatibility_for_node(target_port_id, source_port_id,
+                                                allow_line_insertion=allow_line_insertion)
         if source_port_id == target_port_id:
             return (
                 ConnectionTargetFeedback.INCOMPATIBLE,
@@ -3752,6 +3764,13 @@ class DiagramGraphicsScene(QGraphicsScene):
         *, allow_line_insertion: bool = False,
     ) -> tuple[ConnectionTargetFeedback, str]:
         assert self._model is not None
+        if isinstance(source_port_id, ElectricalNodeId):
+            voltage = self._check_connection_voltage(source_port_id, node_id)
+            if not voltage.valid:
+                return ConnectionTargetFeedback.INCOMPATIBLE, voltage.message
+            if self._model.electrical_nodes[source_port_id].kind_id != self._model.electrical_nodes[node_id].kind_id:
+                return ConnectionTargetFeedback.INCOMPATIBLE, "Электрические типы узлов несовместимы"
+            return ConnectionTargetFeedback.COMPATIBLE, "Соединить электрические узлы"
         try:
             definition = self._model.port_definition(source_port_id)
             node = self._model.electrical_nodes[node_id]
@@ -3798,7 +3817,9 @@ class DiagramGraphicsScene(QGraphicsScene):
     def _target_at(self, scene_pos: QPointF) -> ConnectionTarget | None:
         if not self._connection_tool.active or self._model is None:
             return None
-        source_id = PortId(self._connection_tool.source_port_id)
+        source_id = (ElectricalNodeId(self._connection_tool.source_target.target_id)
+                     if self._connection_tool.source_target is not None
+                     else PortId(self._connection_tool.source_port_id))
         # Жест от вывода может вставить физическую линию в существующий
         # узел. Окончательный смысл выбирается в меню; сам порт и неверный
         # класс напряжения по-прежнему недопустимы до этого выбора.
@@ -3898,7 +3919,7 @@ class DiagramGraphicsScene(QGraphicsScene):
             )
             if (
                 item.route.kind is DiagramRouteKind.EQUIPMENT_BRANCH
-                and item.route.equipment_id in self._model.line_sections
+                and _is_directional_line(self._model, item.route.equipment_id)
             ):
                 from ..editor.connection_tool import ConnectionToolMode
 
@@ -3914,6 +3935,9 @@ class DiagramGraphicsScene(QGraphicsScene):
                     point.x(),
                     point.y(),
                     item.route.equipment_id.value,  # type: ignore[union-attr]
+                    direction=self._tap_entry_direction(item.route, point,
+                        self._connection_tool.manual_vertices[-1] if self._connection_tool.manual_vertices
+                        else self._connection_tool.source_vertex),
                     feedback=(ConnectionTargetFeedback.COMPATIBLE if voltage.valid
                               else ConnectionTargetFeedback.INCOMPATIBLE),
                     message=(voltage.message if not voltage.valid else (
@@ -4129,7 +4153,7 @@ class DiagramGraphicsScene(QGraphicsScene):
         source = self._physical_line_tool.source
         if source is None or source.kind is ConnectionTargetKind.PHYSICAL_LINE:
             return None
-        physical_hit = self.physical_route_at(scene_pos)
+        physical_hit = self.physical_route_at(scene_pos, include_legacy=True)
         if physical_hit is None:
             return None
         route, route_fraction = physical_hit
@@ -4142,6 +4166,8 @@ class DiagramGraphicsScene(QGraphicsScene):
             point.x(),
             point.y(),
             route.equipment_id.value,
+            direction=self._tap_entry_direction(route, point,
+                self._physical_line_tool.manual_vertices[-1] if self._physical_line_tool.manual_vertices else source),
             feedback=ConnectionTargetFeedback.COMPATIBLE,
             message="Отпустите кнопку, чтобы создать отпайку",
             route_id=route.id.value,
@@ -4245,7 +4271,7 @@ class DiagramGraphicsScene(QGraphicsScene):
         return tuple(result)
 
     def physical_route_at(
-        self, scene_pos: QPointF
+        self, scene_pos: QPointF, *, include_legacy: bool = False
     ) -> tuple[DiagramRoute, float] | None:
         """Найти физическую трассу под курсором без электрической мутации."""
         tolerance = ROUTE_HIT_TOLERANCE_PX / self._view_scale()
@@ -4263,7 +4289,8 @@ class DiagramGraphicsScene(QGraphicsScene):
             if (
                 self._model is None
                 or route.kind is not DiagramRouteKind.EQUIPMENT_BRANCH
-                or route.equipment_id not in self._model.line_sections
+                or not (route.equipment_id in self._model.line_sections
+                    or (include_legacy and _is_directional_line(self._model, route.equipment_id)))
             ):
                 continue
             points = tuple(QPointF(row.x, row.y) for row in route.waypoints)
@@ -4293,7 +4320,8 @@ class DiagramGraphicsScene(QGraphicsScene):
         self._reset_connection_highlights()
         if not self._connection_tool.active:
             return
-        source_port = PortId(self._connection_tool.source_port_id)
+        source_port = (PortId(self._connection_tool.source_port_id)
+                       if self._connection_tool.source_port_id else None)
         for object_item in self._items_by_id.values():
             source_item = object_item.port_item(source_port)
             if source_item is not None:
@@ -4324,6 +4352,16 @@ class DiagramGraphicsScene(QGraphicsScene):
                 route_id = None
             if route_id in self._route_items_by_id:
                 self._route_items_by_id[route_id].set_target_feedback(target.feedback)
+
+    def begin_connection_from_target(self, target: ConnectionTarget) -> None:
+        if self._mode is not CanvasMode.EDIT:
+            return
+        self.cancel_physical_line(announce=False)
+        if self._tool_state_machine is not None:
+            self._tool_state_machine.activate(EditorTool.DRAW_CONNECTION, tool_name="Соединить")
+            self.toolStateChanged.emit(self._tool_state_machine.state)
+        self._connection_tool.begin_from_target(target)
+        self.connectionStatusMessage.emit("Ведите соединение к выводу, шине или проводнику; тип выберите после отпускания")
 
     def begin_connection(self, port_item: ElectricalPortItem) -> None:
         if self._mode is not CanvasMode.EDIT:
@@ -4375,7 +4413,7 @@ class DiagramGraphicsScene(QGraphicsScene):
         route = route_item.route
         if (
             route.kind is not DiagramRouteKind.EQUIPMENT_BRANCH
-            or route.equipment_id not in self._model.line_sections
+            or not _is_directional_line(self._model, route.equipment_id)
             or len(route.waypoints) < 2
         ):
             self.connectionStatusMessage.emit(
@@ -5415,6 +5453,19 @@ class DiagramGraphicsScene(QGraphicsScene):
             transform = self.views()[0].transform() if self.views() else QTransform()
             hit = self.resolve_hit_target(event.scenePos(), transform)
             raw_item = hit.item
+            if (self._mode is CanvasMode.EDIT and not self.connection_active
+                    and self._tool_state_machine is not None
+                    and self._tool_state_machine.tool is EditorTool.DRAW_CONNECTION):
+                source = self._physical_endpoint_at(event.scenePos())
+                if source is not None and source.kind in {
+                    ConnectionTargetKind.BUS, ConnectionTargetKind.ELECTRICAL_NODE,
+                    ConnectionTargetKind.NODE_CONNECTION,
+                }:
+                    self.begin_connection_from_target(source)
+                    self._connection_press_position = QPointF(event.scenePos())
+                    self._connection_dragged = False
+                    event.accept()
+                    return
             if isinstance(raw_item, RotationHandleItem):
                 super().mousePressEvent(event)
                 return
@@ -5966,6 +6017,9 @@ class DiagramGraphicsScene(QGraphicsScene):
                 event.accept()
                 return
             actions: dict[object, str] = {}
+            if (self._mode is CanvasMode.EDIT
+                    and route_item.route.kind is DiagramRouteKind.NODE_CONNECTION):
+                actions[menu.addAction("Начать соединение")] = "start_connection"
             physical = (
                 self._model is not None
                 and route_item.route.kind is DiagramRouteKind.EQUIPMENT_BRANCH
@@ -5988,6 +6042,16 @@ class DiagramGraphicsScene(QGraphicsScene):
             chosen = menu.exec(event.screenPos())
             action_name = actions.get(chosen)
             if action_name:
+                if action_name == "start_connection":
+                    route = route_item.route
+                    projected = self._project_to_route(route, event.scenePos())
+                    if projected is not None:
+                        point = projected[0]
+                        self.begin_connection_from_target(ConnectionTarget(
+                            ConnectionTargetKind.NODE_CONNECTION, point.x(), point.y(),
+                            route.electrical_node_id.value, route_id=route.id.value))
+                    event.accept()
+                    return
                 if action_name == "add_route_waypoint":
                     route_item.add_user_waypoint(event.scenePos())
                     event.accept()
@@ -6015,6 +6079,10 @@ class DiagramGraphicsScene(QGraphicsScene):
             return
         menu = QMenu(event.widget())
         properties_action = menu.addAction(ui_text("action.properties"))
+        start_connection = None
+        if (self._mode is CanvasMode.EDIT and isinstance(item, DiagramObjectItem)
+                and item.representation.electrical_node_id is not None):
+            start_connection = menu.addAction("Начать соединение")
         rotate_right = None
         rotate_left = None
         auto_orientation = None
@@ -6072,6 +6140,11 @@ class DiagramGraphicsScene(QGraphicsScene):
         chosen = menu.exec(event.screenPos())
         if chosen is properties_action:
             self.propertiesRequested.emit(ids[0])
+        elif start_connection is not None and chosen is start_connection:
+            point, kind, anchor_key = self._project_to_node_item(item, event.scenePos())
+            self.begin_connection_from_target(self._available_bus_target(ConnectionTarget(
+                kind, point.x(), point.y(), item.representation.electrical_node_id.value,
+                item.representation_id.value, anchor_key=anchor_key)))
         elif chosen is rotate_right:
             self.rotationPositionRequested.emit(ids, 90)
         elif chosen is rotate_left:
@@ -6785,6 +6858,7 @@ class DiagramGraphicsView(QGraphicsView):
             raw_item = target.item
             if (
                 target.kind is HitTestKind.CANVAS
+                and self._tool_state.tool is not EditorTool.DRAW_CONNECTION
             ):
                 transition = self._tool_state.activate(
                     EditorTool.MARQUEE_SELECT,
@@ -7168,6 +7242,10 @@ class EditorCanvas(QWidget):
         self.hint.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         footer = QHBoxLayout()
         footer.setContentsMargins(12, 2, 12, 6)
+        self.connect_button = QPushButton("Соединить", self)
+        self.connect_button.setToolTip("Протяните от вывода, шины или проводника. Выберите провод, ВЛ или КЛ после отпускания.")
+        self.connect_button.clicked.connect(self.activate_connection_tool)
+        footer.addWidget(self.connect_button)
         footer.addWidget(self.hint)
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
@@ -7214,6 +7292,15 @@ class EditorCanvas(QWidget):
         )
         self.refresh()
 
+    def activate_connection_tool(self) -> None:
+        if self.scene._mode is not CanvasMode.EDIT:
+            return
+        self.view.cancel_placement(announce=False)
+        self.scene.cancel_connection(announce=False)
+        self.view._tool_state.activate(EditorTool.DRAW_CONNECTION, tool_name="Соединить")
+        self.view._emit_tool_state("Протяните соединение от вывода, шины или проводника")
+        self.view.setFocus()
+
     def _clear_pending_tap_branch(self) -> None:
         self._pending_tap_branch = None
 
@@ -7245,6 +7332,7 @@ class EditorCanvas(QWidget):
             ),
         )
         self.scene.set_mode(getattr(self.controller, "mode", CanvasMode.EDIT))
+        self.connect_button.setEnabled(self.scene._mode is CanvasMode.EDIT)
         if selected:
             self.scene.select_representations(selected)
         self._restore_workspace_settings()
@@ -7273,6 +7361,7 @@ class EditorCanvas(QWidget):
         if result is not None:
             self.scene.set_mode(getattr(self.controller, "mode", mode))
             analysis = self.scene._mode is CanvasMode.ANALYSIS
+            self.connect_button.setEnabled(not analysis)
             transition = self.view._tool_state.set_editor_mode(
                 EditorMode.ANALYSIS if analysis else EditorMode.EDIT
             )
@@ -7964,6 +8053,7 @@ class EditorCanvas(QWidget):
                 target.anchor_key,
                 target.x if representation_id is None else None,
                 target.y if representation_id is None else None,
+                DiagramRouteId(target.route_id) if target.route_id else None,
             )
         if target.kind is ConnectionTargetKind.FREE:
             return NewNodeTarget(
@@ -8017,7 +8107,7 @@ class EditorCanvas(QWidget):
         if not vertices:
             self.errorOccurred.emit("Протяжка не содержит ни одной точки.")
             return None
-        source = ConnectionTarget(
+        source = draft.source_target or ConnectionTarget(
             ConnectionTargetKind.EQUIPMENT_PORT,
             vertices[0].x,
             vertices[0].y,
@@ -8081,13 +8171,27 @@ class EditorCanvas(QWidget):
         from ..editor.connection_tool import ConnectionToolMode
         from ..editor.controller import NewNodeTarget, NodeTarget, PortTarget
 
+        if draft.target.kind is ConnectionTargetKind.PHYSICAL_LINE:
+            self._commit_tap_from_connection(draft)
+            return
+        if draft.source_target is not None:
+            source = self._controller_connection_target(draft.source_target)
+            target = self._controller_connection_target(draft.target)
+            target_node = (self.controller.model.node_for_port(target.port_id)
+                           if isinstance(target, PortTarget) else None)
+            node_id = target_node.id if target_node is not None else getattr(target, "node_id", None)
+            if source.node_id == node_id:
+                self.statusMessage.emit("Уже соединено одним электрическим узлом; провод не добавлен")
+                return
+            result = self._call("connect_from_node", source, target, page_id=self.page_id,
+                                route_waypoints=self._persisted_waypoints(draft))
+            if result is not None:
+                self._after_structure_command(result)
+                self.statusMessage.emit(ui_text("status.connection_completed"))
+            return
         source_port_id = PortId(draft.source_port_id)
         target = draft.target
         page_id = self.page_id
-        if target.kind is ConnectionTargetKind.PHYSICAL_LINE:
-            self._commit_tap_from_connection(draft)
-            return
-
         # Разрешение same-node в preview нужно только для меню ВЛ/КЛ.
         # Провод здесь уже существует; не пересоздаём его и не добавляем
         # графическую трассу или пустую команду истории.
@@ -8106,14 +8210,26 @@ class EditorCanvas(QWidget):
             self.statusMessage.emit("Уже соединено одним электрическим узлом; провод не добавлен")
             return
 
+        if (target.kind is ConnectionTargetKind.NODE_CONNECTION
+                and draft.mode is ConnectionToolMode.CREATE):
+            result = self._call(
+                "connect_from_node", self._controller_connection_target(target),
+                PortTarget(source_port_id, GraphicalRepresentationId(draft.source_representation_id), draft.source_anchor_key),
+                page_id=page_id, route_waypoints=tuple(reversed(self._persisted_waypoints(draft))),
+            )
+            if result is not None:
+                self._after_structure_command(result)
+                self.statusMessage.emit(ui_text("status.connection_completed"))
+            return
+
         if target.kind is ConnectionTargetKind.EQUIPMENT_PORT:
-            controller_target: object = PortTarget(PortId(target.target_id))
+            controller_target: object = self._controller_connection_target(target)
         elif target.kind in {
             ConnectionTargetKind.ELECTRICAL_NODE,
             ConnectionTargetKind.BUS,
             ConnectionTargetKind.NODE_CONNECTION,
         }:
-            controller_target = NodeTarget(ElectricalNodeId(target.target_id))
+            controller_target = self._controller_connection_target(target)
         elif target.kind is ConnectionTargetKind.FREE:
             voltage_id = endpoint_voltage(self.controller.model, source_port_id).voltage_class_id
             controller_target = NewNodeTarget(
@@ -8131,9 +8247,9 @@ class EditorCanvas(QWidget):
             method = getattr(self.controller, method_name, None)
             source_port = self.controller.model.ports.get(source_port_id)
             source_is_physical_branch = (
-                source_port is not None
+                draft.from_route_endpoint or (source_port is not None
                 and source_port.equipment_id
-                in self.controller.model.line_sections
+                in self.controller.model.line_sections)
             )
             kwargs = (
                 {}
@@ -8229,12 +8345,20 @@ class EditorCanvas(QWidget):
     def _ask_new_physical_line_parameters(
         self,
         draft: PhysicalLineDraft,
-    ) -> tuple[bool, str, object]:
-        from ..editor.controller import PhysicalLineInput
-        # Retain this private seam for callers supplying explicit test data,
-        # but creation itself is non-modal. Unknown length/impedance remain
-        # unconfirmed until edited in the right-hand inspector.
-        return True, draft.name, PhysicalLineInput(None, DataConfirmation.UNCONFIRMED)
+    ) -> object:
+        from .line_parameters import ask_line_parameters
+        return ask_line_parameters(self, draft, self.controller._project)
+
+    def _line_parameter_values(self, draft):
+        answer = self._ask_new_physical_line_parameters(draft)
+        # Existing embedded callers can still supply the private tuple seam.
+        if isinstance(answer, tuple):
+            accepted, name, physical = answer
+            return accepted, name, physical, {}
+        return answer.accepted, answer.name, answer.physical, {
+            "catalog_entry": answer.catalog_entry,
+            "remember_catalog_entry": answer.remember_catalog_entry,
+        }
 
     def _commit_physical_line_draft(self, value: object) -> None:
         if not isinstance(value, PhysicalLineDraft):
@@ -8280,7 +8404,7 @@ class EditorCanvas(QWidget):
                 self.statusMessage.emit("Отпайка создана одной операцией")
             return
         if value.target.kind is ConnectionTargetKind.PHYSICAL_LINE:
-            accepted, name, physical = self._ask_new_physical_line_parameters(value)
+            accepted, name, physical, catalog_kwargs = self._line_parameter_values(value)
             if not accepted:
                 return
             section_id = EquipmentId(value.target.target_id)
@@ -8302,6 +8426,7 @@ class EditorCanvas(QWidget):
                 return
             method = getattr(self.controller, "create_tap", None)
             kwargs = self._route_geometry_kwargs(method, value, reverse=True)
+            kwargs.update(catalog_kwargs)
             result = self._call(
                 "create_tap",
                 section_id,
@@ -8313,13 +8438,14 @@ class EditorCanvas(QWidget):
                 page_id=self.page_id,
                 tap_x=value.target.x,
                 tap_y=value.target.y,
+                tap_route_id=DiagramRouteId(value.target.route_id) if value.target.route_id else None,
                 **kwargs,
             )
             if result is not None:
                 self._after_structure_command(result)
                 self.statusMessage.emit("Отпайка создана одной операцией")
             return
-        accepted, name, physical = self._ask_new_physical_line_parameters(value)
+        accepted, name, physical, catalog_kwargs = self._line_parameter_values(value)
         if not accepted:
             return
         try:
@@ -8331,6 +8457,7 @@ class EditorCanvas(QWidget):
             return
         method = getattr(self.controller, "create_physical_line", None)
         kwargs = self._route_geometry_kwargs(method, value)  # type: ignore[arg-type]
+        kwargs.update(catalog_kwargs)
         #  Оба конца жеста могут оказаться на одном узле: так выглядит вставка
         #  линии в уже существующую связь. Разрешаем это только для протяжки от
         #  вывода аппарата — там понятно, какой конец переезжает на новый узел.
@@ -8340,6 +8467,7 @@ class EditorCanvas(QWidget):
             if method is not None and "split_shared_node" in inspect.signature(method).parameters:
                 kwargs["split_shared_node"] = (
                     value.source.kind is ConnectionTargetKind.EQUIPMENT_PORT
+                    or value.target.kind is ConnectionTargetKind.EQUIPMENT_PORT
                 )
         except (TypeError, ValueError):
             pass
@@ -8369,10 +8497,21 @@ class EditorCanvas(QWidget):
         # всегда вводится отдельно и никогда не выводится из пикселей холста.
         del graphical_fraction
         section = self.controller.model.line_sections.get(section_id)
-        if section is None:
-            self.errorOccurred.emit("Выбранная физическая линия не найдена.")
-            return False, None
-        if section.length_mm is None:
+        notice = ""
+        if section is not None:
+            length_mm = section.length_mm
+        else:
+            from ..editor.legacy_line_split import legacy_line_split_info
+            try:
+                info = legacy_line_split_info(self.controller.model, section_id)
+            except (ValueError, DomainInvariantError) as exc:
+                self.errorOccurred.emit(str(exc))
+                return False, None
+            length_mm = info.length_mm
+            if info.protected:
+                notice = ("У исходной линии есть защита. После отпайки расчёт будет заблокирован "
+                          "до подтверждения её зоны защиты.\n\n")
+        if length_mm is None:
             answer = QMessageBox.question(
                 self,
                 title,
@@ -8381,15 +8520,15 @@ class EditorCanvas(QWidget):
                 QMessageBox.StandardButton.No,
             )
             return answer == QMessageBox.StandardButton.Yes, None
-        neutral_mm = max(1, min(section.length_mm - 1, section.length_mm // 2))
+        neutral_mm = max(1, min(length_mm - 1, length_mm // 2))
         value_m, accepted = QInputDialog.getDouble(
             self,
             title,
-            "Введите физическое расстояние от начала линии, м "
+            notice + "Введите физическое расстояние от начала линии, м "
             "(положение курсора не используется):",
             neutral_mm / 1_000.0,
             0.001,
-            (section.length_mm - 1) / 1_000.0,
+            (length_mm - 1) / 1_000.0,
             3,
         )
         return bool(accepted), round(value_m * 1_000.0) if accepted else None
@@ -8439,9 +8578,6 @@ class EditorCanvas(QWidget):
         return True, name.strip() or "Отпайка", line_kind, physical
 
     def _commit_tap_from_connection(self, draft: ConnectionDraft) -> None:
-        from ..editor.connection_tool import ConnectionToolMode
-        from ..editor.controller import PortTarget
-
         section_id = EquipmentId(draft.target.target_id)
         accepted, offset_mm = self._ask_physical_split_offset(
             section_id,
@@ -8450,7 +8586,17 @@ class EditorCanvas(QWidget):
         )
         if not accepted:
             return
-        if draft.mode is ConnectionToolMode.RECONNECT:
+        if draft.source_target is not None:
+            result = self._call("connect_node_to_tap",
+                self._controller_connection_target(draft.source_target), section_id, offset_mm,
+                page_id=self.page_id, route_waypoints=self._persisted_waypoints(draft),
+                tap_x=draft.target.x, tap_y=draft.target.y,
+                tap_route_id=DiagramRouteId(draft.target.route_id) if draft.target.route_id else None)
+            if result is not None:
+                self._after_structure_command(result)
+                self.statusMessage.emit("Провод подключён к новой точке отпайки одной операцией")
+            return
+        if draft.source_port_id:
             method = getattr(self.controller, "reconnect_port_to_tap", None)
             source_port = self.controller.model.ports.get(
                 PortId(draft.source_port_id)
@@ -8473,6 +8619,7 @@ class EditorCanvas(QWidget):
                 source_anchor_key=draft.source_anchor_key,
                 tap_x=draft.target.x,
                 tap_y=draft.target.y,
+                tap_route_id=DiagramRouteId(draft.target.route_id) if draft.target.route_id else None,
             ))
             result = self._call(
                 "reconnect_port_to_tap",
@@ -8488,25 +8635,6 @@ class EditorCanvas(QWidget):
                     "Порт переподключён к новой точке отпайки одной операцией"
                 )
             return
-        accepted, name, line_kind, physical = self._ask_branch_parameters()
-        if not accepted:
-            return
-        result = self._call(
-            "create_tap",
-            section_id,
-            offset_mm,
-            name,
-            line_kind,
-            PortTarget(PortId(draft.source_port_id)),
-            physical=physical,
-            page_id=self.page_id,
-            route_waypoints=self._persisted_waypoints(draft),
-            tap_x=draft.target.x,
-            tap_y=draft.target.y,
-        )
-        if result is not None:
-            self._after_structure_command(result)
-            self.statusMessage.emit("Отпайка создана одной операцией")
 
     def _route_context_action(self, action: str, payload: object) -> None:
         if not isinstance(payload, Mapping):

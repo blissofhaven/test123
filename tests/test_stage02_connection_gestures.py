@@ -8,7 +8,8 @@ os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 import pytest
 from PySide6.QtCore import QPointF, QTimer, Qt
 from PySide6.QtTest import QTest
-from PySide6.QtWidgets import QApplication, QMenu
+from PySide6.QtWidgets import QApplication, QMenu, QDialogButtonBox
+from rza_calc.gui.line_parameters import LineParametersDialog
 
 from rza_calc.domain.diagram import DiagramRouteKind
 from rza_calc.domain.electrical import LineKind
@@ -18,9 +19,10 @@ from test_ui_direct_connections import (
 )
 
 
-def answer_real_menu(canvas, choice, timers):
+def answer_real_menu(canvas, choice, timers, *, line_reply="draft"):
     """Drive QMenu.exec with Qt input; a watchdog makes regressions bounded."""
     calls = []
+    waiting_for_line = [False]
     poll = QTimer(canvas)
     watchdog = QTimer(canvas)
     watchdog.setSingleShot(True)
@@ -32,10 +34,28 @@ def answer_real_menu(canvas, choice, timers):
                      and widget.title() == "Чем соединить"), None)
 
     def select():
+        if waiting_for_line[0]:
+            dialog = next((widget for widget in QApplication.topLevelWidgets()
+                if isinstance(widget, LineParametersDialog) and widget.isVisible()
+                and widget.parent() is canvas), None)
+            if dialog is None:
+                return
+            waiting_for_line[0] = False
+            poll.stop()
+            if line_reply == "cancel":
+                QTest.keyClick(dialog, Qt.Key.Key_Escape)
+            else:
+                dialog.mode_combo.setCurrentIndex(dialog.mode_combo.findData("draft"))
+                QTest.mouseClick(dialog.buttons.button(QDialogButtonBox.StandardButton.Ok), Qt.MouseButton.LeftButton)
+            watchdog.stop()
+            return
         menu = popup()
         if menu is None:
             return
-        poll.stop()
+        if choice in {"cable", "overhead"}:
+            waiting_for_line[0] = True
+        else:
+            poll.stop()
         call = {
             "titles": [action.text() for action in menu.actions()],
             "active_draft": canvas.scene.connection_active,
@@ -50,7 +70,8 @@ def answer_real_menu(canvas, choice, timers):
             keys = [key for key, _ in canvas.DRAGGED_CONNECTION_CHOICES]
             menu.setActiveAction(menu.actions()[keys.index(choice)])
             QTest.keyClick(menu, Qt.Key.Key_Return)
-        watchdog.stop()
+        if not waiting_for_line[0]:
+            watchdog.stop()
 
     def timeout():
         poll.stop()
@@ -58,6 +79,10 @@ def answer_real_menu(canvas, choice, timers):
         if menu is not None:
             calls.append({"timed_out": True})
             menu.close()
+        for dialog in QApplication.topLevelWidgets():
+            if isinstance(dialog, LineParametersDialog) and dialog.isVisible() and dialog.parent() is canvas:
+                calls.append({"timed_out": True})
+                dialog.reject()
     poll.timeout.connect(select)
     poll.start(1)
     watchdog.timeout.connect(timeout)

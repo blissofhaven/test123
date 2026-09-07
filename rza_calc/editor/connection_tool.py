@@ -80,6 +80,7 @@ class ConnectionDraft:
     #  переносом конца линии; протяжка от вывода аппарата им не является, даже
     #  если этот вывод уже к чему-то подключён.
     from_route_endpoint: bool = False
+    source_target: ConnectionTarget | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -216,6 +217,7 @@ class ConnectionToolState:
     source_representation_id: str = ""
     source_anchor_key: str = ""
     from_route_endpoint: bool = False
+    source_target: ConnectionTarget | None = None
     source_vertex: RouteVertex | None = None
     source_direction: RouteDirection | None = None
     cursor_vertex: RouteVertex | None = None
@@ -226,6 +228,21 @@ class ConnectionToolState:
     @property
     def active(self) -> bool:
         return self.mode is not ConnectionToolMode.IDLE
+
+    def begin_from_target(self, source: ConnectionTarget) -> None:
+        if source.kind not in {ConnectionTargetKind.BUS,
+                               ConnectionTargetKind.ELECTRICAL_NODE,
+                               ConnectionTargetKind.NODE_CONNECTION}:
+            raise ValueError("Начало соединения должно быть узлом или проводником.")
+        self.cancel()
+        self.mode = ConnectionToolMode.CREATE
+        self.source_target = source
+        self.source_representation_id = source.representation_id
+        self.source_anchor_key = source.anchor_key
+        self.source_vertex = RouteVertex(source.x, source.y)
+        self.source_direction = source.direction
+        self.cursor_vertex = self.source_vertex
+        self.preview_vertices = (self.source_vertex,)
 
     def begin(
         self,
@@ -344,6 +361,7 @@ class ConnectionToolState:
             tuple(self.manual_vertices),
             self.source_anchor_key,
             self.from_route_endpoint,
+            self.source_target,
         )
 
     def cancel(self) -> None:
@@ -352,6 +370,7 @@ class ConnectionToolState:
         self.source_representation_id = ""
         self.source_anchor_key = ""
         self.from_route_endpoint = False
+        self.source_target = None
         self.source_vertex = None
         self.source_direction = None
         self.cursor_vertex = None

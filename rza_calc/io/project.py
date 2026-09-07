@@ -149,6 +149,7 @@ _PERSISTABLE_CALCULATION_BLOCKER_CODES = frozenset({
     "line_length_unconfirmed",
     "line_impedance_unconfirmed",
     "line_data_unconfirmed",
+    "line_protection_zone_review_required",
     "composite_line_legacy_calculation_blocked",
     "busduct_legacy_calculation_blocked",
     _MIGRATION_REVIEW_BLOCKER_CODE,
@@ -249,6 +250,21 @@ def _is_persistable_calculation_blockers(
     )
 
 
+def _calculation_view_may_be_incomplete(
+    diagnostics: tuple[AdapterDiagnostic, ...],
+) -> bool:
+    """A zone review forbids calculation without removing graph objects.
+
+    Other blockers retain the conservative incomplete-view contract. They
+    may defer calculation references, but never the structure's own checks.
+    """
+    return any(
+        item.severity == "error"
+        and item.code != "line_protection_zone_review_required"
+        for item in diagnostics
+    )
+
+
 def _is_persistable_editor_draft(
     electrical_model: ElectricalModel,
     diagnostics: tuple[AdapterDiagnostic, ...],
@@ -324,7 +340,10 @@ def _build_project_projection_or_none(
         electrical_model = _model_without_editor_drafts(
             electrical_model, diagnostics
         )
-    elif _is_persistable_calculation_blockers(electrical_model, diagnostics):
+    elif (
+        _is_persistable_calculation_blockers(electrical_model, diagnostics)
+        and _calculation_view_may_be_incomplete(diagnostics)
+    ):
         return None
     return _build_project_projection(electrical_model)
 
@@ -626,6 +645,11 @@ class ProjectData:
                 diagnostic.message
                 if diagnostic.message
                 else "Не подтверждены физические данные участка линии."
+            ),
+            "line_protection_zone_review_required": (
+                diagnostic.message
+                if diagnostic.message
+                else "После создания отпайки требуется подтвердить зону защиты исходной линии."
             ),
             _MIGRATION_REVIEW_BLOCKER_CODE: (
                 diagnostic.message
@@ -1907,10 +1931,8 @@ def load_project(path: str | Path, *,
     adaptation = _adapt_project_model_or_blocked(electrical_model)
     net = adaptation.network
     structure = _load_structure(migrated)
-    problems = (
-        []
-        if any(item.severity == "error" for item in adaptation.diagnostics)
-        else structure.validate(net)
+    problems = structure.validate(
+        None if _calculation_view_may_be_incomplete(adaptation.diagnostics) else net
     )
     if problems:
         raise ValueError("Ошибки физической структуры:\n- " + "\n- ".join(problems))
@@ -2159,10 +2181,8 @@ def save_project(path: str | Path, project: ProjectData,
     """
     adapted = project.refresh_calculation_view(force=True)
     _validate_user_catalog(project.electrical_model, project.user_catalog)
-    problems = (
-        []
-        if project.calculation_blockers
-        else project.structure.validate(adapted)
+    problems = project.structure.validate(
+        None if _calculation_view_may_be_incomplete(project.adapter_diagnostics) else adapted
     )
     if problems:
         raise ValueError("Ошибки физической структуры:\n- " + "\n- ".join(problems))

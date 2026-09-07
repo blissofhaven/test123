@@ -89,7 +89,16 @@ def reflow_degree_two_connections(
     result_reps, result_routes = dict(representations), dict(routes)
     if not moved:
         return result_reps, result_routes
-    degree = Counter(connection.electrical_node_id for connection in model.connections.values())
+    degree = Counter()
+    connection_by_port = {}
+    for connection in model.connections.values():
+        degree[connection.electrical_node_id] += 1
+        # Match connection_for_port's first-match semantics, including a
+        # diagnostic model with duplicate port connections. This index lives
+        # only for this preview; no electrical revision/cache is trusted.
+        port_id = getattr(connection, "port_id", None)
+        if port_id is not None:
+            connection_by_port.setdefault(port_id, connection)
     incident = defaultdict(list)
     for route in routes.values():
         for at_start, anchor in ((True, route.start_anchor), (False, route.end_anchor)):
@@ -115,7 +124,7 @@ def reflow_degree_two_connections(
             anchor = route.start_anchor if node_at_start else route.end_anchor
             other = route.end_anchor if node_at_start else route.start_anchor
             other_row = representations.get(other.representation_id)
-            connection = (model.connection_for_port(other.target_port_id)
+            connection = (connection_by_port.get(other.target_port_id)
                           if other.target_port_id is not None else None)
             if (route.kind is not DiagramRouteKind.NODE_CONNECTION
                     or route.electrical_node_id != node.electrical_node_id

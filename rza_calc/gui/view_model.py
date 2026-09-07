@@ -8,6 +8,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
+from contextlib import contextmanager
 from dataclasses import asdict, dataclass, fields, is_dataclass
 from pathlib import Path
 from typing import Any, Iterable
@@ -137,6 +138,18 @@ class FaultRow:
     assumptions: tuple[str, ...] = ()
 
 
+@dataclass(frozen=True)
+class _PresentationSnapshot:
+    project: ProjectData
+    network: Any
+    blockers: tuple[Any, ...]
+    raw_result: ProjectResult | None
+    current_result: ProjectResult | None
+    electrical_model: Any
+    electrical_revision: int
+    methodology: Any
+
+
 def _fmt_number(value: float, digits: int = 2) -> str:
     text = f"{value:.{digits}f}".rstrip("0").rstrip(".")
     return text.replace(".", ",")
@@ -184,6 +197,55 @@ class ProjectViewModel:
         self._custom_base = self.mode_id
         self.recalculate()
 
+    @contextmanager
+    def presentation_snapshot(self):
+        """One fresh input/result read for a synchronous, read-only GUI render.
+
+        The scope must not dispatch events or run modal dialogs. It never
+        survives a render, including exceptions. Mutating VM actions discard
+        it immediately; the next render always performs the full input guards.
+        """
+        if not isinstance(self.project, ProjectData):
+            # Embedded/legacy VM clients may provide only a calculation view.
+            # Without canonical input identity, keep their ordinary per-read
+            # guards instead of creating an unverifiable shared snapshot.
+            yield
+            return
+        depth = self.__dict__.get("_presentation_depth", 0)
+        if depth == 0:
+            network = self.net
+            blockers = self.project.calculation_blockers
+            raw_result = self.result
+            current = (raw_result if raw_result is not None and not blockers
+                       and raw_result.is_current_for(network, self.project.methodology)
+                       else None)
+            self._presentation = _PresentationSnapshot(
+                self.project, network, blockers, raw_result, current,
+                self.project.electrical_model, self.project.electrical_model.revision,
+                self.project.methodology,
+            )
+        self._presentation_depth = depth + 1
+        try:
+            yield
+        finally:
+            self._presentation_depth -= 1
+            if self._presentation_depth == 0:
+                self._discard_presentation_snapshot()
+
+    def _discard_presentation_snapshot(self) -> None:
+        self.__dict__.pop("_presentation", None)
+
+    def _presentation_values(self):
+        snapshot = self.__dict__.get("_presentation")
+        if snapshot is not None and (snapshot.project is not self.project
+                or snapshot.raw_result is not self.result
+                or snapshot.electrical_model is not self.project.electrical_model
+                or snapshot.electrical_revision != self.project.electrical_model.revision
+                or snapshot.methodology is not self.project.methodology):
+            self._discard_presentation_snapshot()
+            return None
+        return snapshot
+
     @property
     def net(self):
         """Всегда возвращать актуальный расчётный view проекта.
@@ -198,6 +260,9 @@ class ProjectViewModel:
         («открыл СВ, вывел Т2») молча исчезал после любой правки схемы, а
         `mode_id` продолжал указывать на несуществующий режим.
         """
+        presentation = self._presentation_values()
+        if presentation is not None:
+            return presentation.network
         network = self.project.network
         if network is not self.__dict__.get("_applied_network"):
             self.__dict__["_applied_network"] = network
@@ -222,6 +287,9 @@ class ProjectViewModel:
         GUI и экспорта должны брать его через эту проверку. Геометрия схемы
         не входит в расчётный fingerprint.
         """
+        presentation = self._presentation_values()
+        if presentation is not None:
+            return presentation.current_result
         result = self.result
         if result is None or self.project.calculation_blockers:
             return None
@@ -245,7 +313,8 @@ class ProjectViewModel:
         return result
 
     def _calculation_blocker_error(self) -> str:
-        blockers = self.project.calculation_blockers
+        presentation = self._presentation_values()
+        blockers = presentation.blockers if presentation is not None else self.project.calculation_blockers
         if not blockers:
             return ""
         details = "\n".join(
@@ -267,6 +336,7 @@ class ProjectViewModel:
         return self.net.modes.get(self.mode_id)
 
     def select_mode(self, mode_id: str) -> None:
+        self._discard_presentation_snapshot()
         if mode_id not in self.net.modes:
             raise KeyError(f"Режим '{mode_id}' не найден.")
         self.mode_id = mode_id
@@ -275,6 +345,7 @@ class ProjectViewModel:
 
     def ensure_custom_mode(self) -> Mode:
         """Создать пользовательский режим в памяти из текущего режима."""
+        self._discard_presentation_snapshot()
         existing = self.net.modes.get("gui_custom")
         if existing is not None:
             self.__dict__["_custom_mode"] = existing
@@ -297,6 +368,7 @@ class ProjectViewModel:
         return custom
 
     def set_generator_enabled(self, branch_id: str, enabled: bool) -> None:
+        self._discard_presentation_snapshot()
         branch = self.net.branches.get(branch_id)
         if not isinstance(branch, GeneratorBranch):
             raise KeyError(f"Генератор '{branch_id}' не найден.")
@@ -339,6 +411,7 @@ class ProjectViewModel:
         Если расчёт не проходит, изменение откатывается и поднимается ошибка —
         смешанного состояния «новые положения со старыми токами» не возникает.
         """
+        self._discard_presentation_snapshot()
         from ..core.model import parse_switch_id
         parsed = parse_switch_id(switch_id)
         if parsed is None or parsed[0] not in self.net.branches:
@@ -366,6 +439,7 @@ class ProjectViewModel:
 
     def set_branch_enabled(self, branch_id: str, enabled: bool) -> None:
         """Переключить любое коммутируемое присоединение из схемы."""
+        self._discard_presentation_snapshot()
         branch = self.net.branches.get(branch_id)
         if branch is None:
             raise KeyError(f"Присоединение '{branch_id}' не найдено.")
@@ -379,6 +453,7 @@ class ProjectViewModel:
 
     def toggle_branch(self, branch_id: str) -> bool:
         """Инвертировать состояние присоединения. Возвращает новое состояние."""
+        self._discard_presentation_snapshot()
         branch = self.net.branches[branch_id]
         mode = self.mode
         closed = mode.is_closed(branch) if mode else branch.normally_closed
@@ -414,6 +489,7 @@ class ProjectViewModel:
                 branch.normally_closed = True
 
     def recalculate(self) -> bool:
+        self._discard_presentation_snapshot()
         # Старый удачный ответ не остаётся текущим при ошибке новой попытки.
         # Номер попытки также защищает более новый ответ от позднего завершения.
         generation = self.__dict__.get("_calculation_generation", 0) + 1

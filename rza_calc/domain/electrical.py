@@ -3411,8 +3411,11 @@ class ElectricalModel:
             f"У оборудования '{equipment_id}' нет порта с ролью '{role}'."
         )
 
-    def _check_connection_compatibility(self, port: PortInstance,
-                                        node: ElectricalNode) -> None:
+    def _check_connection_compatibility(
+        self, port: PortInstance, node: ElectricalNode, *,
+        _connections_by_node: Mapping[ElectricalNodeId, list[Connection]] | None = None,
+        _connections_by_equipment: Mapping[EquipmentId, list[Connection]] | None = None,
+    ) -> None:
         definition = self.port_definition(port.id)
         if definition.kind_id != node.kind_id:
             raise DomainInvariantError(
@@ -3430,7 +3433,11 @@ class ElectricalModel:
                 f"Класс напряжения узла '{node.id}' недопустим для порта '{port.id}'."
             )
         voltage_ids = {node_voltage, port_voltage} - {None}
-        for connection in self._connections.values():
+        node_connections = (
+            self._connections.values() if _connections_by_node is None
+            else _connections_by_node.get(node.id, ())
+        )
+        for connection in node_connections:
             if (connection.electrical_node_id != node.id
                     or connection.port_id == port.id):
                 continue
@@ -3445,7 +3452,11 @@ class ElectricalModel:
             )
         equipment = self._equipment.get(port.equipment_id)
         if equipment is not None and len(equipment.port_ids) > 1:
-            for connection in self._connections.values():
+            equipment_connections = (
+                self._connections.values() if _connections_by_equipment is None
+                else _connections_by_equipment.get(equipment.id, ())
+            )
+            for connection in equipment_connections:
                 peer = self._ports.get(connection.port_id)
                 if (
                     peer is not None
@@ -4372,6 +4383,19 @@ class ElectricalModel:
                       if node.declared_voltage_class_id is not None else set())
             for node in self._electrical_nodes.values()
         }
+        # These indexes belong only to this validation call. Rebuilding them
+        # also sees malformed/imported stores changed without a new revision;
+        # a persistent revision cache would hide such changes. Preserve source
+        # order and the first connection for duplicate-port diagnostics.
+        connections_by_node: dict[ElectricalNodeId, list[Connection]] = {}
+        connections_by_equipment: dict[EquipmentId, list[Connection]] = {}
+        first_connection_by_port: dict[PortId, Connection] = {}
+        for connection in self._connections.values():
+            connections_by_node.setdefault(connection.electrical_node_id, []).append(connection)
+            first_connection_by_port.setdefault(connection.port_id, connection)
+            port = self._ports.get(connection.port_id)
+            if port is not None:
+                connections_by_equipment.setdefault(port.equipment_id, []).append(connection)
         for connection in self._connections.values():
             port = self._ports.get(connection.port_id)
             node = self._electrical_nodes.get(connection.electrical_node_id)
@@ -4387,7 +4411,11 @@ class ElectricalModel:
                 ))
             if port is not None and node is not None:
                 try:
-                    self._check_connection_compatibility(port, node)
+                    self._check_connection_compatibility(
+                        port, node,
+                        _connections_by_node=connections_by_node,
+                        _connections_by_equipment=connections_by_equipment,
+                    )
                 except (DomainInvariantError, KeyError, StopIteration):
                     issues.append(DomainIssue(
                         "incompatible_connection",
@@ -4419,7 +4447,7 @@ class ElectricalModel:
             endpoint_nodes = [
                 connection.electrical_node_id
                 for port_id in equipment.port_ids
-                if (connection := self.connection_for_port(port_id)) is not None
+                if (connection := first_connection_by_port.get(port_id)) is not None
             ]
             if len(endpoint_nodes) != len(set(endpoint_nodes)):
                 issues.append(DomainIssue(

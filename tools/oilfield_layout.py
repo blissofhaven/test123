@@ -7,6 +7,7 @@ views never introduce another conductor, switch, or electrical connection.
 from __future__ import annotations
 
 from collections import defaultdict
+from dataclasses import replace
 
 from rza_calc.domain.diagram import (
     DiagramDocument, DiagramPage, DiagramRoute, DiagramRouteId, DiagramRouteKind,
@@ -33,8 +34,10 @@ class Sheet:
         self.nodes = {legacy_id(n): n for n in self.model.electrical_nodes.values()}
         self.equipment = {legacy_id(e): e for e in self.model.equipment.values()}
         self.connections = defaultdict(list)
+        self.connections_by_node = defaultdict(list)
         for connection in self.model.connections.values():
             self.connections[self.model.ports[connection.port_id].equipment_id].append(connection)
+            self.connections_by_node[connection.electrical_node_id].append(connection)
         self.reps = {}
         self.node_reps = {}
         self.eq_reps = {}
@@ -141,9 +144,73 @@ class Sheet:
 
     def finish(self):
         node_by_id = {obj.id: nid for nid, obj in self.nodes.items()}
+        folded_ports = set()
+
+        def direct_points(a, b):
+            bend = (b.x, a.y) if str(a.direction) in {'left', 'right'} else (a.x, b.y)
+            return [(a.x, a.y), bend, (b.x, b.y)]
+
+        # A physical line is drawn from terminal to terminal. Its two electrical
+        # end nodes still exist, but neither needs a separate visible wire tail.
+        for eid in sorted(self.lines):
+            equipment = self.equipment[eid]
+            connections = {self.model.port_definition(c.port_id).role: c
+                           for c in self.connections[equipment.id]}
+            ends = []
+            for role in ('from', 'to'):
+                own = connections[role]
+                node_rep = self.node_reps[node_by_id[own.electrical_node_id]]
+                peers = [c for c in self.connections_by_node[own.electrical_node_id]
+                         if c.port_id != own.port_id]
+                peer = peers[0] if len(peers) == 1 else None
+                peer_equipment = self.model.ports[peer.port_id].equipment_id if peer else None
+                peer_rep = next((r for r in self.eq_reps.values()
+                                 if r.equipment_id == peer_equipment), None)
+                if peer_rep is not None and self.sizes[node_rep.id][0] <= 40 and not node_rep.extensions.get('linked_page_id'):
+                    point = self._anchor_geometry(peer_rep, peer.port_id)
+                    ends.append((RouteEndpointAnchor(
+                        RouteAnchorKind.EQUIPMENT_PORT, peer_rep.id, own.electrical_node_id,
+                        branch_port_id=own.port_id, target_port_id=peer.port_id), point))
+                    folded_ports.add(peer.port_id)
+                    # Retain the representation ID at the actual terminal;
+                    # diagnostic overlays must never expose a floating node.
+                    updated = replace(node_rep, x=point.x, y=point.y)
+                    self.reps[updated.id] = updated
+                    self.node_reps[node_by_id[own.electrical_node_id]] = updated
+                else:
+                    ends.append((RouteEndpointAnchor(
+                        RouteAnchorKind.ELECTRICAL_NODE, node_rep.id, own.electrical_node_id,
+                        branch_port_id=own.port_id), node_rep))
+            a, b = ends
+            self._route('line:'+eid, DiagramRouteKind.EQUIPMENT_BRANCH,
+                        a[0], b[0], [(a[1].x,a[1].y),(a[1].x,b[1].y),(b[1].x,b[1].y)],
+                        eid=equipment.id)
+
+        # Two apparatus terminals sharing an ordinary degree-two node need
+        # one continuous wire. Real branch junctions and bus contacts remain.
+        eq_by_id = {r.equipment_id: r for r in self.eq_reps.values()}
+        for nid, node_rep in self.node_reps.items():
+            connections = self.connections_by_node[node_rep.electrical_node_id]
+            if len(connections) != 2 or self.sizes[node_rep.id][0] > 40 or node_rep.extensions.get('linked_page_id'):
+                continue
+            ordered = sorted(connections, key=lambda c: c.id.value)
+            a, b = ordered
+            reps = [eq_by_id.get(self.model.ports[c.port_id].equipment_id) for c in ordered]
+            if not all(reps) or a.port_id in folded_ports or b.port_id in folded_ports:
+                continue
+            points = [self._anchor_geometry(rep, c.port_id) for rep, c in zip(reps, ordered)]
+            anchors = [RouteEndpointAnchor(RouteAnchorKind.EQUIPMENT_PORT, rep.id,
+                                          c.electrical_node_id, target_port_id=c.port_id)
+                       for rep, c in zip(reps, ordered)]
+            self._route('connection:'+a.id.value, DiagramRouteKind.NODE_CONNECTION,
+                        anchors[0], anchors[1], direct_points(*points), nid=a.electrical_node_id)
+            folded_ports.update((a.port_id, b.port_id))
+
         for eid, rep in self.eq_reps.items():
             equipment = self.equipment[eid]
             for c in self.connections[equipment.id]:
+                if c.port_id in folded_ports:
+                    continue
                 node_rep = self.node_reps.get(node_by_id[c.electrical_node_id])
                 if node_rep is None:
                     raise ValueError(f'Missing sheet endpoint for {eid}: {c.electrical_node_id}')
@@ -167,22 +234,6 @@ class Sheet:
                     RouteEndpointAnchor(RouteAnchorKind.BUS if width>40 else RouteAnchorKind.ELECTRICAL_NODE,
                                         node_rep.id,c.electrical_node_id),
                     points,nid=c.electrical_node_id)
-        for eid in sorted(self.lines):
-            equipment = self.equipment[eid]
-            connections = {self.model.port_definition(c.port_id).role: c
-                           for c in self.connections[equipment.id]}
-            ends=[]
-            for role in ('from','to'):
-                c=connections[role]
-                rep=self.node_reps[node_by_id[c.electrical_node_id]]
-                ends.append((rep,c))
-            a,b=ends
-            self._route('line:'+eid,DiagramRouteKind.EQUIPMENT_BRANCH,
-                RouteEndpointAnchor(RouteAnchorKind.ELECTRICAL_NODE,a[0].id,a[1].electrical_node_id,
-                                    branch_port_id=a[1].port_id),
-                RouteEndpointAnchor(RouteAnchorKind.ELECTRICAL_NODE,b[0].id,b[1].electrical_node_id,
-                                    branch_port_id=b[1].port_id),
-                [(a[0].x,a[0].y),(a[0].x,b[0].y),(b[0].x,b[0].y)],eid=equipment.id)
 
 
 def short_label(name):

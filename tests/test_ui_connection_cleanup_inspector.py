@@ -1,4 +1,4 @@
-"""Physical line creation is non-modal and its real data remain editable."""
+"""Physical line drafts retain empty data after the explicit parameter choice."""
 from __future__ import annotations
 
 import os
@@ -20,6 +20,7 @@ from rza_calc.gui.editor_panels import EditorWorkspaceWidget, PropertyField, Pro
 from rza_calc.gui.editor_scene import CanvasMode
 from rza_calc.io.project import load_project
 from test_ui_direct_connections import _controller, _mouse, U10
+from line_dialog_driver import choose_draft_parameters
 
 _APP = None
 
@@ -68,7 +69,8 @@ def _create_native(workspace_factory, monkeypatch, kind=LineKind.OVERHEAD, gestu
     _mouse(canvas, "click" if gesture == "click" else "press", first_port.scenePos())
     assert canvas.scene.physical_line_active
     _mouse(canvas, "move", second_port.scenePos())
-    _mouse(canvas, "click" if gesture == "click" else "release", second_port.scenePos())
+    with choose_draft_parameters(canvas):
+        _mouse(canvas, "click" if gesture == "click" else "release", second_port.scenePos())
     assert len(controller.journal) == journal + 1
     section = next(iter(controller.model.line_sections.values()))
     route = next(row for row in controller.diagram.routes.values() if row.equipment_id == section.equipment_id)

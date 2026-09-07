@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from collections import defaultdict, deque
+from functools import wraps
 from pathlib import Path
 
 from PySide6.QtCore import QEvent, QPointF, QRectF, Qt, Signal
@@ -28,6 +29,20 @@ from .analysis_scheme import AnalysisSchemeView
 from .project_settings import ProjectSettings
 from .theme import COLORS, DiagramColorMode, voltage_stroke
 from .view_model import FAULT_TYPE_LABELS, ProjectViewModel, TreeEntry, fault_status_label
+
+
+def _presentation_render(method):
+    """Share reads only across one synchronous window presentation pass."""
+    @wraps(method)
+    def render(self, *args, **kwargs):
+        # __init__ receives its VM before QMainWindow/self.vm exist.
+        vm = (args[0] if args and isinstance(args[0], ProjectViewModel)
+              else kwargs.get("vm"))
+        if vm is None:
+            vm = self.vm
+        with vm.presentation_snapshot():
+            return method(self, *args, **kwargs)
+    return render
 
 
 def _clear_layout(layout) -> None:
@@ -1176,6 +1191,7 @@ class TextDialog(QDialog):
 class MainWindow(QMainWindow):
     _projectInputChanged = Signal()
 
+    @_presentation_render
     def __init__(self, vm: ProjectViewModel, *, project_settings: ProjectSettings | None = None):
         super().__init__()
         self.vm = vm
@@ -1390,6 +1406,7 @@ class MainWindow(QMainWindow):
                 "Проверка завершена: ошибок и предупреждений нет", 7000
             )
 
+    @_presentation_render
     def refresh(self, *, diagram: bool = True) -> None:
         # Открытая вкладка инспектора и нижней панели переживает пересчёт.
         inspector_tab = self.inspector.tabs.currentIndex()
@@ -1411,6 +1428,7 @@ class MainWindow(QMainWindow):
         self.refresh()
         self.statusBar().showMessage(f"Выбран режим: {self.vm.mode.name}", 4000)
 
+    @_presentation_render
     def _select_fault_type(self, value: str) -> None:
         self.vm.select_fault_type(value)
         self.inspector.refresh(self.vm)
@@ -1432,6 +1450,7 @@ class MainWindow(QMainWindow):
         self.vm.recalculate()
         self.refresh()
 
+    @_presentation_render
     def _select_object(self, kind: str, object_id: str) -> None:
         self.vm.select(kind, object_id)
         self.diagram_panel.view.set_selection(kind, object_id)

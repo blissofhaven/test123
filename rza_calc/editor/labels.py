@@ -28,11 +28,16 @@ class LabelContent:
     name: str
     parameter: str = ""
     tooltip: str = ""
+    destination: str = ""
+
+    @property
+    def display_name(self) -> str:
+        return self.name + (f"\n→ {self.destination}" if self.destination else "")
 
     def text(self, *, show_name: bool = True, show_parameters: bool = True) -> str:
         return " · ".join(
             value for enabled, value in (
-                (show_name, self.name), (show_parameters, self.parameter)
+                (show_name, self.display_name), (show_parameters, self.parameter)
             ) if enabled and value
         )
 
@@ -227,7 +232,45 @@ def present_route_label(model: ElectricalModel, route: DiagramRoute) -> LabelCon
     equipment = model.equipment.get(route.equipment_id)
     if equipment is None:
         return LabelContent("Оборудование не найдено")
-    return _equipment_label(model, equipment, equipment.name)
+    content = _equipment_label(model, equipment, equipment.name)
+    destination = route_destination(model, route)
+    tooltip = content.tooltip
+    if destination:
+        tooltip += f"\nНазначение: {destination}\nСтрелка обозначает связь от начала к концу линии."
+    return LabelContent(content.name, content.parameter, tooltip, destination)
 
 
-__all__ = ["LabelContent", "label_is_manual", "present_label", "present_route_label"]
+def route_destination(model: ElectricalModel, route: DiagramRoute) -> str:
+    """Resolve the declared 'to' terminal, including reversed saved geometry.
+
+    This is a presentation of the actual endpoint, never power-flow inference.
+    Missing or ambiguous endpoint roles must not produce an invented direction.
+    """
+    if route.kind is not DiagramRouteKind.EQUIPMENT_BRANCH:
+        return ""
+    candidates = []
+    roles = []
+    for anchor in (route.start_anchor, route.end_anchor):
+        if anchor.branch_port_id not in model.ports:
+            return ""
+        if model.ports[anchor.branch_port_id].equipment_id != route.equipment_id:
+            return ""
+        try:
+            role = model.port_definition(anchor.branch_port_id).role
+        except (DomainInvariantError, KeyError):
+            return ""
+        roles.append(role)
+        if role == 'to':
+            candidates.append(anchor)
+    if len(candidates) != 1 or set(roles) != {'from', 'to'}:
+        return ""
+    target = candidates[0]
+    if target.target_port_id in model.ports:
+        owner = model.equipment.get(model.ports[target.target_port_id].equipment_id)
+        if owner is not None and owner.id != route.equipment_id:
+            return owner.name
+    node = model.electrical_nodes.get(target.electrical_node_id)
+    return node.name if node is not None else ""
+
+
+__all__ = ["LabelContent", "label_is_manual", "present_label", "present_route_label", "route_destination"]
