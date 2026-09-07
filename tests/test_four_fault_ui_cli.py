@@ -43,9 +43,13 @@ def make_vm():
     net = SimpleNamespace(name="Тестовая сеть", nodes={node.id: node},
                           modes={mode.id: mode}, branches={}, loads={})
     result = SimpleNamespace(ctx=SimpleNamespace(net=net, solvers={"max": solver}, errors={}),
-                             results={}, pairs=[], warnings=[], all_results=lambda: [])
+                             results={}, pairs=[], warnings=[], all_results=lambda: [], is_complete=True)
+    methodology = object()
+    result.is_current_for = lambda current_net, current_method: (
+        current_net is net and current_method is methodology
+    )
     vm = ProjectViewModel.__new__(ProjectViewModel)
-    vm.project = SimpleNamespace(network=net)
+    vm.project = SimpleNamespace(network=net, methodology=methodology, calculation_blockers=[])
     vm._applied_network = net
     vm.result = result
     vm.path = Path("synthetic.json")
@@ -154,9 +158,9 @@ def test_cli_rejects_unknown_requested_objects(option, value):
 
 @pytest.mark.parametrize("kind", list(FaultType))
 def test_real_solver_is_connected_to_view_model_and_cli(kind):
+    from rza_calc.core.engine import run
     from rza_calc.core.methodology import Methodology
     from rza_calc.core.model import GRID, Mode, Network, Node, SourceBranch
-    from rza_calc.core.short_circuit import ShortCircuitSolver
 
     net = Network("Явные сети последовательностей")
     net.add_node(Node("bus", "Контрольная шина", 10.0))
@@ -164,15 +168,15 @@ def test_real_solver_is_connected_to_view_model_and_cli(kind):
     net.add_mode(mode)
     net.add_branch(SourceBranch(
         id="source", name="Питающая система", node_from=GRID, node_to="bus",
-        s_kz_max=300, x_r_ratio=10, r2_ohm=.2, x2_ohm=1.2,
+        s_kz_max=300, s_kz_min=200, x_r_ratio=10, r2_ohm=.2, x2_ohm=1.2,
         r0_ohm=.3, x0_ohm=2.1, sequence_reference_kv=10.5,
         zero_sequence_connection="series",
     ))
     vm, _ = make_vm()
     vm.project.network = net
+    vm.project.methodology = Methodology.load()
     vm._applied_network = net
-    vm.result.ctx.net = net
-    vm.result.ctx.solvers = {"max": ShortCircuitSolver(net, mode, Methodology.load())}
+    vm.result = run(net, vm.project.methodology)
     vm.select_fault_type(kind)
     row, = vm.fault_rows()
     assert not row.error, row.error

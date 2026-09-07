@@ -35,6 +35,7 @@ FAULT_STATUS_LABELS = {
     "INVALID_INPUT": "Ошибка данных",
     "MODE_UNAVAILABLE": "Режим не рассчитан",
     "CALCULATION_ERROR": "Расчёт не выполнен",
+    "STALE_RESULT": "Результаты устарели",
 }
 
 
@@ -213,6 +214,49 @@ class ProjectViewModel:
     def open(cls, path: str | Path) -> "ProjectViewModel":
         return cls(load_project(path), path)
 
+    @property
+    def current_result(self) -> ProjectResult | None:
+        """Допуск к числам только для текущих электрических исходных данных.
+
+        Исторический снимок сохраняется в ``result`` для undo, но потребители
+        GUI и экспорта должны брать его через эту проверку. Геометрия схемы
+        не входит в расчётный fingerprint.
+        """
+        result = self.result
+        if result is None or self.project.calculation_blockers:
+            return None
+        return result if result.is_current_for(self.net, self.project.methodology) else None
+
+    def result_unavailable_reason(self) -> str:
+        if self.current_result is not None:
+            return ""
+        blockers = self._calculation_blocker_error()
+        if blockers:
+            return blockers
+        if self.result is not None:
+            return "Результаты устарели: исходные данные изменены. Нажмите «Пересчитать»."
+        return self.calculation_error or "Расчёт не выполнен. Нажмите «Пересчитать»."
+
+    def require_current_result(self) -> ProjectResult:
+        """Общая граница для выдачи расчёта, отчёта или паспорта случая."""
+        result = self.current_result
+        if result is None:
+            raise ValueError(self.result_unavailable_reason())
+        return result
+
+    def _calculation_blocker_error(self) -> str:
+        blockers = self.project.calculation_blockers
+        if not blockers:
+            return ""
+        details = "\n".join(
+            "• " + self.project.calculation_blocker_message(item)
+            for item in blockers[:8]
+        )
+        return (
+            "Расчёт заблокирован: электрическая схема содержит "
+            "незавершённые или недопустимые подключения.\n" + details
+        )
+
     def _preferred_mode(self) -> str:
         if "max" in self.net.modes:
             return "max"
@@ -267,11 +311,12 @@ class ProjectViewModel:
         if mode is None:
             return None
         solver = None
-        if self.result is not None:
-            solver = self.result.ctx.solvers.get(mode.id)
+        result = self.current_result
+        if result is not None:
+            solver = result.ctx.solvers.get(mode.id)
         currents = {}
-        if self.result is not None:
-            for branch_id, rows in self.result.results.items():
+        if result is not None:
+            for branch_id, rows in result.results.items():
                 for item in rows.values():
                     value = getattr(item, "i_work", None)
                     if value is not None:
@@ -369,30 +414,38 @@ class ProjectViewModel:
                 branch.normally_closed = True
 
     def recalculate(self) -> bool:
-        blockers = self.project.calculation_blockers
-        if blockers:
-            self.result = None
-            details = "\n".join(
-                "• " + self.project.calculation_blocker_message(item)
-                for item in blockers[:8]
-            )
-            self.calculation_error = (
-                "Расчёт заблокирован: электрическая схема содержит "
-                "незавершённые или недопустимые подключения.\n" + details
-            )
-            return False
+        # Старый удачный ответ не остаётся текущим при ошибке новой попытки.
+        # Номер попытки также защищает более новый ответ от позднего завершения.
+        generation = self.__dict__.get("_calculation_generation", 0) + 1
+        self._calculation_generation = generation
+        self.result = None
+        self.calculation_error = ""
         try:
-            current_network = self.project.network
-            self.result = run(current_network, self.project.methodology)
-            self.calculation_error = ""
+            blockers = self._calculation_blocker_error()
+            if blockers:
+                self.calculation_error = blockers
+                return False
+            # Ленивые solver не должны читать поздние inplace-правки режима
+            # или ветви через сохранённую ссылку на производный Network.
+            candidate = run(deepcopy(self.net), self.project.methodology)
+            if generation != self._calculation_generation:
+                return False
+            blockers = self._calculation_blocker_error()
+            if blockers or not candidate.is_current_for(self.net, self.project.methodology):
+                self.calculation_error = blockers or (
+                    "Исходные данные изменились во время расчёта. "
+                    "Нажмите «Пересчитать» для текущей схемы."
+                )
+                return False
+            self.result = candidate
             return True
         except CalculationInputError as exc:
-            self.result = None
-            self.calculation_error = str(exc)
+            if generation == self._calculation_generation:
+                self.calculation_error = str(exc)
             return False
         except Exception as exc:  # GUI должен показать ошибку, а не закрыться
-            self.result = None
-            self.calculation_error = f"Ошибка расчёта: {exc}"
+            if generation == self._calculation_generation:
+                self.calculation_error = f"Ошибка расчёта: {exc}"
             return False
 
     # ---------- верхняя панель ----------
@@ -577,14 +630,21 @@ class ProjectViewModel:
 
     def fault_rows(self) -> list[FaultRow]:
         node_id = self.selected_fault_node()
-        if self.result is None or not node_id:
+        if not node_id:
             return []
+        result = self.current_result
+        if result is None:
+            reason = self.result_unavailable_reason()
+            code = "STALE_RESULT" if self.result is not None else "CALCULATION_ERROR"
+            return [FaultRow(mode.id, mode.name, None, None, reason,
+                             self.selected_fault_type, status_code=code)
+                    for mode in self.net.modes.values()]
         rows: list[FaultRow] = []
         for mode in self.net.modes.values():
-            solver = self.result.ctx.solvers.get(mode.id)
+            solver = result.ctx.solvers.get(mode.id)
             if solver is None:
                 rows.append(FaultRow(mode.id, mode.name, None, None,
-                                     self.result.ctx.errors.get(mode.id, "Режим не рассчитан"),
+                                     result.ctx.errors.get(mode.id, "Режим не рассчитан"),
                                      self.selected_fault_type, status_code="MODE_UNAVAILABLE"))
                 continue
             # Старые поля нужны потребителям прежней таблицы и не означают,
@@ -614,14 +674,18 @@ class ProjectViewModel:
 
     def fault_details_text(self, rows: list[FaultRow] | None = None) -> str:
         """Фазные значения и причина недоступности для текущего режима."""
-        rows = self.fault_rows() if rows is None else rows
+        # Параметр оставлен для совместимости с виджетами. Их строки могут
+        # относиться к прежнему снимку, узлу или виду КЗ даже после успешного
+        # пересчёта, поэтому подробности всегда берутся из текущего состояния.
+        rows = self.fault_rows()
         row = next((item for item in rows if item.mode_id == self.mode_id), None)
         title = self.fault_type_label()
         if row is None:
-            return title + ": " + (self.calculation_error or "Нет результата для выбранного узла и режима.")
+            return title + ": " + (self.result_unavailable_reason() or "Нет результата для выбранного узла и режима.")
         lines = [f"{title} · {row.mode_name}"]
         if row.error:
-            lines.append(f"{fault_status_label(row.status_code)}: {row.error}")
+            label = fault_status_label(row.status_code)
+            lines.append(row.error if row.error.startswith(label) else f"{label}: {row.error}")
         else:
             for phase, current, voltage in zip("ABC", row.iabc_ka or (), row.vabc_kv or ()):
                 lines.append(f"Фаза {phase}: |I| = {_fmt_number(abs(current), 4)} кА; "
@@ -634,9 +698,10 @@ class ProjectViewModel:
         return "\n".join(lines)
 
     def setting_rows(self) -> list[SettingRow]:
-        if self.result is None or self.selected_kind != "branch":
+        result = self.current_result
+        if result is None or self.selected_kind != "branch":
             return []
-        by_kind = self.result.results.get(self.selected_id, {})
+        by_kind = result.results.get(self.selected_id, {})
         rows: list[SettingRow] = []
         for kind in ("МТЗ", "ТО", "ОЗЗ"):
             item = by_kind.get(kind)
@@ -650,28 +715,35 @@ class ProjectViewModel:
         return rows
 
     def selected_checks(self) -> list[tuple[str, str, str]]:
-        if self.result is None or self.selected_kind != "branch":
+        result = self.current_result
+        if result is None or self.selected_kind != "branch":
             return []
         rows: list[tuple[str, str, str]] = []
-        for protection in self.result.results.get(self.selected_id, {}).values():
+        for protection in result.results.get(self.selected_id, {}).values():
             for check in protection.checks:
                 value = "—" if check.value is None else _fmt_number(check.value)
                 rows.append((f"{protection.kind}: {check.name}", value, check.status))
         return rows
 
+    def selectivity_pairs(self) -> list:
+        result = self.current_result
+        return list(result.pairs) if result is not None else []
+
     def status_counts(self) -> dict[str, int]:
         counts = {OK: 0, FAIL: 0, UNRESOLVED: 0}
-        if self.result is None:
+        result = self.current_result
+        if result is None:
             counts[UNRESOLVED] = 1
             return counts
-        for item in self.result.all_results():
+        for item in result.all_results():
             counts[item.status] = counts.get(item.status, 0) + 1
         return counts
 
     def warnings(self) -> list[str]:
-        if self.calculation_error:
-            return [self.calculation_error]
-        return list(self.result.warnings if self.result else [])
+        result = self.current_result
+        if result is None:
+            return [self.result_unavailable_reason()]
+        return list(result.warnings)
 
     def report_text(self) -> str:
         """Короткая сводка для диалога GUI; экспорт файла появится отдельно."""
@@ -685,6 +757,12 @@ class ProjectViewModel:
             f"Защит с нарушениями: {counts.get(FAIL, 0)}",
             f"Требуют исходных данных: {counts.get(UNRESOLVED, 0)}",
         ]
+        result = self.current_result
+        if result is not None:
+            lines.append("Полнота расчёта: " + (
+                "все обязательные проверки выполнены."
+                if result.is_complete else "проверка не завершена; есть неопределённые случаи."
+            ))
         if self.warnings():
             lines += ["", "Предупреждения:"] + [f"• {item}" for item in self.warnings()]
         point = self.selected_fault_node()

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import replace
+import math
 
 from ..context import Context
 from ..load_current import working_current
@@ -22,7 +23,16 @@ def calc_mtz(ctx: Context, br: Branch) -> ProtectionResult:
         res.messages.append("На присоединении не задан ТТ — защита не рассчитывается.")
         return res
 
-    modes = ctx.modes_where_active(br)
+    modes, excluded, applicability_problems = ctx.protection_modes(br)
+    res.messages.extend(excluded)
+    res.record_coverage("Применимость режимов", len(modes) + len(excluded),
+                        len(net.modes), applicability_problems)
+    solver_problems = [
+        f"Режим «{mode.name}» ({mode.id}): {ctx.errors.get(mode.id, 'решатель отсутствует')}"
+        for mode in modes if mode.id not in ctx.solvers
+    ]
+    res.record_coverage("Расчётные режимы", len(modes) - len(solver_problems),
+                        len(modes), solver_problems)
     if not modes:
         res.messages.append("Присоединение не находится под напряжением ни в одном из заданных режимов.")
         return res
@@ -30,13 +40,25 @@ def calc_mtz(ctx: Context, br: Branch) -> ProtectionResult:
     # ── 1. Рабочий ток: берём наихудший из ВСЕХ режимов ──────────────────
     ordered = iter_in_declaration_order(net, modes)
     per_mode = {}
+    load_problems = []
     for mode in ordered:
-        per_mode[mode.id] = working_current(net, br, mode, m)
+        try:
+            value = working_current(net, br, mode, m)
+            if not math.isfinite(value.value) or value.value < 0:
+                raise ValueError("рабочий ток должен быть конечным и неотрицательным")
+            per_mode[mode.id] = value
+        except Exception as exc:
+            load_problems.append(f"Режим «{mode.name}» ({mode.id}): {exc}")
+    res.record_coverage("Рабочий ток", len(per_mode), len(ordered), load_problems)
+    available = [mode for mode in ordered if mode.id in per_mode]
+    if not available:
+        res.messages.append("Рабочий ток не рассчитан ни в одном применимом режиме.")
+        return res
     # Равные рабочие токи разрешаются порядком объявления режимов, а не
     # последним битом решателя: иначе имя определяющего режима зависело бы от
     # сборки численной библиотеки на конкретной машине.
     worst, tied_rab = pick_extreme(
-        ordered, key=lambda md: per_mode[md.id].value, largest=True)
+        available, key=lambda md: per_mode[md.id].value, largest=True)
     i_rab = per_mode[worst.id]
     res.governing_mode = worst.name
     rab_tie = tie_note(tied_rab, worst.name)
@@ -54,7 +76,9 @@ def calc_mtz(ctx: Context, br: Branch) -> ProtectionResult:
 
     if len(per_mode) > 1:
         res.messages.append(
-            "Рабочий ток проверен во всех режимах; уставка принята по режиму «"
+            ("Рабочий ток проверен во всех применимых режимах; " if not load_problems else
+             "Рабочий ток определён лишь в части применимых режимов; ")
+            + "уставка принята по режиму «"
             + worst.name + "» как наиболее тяжёлому ("
             + ", ".join(f"{net.modes[k].name}: {fmt(v.value)} А" for k, v in per_mode.items()) + ").")
 
@@ -109,20 +133,43 @@ def calc_mtz(ctx: Context, br: Branch) -> ProtectionResult:
     ):
         rows: list[tuple] = []   # (ток, режим, точка, решатель, доля)
         non_radial = []
+        required = 0
+        problems = []
         for mode in ordered:
-            pts = ctx.zone_points(br, mode)[points]
+            label = f"режим «{mode.name}» ({mode.id})"
+            try:
+                pts = ctx.zone_points(br, mode)[points]
+            except Exception as exc:
+                required += 1
+                problems.append(f"{label}: точки зоны не определены: {exc}")
+                continue
+            if not pts:
+                if points == 0:
+                    required += 1
+                    problems.append(f"{label}: нет точек КЗ основной зоны")
+                else:
+                    res.messages.append(f"{label}: в модели нет применимых точек зоны резервирования.")
+                continue
+            required += len(pts)
             for fp in pts:
                 try:
+                    if mode.id not in ctx.solvers:
+                        raise ValueError(ctx.errors.get(mode.id, "решатель отсутствует"))
                     i, sc, d = ctx.current_through(mode, br, fp.node_id, "i2")
+                    if not math.isfinite(i) or i < 0 or not math.isfinite(d) or d < 0:
+                        raise ValueError("ток и доля тока должны быть конечными и неотрицательными")
                 except Exception as e:
-                    res.messages.append(f"Точка «{fp.name}», режим «{mode.name}»: {e}")
+                    message = f"Точка «{fp.name}», {label}: {e}"
+                    res.messages.append(message)
+                    problems.append(message)
                     continue
                 if d < 0.999:
                     non_radial.append(f"{fp.name} / {mode.name}: {d*100:.0f} %")
                 rows.append((i, mode, fp, sc, d))
+        res.record_coverage(f"Чувствительность в {zone_name}", len(rows), required, problems)
         best, sens_tied = pick_extreme(rows, key=lambda r: r[0], largest=False)
         if best is None:
-            if points == 1:
+            if points == 1 and not problems:
                 if ctx.backup_zone_stops_at_transformer(br, modes[0]):
                     res.messages.append(
                         "Зона резервирования ограничена трансформатором: всё, что ниже, "
@@ -135,7 +182,7 @@ def calc_mtz(ctx: Context, br: Branch) -> ProtectionResult:
                         "Зона резервирования отсутствует: ниже данного присоединения в модели "
                         "нет других элементов. Если фактически они есть — опишите их в схеме, "
                         "иначе резервирование не проверено.")
-            else:
+            elif points == 0:
                 res.checks.append(Check(f"Kч в {zone_name}", None, m.k(req_key), UNRESOLVED,
                                         "нет точек КЗ для проверки"))
             continue
@@ -156,8 +203,10 @@ def calc_mtz(ctx: Context, br: Branch) -> ProtectionResult:
             substitution=f"Kч = {fmt(i_min)} / {fmt(i_prim)} = {fmt(kch)}",
             result=f"Kч = {fmt(kch)}  (требуется ≥ {fmt(req)})",
             source=m.cite(req_key),
-            note=("Минимум взят по всем заданным режимам — именно так уставка проверяется "
-                  "не в одном, а во всех расчётных состояниях сети."
+            note=(("Минимум взят по всем применимым режимам."
+                   if not problems else
+                   "Минимум взят только по рассчитанной части обязательных случаев; "
+                   "полная чувствительность не подтверждена.")
                   + (" Точка питается не только через это присоединение, поэтому ток "
                      "через защиту меньше полного тока КЗ; доля посчитана по "
                      "токораспределению: " + "; ".join(non_radial[:3]) + "."

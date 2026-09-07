@@ -7,9 +7,9 @@
 опасную сторону: чем выше принятое напряжение, тем НИЖЕ Iном и тем хуже
 отсечка отстроена от броска.
 
-Отдельный файл тестов нужен потому, что ни один демо-проект этот путь не
-проходит: во всех трёх зона ТО задана в пределах присоединения. Менять код,
-который не выполняется ни в одном тесте, и объявлять его исправным нельзя.
+Первоначально демо-проекты этот путь не проходили. Этап 1 добавил собственный
+бросок трансформаторов, но в демо это условие не определяет уставку. Поэтому
+независимые синтетические проверки выбора напряжения остаются необходимыми.
 """
 from __future__ import annotations
 
@@ -77,29 +77,38 @@ def _i_nom_from(step) -> float:
     return float(raw.replace(" ", "").replace(" ", "").replace(",", "."))
 
 
-def test_the_demo_projects_do_not_cover_this_path():
-    """Фиксация причины, по которой этот файл существует.
+def test_demo_own_transformers_cover_inrush_without_inventing_missing_ratios():
+    """Этап 1 добавил собственный бросок 17 КТП с известным Kбр.
 
-    Если однажды демо-проект начнёт проходить условие броска, тест упадёт и
-    напомнит, что покрытие изменилось — это факт, а не поломка.
+    Числовые проверки ниже остаются независимыми синтетическими примерами:
+    в демо добавленное условие не определяет уставку. Для четырёх блочных
+    трансформаторов ГТЭС без Kбр число не выдумывается.
     """
     from pathlib import Path
 
     from rza_calc.io.project import load
 
     root = Path(__file__).resolve().parent.parent / "rza_calc" / "examples"
-    covered = []
+    covered = {}
     for name in ("energoraion.json", "gtes_sever.json", "ps_severnaya.json"):
         net, methodology, _ = load(root / name)
         result = run(net, methodology)
+        covered[name] = []
         for protection in result.all_results():
             if protection.kind != "ТО":
                 continue
             if any("броска тока намагничивания" in s.what for s in protection.steps):
-                covered.append(f"{name}:{protection.branch_name}")
-    assert not covered, (
-        "демо-проекты стали покрывать отстройку от броска: " + ", ".join(covered)
-    )
+                covered[name].append(protection.branch_id)
+        if name == "gtes_sever.json":
+            for number in range(1, 5):
+                protection = result.get(f"G{number}_bt", "ТО")
+                assert not protection.is_complete
+                assert net.branches[f"G{number}_bt"].i_inrush_ratio is None
+                assert any("при питании с двух сторон" in problem
+                           for row in protection.coverage for problem in row.problems)
+    assert {name: len(rows) for name, rows in covered.items()} == {
+        "energoraion.json": 16, "gtes_sever.json": 0, "ps_severnaya.json": 1,
+    }
 
 
 def test_nameplate_basis_uses_the_transformer_winding_voltage():

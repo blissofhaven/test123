@@ -212,9 +212,15 @@ def report(ctx: Context, pairs: list[Pair]) -> str:
             out.append(f"   Δt = {fmt(p.dt)} с, требуется ≥ {fmt(p.required)} с "
                        f"(режим «{p.mode_name}»)")
             out.append("")
-    else:
+    elif not ctx.errors and not any(pair.status == UNRESOLVED for pair in pairs):
         out.append("Нарушений ступени селективности не обнаружено "
                    "во всех заданных режимах.")
+    else:
+        out.append("В рассчитанной части нарушений ступени селективности не обнаружено.")
+    if ctx.errors or any(pair.status == UNRESOLVED for pair in pairs):
+        out.append("Проверка селективности НЕПОЛНАЯ: имеются непроверенные режимы или пары.")
+        for mode_id, error in ctx.errors.items():
+            out.append(f"  Режим «{ctx.net.modes[mode_id].name}»: {error}")
     return "\n".join(out)
 
 

@@ -10527,6 +10527,11 @@
        "required": 1.2,
        "status": "fail",
        "value": 0.925925925926
+      },
+      "Полнота: Отстройка ТО от броска намагничивания": {
+       "required": null,
+       "status": "unresolved",
+       "value": null
       }
      },
      "governing_mode": "Максимальный (все ГТГ)",
@@ -10575,6 +10580,11 @@
        "required": 1.2,
        "status": "fail",
        "value": 0.925925925926
+      },
+      "Полнота: Отстройка ТО от броска намагничивания": {
+       "required": null,
+       "status": "unresolved",
+       "value": null
       }
      },
      "governing_mode": "Максимальный (все ГТГ)",
@@ -10623,6 +10633,11 @@
        "required": 1.2,
        "status": "fail",
        "value": 0.992063492063
+      },
+      "Полнота: Отстройка ТО от броска намагничивания": {
+       "required": null,
+       "status": "unresolved",
+       "value": null
       }
      },
      "governing_mode": "Максимальный (все ГТГ)",
@@ -10671,6 +10686,11 @@
        "required": 1.2,
        "status": "fail",
        "value": 0.992063492063
+      },
+      "Полнота: Отстройка ТО от броска намагничивания": {
+       "required": null,
+       "status": "unresolved",
+       "value": null
       }
      },
      "governing_mode": "Максимальный (все ГТГ)",

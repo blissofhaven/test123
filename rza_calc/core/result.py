@@ -30,6 +30,20 @@ class Check:
         return f"{MARK[self.status]} {self.name}: {v}{r}" + (f" — {self.comment}" if self.comment else "")
 
 
+@dataclass(frozen=True)
+class ScenarioCoverage:
+    """Полнота одного условия; счётчики не являются коэффициентами Kч."""
+
+    name: str
+    checked: int
+    required: int
+    problems: tuple[str, ...] = ()
+
+    @property
+    def complete(self) -> bool:
+        return self.checked == self.required and not self.problems
+
+
 @dataclass
 class ProtectionResult:
     branch_id: str
@@ -44,11 +58,32 @@ class ProtectionResult:
     messages: list[str] = field(default_factory=list)
     governing_mode: str = ""            # режим, определивший уставку
     status: str = UNRESOLVED
+    coverage: list[ScenarioCoverage] = field(default_factory=list, kw_only=True)
+
+    def record_coverage(self, name: str, checked: int, required: int,
+                        problems: list[str] | tuple[str, ...] = ()) -> ScenarioCoverage:
+        if not 0 <= checked <= required:
+            raise ValueError("Число проверенных случаев должно быть от нуля до обязательного числа.")
+        row = ScenarioCoverage(name, checked, required, tuple(problems))
+        self.coverage.append(row)
+        if not row.complete:
+            comment = f"Проверено {checked} из {required} обязательных случаев."
+            if problems:
+                comment += " " + "; ".join(problems)
+            self.checks.append(Check("Полнота: " + name, None, None,
+                                     UNRESOLVED, comment))
+        return row
+
+    @property
+    def is_complete(self) -> bool:
+        return (self.i_primary is not None
+                and all(row.complete for row in self.coverage)
+                and not any(check.status == UNRESOLVED for check in self.checks))
 
     def recompute_status(self) -> None:
         if any(c.status == FAIL for c in self.checks):
             self.status = FAIL
-        elif any(c.status == UNRESOLVED for c in self.checks) or self.i_primary is None:
+        elif not self.is_complete:
             self.status = UNRESOLVED
         else:
             self.status = OK
@@ -58,6 +93,11 @@ class ProtectionResult:
         for s in self.steps:
             out.append(s.render())
             out.append("")
+        if self.coverage:
+            out.append("ПОЛНОТА ПРОВЕРКИ")
+            for row in self.coverage:
+                mark = MARK[OK if row.complete else UNRESOLVED]
+                out.append(f"  {mark} {row.name}: {row.checked} из {row.required}")
         if self.checks:
             out.append("ПРОВЕРКИ")
             for c in self.checks:

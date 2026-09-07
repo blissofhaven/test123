@@ -511,7 +511,8 @@ def exit_code(pr: ProjectResult, cmd: str) -> int:
         return EXIT_OK
     if pr.has_failures:
         return EXIT_PROTECTION_FAILS
-    if any(result.status == UNRESOLVED for result in pr.all_results()):
+    if (any(result.status == UNRESOLVED for result in pr.all_results())
+            or not getattr(pr, "is_complete", True)):
         return EXIT_UNRESOLVED
     return EXIT_OK
 

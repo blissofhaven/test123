@@ -49,6 +49,31 @@ class Context:
                 out.append(mode)
         return out
 
+    def protection_modes(self, br: Branch) -> tuple[list[Mode], list[str], list[str]]:
+        """Применимость защиты по топологии, независимо от успеха решателя.
+
+        Ошибка сборки решателя не исключает обязательный режим. Если сама
+        применимость неизвестна, возвращается причина неполной проверки.
+        """
+        modes: list[Mode] = []
+        excluded: list[str] = []
+        problems: list[str] = []
+        for mode in self.net.modes.values():
+            label = f"Режим «{mode.name}» ({mode.id})"
+            try:
+                if not self.net.branch_conducting(br, mode):
+                    excluded.append(label + ": присоединение отключено.")
+                    continue
+                live = self.net.energized_nodes(mode)
+                if br.node_from not in live or br.node_to not in live:
+                    excluded.append(label + ": присоединение не находится под напряжением.")
+                    continue
+            except Exception as exc:
+                problems.append(label + f": применимость не определена: {exc}")
+                continue
+            modes.append(mode)
+        return modes, excluded, problems
+
     # ---------- ток в точке, приведённый к ступени защиты ----------
     def protection_side_stage(self, br: Branch) -> float:
         """Расчётное напряжение ступени, на которой стоит ТТ присоединения.

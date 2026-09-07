@@ -392,6 +392,8 @@ def test_aud_top_002_project_data_must_refresh_same_revision_new_content() -> No
 
 
 def test_aud_top_003_view_model_result_must_use_current_project_network() -> None:
+    from rza_calc.core.fingerprint import network_fingerprint
+
     model = ElectricalModel.with_builtins("Свежесть результата")
     first = _node(model, "result.a")
     second = _node(model, "result.b")
@@ -422,9 +424,31 @@ def test_aud_top_003_view_model_result_must_use_current_project_network() -> Non
     model.set_switch_position(state_id, recloser, SwitchPosition.OPEN)
     current_network = project.network
     assert current_network is vm.net
+    assert vm.current_result is None
     assert vm.recalculate() is True
     assert vm.result is not None
-    assert vm.result.ctx.net is current_network
+    result = vm.result
+    snapshot = result.ctx.net
+    assert snapshot is not current_network
+    assert result.is_current_for(current_network, project.methodology)
+    assert network_fingerprint(snapshot) == network_fingerprint(current_network)
+
+    snapshot_branch = next(b for b in snapshot.branches.values() if b.name == "result.recloser")
+    current_branch = current_network.branches[snapshot_branch.id]
+    snapshot_mode = snapshot.modes[vm.mode_id]
+    current_mode = current_network.modes[vm.mode_id]
+    assert not snapshot_mode.is_closed(snapshot_branch)
+    assert not current_mode.is_closed(current_branch)
+
+    # Результат учитывает новое OPEN, но последующая inplace-правка режима
+    # не должна менять исторический вход ленивых расчётов.
+    frozen_fingerprint = network_fingerprint(snapshot)
+    current_mode.states[current_branch.id] = True
+    assert current_mode.is_closed(current_branch)
+    assert not snapshot_mode.is_closed(snapshot_branch)
+    assert network_fingerprint(snapshot) == frozen_fingerprint
+    assert not result.is_current_for(current_network, project.methodology)
+    assert vm.current_result is None
 
 
 def test_aud_top_004_projection_must_reject_foreign_topology_registry() -> None:

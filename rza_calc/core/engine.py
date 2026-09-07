@@ -236,6 +236,8 @@ class ProjectResult:
             if current_model == self.calculation_case.model_fingerprint
             and current_methodology == self.calculation_case.methodology_fingerprint
             and _declaration_order(net) == self.calculation_case.declaration_order
+            and self.calculation_case.kernel_version == KERNEL_VERSION
+            and self.calculation_case.algorithm_version == ALGORITHM_VERSION
             else STALE
         )
 
@@ -252,6 +254,12 @@ class ProjectResult:
     def has_failures(self) -> bool:
         return (any(r.status == FAIL for r in self.all_results())
                 or bool(sel.violations(self.pairs)))
+
+    @property
+    def is_complete(self) -> bool:
+        return (not self.ctx.errors
+                and all(result.is_complete for result in self.all_results())
+                and not any(pair.status == UNRESOLVED for pair in self.pairs))
 
 
 def run(net: Network, meth: Methodology) -> ProjectResult:

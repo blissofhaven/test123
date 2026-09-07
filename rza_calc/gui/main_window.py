@@ -75,7 +75,8 @@ def _phase_magnitudes(values) -> str:
 
 def _fault_status(row) -> str:
     if row.error:
-        return f"{fault_status_label(row.status_code)}: {row.error}"
+        label = fault_status_label(row.status_code)
+        return row.error if row.error.startswith(label) else f"{label}: {row.error}"
     return "С допущением" if row.assumptions else "Рассчитано"
 
 
@@ -751,9 +752,10 @@ class DiagramView(QGraphicsView):
         return item
 
     def _fault_text(self, vm: ProjectViewModel, node_id: str) -> str:
-        if vm.result is None or vm.mode is None:
+        result = vm.current_result
+        if result is None or vm.mode is None:
             return ""
-        solver = vm.result.ctx.solvers.get(vm.mode.id)
+        solver = result.ctx.solvers.get(vm.mode.id)
         if solver is None:
             return ""
         try:
@@ -1141,7 +1143,7 @@ class BottomPanel(QWidget):
             vm.selection_title(), row.kind, row.current, row.time, row.mode,
             status_text.get(row.status, row.status),
         ] for row in vm.setting_rows()])
-        pairs = vm.result.pairs if vm.result else []
+        pairs = vm.selectivity_pairs()
         _set_rows(self.selectivity_table, [[
             item.lower_name, item.upper_name, item.mode_name,
             "—" if item.dt is None else f"{item.dt:.2f} с".replace(".", ","),
@@ -1167,6 +1169,8 @@ class TextDialog(QDialog):
 
 
 class MainWindow(QMainWindow):
+    _projectInputChanged = Signal()
+
     def __init__(self, vm: ProjectViewModel):
         super().__init__()
         self.vm = vm
@@ -1232,8 +1236,16 @@ class MainWindow(QMainWindow):
             lambda options: self.diagram_panel.refresh(self.vm)
         )
         self.workspace_tabs.currentChanged.connect(
-            lambda index: self.diagram_panel.refresh(self.vm) if index == 1 else None
+            lambda index: self.refresh() if index == 1 else None
         )
+        # История покрывает ввод свойств, топологию, undo и redo, включая
+        # команды без canvas.commandCompleted. Обновляем виджеты после
+        # завершения команды редактора, без неявного запуска расчёта.
+        self._projectInputChanged.connect(
+            self._refresh_after_editor_change, Qt.ConnectionType.QueuedConnection
+        )
+        self._unsubscribe_editor = self.editor_controller.subscribe(self._editor_history_changed)
+        self._closing = False
 
         self.header.modeSelected.connect(self._select_mode)
         self.bottom.faultTypeSelected.connect(self._select_fault_type)
@@ -1256,6 +1268,23 @@ class MainWindow(QMainWindow):
 
         if vm.warnings():
             self.statusBar().showMessage(vm.warnings()[0])
+
+    def _editor_history_changed(self, event) -> None:
+        if event.change.electrical_changed or event.change.catalog_changed:
+            self._projectInputChanged.emit()
+
+    def _refresh_after_editor_change(self) -> None:
+        if self._closing:
+            return
+        self.refresh()
+        reason = self.vm.result_unavailable_reason()
+        if reason:
+            self.statusBar().showMessage(reason)
+
+    def closeEvent(self, event) -> None:
+        self._closing = True
+        self._unsubscribe_editor()
+        super().closeEvent(event)
 
     def _set_diagram_monochrome(self, enabled: bool) -> None:
         mode = (
@@ -1433,7 +1462,8 @@ class MainWindow(QMainWindow):
             lines.append(f"{mark} {name}: {value}")
         if not lines:
             lines = [
-                "Для просмотра проверок выберите на схеме или в дереве ветвь с защитой."
+                self.vm.result_unavailable_reason()
+                or "Для просмотра проверок выберите на схеме или в дереве ветвь с защитой."
             ]
         TextDialog(f"Проверки — {self.vm.selection_title()}", "\n".join(lines), self).exec()
 
