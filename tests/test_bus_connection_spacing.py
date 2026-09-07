@@ -84,9 +84,16 @@ def _save_coincident_fixture(controller, bus, routes, fraction=.5):
     values = dict(controller.diagram.routes)
     for identifier in routes:
         route = values[identifier]
+        endpoint = replace(route.waypoints[-1], x=x, y=y)
+        preceding = route.waypoints[-2]
+        points = route.waypoints[:-1]
+        # New routes approach a bus perpendicularly. Recreate the old saved
+        # coincidence with an orthogonal elbow, not an invalid diagonal.
+        if preceding.x != x and preceding.y != y:
+            points = (*points, RouteWaypoint(RouteWaypointId.new(), x, preceding.y))
         values[identifier] = replace(
             route, end_anchor=replace(route.end_anchor, anchor_key=str(fraction)),
-            waypoints=(*route.waypoints[:-1], replace(route.waypoints[-1], x=x, y=y)),
+            waypoints=(*points, endpoint),
         )
     controller._project.diagram = replace(controller.diagram, routes=values)
     return ProjectEditorController(controller._project)

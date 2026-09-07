@@ -105,6 +105,8 @@ class PhysicalLineToolState:
     cursor_vertex: RouteVertex | None = None
     manual_vertices: list[RouteVertex] = field(default_factory=list)
     preview_vertices: tuple[RouteVertex, ...] = ()
+    _obstacles: tuple[RoutingObstacle, ...] = ()
+    _occupied_segments: tuple[tuple[float, float, float, float], ...] = ()
 
     @property
     def active(self) -> bool:
@@ -134,11 +136,14 @@ class PhysicalLineToolState:
         *,
         target: ConnectionTarget | None = None,
         obstacles: Iterable[RoutingObstacle] = (),
+        occupied_segments: Iterable[tuple[float, float, float, float]] = (),
     ) -> tuple[RouteVertex, ...]:
         if self.source is None:
             return ()
         self.cursor_vertex = RouteVertex(x, y)
         self.target = target
+        self._obstacles = tuple(obstacles)
+        self._occupied_segments = tuple(occupied_segments)
         end = RouteVertex(target.x, target.y) if target is not None else self.cursor_vertex
         self.preview_vertices = build_orthogonal_route(
             RoutingRequest(
@@ -147,7 +152,8 @@ class PhysicalLineToolState:
                 self.source_direction,
                 target.direction if target is not None else None,
                 tuple(self.manual_vertices),
-                tuple(obstacles),
+                self._obstacles,
+                occupied_segments=self._occupied_segments,
             )
         )
         return self.preview_vertices
@@ -160,7 +166,8 @@ class PhysicalLineToolState:
             return
         self.manual_vertices.append(vertex)
         cursor = self.cursor_vertex or vertex
-        self.update(cursor.x, cursor.y, target=self.target)
+        self.update(cursor.x, cursor.y, target=self.target, obstacles=self._obstacles,
+                    occupied_segments=self._occupied_segments)
 
     def remove_last_manual_vertex(self) -> bool:
         if not self.manual_vertices:
@@ -171,6 +178,8 @@ class PhysicalLineToolState:
                 self.cursor_vertex.x,
                 self.cursor_vertex.y,
                 target=self.target,
+                obstacles=self._obstacles,
+                occupied_segments=self._occupied_segments,
             )
         return True
 
@@ -208,6 +217,8 @@ class PhysicalLineToolState:
         self.cursor_vertex = None
         self.manual_vertices.clear()
         self.preview_vertices = ()
+        self._obstacles = ()
+        self._occupied_segments = ()
 
 
 @dataclass(slots=True)
@@ -224,6 +235,8 @@ class ConnectionToolState:
     target: ConnectionTarget | None = None
     manual_vertices: list[RouteVertex] = field(default_factory=list)
     preview_vertices: tuple[RouteVertex, ...] = ()
+    _obstacles: tuple[RoutingObstacle, ...] = ()
+    _occupied_segments: tuple[tuple[float, float, float, float], ...] = ()
 
     @property
     def active(self) -> bool:
@@ -280,11 +293,14 @@ class ConnectionToolState:
         *,
         target: ConnectionTarget | None = None,
         obstacles: Iterable[RoutingObstacle] = (),
+        occupied_segments: Iterable[tuple[float, float, float, float]] = (),
     ) -> tuple[RouteVertex, ...]:
         if not self.active or self.source_vertex is None:
             return ()
         self.cursor_vertex = RouteVertex(x, y)
         self.target = target
+        self._obstacles = tuple(obstacles)
+        self._occupied_segments = tuple(occupied_segments)
         end = (
             RouteVertex(target.x, target.y)
             if target is not None
@@ -297,7 +313,8 @@ class ConnectionToolState:
                 self.source_direction,
                 target.direction if target is not None else None,
                 tuple(self.manual_vertices),
-                tuple(obstacles),
+                self._obstacles,
+                occupied_segments=self._occupied_segments,
             )
         )
         return self.preview_vertices
@@ -322,6 +339,8 @@ class ConnectionToolState:
             self.cursor_vertex.x if self.cursor_vertex else vertex.x,
             self.cursor_vertex.y if self.cursor_vertex else vertex.y,
             target=self.target,
+            obstacles=self._obstacles,
+            occupied_segments=self._occupied_segments,
         )
 
     def remove_last_manual_vertex(self) -> bool:
@@ -333,6 +352,8 @@ class ConnectionToolState:
                 self.cursor_vertex.x,
                 self.cursor_vertex.y,
                 target=self.target,
+                obstacles=self._obstacles,
+                occupied_segments=self._occupied_segments,
             )
         return True
 
@@ -377,6 +398,8 @@ class ConnectionToolState:
         self.target = None
         self.manual_vertices.clear()
         self.preview_vertices = ()
+        self._obstacles = ()
+        self._occupied_segments = ()
 
 
 __all__ = [

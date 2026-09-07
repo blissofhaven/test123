@@ -1136,16 +1136,6 @@ class EditorWorkspaceWidget(QWidget):
             self.side_panel.select_representations(self._selected_ids)
             self.canvas.scene.select_representations(self._selected_ids)
             self._update_inspector()
-            representation = self.controller.diagram.representations.get(object_id)
-            linked_page = (
-                representation.extensions.get("linked_page_id")
-                if representation is not None
-                else None
-            )
-            if linked_page:
-                candidate = PageId(str(linked_page))
-                if candidate in self.controller.diagram.pages:
-                    self._tree_page_selection(candidate)
         elif isinstance(object_id, DiagramRouteId):
             route = self.controller.diagram.routes.get(object_id)
             if route is not None and route.equipment_id in self.controller.model.line_sections:

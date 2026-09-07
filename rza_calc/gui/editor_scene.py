@@ -19,7 +19,7 @@ from dataclasses import dataclass, replace
 from enum import StrEnum
 from typing import Any
 
-from PySide6.QtCore import QEvent, QPoint, QPointF, QRectF, Qt, Signal
+from PySide6.QtCore import QEvent, QPoint, QPointF, QRectF, Qt, QTimer, Signal
 from PySide6.QtGui import (
     QColor,
     QFont,
@@ -28,12 +28,14 @@ from PySide6.QtGui import (
     QDragMoveEvent,
     QDropEvent,
     QKeyEvent,
+    QKeySequence,
     QMouseEvent,
     QPainter,
     QPainterPath,
     QPainterPathStroker,
     QPen,
     QPolygonF,
+    QShortcut,
     QTransform,
     QWheelEvent,
 )
@@ -356,6 +358,8 @@ class ConnectedDragGesture:
     fraction: float | None = None
     preview_routes: tuple[DiagramRoute, ...] = ()
     preview_input: tuple[object, ...] | None = None
+    constraints_key: tuple[object, ...] | None = None
+    constraints: tuple = ((), ())
 
 
 class DiagramLabelItem(QGraphicsSimpleTextItem):
@@ -2197,7 +2201,7 @@ class DiagramRouteItem(QGraphicsObject):
         wanted = {
             item.id: item
             for item in self.route.waypoints
-            if item.source is RouteWaypointSource.USER and item.pinned
+            if item.source is RouteWaypointSource.USER
         }
         for waypoint_id in tuple(self._waypoint_handles):
             if waypoint_id not in wanted:
@@ -2256,7 +2260,7 @@ class DiagramRouteItem(QGraphicsObject):
         return result
 
     def add_user_waypoint(self, position: QPointF) -> None:
-        """Закрепить новую ручную точку в месте выбранного сегмента."""
+        """Задать ручной изгиб; постоянная фиксация — отдельная команда."""
         base = _route_vertices(self.route)
         if len(base) < 2:
             return
@@ -2410,21 +2414,22 @@ class DiagramRouteItem(QGraphicsObject):
             if item.source is RouteWaypointSource.USER
         }
         preferred_user_ids = preferred_user_ids or {}
+        original_by_id = {item.id: item for item in self.route.waypoints}
         result: list[RouteWaypoint] = []
         for vertex in vertices:
             source = source_user_by_point.get((vertex.x, vertex.y))
+            identifier = preferred_user_ids.get((vertex.x, vertex.y),
+                source.id if source is not None else RouteWaypointId.new())
+            original = original_by_id.get(identifier)
             result.append(
                 RouteWaypoint(
-                    preferred_user_ids.get(
-                        (vertex.x, vertex.y),
-                        source.id if source is not None else RouteWaypointId.new(),
-                    ),
+                    identifier,
                     vertex.x,
                     vertex.y,
                     RouteWaypointSource.USER
                     if vertex.source is RouteVertexSource.USER
                     else RouteWaypointSource.AUTOMATIC,
-                    vertex.pinned,
+                    original.pinned if original is not None else False,
                 )
             )
         return tuple(result)
@@ -2720,6 +2725,7 @@ class DiagramGraphicsScene(QGraphicsScene):
     representationSelectionChanged = Signal(object)
     routeSelectionChanged = Signal(object)
     moveRequested = Signal(object, float, float, bool)
+    equipmentPlacementRequested = Signal(object)
     labelMoveRequested = Signal(object, float, float)
     copyRequested = Signal(object)
     pasteRequested = Signal()
@@ -2740,6 +2746,7 @@ class DiagramGraphicsScene(QGraphicsScene):
     routeSegmentMoveRequested = Signal(object, int, float, float)
     busAttachmentMoveRequested = Signal(object, bool, float)
     propertiesRequested = Signal(object)
+    linkedPageRequested = Signal(object)
     rotateRequested = Signal(object, int)
     rotationPositionRequested = Signal(object, int)
     autoOrientationRequested = Signal(object)
@@ -2767,7 +2774,15 @@ class DiagramGraphicsScene(QGraphicsScene):
         self._connected_drag: ConnectedDragGesture | None = None
         self._bus_attachment_preview = None
         self._move_preview = None
+        self._route_segment_constraints = None
+        self._equipment_move_preview = None
+        self._body_attachment_proposal = None
+        self._body_preview_angles = {}
+        from .equipment_placement_preview import PlacementWirePreview
+        self._placement_wire_preview = PlacementWirePreview()
+        self.addItem(self._placement_wire_preview)
         self._connection_voltage_preview = None
+        self._bus_exit_direction_preview = None
         self._mode = CanvasMode.EDIT
         self._grid_visible = True
         self._snap_enabled = True
@@ -2792,6 +2807,8 @@ class DiagramGraphicsScene(QGraphicsScene):
         self._drag_collision_snapshot: DiagramCollisionService | None = None
         self._syncing = False
         self._connection_tool = ConnectionToolState()
+        self._connection_replaced_route_id = None
+        self._new_route_occupied_cache = None
         self._connection_press_position: QPointF | None = None
         self._connection_dragged = False
         self._connection_routing_error = ""
@@ -4232,6 +4249,17 @@ class DiagramGraphicsScene(QGraphicsScene):
         del cursor
         return self._apparatus_routing_obstacles()
 
+    def _new_route_occupied_segments(self, *, reconnect=False):
+        if self._document is None or self._page_id is None:
+            return ()
+        excluded = self._connection_replaced_route_id if reconnect else None
+        key = (id(self._document), self._page_id, excluded)
+        if self._new_route_occupied_cache is None or self._new_route_occupied_cache[0] != key:
+            from ..editor.equipment_attachment import occupied_segments
+            rows = occupied_segments(self._document, self._page_id, (excluded,) if excluded else ())
+            self._new_route_occupied_cache = (key, rows)
+        return self._new_route_occupied_cache[1]
+
     def _apparatus_routing_obstacles(self) -> tuple[RoutingObstacle, ...]:
         """Match the command planner: solid bodies, not hit padding or wires.
 
@@ -4358,6 +4386,7 @@ class DiagramGraphicsScene(QGraphicsScene):
         if self._mode is not CanvasMode.EDIT:
             return
         self.cancel_physical_line(announce=False)
+        self._connection_replaced_route_id = None
         if self._tool_state_machine is not None:
             self._tool_state_machine.activate(EditorTool.DRAW_CONNECTION, tool_name="Соединить")
             self.toolStateChanged.emit(self._tool_state_machine.state)
@@ -4381,6 +4410,13 @@ class DiagramGraphicsScene(QGraphicsScene):
             self.toolStateChanged.emit(self._tool_state_machine.state)
         point = port_item.mapToScene(QPointF())
         reconnect = self._model.connection_for_port(port_item.port_id) is not None
+        candidates = [route.id for route in self._document.routes.values()
+                      if reconnect and route.page_id == self._page_id
+                      and route.kind is DiagramRouteKind.NODE_CONNECTION
+                      and any(anchor.target_port_id == port_item.port_id
+                              and anchor.representation_id == port_item.representation_id
+                              for anchor in (route.start_anchor, route.end_anchor))]
+        self._connection_replaced_route_id = candidates[0] if len(candidates) == 1 else None
         self._connection_tool.begin(
             source_port_id=port_item.port_id.value,
             source_representation_id=port_item.representation_id.value,
@@ -4451,6 +4487,7 @@ class DiagramGraphicsScene(QGraphicsScene):
             reconnect=True,
             from_route_endpoint=True,
         )
+        self._connection_replaced_route_id = route_id
         self._connection_press_position = (
             QPointF(press_position) if press_position is not None else None
         )
@@ -4479,12 +4516,21 @@ class DiagramGraphicsScene(QGraphicsScene):
                 target = replace(target, x=x, y=y, direction=direction, anchor_key=f"{fraction:.8f}")
         if target is not None:
             target = self._available_bus_target(target)
+        peer = RouteVertex(target.x, target.y) if target is not None else RouteVertex(scene_pos.x(), scene_pos.y())
+        source = self._connection_tool.source_target
+        if source is not None and source.kind is ConnectionTargetKind.BUS and callable(self._bus_exit_direction_preview):
+            direction = self._bus_exit_direction_preview(source, peer)
+            self._connection_tool.source_target = replace(source, direction=direction)
+            self._connection_tool.source_direction = direction
+        if target is not None and target.kind is ConnectionTargetKind.BUS and callable(self._bus_exit_direction_preview):
+            target = replace(target, direction=self._bus_exit_direction_preview(target, self._connection_tool.source_vertex))
         self._connection_target = target
         self._connection_routing_error = ""
         try:
             vertices = self._connection_tool.update(
                 scene_pos.x(), scene_pos.y(), target=target,
                 obstacles=self._preview_obstacles(scene_pos),
+                occupied_segments=self._new_route_occupied_segments(reconnect=True),
             )
         except RoutingError as exc:
             self._connection_routing_error = str(exc)
@@ -4691,6 +4737,14 @@ class DiagramGraphicsScene(QGraphicsScene):
         target = self._physical_endpoint_at(scene_pos)
         if target is not None:
             target = self._physical_voltage_feedback(target, self._physical_line_tool.source)
+        source = self._physical_line_tool.source
+        peer = RouteVertex(target.x, target.y) if target is not None else RouteVertex(scene_pos.x(), scene_pos.y())
+        if source.kind is ConnectionTargetKind.BUS and callable(self._bus_exit_direction_preview):
+            direction = self._bus_exit_direction_preview(source, peer)
+            self._physical_line_tool.source = replace(source, direction=direction)
+            self._physical_line_tool.source_direction = direction
+        if target is not None and target.kind is ConnectionTargetKind.BUS and callable(self._bus_exit_direction_preview):
+            target = replace(target, direction=self._bus_exit_direction_preview(target, source))
         self._physical_routing_error = ""
         try:
             vertices = self._physical_line_tool.update(
@@ -4698,6 +4752,7 @@ class DiagramGraphicsScene(QGraphicsScene):
                 obstacles=self._physical_preview_obstacles(
                     scene_pos, target.route_id if target is not None else "",
                 ),
+                occupied_segments=self._new_route_occupied_segments(),
             )
         except RoutingError as exc:
             self._physical_routing_error = str(exc)
@@ -5095,7 +5150,19 @@ class DiagramGraphicsScene(QGraphicsScene):
             preview_input = (*source, "segment", gesture.dx, gesture.dy)
             if preview_input == gesture.preview_input:
                 return
-            points = shift_route_segment(route, gesture.segment_index, dx=gesture.dx, dy=gesture.dy)
+            from ..editor.equipment_attachment import occupied_segments
+            try:
+                if gesture.constraints_key != source:
+                    gesture.constraints = (self._route_segment_constraints(route.id)
+                        if callable(self._route_segment_constraints) else
+                        (occupied_segments(self._document, route.page_id, (route.id,)), ()))
+                    gesture.constraints_key = source
+                points = shift_route_segment(route, gesture.segment_index, dx=gesture.dx, dy=gesture.dy,
+                    occupied_segments=gesture.constraints[0], obstacles=gesture.constraints[1])
+            except RoutingError as exc:
+                self.cancel_connected_drag()
+                self.connectionStatusMessage.emit(str(exc))
+                return
             rows = (replace(route, waypoints=points),)
         rows = tuple(rows)
         gesture.preview_input = preview_input
@@ -5155,6 +5222,10 @@ class DiagramGraphicsScene(QGraphicsScene):
         the scene synchronously. All incident paths are reset as one batch.
         """
         self.cancel_connected_drag(release_mouse=release_mouse, refresh=refresh)
+        self._body_attachment_proposal = None
+        self._placement_wire_preview.set_proposal(None)
+        angles = self._body_preview_angles
+        self._body_preview_angles = {}
         self._drag_collision_snapshot = None
         self._clear_body_routing_preview()
         self._body_start_selection = ()
@@ -5176,6 +5247,12 @@ class DiagramGraphicsScene(QGraphicsScene):
         changed = False
         for item_id, start in (*starts.items(), *auxiliary.items()):
             item = self._items_by_id.get(item_id)
+            if item is not None:
+                item.set_target_feedback(ConnectionTargetFeedback.NEUTRAL)
+                if item_id in angles and item.rotation() != angles[item_id]:
+                    item.setRotation(angles[item_id])
+                    item._label.setRotation(-angles[item_id])
+                    changed = True
             if item is not None and item.pos() != start:
                 item.setPos(start)
                 changed = True
@@ -5631,7 +5708,10 @@ class DiagramGraphicsScene(QGraphicsScene):
                 if not object_item.isSelected():
                     self.clearSelection()
                     object_item.setSelected(True)
-                self.propertiesRequested.emit(object_item.representation_id)
+                if object_item.representation.extensions.get("linked_page_id"):
+                    self.linkedPageRequested.emit(object_item.representation_id)
+                else:
+                    self.propertiesRequested.emit(object_item.representation_id)
                 event.accept()
                 return
             route_item = self._route_ancestor(raw_item)
@@ -5679,6 +5759,15 @@ class DiagramGraphicsScene(QGraphicsScene):
         if self._mode is not CanvasMode.EDIT or not self._start_positions:
             self.cancel_object_drag(release_mouse=False)
             self._clear_drag_collision_preview()
+            return
+        release_delta = event.scenePos() - self._body_press_position if self._body_press_position is not None else QPointF()
+        if (self._body_drag_threshold_exceeded or release_delta.manhattanLength() * self._view_scale() >= QApplication.startDragDistance()) and self._update_body_attachment(event.scenePos(), event.modifiers()):
+            proposal = self._body_attachment_proposal
+            self.cancel_object_drag(release_mouse=False)
+            if proposal.valid:
+                self.equipmentPlacementRequested.emit(proposal)
+            else:
+                self.connectionStatusMessage.emit(proposal.reason)
             return
         if self._body_routing_error:
             message = self._body_routing_error
@@ -5772,6 +5861,9 @@ class DiagramGraphicsScene(QGraphicsScene):
                 item = self._items_by_id.get(identifier)
                 if item is not None:
                     item.setPos(start + delta)
+            if self._body_drag_threshold_exceeded and self._update_body_attachment(event.scenePos(), event.modifiers()):
+                event.accept()
+                return
             # A text-child drag is not an apparatus drag. Rebuilding incident
             # routes here would reset its uncommitted manual B3 position.
             self._clear_body_routing_preview()
@@ -5796,6 +5888,44 @@ class DiagramGraphicsScene(QGraphicsScene):
             event.accept()
             return
         super().mouseMoveEvent(event)
+
+    def _update_body_attachment(self, point, modifiers) -> bool:
+        """Preview only a single wholly-free apparatus; preserve connected drags."""
+        if len(self._start_positions) != 1 or not callable(self._equipment_move_preview):
+            return False
+        identifier, start = next(iter(self._start_positions.items()))
+        item = self._items_by_id.get(identifier)
+        equipment = self._model.equipment.get(item.representation.equipment_id) if item is not None else None
+        if equipment is None or self._body_press_position is None:
+            return False
+        if item._canonical_key in {"line", "line_section"}:
+            return False
+        if any(self._model.node_for_port(port_id) is not None for port_id in equipment.port_ids):
+            return False
+        proposed = start + point - self._body_press_position
+        if self._snap_enabled and not modifiers & Qt.KeyboardModifier.AltModifier:
+            proposed = QPointF(round(proposed.x() / self._grid_size) * self._grid_size,
+                               round(proposed.y() / self._grid_size) * self._grid_size)
+        proposal = self._equipment_move_preview(identifier, proposed)
+        if proposal is None:
+            return False
+        self._body_attachment_proposal = proposal
+        original_angle = self._body_preview_angles.setdefault(identifier, item.rotation())
+        angle = proposal.rotation_deg if proposal.valid else original_angle
+        item.setRotation(angle)
+        item._label.setRotation(-angle)
+        item.setPos(proposal.x, proposal.y)
+        self._clear_drag_collision_preview()
+        self._clear_body_routing_preview()
+        self._placement_wire_preview.set_proposal(proposal)
+        self.relayout_labels()
+        item.set_target_feedback(ConnectionTargetFeedback.COMPATIBLE if proposal.valid
+                                 else ConnectionTargetFeedback.INCOMPATIBLE)
+        self.connectionStatusMessage.emit(proposal.reason if not proposal.valid else (
+            "Отпустите кнопку: вставить аппарат в провод" if proposal.action == "inline" else
+            "Отпустите кнопку: подключить обычным проводом" if proposal.action == "attach" else
+            "Предложено ближайшее свободное положение" if proposal.adjusted else "Перемещение аппарата"))
+        return True
 
     def keyPressEvent(self, event: QKeyEvent) -> None:  # noqa: N802
         if self._connected_drag is not None and event.key() == Qt.Key.Key_Escape:
@@ -6061,6 +6191,9 @@ class DiagramGraphicsScene(QGraphicsScene):
                 if actions:
                     menu.addSeparator()
                 actions[menu.addAction(ui_text("action.add_route_waypoint"))] = "add_route_waypoint"
+                actions[menu.addAction("Закрепить изгибы")] = "pin_route_bends"
+                actions[menu.addAction("Освободить изгибы")] = "unpin_route_bends"
+                actions[menu.addAction("Построить короткий маршрут")] = "auto_route"
                 actions[menu.addAction(ui_text("action.delete_connection"))] = "delete_route"
             if not actions:
                 return
@@ -6104,6 +6237,9 @@ class DiagramGraphicsScene(QGraphicsScene):
             return
         menu = QMenu(event.widget())
         properties_action = menu.addAction(ui_text("action.properties"))
+        linked_page_action = (menu.addAction("Перейти на связанный лист")
+                              if isinstance(item, DiagramObjectItem)
+                              and item.representation.extensions.get("linked_page_id") else None)
         start_connection = None
         if (self._mode is CanvasMode.EDIT and isinstance(item, DiagramObjectItem)
                 and item.representation.electrical_node_id is not None):
@@ -6165,6 +6301,8 @@ class DiagramGraphicsScene(QGraphicsScene):
         chosen = menu.exec(event.screenPos())
         if chosen is properties_action:
             self.propertiesRequested.emit(ids[0])
+        elif linked_page_action is not None and chosen is linked_page_action:
+            self.linkedPageRequested.emit(item.representation_id)
         elif start_connection is not None and chosen is start_connection:
             point, kind, anchor_key = self._project_to_node_item(item, event.scenePos())
             self.begin_connection_from_target(self._available_bus_target(ConnectionTarget(
@@ -6239,6 +6377,7 @@ class DiagramGraphicsView(QGraphicsView):
     """Масштабируемое полотно с rubber-band selection и панорамированием."""
 
     addEquipmentRequested = Signal(object, float, float)
+    equipmentPlacementRequested = Signal(object)
     viewportChanged = Signal(object)
     statusMessage = Signal(str)
     toolStateChanged = Signal(object)
@@ -6266,6 +6405,10 @@ class DiagramGraphicsView(QGraphicsView):
         self._space_pressed = False
         self._pan_start = QPoint()
         self._placement_payload: object | None = None
+        self._external_drag_payload = None
+        self._placement_proposal = None
+        self._placement_preview_provider = None
+        self._equipment_press_position = None
         self._physical_press_position: QPointF | None = None
         self._cursor_scene_pos: QPointF | None = None
         self._drop_feedback_kind: EquipmentPlacementKind | None = None
@@ -6365,6 +6508,9 @@ class DiagramGraphicsView(QGraphicsView):
 
     def _clear_placement_visuals(self) -> None:
         self._placement_payload = None
+        self._external_drag_payload = None
+        self._placement_proposal = None
+        self._equipment_press_position = None
         self._physical_press_position = None
         self._cursor_scene_pos = None
         self._drop_feedback_kind = None
@@ -6398,6 +6544,7 @@ class DiagramGraphicsView(QGraphicsView):
         self._emit_tool_state(transition.message)
 
     def placement_failed(self, reason: str) -> None:
+        self._placement_proposal = None
         transition = self._tool_state.placement_failed(reason)
         self._placement_valid = False
         self._emit_tool_state(transition.message)
@@ -6567,6 +6714,7 @@ class DiagramGraphicsView(QGraphicsView):
     def _update_equipment_drop_feedback(
         self, payload: object, point: QPointF
     ) -> None:
+        self._placement_proposal = None
         if self._placement_payload is None:
             options = payload if isinstance(payload, Mapping) else {}
             graphics = _mapping(options.get("graphics"))
@@ -6579,8 +6727,36 @@ class DiagramGraphicsView(QGraphicsView):
         self._drop_feedback_orientation = None
         self._placement_valid = True
         self._placement_conflict_name = ""
+        options = payload if isinstance(payload, Mapping) else {}
+        if options.get("target_kind") == "physical_line":
+            # A line starts at a point, not inside an apparatus-sized box.
+            target = self.diagram_scene._physical_endpoint_at(point)
+            if target is not None:
+                self._drop_equipment_point = QPointF(target.x, target.y)
+                self._placement_valid = target.feedback is not ConnectionTargetFeedback.INCOMPATIBLE
+                self.diagram_scene._highlight_endpoint(target, PortVisualState.COMPATIBLE
+                    if self._placement_valid else PortVisualState.INCOMPATIBLE)
+            self.statusMessage.emit("Укажите начальную точку линии" if not self.diagram_scene.physical_line_active
+                                    else "Протяните линию к выводу, шине или свободной точке")
+            return
         placement = self._placement_for_payload(payload)
         hit = self.diagram_scene.physical_route_at(point)
+        if hit is None and callable(self._placement_preview_provider):
+            proposal = self._placement_preview_provider(payload, self._snap_scene_point(point))
+            if proposal is not None:
+                self._placement_proposal = proposal
+                self._drop_equipment_point = QPointF(proposal.x, proposal.y)
+                self._placement_rotation_deg = proposal.rotation_deg
+                self._placement_valid = proposal.valid
+                self._placement_conflict_name = proposal.reason
+                self.statusMessage.emit(proposal.reason if not proposal.valid else (
+                    "Отпустите кнопку: вставить аппарат в провод с двумя подключёнными выводами"
+                    if proposal.action == "inline" else
+                    "Отпустите кнопку: подключить обычным проводом"
+                    if proposal.action == "attach" else
+                    "Предложено ближайшее свободное положение" if proposal.adjusted else
+                    "Отпустите кнопку: установить аппарат"))
+                return
         if (
             placement is not None
             and placement is not EquipmentPlacementKind.NODE_REPRESENTATION
@@ -6856,9 +7032,12 @@ class DiagramGraphicsView(QGraphicsView):
                 )
                 event.accept()
                 return
-            self.addEquipmentRequested.emit(self._placement_payload, point.x(), point.y())
-            if self.diagram_scene.physical_line_active:
-                self._physical_press_position = QPointF(point)
+            if isinstance(self._placement_payload, Mapping) and self._placement_payload.get("target_kind") == "physical_line":
+                self.addEquipmentRequested.emit(self._placement_payload, point.x(), point.y())
+                if self.diagram_scene.physical_line_active:
+                    self._physical_press_position = QPointF(point)
+            else:
+                self._equipment_press_position = QPointF(point)
             event.accept()
             return
         if event.button() == Qt.MouseButton.MiddleButton or (
@@ -6917,6 +7096,20 @@ class DiagramGraphicsView(QGraphicsView):
             self.viewport().update()
 
     def mouseReleaseEvent(self, event: QMouseEvent) -> None:  # noqa: N802
+        if event.button() == Qt.MouseButton.LeftButton and self._equipment_press_position is not None:
+            self._equipment_press_position = None
+            if self._placement_payload is not None:
+                point = self.mapToScene(event.position().toPoint())
+                self._update_equipment_drop_feedback(self._placement_payload, point)
+                if self._placement_valid:
+                    if self._placement_proposal is not None:
+                        self.equipmentPlacementRequested.emit(self._placement_proposal)
+                    else:
+                        self.addEquipmentRequested.emit(self._placement_payload, point.x(), point.y())
+                else:
+                    self.statusMessage.emit(self._placement_conflict_name)
+            event.accept()
+            return
         if event.button() == Qt.MouseButton.LeftButton and self._physical_press_position is not None:
             start = self._physical_press_position
             self._physical_press_position = None
@@ -6950,7 +7143,7 @@ class DiagramGraphicsView(QGraphicsView):
             self._emit_tool_state()
 
     def focusOutEvent(self, event) -> None:  # noqa: N802
-        if self._physical_press_position is not None:
+        if self._physical_press_position is not None or self._equipment_press_position is not None:
             self.cancel_placement(announce=False)
         self.diagram_scene.cancel_connection_drag()
         self.diagram_scene.cancel_object_drag()
@@ -6959,7 +7152,7 @@ class DiagramGraphicsView(QGraphicsView):
 
     def viewportEvent(self, event) -> bool:  # noqa: N802
         if event.type() == QEvent.Type.UngrabMouse and not self.diagram_scene._body_drag_releasing:
-            if self._physical_press_position is not None:
+            if self._physical_press_position is not None or self._equipment_press_position is not None:
                 self.cancel_placement(announce=False)
             self.diagram_scene.cancel_connection_drag()
             self.diagram_scene.cancel_object_drag(release_mouse=False)
@@ -7045,7 +7238,24 @@ class DiagramGraphicsView(QGraphicsView):
 
     def drawForeground(self, painter: QPainter, rect: QRectF) -> None:  # noqa: N802
         del rect
-        if self._placement_payload is None or self._cursor_scene_pos is None:
+        payload = self._placement_payload or self._external_drag_payload
+        if payload is None or self._cursor_scene_pos is None:
+            return
+        options = payload if isinstance(payload, Mapping) else {}
+        if options.get("target_kind") == "physical_line":
+            if self.diagram_scene.physical_line_active:
+                return  # The real scene preview owns the start, trace and end.
+            point = self._drop_equipment_point or self._snap_scene_point(self._cursor_scene_pos)
+            scale = max(self.zoom_factor, MIN_ZOOM)
+            color = QColor("#16A34A" if self._placement_valid else COLORS["red"])
+            pen = QPen(color, 1.4)
+            pen.setCosmetic(True)
+            painter.setPen(pen)
+            painter.setBrush(Qt.BrushStyle.NoBrush)
+            radius = 8.0 / scale
+            painter.drawEllipse(point, radius, radius)
+            painter.setBrush(color)
+            painter.drawEllipse(point, 2.5 / scale, 2.5 / scale)
             return
         point = self._cursor_scene_pos
         if self.diagram_scene.snap_enabled:
@@ -7061,8 +7271,8 @@ class DiagramGraphicsView(QGraphicsView):
             self._drop_equipment_point or self._drop_feedback_point or point
         )
         options = (
-            self._placement_payload
-            if isinstance(self._placement_payload, Mapping)
+            payload
+            if isinstance(payload, Mapping)
             else {}
         )
         width, height = self._placement_size(options)
@@ -7119,7 +7329,7 @@ class DiagramGraphicsView(QGraphicsView):
         )
         painter.restore()
         preview_geometry = self._equipment_preview_geometry(
-            self._placement_payload,
+            payload,
             preview_point,
         )
         if preview_geometry is not None:
@@ -7134,6 +7344,10 @@ class DiagramGraphicsView(QGraphicsView):
                     port_radius,
                     port_radius,
                 )
+        if self._placement_proposal is not None:
+            from .equipment_placement_preview import paint_proposal_wires
+            paint_proposal_wires(painter, self._placement_proposal, max(self.zoom_factor, MIN_ZOOM))
+            return
         if self._drop_feedback_point is None or self._drop_feedback_kind is None:
             return
         target = self._drop_feedback_point
@@ -7183,6 +7397,7 @@ class DiagramGraphicsView(QGraphicsView):
                 payload = {}
             point = self.mapToScene(event.position().toPoint())
             self._cursor_scene_pos = point
+            self._external_drag_payload = payload
             self._update_equipment_drop_feedback(payload, point)
             self.viewport().update()
             event.acceptProposedAction()
@@ -7190,6 +7405,8 @@ class DiagramGraphicsView(QGraphicsView):
             super().dragMoveEvent(event)
 
     def dragLeaveEvent(self, event: QDragLeaveEvent) -> None:  # noqa: N802
+        self._external_drag_payload = None
+        self._placement_proposal = None
         self.diagram_scene._reset_connection_highlights()
         self._drop_feedback_kind = None
         self._drop_feedback_point = None
@@ -7217,8 +7434,15 @@ class DiagramGraphicsView(QGraphicsView):
                 )
             )
             event.ignore()
+            self._external_drag_payload = None
+            self._placement_proposal = None
+            self._drop_feedback_point = None
+            self._drop_equipment_point = None
             self.viewport().update()
             return
+        proposal = self._placement_proposal
+        self._external_drag_payload = None
+        self._placement_proposal = None
         self.diagram_scene._reset_connection_highlights()
         self._drop_feedback_kind = None
         self._drop_feedback_point = None
@@ -7231,7 +7455,10 @@ class DiagramGraphicsView(QGraphicsView):
             graphics.setdefault("orientation_mode", "auto")
             effective["graphics"] = graphics
             payload = effective
-        self.addEquipmentRequested.emit(payload, point.x(), point.y())
+        if proposal is not None:
+            self.equipmentPlacementRequested.emit(proposal)
+        else:
+            self.addEquipmentRequested.emit(payload, point.x(), point.y())
         event.acceptProposedAction()
 
 
@@ -7264,11 +7491,20 @@ class EditorCanvas(QWidget):
         self.controller = controller
         self.confirm_deletions = bool(confirm_deletions)
         self._pending_tap_branch: PendingTapBranch | None = None
+        self._navigation_back = []
+        self._navigation_highlight = None
+        self._navigation_timer = QTimer(self)
+        self._navigation_timer.setSingleShot(True)
+        self._navigation_timer.timeout.connect(self._clear_navigation_highlight)
         self.scene = DiagramGraphicsScene(self)
         self.scene._bus_attachment_preview = getattr(controller, "preview_bus_attachment_move", None)
         self.scene._move_preview = getattr(controller, "preview_move_representations", None)
+        self.scene._route_segment_constraints = getattr(controller, "preview_route_segment_constraints", None)
         self.scene._connection_voltage_preview = getattr(controller, "preview_connection_voltage", None)
+        self.scene._bus_exit_direction_preview = self._preview_bus_exit_direction
         self.view = DiagramGraphicsView(self.scene, self)
+        self.view._placement_preview_provider = self._preview_equipment_placement
+        self.scene._equipment_move_preview = self._preview_existing_equipment
         self.hint = QLabel(ui_text("canvas.edit_hint"))
         self.hint.setObjectName("muted")
         self.hint.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
@@ -7278,6 +7514,14 @@ class EditorCanvas(QWidget):
         self.connect_button.setToolTip("Протяните от вывода, шины или проводника. Выберите провод, ВЛ или КЛ после отпускания.")
         self.connect_button.clicked.connect(self.activate_connection_tool)
         footer.addWidget(self.connect_button)
+        self.back_button = QPushButton("Назад", self)
+        self.back_button.setEnabled(False)
+        self.back_button.setToolTip("Вернуться к месту перехода между листами (Alt+←)")
+        self.back_button.clicked.connect(self.navigate_back)
+        footer.addWidget(self.back_button)
+        self._back_shortcut = QShortcut(QKeySequence("Alt+Left"), self)
+        self._back_shortcut.setContext(Qt.ShortcutContext.WidgetWithChildrenShortcut)
+        self._back_shortcut.activated.connect(self.navigate_back)
         footer.addWidget(self.hint)
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
@@ -7287,6 +7531,7 @@ class EditorCanvas(QWidget):
 
         self.scene.representationSelectionChanged.connect(self.selectionChanged.emit)
         self.scene.moveRequested.connect(self._move)
+        self.scene.equipmentPlacementRequested.connect(self._apply_prepared_equipment)
         self.scene.labelMoveRequested.connect(self._move_label)
         self.scene.routeLabelMoveRequested.connect(self._move_route_label)
         self.scene.copyRequested.connect(self.copy)
@@ -7311,11 +7556,13 @@ class EditorCanvas(QWidget):
         self.scene.routeSegmentMoveRequested.connect(self._move_route_segment)
         self.scene.busAttachmentMoveRequested.connect(self._move_bus_attachment)
         self.scene.propertiesRequested.connect(self.propertiesRequested.emit)
+        self.scene.linkedPageRequested.connect(self.navigate_linked_page)
         self.scene.rotateRequested.connect(self._rotate_selected)
         self.scene.rotationPositionRequested.connect(self._set_selected_orientation)
         self.scene.autoOrientationRequested.connect(self._auto_orient_selected)
         self.scene.toolStateChanged.connect(self.toolStateChanged.emit)
         self.view.addEquipmentRequested.connect(self._add_equipment)
+        self.view.equipmentPlacementRequested.connect(self._apply_prepared_equipment)
         self.view.viewportChanged.connect(self._save_viewport)
         self.view.statusMessage.connect(self.statusMessage.emit)
         self.view.toolStateChanged.connect(self.toolStateChanged.emit)
@@ -7341,6 +7588,7 @@ class EditorCanvas(QWidget):
         return self.scene.page_id
 
     def refresh(self, *, keep_selection: bool = True) -> None:
+        self._clear_navigation_highlight()
         selected = self.scene.selected_representation_ids() if keep_selection else ()
         page_id = self.scene.page_id
         if not getattr(self.controller, "diagram").pages:
@@ -7376,6 +7624,7 @@ class EditorCanvas(QWidget):
             self.hint.setText(ui_text("canvas.analysis_hint" if self.scene._mode is CanvasMode.ANALYSIS else "canvas.edit_hint"))
 
     def show_page(self, page_id: PageId) -> None:
+        self._clear_navigation_highlight()
         setter = getattr(self.controller, "set_active_page", None)
         if callable(setter):
             self._call("set_active_page", page_id)
@@ -7387,6 +7636,72 @@ class EditorCanvas(QWidget):
                 self.controller, "active_operating_state_id", None
             ),
         )
+
+    def _clear_navigation_highlight(self) -> None:
+        self._navigation_timer.stop()
+        if self._navigation_highlight is not None:
+            self.scene.removeItem(self._navigation_highlight)
+            self._navigation_highlight = None
+
+    def navigate_linked_page(self, representation_id) -> bool:
+        from .page_navigation import linked_page_target
+
+        try:
+            target = linked_page_target(self.controller.diagram, representation_id)
+        except (ValueError, TypeError) as exc:
+            self.statusMessage.emit(str(exc))
+            return False
+        previous = (self.page_id, self.view.viewport_state(),
+                    self.scene.selected_representation_ids(), self.scene.selected_route_ids())
+        self.view.cancel_placement(announce=False)
+        self.scene.cancel_connection(announce=False)
+        self.scene.cancel_object_drag()
+        self.scene.finish_object_rotation(commit=False)
+        self.show_page(target.page_id)
+        self.scene.select_representations((target.id,))
+        self.view.centerOn(target.x, target.y)
+        self.view.viewportChanged.emit(self.view.viewport_state())
+        radius = 16.0 / max(self.view.zoom_factor, MIN_ZOOM)
+        path = QPainterPath()
+        path.addEllipse(QPointF(target.x, target.y), radius, radius)
+        marker = QGraphicsPathItem(path)
+        pen = QPen(QColor("#2563EB"), 2.5)
+        pen.setCosmetic(True)
+        marker.setPen(pen)
+        marker.setBrush(QColor(37, 99, 235, 30))
+        marker.setAcceptedMouseButtons(Qt.MouseButton.NoButton)
+        marker.setZValue(1000)
+        self.scene.addItem(marker)
+        self._navigation_highlight = marker
+        self._navigation_timer.start(2200)
+        if previous[0] is not None:
+            self._navigation_back.append(previous)
+            self._navigation_back = self._navigation_back[-100:]
+        self.back_button.setEnabled(bool(self._navigation_back))
+        self.view.setFocus()
+        self.statusMessage.emit(f"Связанный объект: {self.controller.diagram.pages[target.page_id].name}. Вернуться — «Назад».")
+        return True
+
+    def navigate_back(self) -> bool:
+        while self._navigation_back:
+            page_id, viewport, representations, routes = self._navigation_back.pop()
+            if page_id not in self.controller.diagram.pages:
+                continue
+            self.view.cancel_placement(announce=False)
+            self.show_page(page_id)
+            self.scene.select_representations(representations)
+            for route_id in routes:
+                item = self.scene._route_items_by_id.get(route_id)
+                if item is not None:
+                    item.setSelected(True)
+            self.view.restore_viewport(viewport)
+            self.view.viewportChanged.emit(self.view.viewport_state())
+            self.back_button.setEnabled(bool(self._navigation_back))
+            self.view.setFocus()
+            self.statusMessage.emit("Возврат к месту межлистового перехода")
+            return True
+        self.back_button.setEnabled(False)
+        return False
 
     def set_mode(self, mode: CanvasMode | str) -> None:
         result = self._call("set_mode", mode)
@@ -7647,6 +7962,44 @@ class EditorCanvas(QWidget):
         self._after_structure_command(result)
         self.view.placement_succeeded()
         self.placementFinished.emit(result)
+
+    def _preview_equipment_placement(self, payload, point, *, representation_id=None):
+        if not isinstance(payload, Mapping) or payload.get("target_kind", "equipment") != "equipment":
+            return None
+        from .equipment_placement_preview import equipment_proposal
+        from ..editor.equipment_attachment import EquipmentPlacementProposal
+        try:
+            return equipment_proposal(self, payload, point, representation_id=representation_id)
+        except (DomainInvariantError, KeyError, TypeError, ValueError) as exc:
+            return EquipmentPlacementProposal(False, str(exc), "place", point.x(), point.y())
+
+    def _preview_bus_exit_direction(self, target, peer):
+        from ..domain.diagram import RouteEndpointAnchor
+        planner = getattr(self.controller, "_bus_exit_direction", None)
+        if not callable(planner) or peer is None:
+            return target.direction
+        representation_id = GraphicalRepresentationId(target.representation_id)
+        anchor = RouteEndpointAnchor(RouteAnchorKind.BUS, representation_id,
+                                    ElectricalNodeId(target.target_id), anchor_key=target.anchor_key)
+        return planner(self.controller.diagram.representations[representation_id], anchor,
+                       RouteVertex(target.x,target.y), RouteVertex(peer.x,peer.y))
+
+    def _preview_existing_equipment(self, representation_id, point):
+        representation = self.controller.diagram.representations[representation_id]
+        equipment = self.controller.model.equipment[representation.equipment_id]
+        graphics = dict(_graphics_extensions(representation))
+        graphics["rotation_deg"] = representation.rotation_deg
+        payload = {"type_id": equipment.type_id.value, "type_version": equipment.type_version,
+                   "name": equipment.name, "symbol_key": representation.symbol_key,
+                   "graphics": graphics}
+        return self._preview_equipment_placement(payload, point, representation_id=representation_id)
+
+    def _apply_prepared_equipment(self, proposal):
+        if not proposal.valid:
+            self.statusMessage.emit(proposal.reason)
+            return
+        result = self._call("apply_equipment_placement", proposal)
+        self._complete_equipment_placement(result)
 
     def _placement_collision_rejected(
         self,
@@ -8020,7 +8373,7 @@ class EditorCanvas(QWidget):
                 RouteWaypointSource.USER
                 if item.source is RouteVertexSource.USER
                 else RouteWaypointSource.AUTOMATIC,
-                item.pinned,
+                False,  # Clicked draft goals shape this gesture; pinning is explicit.
             )
             for item in vertices
         )
@@ -8671,6 +9024,19 @@ class EditorCanvas(QWidget):
     def _route_context_action(self, action: str, payload: object) -> None:
         if not isinstance(payload, Mapping):
             self.errorOccurred.emit("Не удалось определить выбранную графическую трассу.")
+            return
+        if action in {"pin_route_bends", "unpin_route_bends", "auto_route"}:
+            route_id = payload.get("route_id")
+            if not isinstance(route_id, DiagramRouteId):
+                self.errorOccurred.emit("Не удалось определить графическую трассу.")
+                return
+            result = (self._call("auto_route_diagram_route", route_id) if action == "auto_route"
+                      else self._call("set_route_bends_pinned", route_id, action == "pin_route_bends"))
+            if result is not None:
+                self._after_structure_command(result)
+                self.statusMessage.emit({"pin_route_bends": "Изгибы закреплены: при переносе сохраняются",
+                    "unpin_route_bends": "Изгибы освобождены: маршрут может сокращаться автоматически",
+                    "auto_route": "Построен короткий маршрут с прежними электрическими концами"}[action])
             return
         if action == "delete_route":
             route_id = payload.get("route_id")

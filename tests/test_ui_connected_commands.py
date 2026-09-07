@@ -113,7 +113,7 @@ def test_segment_drag_keeps_terminal_coordinates_ids_direction_and_unselected_ge
     assert before_ids.issubset({point.id for point in changed})
     for point in changed:
         if point.id not in before_ids:
-            assert point.source is RouteWaypointSource.USER and point.pinned
+            assert point.source is RouteWaypointSource.AUTOMATIC and not point.pinned
 
 
 def test_native_segment_command_is_single_undoable_graphics_edit_with_same_model_and_labels():

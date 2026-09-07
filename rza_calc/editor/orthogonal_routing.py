@@ -103,10 +103,19 @@ class RoutingRequest:
     obstacles: tuple[RoutingObstacle, ...] = ()
     clearance: float = 12.0
     port_stub: float = 18.0
+    occupied_segments: tuple[tuple[float, float, float, float], ...] = ()
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "manual_vertices", tuple(self.manual_vertices))
         object.__setattr__(self, "obstacles", tuple(self.obstacles))
+        segments = tuple(tuple(segment) for segment in self.occupied_segments)
+        for segment in segments:
+            if (len(segment) != 4 or any(isinstance(value, bool)
+                    or not isinstance(value, (int, float)) or not math.isfinite(value)
+                    for value in segment)
+                    or (segment[0] != segment[2] and segment[1] != segment[3])):
+                raise ValueError("Занятый участок должен быть конечным ортогональным отрезком.")
+        object.__setattr__(self, "occupied_segments", segments)
         for name in ("clearance", "port_stub"):
             value = getattr(self, name)
             if (
@@ -239,10 +248,31 @@ def _route_score(
     return hits, length + bends * 24.0, bends
 
 
+def segments_overlap(first: tuple[float, float], second: tuple[float, float],
+                     occupied: tuple[float, float, float, float]) -> bool:
+    """Positive collinear overlap; crossings and shared endpoints remain legal."""
+    x1, y1 = first
+    x2, y2 = second
+    a, b, c, d = occupied
+    if math.isclose(y1, y2, abs_tol=1e-9) and math.isclose(b, d, abs_tol=1e-9):
+        return (math.isclose(y1, b, abs_tol=1e-9)
+                and min(max(x1, x2), max(a, c)) - max(min(x1, x2), min(a, c)) > 1e-9)
+    if math.isclose(x1, x2, abs_tol=1e-9) and math.isclose(a, c, abs_tol=1e-9):
+        return (math.isclose(x1, a, abs_tol=1e-9)
+                and min(max(y1, y2), max(b, d)) - max(min(y1, y2), min(b, d)) > 1e-9)
+    return False
+
+
+def _overlaps_occupied(points, occupied_segments) -> bool:
+    return any(segments_overlap(first, second, occupied)
+               for first, second in zip(points, points[1:]) for occupied in occupied_segments)
+
+
 def _coordinate_candidates(
     start: tuple[float, float],
     end: tuple[float, float],
     obstacles: Sequence[RoutingObstacle],
+    occupied_segments: Sequence[tuple[float, float, float, float]] = (),
 ) -> tuple[list[float], list[float]]:
     xs = {start[0], end[0], (start[0] + end[0]) / 2.0,
           start[0] - 24.0, start[0] + 24.0, end[0] - 24.0, end[0] + 24.0}
@@ -251,6 +281,9 @@ def _coordinate_candidates(
     for obstacle in obstacles:
         xs.update((obstacle.left, obstacle.right))
         ys.update((obstacle.top, obstacle.bottom))
+    for x1, y1, x2, y2 in occupied_segments:
+        xs.update((x1 - 12.0, x1, x1 + 12.0, x2 - 12.0, x2, x2 + 12.0))
+        ys.update((y1 - 12.0, y1, y1 + 12.0, y2 - 12.0, y2, y2 + 12.0))
     # Bound the fallback graph even in a large diagram. All obstacles still
     # participate in collision checks; only optional search coordinates are
     # limited. Failure is explicit rather than a wire through an apparatus.
@@ -285,6 +318,7 @@ def _grid_leg(
     start: tuple[float, float], end: tuple[float, float],
     obstacles: Sequence[RoutingObstacle], xs: list[float], ys: list[float],
     start_direction: RouteDirection | None, end_direction: RouteDirection | None,
+    occupied_segments: Sequence[tuple[float, float, float, float]] = (),
 ) -> tuple[tuple[float, float], ...] | None:
     """Dijkstra on at most 64x64 coordinates, with precomputed blocked edges."""
     horizontal: set[tuple[int, int]] = set()
@@ -301,6 +335,19 @@ def _grid_leg(
                        min(len(ys) - 1, bisect_left(ys, obstacle.bottom)))
         vertical.update((ix, iy) for ix in v_columns for iy in v_rows)
     first = (xs.index(start[0]), ys.index(start[1]), -1)
+    # Block only edges lying along another conductor. A perpendicular crossing
+    # is still free and is drawn with the editor's existing crossing notation.
+    for x1, y1, x2, y2 in occupied_segments:
+        if y1 == y2 and y1 in ys:
+            row = ys.index(y1)
+            for column in range(max(0, bisect_right(xs, min(x1, x2)) - 1),
+                                min(len(xs) - 1, bisect_left(xs, max(x1, x2)))):
+                horizontal.add((column, row))
+        elif x1 == x2 and x1 in xs:
+            column = xs.index(x1)
+            for row in range(max(0, bisect_right(ys, min(y1, y2)) - 1),
+                             min(len(ys) - 1, bisect_left(ys, max(y1, y2)))):
+                vertical.add((column, row))
     goal = (xs.index(end[0]), ys.index(end[1]))
     queue = [(0.0, 0, first)]
     costs = {first: (0.0, 0)}
@@ -344,6 +391,7 @@ def _local_leg(
     obstacles: Sequence[RoutingObstacle],
     start_direction: RouteDirection | None = None,
     end_direction: RouteDirection | None = None,
+    occupied_segments: Sequence[tuple[float, float, float, float]] = (),
 ) -> tuple[tuple[float, float], ...]:
     if start == end:
         if any(obstacle.contains(start) for obstacle in obstacles):
@@ -365,7 +413,9 @@ def _local_leg(
         for candidate in rows:
             vertices = normalize_route(RouteVertex(x, y) for x, y in candidate)
             points = tuple(item.point for item in vertices)
-            if _leg_directions_valid(points, start_direction, end_direction) and not _route_score(points, obstacles)[0]:
+            if (_leg_directions_valid(points, start_direction, end_direction)
+                    and not _route_score(points, obstacles)[0]
+                    and not _overlaps_occupied(points, occupied_segments)):
                 result.append(points)
         return result
 
@@ -373,7 +423,7 @@ def _local_leg(
     direct = safe_candidates(candidates)
     if direct:
         return min(direct, key=lambda points: (_route_score(points, obstacles), points))
-    xs, ys = _coordinate_candidates(start, end, obstacles)
+    xs, ys = _coordinate_candidates(start, end, obstacles, occupied_segments)
     candidates = []
     candidates.extend(
         (start, (x, start[1]), (x, end[1]), end) for x in xs
@@ -383,7 +433,7 @@ def _local_leg(
     )
 
     safe = safe_candidates(candidates)
-    grid = _grid_leg(start, end, obstacles, xs, ys, start_direction, end_direction)
+    grid = _grid_leg(start, end, obstacles, xs, ys, start_direction, end_direction, occupied_segments)
     if grid:
         normalized = normalize_route(RouteVertex(x, y) for x, y in grid)
         safe.extend(safe_candidates((tuple(point.point for point in normalized),)))
@@ -442,6 +492,8 @@ def _direct_facing_port_join(request: RoutingRequest) -> bool:
         return False
     start = request.start.point
     end = request.end.point
+    if _overlaps_occupied((start, end), request.occupied_segments):
+        return False
     dx, dy = end[0] - start[0], end[1] - start[1]
     ux, uy = _direction_delta(request.start_direction, 1.0)
     vx, vy = _direction_delta(request.end_direction, 1.0)
@@ -514,7 +566,12 @@ def build_orthogonal_route(request: RoutingRequest) -> tuple[RouteVertex, ...]:
                 departure = RouteDirection.DOWN if dy > 0 else RouteDirection.UP
         leg = _local_leg(first.point, second.point, obstacles,
                          departure,
-                         request.end_direction if leg_index == len(anchors) - 2 else None)
+                         request.end_direction if leg_index == len(anchors) - 2 else None,
+                         request.occupied_segments)
+        if len(leg) == 1:
+            # A deliberately locked bend can coincide with the automatic port
+            # stub. Keep its lock instead of dropping it with the empty leg.
+            result[-1] = _merge_duplicate(result[-1], second)
         for index, (x, y) in enumerate(leg[1:], start=1):
             if index == len(leg) - 1:
                 result.append(second)
@@ -523,7 +580,10 @@ def build_orthogonal_route(request: RoutingRequest) -> tuple[RouteVertex, ...]:
 
     if not _same(end_stub, request.end):
         result.append(request.end)
-    return normalize_route(result)
+    normalized = normalize_route(result)
+    if _overlaps_occupied(tuple(point.point for point in normalized), request.occupied_segments):
+        raise RoutingError("Подвод к выводу совпадает с другой линией: выберите свободную точку подключения.")
+    return normalized
 
 
 class LocalRouteCache:

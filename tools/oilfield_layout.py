@@ -8,6 +8,8 @@ from __future__ import annotations
 
 from collections import defaultdict
 from dataclasses import replace
+import math
+from types import SimpleNamespace
 
 from rza_calc.domain.diagram import (
     DiagramDocument, DiagramPage, DiagramRoute, DiagramRouteId, DiagramRouteKind,
@@ -16,6 +18,8 @@ from rza_calc.domain.diagram import (
     RouteWaypoint, RouteWaypointId,
 )
 from rza_calc.domain.electrical import deterministic_id
+from rza_calc.editor.bus_connections import BUS_ATTACHMENT_GAP, endpoint_fraction
+from rza_calc.editor.bus_contacts import allocate_bus_contact
 from rza_calc.editor.orientation import rotated_port_layout
 from rza_calc.editor.symbols import canonical_key, default_size
 from tools.autolayout import legacy_id, orthogonal, symbol_key_for
@@ -241,6 +245,132 @@ def short_label(name):
     return name if len(name) <= 38 else name[:35].rstrip() + '…'
 
 
+def _bus_contact_rows(diagram):
+    """Describe saved contact geometry; a common node never combines contacts."""
+    rows = []
+    for route in sorted(diagram.routes.values(), key=lambda value: value.id.value):
+        for at_start, anchor in ((True, route.start_anchor), (False, route.end_anchor)):
+            if anchor.kind is not RouteAnchorKind.BUS:
+                continue
+            bus = diagram.representations[anchor.representation_id]
+            graphics = bus.extensions.get('stage3_graphics', {})
+            width, height = float(graphics.get('width', 160)), float(graphics.get('height', 16))
+            points = tuple(reversed(route.waypoints)) if at_start else route.waypoints
+            end, previous = points[-1], points[-2]
+            inside_run = (math.isclose(previous.y, bus.y, abs_tol=1e-8)
+                          and math.isclose(end.y, bus.y, abs_tol=1e-8)
+                          and min(max(previous.x, end.x), bus.x+width/2)
+                          - max(min(previous.x, end.x), bus.x-width/2) > 1e-8)
+            rows.append(dict(route_id=route.id, at_start=at_start, bus=bus,
+                             width=width, height=height, points=points,
+                             fraction=endpoint_fraction(bus, width, height, anchor, end),
+                             inside_run=inside_run))
+    return rows
+
+
+def _repaired_contact_waypoints(route, *, at_start, bus, x, y, lane):
+    """Change only the final bus lead, with a visible perpendicular approach."""
+    if any(point.pinned for point in route.waypoints):
+        raise ValueError(f'Закреплённые изгибы трассы {route.id} требуют ручного исправления.')
+    points = tuple(reversed(route.waypoints)) if at_start else route.waypoints
+    # A bus-axis tail can hide a misplaced final lead. Strip only that tail;
+    # everything before the last off-axis point retains its saved coordinates.
+    cut = len(points)-2
+    while cut >= 0 and math.isclose(points[cut].y, bus.y, abs_tol=1e-8):
+        cut -= 1
+    if cut < 0:
+        raise ValueError(f'Осевой ввод {route.id} не требует боковой переразводки.')
+    far = points[cut]
+    distance = abs(far.y-bus.y)
+    if distance <= lane+12:
+        raise ValueError(f'Недостаточно места перед шиной для трассы {route.id}.')
+    turn_y = bus.y + math.copysign(lane, far.y-bus.y)
+    coords = orthogonal([
+        *((point.x, point.y) for point in points[:cut+1]),
+        (far.x, turn_y), (x, turn_y), (x, y),
+    ])
+    if at_start:
+        coords.reverse()
+    old_by_point = {(round(point.x, 8), round(point.y, 8)): point for point in route.waypoints}
+    result = []
+    for index, (px, py) in enumerate(coords):
+        if index == 0:
+            value = replace(route.waypoints[0], x=px, y=py)
+        elif index == len(coords)-1:
+            value = replace(route.waypoints[-1], x=px, y=py)
+        else:
+            value = old_by_point.get((round(px, 8), round(py, 8)))
+            if value is None:
+                value = RouteWaypoint(deterministic_id(
+                    RouteWaypointId, 'oilfield-bus-contact-repair', route.id.value,
+                    str(at_start), str(index), format(px, '.12g'), format(py, '.12g')),
+                    px, py)
+        result.append(value)
+    return tuple(result)
+
+
+def repair_bus_contact_geometry(diagram, *, increment_revision=True):
+    """Repair only shared contacts and bus-axis tails in an oilfield drawing.
+
+    No apparatus is moved, no other route is rebuilt, and an already repaired
+    document is returned unchanged. Axial section-breaker leads ending at the
+    bus boundary are valid and remain byte-for-byte data equivalents.
+    """
+    rows = _bus_contact_rows(diagram)
+    groups = defaultdict(list)
+    bad_by_bus = defaultdict(list)
+    for row in rows:
+        groups[(row['bus'].id, round(row['fraction'], 10))].append(row)
+        if row['inside_run']:
+            bad_by_bus[row['bus'].id].append(row)
+    updates = dict(diagram.routes)
+    allocation_view = SimpleNamespace(routes=updates)
+    for group in groups.values():
+        if len(group) < 2:
+            continue
+        # For the two outside auxiliary feeders, preserve their order: the
+        # farther feeder keeps its old contact, inner feeders use inner slots.
+        outside = all(row['inside_run'] for row in group)
+        if outside:
+            group = sorted(group, key=lambda row: (-abs(row['points'][0].x-row['bus'].x), row['route_id'].value))
+        for index, row in enumerate(group[1:], 1):
+            bus = row['bus']
+            if bus.rotation_deg % 360 != 0 or row['height'] > row['width']:
+                raise ValueError('Точечное исправление нефтепромысла ожидает горизонтальные шины.')
+            requested = row['fraction']
+            if outside:
+                inward = 1 if requested < .5 else -1
+                requested += inward * index * BUS_ATTACHMENT_GAP / row['width']
+            placement = allocate_bus_contact(
+                allocation_view, bus, width=row['width'], height=row['height'],
+                requested=requested, exclude_route_ids=(row['route_id'],),
+                merge_tolerance=BUS_ATTACHMENT_GAP,
+            )
+            route = updates[row['route_id']]
+            which = 'start_anchor' if row['at_start'] else 'end_anchor'
+            anchor = replace(getattr(route, which), anchor_key=format(placement.fraction, '.17g'))
+            # A temporary allocated endpoint can make a diagonal last leg;
+            # store the completely routed record instead of a partial DTO.
+            repaired = _repaired_contact_waypoints(route, at_start=row['at_start'], bus=bus,
+                x=placement.x, y=placement.y, lane=40.)
+            updates[route.id] = replace(route, **{which: anchor}, waypoints=repaired)
+    # Distinct horizontal lanes keep auxiliary feeders independent, including
+    # where their old long bus-axis segments overlapped one another.
+    for group in bad_by_bus.values():
+        ordered = sorted(group, key=lambda row: (-abs(row['points'][0].x-row['bus'].x), row['route_id'].value))
+        for index, row in enumerate(ordered):
+            route = updates[row['route_id']]
+            endpoint = route.waypoints[0 if row['at_start'] else -1]
+            repaired = _repaired_contact_waypoints(diagram.routes[route.id],
+                at_start=row['at_start'], bus=row['bus'], x=endpoint.x, y=endpoint.y,
+                lane=40.*(index+1))
+            updates[route.id] = replace(route, waypoints=repaired)
+    if updates == diagram.routes:
+        return diagram
+    return replace(diagram, routes=updates,
+                   revision=diagram.revision + (1 if increment_revision else 0))
+
+
 def build_layout(project, manifest):
     """Build one detailed sheet per facility, with physical incoming circuits."""
     sheets=[]
@@ -264,6 +394,7 @@ def build_layout(project, manifest):
             'developer_diagnostics':False,'confirm_switching':True,
         }},
     )
+    result=repair_bus_contact_geometry(result, increment_revision=False)
     problems=result.validate_targets(project.electrical_model)
     if problems:
         raise ValueError('Invalid oilfield diagram: '+ '; '.join(problems))

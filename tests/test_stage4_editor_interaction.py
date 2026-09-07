@@ -301,7 +301,7 @@ def test_canvas_connection_signal_commits_real_project_data_in_one_command() -> 
         item for item in route.waypoints
         if item.source.value == "user"
     ]
-    assert len(manual) == 1 and manual[0].pinned
+    assert len(manual) == 1 and not manual[0].pinned
     assert (manual[0].x, manual[0].y) == (60.0, 80.0)
     assert len(controller.journal) == journal_before + 1
     assert not canvas.scene.connection_active
@@ -740,19 +740,25 @@ def test_dragging_user_waypoint_changes_only_diagram_route_and_one_history_entry
                                       voltage_class_by_group={"main": _U10})
     target = controller.add_equipment("builtin.load", "Нагрузка-2", x=180, y=0,
                                       voltage_class_by_group={"main": _U10})
+    # Use the real terminals and an unobstructed bend above the bodies. A
+    # centre-to-centre fixture would be correctly rejected by body clearance.
+    source_port = controller._port_anchor_geometry(controller.model,
+        controller.diagram.representations[source.representation_id], source.port_ids[0])
+    target_port = controller._port_anchor_geometry(controller.model,
+        controller.diagram.representations[target.representation_id], target.port_ids[0])
     manual_id = RouteWaypointId("waypoint.stage4.user")
     route_points = (
-        RouteWaypoint(RouteWaypointId("waypoint.stage4.start"), 0, 0),
-        RouteWaypoint(RouteWaypointId("waypoint.stage4.a"), 60, 0),
+        RouteWaypoint(RouteWaypointId("waypoint.stage4.start"), source_port.x, source_port.y),
+        RouteWaypoint(RouteWaypointId("waypoint.stage4.a"), 60, source_port.y),
         RouteWaypoint(
             manual_id,
             60,
-            80,
+            -80,
             source="user",
             pinned=True,
         ),
-        RouteWaypoint(RouteWaypointId("waypoint.stage4.b"), 180, 80),
-        RouteWaypoint(RouteWaypointId("waypoint.stage4.end"), 180, 0),
+        RouteWaypoint(RouteWaypointId("waypoint.stage4.b"), target_port.x, -80),
+        RouteWaypoint(RouteWaypointId("waypoint.stage4.end"), target_port.x, target_port.y),
     )
     created = controller.connect_ports(
         source.port_ids[0],
@@ -769,13 +775,13 @@ def test_dragging_user_waypoint_changes_only_diagram_route_and_one_history_entry
     diagram_revision_before = controller.diagram.revision
     history_before = len(controller.journal)
 
-    route_item.commit_user_waypoint(manual_id, QPointF(90, 100))
+    route_item.commit_user_waypoint(manual_id, QPointF(90, -100))
 
     updated = controller.diagram.routes[created.route_id]
     moved = [item for item in updated.waypoints if item.source.value == "user"]
     assert len(moved) == 1
     assert moved[0].id == manual_id
-    assert (moved[0].x, moved[0].y) == (90.0, 100.0)
+    assert (moved[0].x, moved[0].y) == (90.0, -100.0)
     assert moved[0].pinned
     assert controller.model.connectivity_signature() == topology_before
     assert controller.model.revision == electrical_revision_before

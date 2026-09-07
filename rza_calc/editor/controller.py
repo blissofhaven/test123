@@ -91,6 +91,7 @@ from .orientation import (
     quarter_turn_for_port_toward_point,
 )
 from .orthogonal_routing import (
+    RouteDirection,
     RouteVertex,
     RouteVertexSource,
     RoutingObstacle,
@@ -1049,7 +1050,7 @@ class ProjectEditorController:
         values = dict(draft.diagram.routes)
         if route.id in values:
             raise EditorCommandError("Такая графическая трасса уже существует.")
-        route = cls._route_with_available_bus_anchors(draft, route)
+        route = cls._route_with_available_bus_anchors(draft, route, preserve_user_goals=True)
         values[route.id] = route
         draft.diagram = _diagram_with_routes(draft.diagram, values)
 
@@ -1057,6 +1058,7 @@ class ProjectEditorController:
     def _route_with_available_bus_anchors(
         cls, draft: ProjectDraft, route: DiagramRoute, *,
         endpoint_indices: tuple[int, ...] = (0, 1),
+        preserve_user_goals: bool = False,
     ) -> DiagramRoute:
         """Allocate only newly added/reconnected bus endpoints, not old taps."""
         anchors = [route.start_anchor, route.end_anchor]
@@ -1085,12 +1087,41 @@ class ProjectEditorController:
                 math.isclose(point.x, x, abs_tol=1e-8, rel_tol=0.0)
                 and math.isclose(point.y, y, abs_tol=1e-8, rel_tol=0.0)
             )
+            # An interior bus tap leaves across the bar, never along its ink.
+            # Normalize newly supplied old-style elbows before saving them.
+            peer = route.waypoints[1 if index == 0 else -2]
+            expected = cls._bus_exit_direction(row, anchors[index], RouteVertex(x,y),
+                RouteVertex(route.waypoints[-1 if index == 0 else 0].x,
+                            route.waypoints[-1 if index == 0 else 0].y))
+            if (peer.x,peer.y)!=(x,y):
+                actual=direction_toward_point(x,y,peer.x,peer.y)
+                geometry_changed |= actual != expected
         updated = replace(route, start_anchor=anchors[0], end_anchor=anchors[1])
         if geometry_changed:
             return cls._reroute_to_current_port_anchors(
                 draft, updated, obstacles=cls._page_routing_obstacles(draft, route.page_id),
+                preserve_user_goals=preserve_user_goals,
             )
         return updated
+
+    @classmethod
+    def _bus_exit_direction(cls, representation, anchor, point, peer):
+        width,height=cls._equipment_symbol_size(representation,None)
+        horizontal=width>=height
+        if int(normalize_quarter_turn(representation.rotation_deg))%180:
+            horizontal=not horizontal
+        try:
+            fraction=float(anchor.anchor_key)
+        except (TypeError,ValueError):
+            fraction=endpoint_fraction(representation,width,height,anchor,point)
+        # Endpoint section ties may leave along the open end of a bus.
+        if (math.isclose(fraction,0.0,abs_tol=1e-8) or math.isclose(fraction,1.0,abs_tol=1e-8)) and (
+            math.isclose(point.y,peer.y,abs_tol=1e-8) if horizontal else
+            math.isclose(point.x,peer.x,abs_tol=1e-8)):
+            return direction_toward_point(point.x,point.y,peer.x,peer.y)
+        if horizontal:
+            return RouteDirection.UP if peer.y<point.y else RouteDirection.DOWN
+        return RouteDirection.LEFT if peer.x<point.x else RouteDirection.RIGHT
 
     @staticmethod
     def _route_for_equipment(
@@ -1255,6 +1286,16 @@ class ProjectEditorController:
             anchor.target_port_id,
             rotation_deg=override,
         )
+        if anchor.branch_port_id == anchor.target_port_id:
+            equipment=draft.electrical_model.equipment[representation.equipment_id]
+            definition=draft.electrical_model.equipment_type(equipment.type_id,equipment.type_version)
+            if canonical_key(str(definition.extensions.get("diagram_symbol_key",representation.symbol_key)),definition.behavior_key) in {"line","line_section"}:
+                # The line's OWN conductor continues into its terminal. A
+                # different conductor attached there leaves outward. Giving
+                # both the same direction would falsely overlap their leads.
+                opposite={RouteDirection.LEFT:RouteDirection.RIGHT,RouteDirection.RIGHT:RouteDirection.LEFT,
+                          RouteDirection.UP:RouteDirection.DOWN,RouteDirection.DOWN:RouteDirection.UP}
+                return RouteVertex(geometry.x,geometry.y),opposite[geometry.direction]
         return RouteVertex(geometry.x, geometry.y), geometry.direction
 
     @classmethod
@@ -1276,6 +1317,8 @@ class ProjectEditorController:
             definition = draft.electrical_model.equipment_type(
                 equipment.type_id, equipment.type_version
             )
+            if canonical_key(str(definition.extensions.get("diagram_symbol_key",row.symbol_key)),definition.behavior_key) in {"line","line_section"}:
+                continue  # A conductor symbol is not a solid apparatus body.
             width, height = cls._equipment_symbol_size(row, definition)
             angle = (rotation_overrides or {}).get(row.id, row.rotation_deg)
             if int(normalize_quarter_turn(angle)) % 180:
@@ -1322,6 +1365,8 @@ class ProjectEditorController:
         | None = None,
         obstacles: tuple[RoutingObstacle, ...] | None = None,
         preserve_node_direction_ids: tuple[GraphicalRepresentationId, ...] = (),
+        occupied_segments: tuple[tuple[float,float,float,float], ...] | None = None,
+        preserve_user_goals: bool = False,
     ) -> DiagramRoute:
         """Локально перестроить одну трассу, сохранив ручные точки и их ID."""
 
@@ -1345,9 +1390,11 @@ class ProjectEditorController:
         # fraction, but leave it toward its real peer instead of always UP.
         if start.point != end.point:
             if route.start_anchor.kind is RouteAnchorKind.BUS:
-                start_direction = direction_toward_point(start.x, start.y, end.x, end.y)
+                start_direction = cls._bus_exit_direction(draft.diagram.representations[route.start_anchor.representation_id],
+                    route.start_anchor,start,end)
             if route.end_anchor.kind is RouteAnchorKind.BUS:
-                end_direction = direction_toward_point(end.x, end.y, start.x, start.y)
+                end_direction = cls._bus_exit_direction(draft.diagram.representations[route.end_anchor.representation_id],
+                    route.end_anchor,end,start)
         if route.start_anchor.representation_id in preserve_node_direction_ids:
             peer = route.waypoints[1]
             start_direction = direction_toward_point(start.x, start.y, peer.x, peer.y)
@@ -1370,13 +1417,20 @@ class ProjectEditorController:
                         item.x,
                         item.y,
                         RouteVertexSource.USER,
-                        item.pinned,
+                        item.pinned or preserve_user_goals,
                     )
                     for item in manual_rows
                 ),
                 obstacles=(cls._route_endpoint_obstacles(draft, route, rotation_overrides)
                            if obstacles is None else obstacles),
                 port_stub=12.0,
+                occupied_segments=occupied_segments if occupied_segments is not None else tuple(
+                    (a.x, a.y, b.x, b.y)
+                    for other in draft.diagram.routes.values()
+                    if other.page_id == route.page_id and other.id != route.id
+                    for a, b in zip(other.waypoints, other.waypoints[1:])
+                    if (a.x, a.y) != (b.x, b.y)
+                ),
             )
         )
         if len(vertices) < 2:
@@ -1384,6 +1438,7 @@ class ProjectEditorController:
                 "После поворота невозможно построить корректную локальную трассу."
             )
         manual_ids = {(item.x, item.y): item.id for item in route.waypoints[1:-1]}
+        original_pins={(item.x,item.y):item.pinned for item in route.waypoints[1:-1]}
         waypoints: list[RouteWaypoint] = []
         for index, vertex in enumerate(vertices):
             if index == 0:
@@ -1406,7 +1461,7 @@ class ProjectEditorController:
                         if vertex.source is RouteVertexSource.USER
                         else RouteWaypointSource.AUTOMATIC
                     ),
-                    vertex.pinned,
+                    original_pins.get((vertex.x,vertex.y),vertex.pinned) if preserve_user_goals else vertex.pinned,
                 )
             )
         return replace(route, waypoints=tuple(waypoints))
@@ -1806,6 +1861,44 @@ class ProjectEditorController:
             )
 
         return self._execute(tr("command.add_equipment"), command)
+
+    def preview_equipment_attachment(self, type_id, name, target=None, **kwargs):
+        from .equipment_attachment import preview_attachment
+        return preview_attachment(self, type_id, name, target, **kwargs)
+
+    def preview_inline_equipment(self, route_id, x, y, **kwargs):
+        from .ordinary_wire_insertion import preview_inline
+        return preview_inline(self, route_id, x, y, **kwargs)
+
+    def apply_equipment_placement(self, proposal):
+        from .equipment_attachment import apply_placement
+        return apply_placement(self, proposal)
+
+    def set_route_bends_pinned(self, route_id, pinned):
+        from .route_geometry_rules import set_route_bends_pinned
+        self._require_edit()
+        def command(draft):
+            route = draft.diagram.routes.get(route_id)
+            if route is None:
+                raise EditorCommandError("Маршрут не найден.")
+            updated = set_route_bends_pinned(route, pinned)
+            draft.diagram = replace(draft.diagram, routes={**draft.diagram.routes, route_id: updated})
+            return updated
+        return self._execute("Закрепить изгибы" if pinned else "Освободить изгибы", command)
+
+    def auto_route_diagram_route(self, route_id):
+        from .route_geometry_rules import set_route_bends_pinned
+        self._require_edit()
+        def command(draft):
+            route = draft.diagram.routes.get(route_id)
+            if route is None:
+                raise EditorCommandError("Маршрут не найден.")
+            updated = self._reroute_to_current_port_anchors(draft,
+                set_route_bends_pinned(route, False),
+                obstacles=self._page_routing_obstacles(draft, route.page_id))
+            draft.diagram = replace(draft.diagram, routes={**draft.diagram.routes, route_id: updated})
+            return updated
+        return self._execute("Упростить маршрут автоматически", command)
 
     def add_electrical_node(
         self,
@@ -3412,17 +3505,26 @@ class ProjectEditorController:
                 source_anchor, RouteEndpointAnchor(RouteAnchorKind.ELECTRICAL_NODE,
                     tap_representation.id, split.tap_node_id), electrical_node_id=split.tap_node_id,
                 waypoints=self._effective_route_waypoints(source_representation, tap_representation, route_waypoints))
+            # Old tails are withdrawn by the same atomic command below. Their
+            # temporary, still-coincident position must not block the new lead.
+            # separate_detached_terminals checks the complete final candidates.
+            detached_ids = {row.id for row in detached.values()}
+            pending_detached = tuple(route.id for route in draft.diagram.routes.values()
+                if detached_ids & {route.start_anchor.representation_id,route.end_anchor.representation_id})
+            from .equipment_attachment import occupied_segments as page_segments
             if route_waypoints is None:
                 lead = self._reroute_to_current_port_anchors(draft, lead,
-                    obstacles=self._page_routing_obstacles(draft, selected_page))
+                    obstacles=self._page_routing_obstacles(draft, selected_page),
+                    occupied_segments=page_segments(draft.diagram,selected_page,pending_detached))
             self._add_route(draft, lead)
             if detached:
                 from .tap_routes import separate_detached_terminals
-                detached_ids = {row.id for row in detached.values()}
                 draft.diagram = separate_detached_terminals(draft.diagram, detached.values(),
                     obstacles_for_page=lambda page: self._page_routing_obstacles(draft, page),
                     reroute=lambda route, obstacles, preserve_direction: self._reroute_to_current_port_anchors(draft, route,
-                        obstacles=obstacles, preserve_node_direction_ids=tuple(
+                        obstacles=obstacles,
+                        occupied_segments=page_segments(draft.diagram,route.page_id,pending_detached),
+                        preserve_node_direction_ids=tuple(
                             anchor.representation_id for anchor in (route.start_anchor, route.end_anchor)
                             if preserve_direction and anchor.kind is RouteAnchorKind.ELECTRICAL_NODE
                             and anchor.representation_id not in detached_ids)))
@@ -4563,18 +4665,20 @@ class ProjectEditorController:
                     moved, anchor, fallback, previous_representations=original.representations),
                 obstacles_for_pair=lambda first, second: by_page[first.page_id],
             )
-            # The endpoint/obstacle readers below use only representations;
-            # the candidate route is passed explicitly. Rebuild their drawing
-            # snapshot only when reflow moved an additional connection node.
-            if values != moved.diagram.representations:
-                moved.diagram = replace(moved.diagram, representations=values)
-            for key, route in shifted.items():
-                if route == original.routes[key] or routes[key] != route:
-                    continue
-                routes[key] = self._reroute_to_current_port_anchors(
+            # Route all changed conductors against the final, evolving drawing:
+            # unchanged routes plus the already accepted new geometry. Old
+            # locations of other pending conductors disappear in this same
+            # command and must not act as ghost obstacles against their peers.
+            changed={key:route for key,route in routes.items() if route!=original.routes[key]}
+            accepted={key:route for key,route in routes.items() if key not in changed}
+            moved.diagram=replace(moved.diagram,representations=values,routes=accepted)
+            for key,route in changed.items():
+                accepted[key] = self._reroute_to_current_port_anchors(
                     moved, route, previous_representations=original.representations,
                     obstacles=by_page[route.page_id],
                 )
+                moved.diagram=replace(moved.diagram,routes=accepted)
+            routes=accepted
         except ValueError as exc:
             raise EditorCommandError(str(exc)) from exc
         return replace(original, representations=values, routes=routes,
@@ -4637,6 +4741,21 @@ class ProjectEditorController:
         """Commit graphical geometry only; electrical topology stays untouched."""
         self._require_edit(geometry=True)
         points = tuple(waypoints)
+        try:
+            original = self.diagram.routes[route_id]
+        except KeyError as exc:
+            raise EditorCommandError("Маршрут не найден.") from exc
+        if points == original.waypoints:
+            return route_id
+        from .equipment_attachment import occupied_segments
+        from .orthogonal_routing import segments_overlap, _segment_hits_obstacle
+        occupied,obstacles = self.preview_route_segment_constraints(route_id)
+        if any(segments_overlap((a.x,a.y),(b.x,b.y),wire)
+               for a,b in zip(points,points[1:]) for wire in occupied):
+            raise EditorCommandError("Маршрут совпадает с другой линией на общем участке. Выберите свободное положение.")
+        if any(_segment_hits_obstacle((a.x,a.y),(b.x,b.y),body)
+               for a,b in zip(points,points[1:]) for body in obstacles):
+            raise EditorCommandError("Маршрут пересекает тело аппарата. Выберите свободное положение.")
 
         def command(draft: ProjectDraft) -> DiagramRouteId:
             draft.diagram = draft.diagram.rerouted_route(route_id, points)
@@ -4651,12 +4770,24 @@ class ProjectEditorController:
         self._require_edit(geometry=True)
         try:
             route = self.diagram.routes[route_id]
-            points = shift_route_segment(route, segment_index, dx=dx, dy=dy)
+            occupied,obstacles=self.preview_route_segment_constraints(route_id)
+            points = shift_route_segment(route, segment_index, dx=dx, dy=dy,
+                occupied_segments=occupied,obstacles=obstacles)
         except (KeyError, ValueError) as exc:
             raise EditorCommandError(str(exc)) from exc
         if points == route.waypoints:
             return route_id
         return self.reroute_diagram_route(route_id, points)
+
+    def preview_route_segment_constraints(self, route_id):
+        """One read-only constraint snapshot shared by GUI drag and commit."""
+        from .equipment_attachment import occupied_segments, page_routing_snapshot
+        try:
+            route=self.diagram.routes[route_id]
+        except KeyError as exc:
+            raise EditorCommandError("Маршрут не найден.") from exc
+        obstacles,_=page_routing_snapshot(self,route.page_id)
+        return occupied_segments(self.diagram,route.page_id,(route_id,)),obstacles
 
     @classmethod
     def _bus_attachment_routes(

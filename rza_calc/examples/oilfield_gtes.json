@@ -121015,7 +121015,7 @@
     "format_version": 2,
     "id": "diagram.oilfield-demo",
     "name": "Нефтепромысел · ГТЭС и распределительная сеть",
-    "revision": 2,
+    "revision": 3,
     "pages": [
       {
         "id": "page_006f82229d275e6f8e3f41c61e0030c6",
@@ -172016,7 +172016,7 @@
           "electrical_node_id": "node_66bea0e731b55f229f58a7fc23f9e6f0",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -172027,8 +172027,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_21232ee21ccf58e1a8e39b7790cd254e",
+            "id": "waypoint_1e3623b7dc7a5070b7c093af655f721f",
             "x": -660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_964bae7f99df587faf469e2f7402da2b",
+            "x": -680.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_21232ee21ccf58e1a8e39b7790cd254e",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -174435,7 +174449,7 @@
           "electrical_node_id": "node_0e0b81d53e04549c91be8adfa15ffc83",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -174446,8 +174460,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_1d0b2bde754458ea84251ee4fe971b19",
+            "id": "waypoint_b984506ac8ac53f587ea6496c46e623c",
             "x": -660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_cd01cbdf8cdb5329925f1ec8ea909f5c",
+            "x": -680.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_1d0b2bde754458ea84251ee4fe971b19",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -177182,7 +177210,7 @@
           "electrical_node_id": "node_bcf7987ed6f958b1b3a4d702bc53b0ff",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -177193,8 +177221,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_08b59b215e8453cfb40dffd57d06c88e",
+            "id": "waypoint_8238d455d5b656a18bc33727e234272f",
             "x": -660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_e3eed6c8b6ec54e7bf5243d94a6104ea",
+            "x": -680.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_08b59b215e8453cfb40dffd57d06c88e",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -177387,7 +177429,7 @@
           "electrical_node_id": "node_fdc24f272a1f5a6aa5101c37b48502ad",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -177398,8 +177440,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_9278d1fbb7605427a598acc3805ce907",
+            "id": "waypoint_9856810776965078bf2bb13eaededc32",
             "x": 660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_fdfc953d2a6951dabdb1a9e5d1b1ebd7",
+            "x": 640.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_9278d1fbb7605427a598acc3805ce907",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -178084,7 +178140,7 @@
           "electrical_node_id": "node_a92e4ea78e065ace892c8f3f4007847a",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.48648648648648651"
         },
         "waypoints": [
           {
@@ -178095,8 +178151,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_c387476ae5da509db947beea19b03e6f",
+            "id": "waypoint_be6698e9e3005a948d598f46c5b40b71",
             "x": 900.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_65c42327c18c50d7a102fc9a96947347",
+            "x": 880.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_c387476ae5da509db947beea19b03e6f",
+            "x": 880.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -178699,7 +178769,7 @@
           "electrical_node_id": "node_97942644680155499315baafcec0cd0a",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -178710,8 +178780,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_60f5b21d6e9c524981bd849383863e72",
+            "id": "waypoint_7b1c064f0597531fb868438d65567dea",
             "x": 660.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_36d7c4d9632c562589b452a2fd68f366",
+            "x": 640.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_60f5b21d6e9c524981bd849383863e72",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -179109,7 +179193,7 @@
           "electrical_node_id": "node_65dc885c8cbd5e6f92ec97ff0be013eb",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -179120,8 +179204,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_80d0ffaafdd1599e8bf7b72ce7cc5761",
+            "id": "waypoint_1270952b41f45110871fa666f818f854",
             "x": 660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_d20fdd2fb3265fb6a51d331a60ec4aa4",
+            "x": 640.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_80d0ffaafdd1599e8bf7b72ce7cc5761",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -180257,7 +180355,7 @@
           "electrical_node_id": "node_9081fd94e7065decabe1e44848b1b399",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -180268,8 +180366,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_a9e9eb2ca5ee5a55bf9fed35ab4b092e",
+            "id": "waypoint_9ce891754ce1575c93d7398204351c2a",
             "x": 660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_7a00eb00af8650f1b6c960a7addee7b0",
+            "x": 640.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_a9e9eb2ca5ee5a55bf9fed35ab4b092e",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -180585,7 +180697,7 @@
           "electrical_node_id": "node_378cc4287795510facb1f74ad7848f29",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -180596,8 +180708,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_fe44d54d490853acba39002fc03b3e35",
+            "id": "waypoint_f44c74a33eaf5ba593aea7a00a4d3704",
             "x": 660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_1fbe068c3dab5e7a912e5b19b1ebe87a",
+            "x": 640.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_fe44d54d490853acba39002fc03b3e35",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -181528,7 +181654,7 @@
           "electrical_node_id": "node_df3453b4191d5c1ab491c760c55f2545",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -181539,8 +181665,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_15b6836dcf1653759931e56d9e14dc87",
+            "id": "waypoint_f38ff5c03bc65daeba15648269d12e69",
             "x": 660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_291457f65ca45593878da6d62e1c050b",
+            "x": 640.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_15b6836dcf1653759931e56d9e14dc87",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -181651,7 +181791,7 @@
           "electrical_node_id": "node_c82b4071e6715b2ebc92c02ba8f9e4a4",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -181662,8 +181802,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_07d3c8038b665c26aadb95d4b432f005",
+            "id": "waypoint_c8f0edcdb0bd507e93e781bad1e6ee72",
             "x": 660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_0f56b12ec1835795bdbf039fd844d030",
+            "x": 640.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_07d3c8038b665c26aadb95d4b432f005",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -181692,7 +181846,7 @@
           "electrical_node_id": "node_5c2492ec1d7c5e74a9c88836169cef39",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -181703,8 +181857,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_0f20b520b30d50ccaa03b02cf446157f",
+            "id": "waypoint_4a401e44567f5afab221e01bd9fca166",
             "x": -660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_4f9e3091147a5f85b7dfc63d1a6e9ba9",
+            "x": -680.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_0f20b520b30d50ccaa03b02cf446157f",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -181856,7 +182024,7 @@
           "electrical_node_id": "node_cf4f8252e0465759862685a71468f43f",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -181867,8 +182035,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_e5ec4d9a69865307b8727d75c7726eb8",
+            "id": "waypoint_7ecc5f11ef8e51deb4db0ea40573976f",
             "x": -660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_6e77ed0b6a3855c5ae022740a88e8240",
+            "x": -680.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_e5ec4d9a69865307b8727d75c7726eb8",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -183742,7 +183924,7 @@
           "electrical_node_id": "node_abdd290d02d15d9e81ce4a153bd4d34a",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -183753,8 +183935,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_5e3416fbdf6552d793e6ee89c592ea09",
+            "id": "waypoint_17b869925a17520b87502eac5615fd0e",
             "x": -660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_5b3e897ffb195f24b2633f7c7c88c297",
+            "x": -680.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_5e3416fbdf6552d793e6ee89c592ea09",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -184767,7 +184963,7 @@
           "electrical_node_id": "node_32ac28e5b9405c5ba68b3eef4414e48c",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -184778,8 +184974,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_d9c5e4ce64525f8f908e7ee5d3071452",
+            "id": "waypoint_b3c920181c3958949bf3df0c7570389e",
             "x": 660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_259b55ddfb3e5fa888ae2a0020ab97c2",
+            "x": 640.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_d9c5e4ce64525f8f908e7ee5d3071452",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -184808,7 +185018,7 @@
           "electrical_node_id": "node_317ecb6b30ac553e874611a7ffb26b37",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -184819,8 +185029,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_0ac83d15327e56478d2b76f0d74d68b6",
+            "id": "waypoint_4bb5ab0575005ea685e662dcfef4a5f1",
             "x": 660.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_32998dcd99b25833a2f1b8df56433168",
+            "x": 640.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_0ac83d15327e56478d2b76f0d74d68b6",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -185464,7 +185688,7 @@
           "electrical_node_id": "node_d411d9eb4dc35ab4ae8c0a9a33544de2",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -185475,8 +185699,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_044bcf5a006c5bcbb7d07438837d9957",
+            "id": "waypoint_3b23c9bcd6d757a9b772137108e6e1f8",
             "x": -660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_b6251dc755575aa5adde74d9742214f0",
+            "x": -680.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_044bcf5a006c5bcbb7d07438837d9957",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -185792,7 +186030,7 @@
           "electrical_node_id": "node_6cedd20937b85582a671c158dedc0c89",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -185803,8 +186041,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_9538f3212fcb5c99a7c71088b71c6c0d",
+            "id": "waypoint_e406b232e6915f7bbaead1c91c8462dc",
             "x": 660.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_9f945d1923105f35b7ef4ad619bca38b",
+            "x": 640.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_9538f3212fcb5c99a7c71088b71c6c0d",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -186038,7 +186290,7 @@
           "electrical_node_id": "node_577f82e2aaa85bd78bfccd3b1b50521d",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -186049,8 +186301,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_d27f21a360f65d0593e4c98acacf7c07",
+            "id": "waypoint_e58a6fa88c20551b964e95e9b1cf8bea",
             "x": 660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_c83949f67e5a5b61a0cba653eb037e1c",
+            "x": 640.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_d27f21a360f65d0593e4c98acacf7c07",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -186407,7 +186673,7 @@
           "electrical_node_id": "node_61fde7795e105c0e8ad516f296a7d8fc",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -186418,8 +186684,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_f09eac3f051e520dbced3e2e6b637719",
+            "id": "waypoint_5f3152d02a5a5fa7b9a4dffd0443b68c",
             "x": -660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_9a5f1b23ee0c58f188634420f4269fdf",
+            "x": -680.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_f09eac3f051e520dbced3e2e6b637719",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -186899,7 +187179,7 @@
           "electrical_node_id": "node_72bfaf69610f5faea1c11cc7ff506a2e",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -186910,8 +187190,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_429e2639ef5d5150bb766d30ebea9606",
+            "id": "waypoint_a901bf1982ea5352aec31c384c16fd50",
             "x": -660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_edf1314d5fba5d6787820d2184c84112",
+            "x": -680.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_429e2639ef5d5150bb766d30ebea9606",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -187268,7 +187562,7 @@
           "electrical_node_id": "node_8c46616a6b2753b282c2977a69c4f691",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -187279,8 +187573,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_cb6cb69b778e5adeb046bcc5b4b7b2c7",
+            "id": "waypoint_088091e2116553328ed35b42f5f529c0",
             "x": 660.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_b6612331e7035a39a7980ff668e3b491",
+            "x": 640.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_cb6cb69b778e5adeb046bcc5b4b7b2c7",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -187473,7 +187781,7 @@
           "electrical_node_id": "node_1d9dd6aa63ba54d3a16969e4759e82ab",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.48648648648648651"
         },
         "waypoints": [
           {
@@ -187484,8 +187792,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_c261c3bad224564fa5269e9fc30780f7",
+            "id": "waypoint_1b948102c49e5727b10d44f604add70b",
             "x": 900.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_4e6138a3aa8059ae9421677052cf914e",
+            "x": 880.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_c261c3bad224564fa5269e9fc30780f7",
+            "x": 880.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -187637,7 +187959,7 @@
           "electrical_node_id": "node_b7d9dc1734f350edafc66c498bcc348c",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.48648648648648651"
         },
         "waypoints": [
           {
@@ -187648,8 +187970,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_111b770eb15957e6ad938c98e1c3055b",
+            "id": "waypoint_27aca844fdcd5e4487a88880bdebca69",
             "x": -900.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_b0515a75b5b455ff951a7e51cc350758",
+            "x": -920.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_111b770eb15957e6ad938c98e1c3055b",
+            "x": -920.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -188744,7 +189080,7 @@
           "electrical_node_id": "node_cd802373046554a18e9d464bab6c26e9",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -188755,8 +189091,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_8d3d0a317e235264b32d73420dd448a3",
+            "id": "waypoint_1a89c52aa6cf5983a2ec655ae7318a29",
             "x": 660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_38a9ccaf6193564ab751b38d9d90bacd",
+            "x": 640.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_8d3d0a317e235264b32d73420dd448a3",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -189113,7 +189463,7 @@
           "electrical_node_id": "node_ab21885f5df75a8fab348b1423439afb",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -189124,8 +189474,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_7fe5033cb6fc5544ac17aa48a8051636",
+            "id": "waypoint_e010399cbab856bc8400895e097e0982",
             "x": -660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_20389e683daa563fa47985391c21958b",
+            "x": -680.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_7fe5033cb6fc5544ac17aa48a8051636",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -189851,7 +190215,7 @@
           "electrical_node_id": "node_13bbd535eb2d50569b1446bba368c70c",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -189862,8 +190226,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_bab55e21d12950b4ae868b53bded331c",
+            "id": "waypoint_1b8a63537f1951578227e96d89e2cdf9",
             "x": 660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_3c0a775b752c5eb69d8aec383c575e41",
+            "x": 640.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_bab55e21d12950b4ae868b53bded331c",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -190794,7 +191172,7 @@
           "electrical_node_id": "node_75145e43593b53ab8326638b9a685086",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -190805,8 +191183,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_482a6d3a1fd45ec79cfbe00e4572063f",
+            "id": "waypoint_ef8b48c1f88a5337a5b337ed44bf6fd3",
             "x": 660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_e12a2799d5e559d395b4722e6da79826",
+            "x": 640.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_482a6d3a1fd45ec79cfbe00e4572063f",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -191502,9 +191894,16 @@
             "pinned": false
           },
           {
-            "id": "waypoint_41d0b8eb023b5e748e2eb056f58d69d7",
+            "id": "waypoint_56815d8ce33e5923a078a5b27f34b1c9",
             "x": 1640.0,
-            "y": 0.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_502a6d4a05945ef7b2d92060df1a627e",
+            "x": 1136.0,
+            "y": 40.0,
             "source": "automatic",
             "pinned": false
           },
@@ -192072,7 +192471,7 @@
           "electrical_node_id": "node_a45f0c0a06e750c5a87bc326ca9049e5",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -192083,8 +192482,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_2af02b06642858dc828ff23845e281b1",
+            "id": "waypoint_ebfdc27a85c6569b9ec85bace27f8f08",
             "x": -660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_4779192eda4c504893d497c915499d0e",
+            "x": -680.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_2af02b06642858dc828ff23845e281b1",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -192277,7 +192690,7 @@
           "electrical_node_id": "node_dbb3d4a291525b38ab5c7f68653c8850",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -192288,8 +192701,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_097d48a304795307bb83f93240078983",
+            "id": "waypoint_ffa6508b81dc50ae922ba65feb6ca5d5",
             "x": -660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_f1363cd5980f58408332f3ef18c03595",
+            "x": -680.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_097d48a304795307bb83f93240078983",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -193015,7 +193442,7 @@
           "electrical_node_id": "node_2093ff91bea8569d84734fc146bf0ec0",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -193026,8 +193453,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_bd7bbadcd98d5c63b896691ac6d5879f",
+            "id": "waypoint_ba3785dd431f557799f7b29fa13878ce",
             "x": 660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_3106e0a71aa85323a1ad38ba2e929514",
+            "x": 640.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_bd7bbadcd98d5c63b896691ac6d5879f",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -194204,7 +194645,7 @@
           "electrical_node_id": "node_4a8a0b7116ab50d4b495ff1b47095d4b",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -194215,8 +194656,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_0605c78cbc425145bb3d89f6b13f0844",
+            "id": "waypoint_7266b9889b675c33a8672f05c3eebbeb",
             "x": -660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_a2cf50175e045cc5b795bcc0dd367450",
+            "x": -680.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_0605c78cbc425145bb3d89f6b13f0844",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -194778,7 +195233,7 @@
           "electrical_node_id": "node_45df2ef0994f582484d9a1d080d58805",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -194789,8 +195244,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_f36b339d33085fb68bcc954ba9cca366",
+            "id": "waypoint_06eafabb813a5719b0e8b1a5b7309e02",
             "x": 660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_1268be170e4a57d0b674d96537a0821e",
+            "x": 640.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_f36b339d33085fb68bcc954ba9cca366",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -195434,7 +195903,7 @@
           "electrical_node_id": "node_4be2049349a052b1924f4dd235db66f6",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -195445,8 +195914,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_55b4d937528b5547b024c117d8834941",
+            "id": "waypoint_396d6eca0d445262bec99c49aec3f66f",
             "x": 660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_06a8dac438b252b1a077114f11315894",
+            "x": 640.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_55b4d937528b5547b024c117d8834941",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -195926,7 +196409,7 @@
           "electrical_node_id": "node_b862cfc3f3f45f40a916a0d591f29d15",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -195937,8 +196420,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_1e7c244cdbec5de3b0e23229f7e0f9ba",
+            "id": "waypoint_265bd404e24555d198dc662ad0fecff7",
             "x": -660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_62cd77b09f875c6cb64b1aeee501cf29",
+            "x": -680.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_1e7c244cdbec5de3b0e23229f7e0f9ba",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -195967,7 +196464,7 @@
           "electrical_node_id": "node_0e2eb2719de250aeab625e059523d933",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -195978,8 +196475,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_3639d97afbfb5ae7a2f2f5ce402a164d",
+            "id": "waypoint_3bf8874e96e05443a7b69c121835aae8",
             "x": -660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_246bf5dbb86f59ae85c272a0c542726f",
+            "x": -680.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_3639d97afbfb5ae7a2f2f5ce402a164d",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -196377,7 +196888,7 @@
           "electrical_node_id": "node_f9102a28ac305a97a816813375b5ab0e",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -196388,8 +196899,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_041bce8c352f54b890eca96e0c62e59e",
+            "id": "waypoint_f88fb9be19d859cbb377fd2c5ff55751",
             "x": 660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_c2c37c27e2de5946b595faa2e3247bc3",
+            "x": 640.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_041bce8c352f54b890eca96e0c62e59e",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -196418,7 +196943,7 @@
           "electrical_node_id": "node_eb83faad1fdf517da409fa3b0d2da3cd",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -196429,8 +196954,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_822fff47132355108d8884438bbfa33c",
+            "id": "waypoint_e501f26c02f355cf898a180870c78516",
             "x": -660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_197cc7fd73a65825952b357fc3c7398f",
+            "x": -680.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_822fff47132355108d8884438bbfa33c",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -196910,7 +197449,7 @@
           "electrical_node_id": "node_6340b724f3035e619f4296e2e48ed27c",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -196921,8 +197460,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_b590c71e6085531084215066953b81d9",
+            "id": "waypoint_2b5b9db4a1c056d99745fe9854810f61",
             "x": -660.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_46d2e7ba03c353f7b52e9ebf8d2f7d80",
+            "x": -680.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_b590c71e6085531084215066953b81d9",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -196992,7 +197545,7 @@
           "electrical_node_id": "node_4080b704f17f5e9ea205472ffd5bc22e",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -197003,8 +197556,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_2f06eb76b3c55bd29103088b9bcfacbd",
+            "id": "waypoint_1104a669a34659d9adc5beccadd76aef",
             "x": 660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_f7cbcc9e1e7b5f1cb18969864798f8f1",
+            "x": 640.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_2f06eb76b3c55bd29103088b9bcfacbd",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -197074,7 +197641,7 @@
           "electrical_node_id": "node_81c17b30755b5b8e85da8e763f486b51",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -197085,8 +197652,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_dece0ea11a3e5ec09094e0d07ef3b530",
+            "id": "waypoint_55563c80f1dc505190cee80e0ea3cf75",
             "x": -660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_291583ef8b625086a570e35ff2501425",
+            "x": -680.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_dece0ea11a3e5ec09094e0d07ef3b530",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -197402,7 +197983,7 @@
           "electrical_node_id": "node_ff47ca65d0c154c68b8e9823284b71af",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -197413,8 +197994,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_90962565c63551d1a0d75aae4928976d",
+            "id": "waypoint_7d6708ac8b3755f1a7d92cbeebbeed87",
             "x": -660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_84b58a4f207453ffa9230eb7273494e2",
+            "x": -680.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_90962565c63551d1a0d75aae4928976d",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -197525,7 +198120,7 @@
           "electrical_node_id": "node_67dc3241f62055c4aa248f8fbfa85fe8",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.48648648648648651"
         },
         "waypoints": [
           {
@@ -197536,8 +198131,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_8647b1cb25385e408abd66f3145223d8",
+            "id": "waypoint_363b5000e4355890806e5d2fe40074ec",
             "x": -900.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_75e90d237b4d5626b144b4b9a718a222",
+            "x": -920.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_8647b1cb25385e408abd66f3145223d8",
+            "x": -920.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -197566,7 +198175,7 @@
           "electrical_node_id": "node_dd234c789434562a9aa60f7575f125cb",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -197577,8 +198186,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_bed98d78afb45b0a810431cfc0442f44",
+            "id": "waypoint_e35b4f717b53537abf41face57c91556",
             "x": 660.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_71cea7fedf335a139136272c8cbf32c7",
+            "x": 640.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_bed98d78afb45b0a810431cfc0442f44",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -198632,7 +199255,7 @@
           "electrical_node_id": "node_b6a04c5075e956d3bb8687b368f79cc6",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -198643,8 +199266,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_9c24efc73b8a5237b27281f5e6284a58",
+            "id": "waypoint_0ed06e1b9310526f8bb1b05303fb97d5",
             "x": -660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_965adf2b11745903a00f7e75afb45f6c",
+            "x": -680.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_9c24efc73b8a5237b27281f5e6284a58",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -198714,7 +199351,7 @@
           "electrical_node_id": "node_564e80c5e2015bd8bfbf762f5d7a81ab",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -198725,8 +199362,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_c04fd421890159bdafc89b1a410339fb",
+            "id": "waypoint_3138481d4ede5774bab0290387e1f829",
             "x": -660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_a03df765b79c5f79934752fb9b2aea25",
+            "x": -680.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_c04fd421890159bdafc89b1a410339fb",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -198960,7 +199611,7 @@
           "electrical_node_id": "node_ef81957145b3554380bcfce81961a1fc",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -198971,8 +199622,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_1087141f4d5952f687343ab28e1e9ba8",
+            "id": "waypoint_f0f92343c98a5420b0df60e104174330",
             "x": 660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_8e7d526c851d5c449364a3a7ad836596",
+            "x": 640.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_1087141f4d5952f687343ab28e1e9ba8",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -199545,9 +200210,16 @@
             "pinned": false
           },
           {
-            "id": "waypoint_6f0567da37be57af9a3fb55e2572ce79",
+            "id": "waypoint_e2ef53347ad3553fae875732a6974bd0",
             "x": -1640.0,
-            "y": 0.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_a19c5e96352051be9f89222fb5f6c8ed",
+            "x": -1136.0,
+            "y": 40.0,
             "source": "automatic",
             "pinned": false
           },
@@ -199787,7 +200459,7 @@
           "electrical_node_id": "node_15d226fa638855f290f06ebd92788e26",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -199798,8 +200470,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_61deaaf0c4105baa900a83d6b1381d69",
+            "id": "waypoint_f0f66db146af5ed0be1dcaaaadf2cbf9",
             "x": -660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_2d8b2bf05d5f5da6b15ba89384171793",
+            "x": -680.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_61deaaf0c4105baa900a83d6b1381d69",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -200279,7 +200965,7 @@
           "electrical_node_id": "node_7a8ffe56b42e5b9880a459c911e4d410",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -200290,8 +200976,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_4017996ba3ea5ab9b5605aad2e1b5ffb",
+            "id": "waypoint_92bcd475cec65e3baa8b54a1a3f0fc00",
             "x": -660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_a82931e59bd254b98a5ad1e9acc1f5a2",
+            "x": -680.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_4017996ba3ea5ab9b5605aad2e1b5ffb",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -200443,7 +201143,7 @@
           "electrical_node_id": "node_e18027e533ee57089bb8a18cc559a5e7",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.95599999999999996"
         },
         "waypoints": [
           {
@@ -200454,15 +201154,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_94814b47d0395ed8a8c3dbed60646f49",
+            "id": "waypoint_9f806110dfbe585ca8709d807e358fa6",
             "x": 1380.0,
-            "y": 0.0,
+            "y": 80.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_3f41be78f2cc5a1587e3b084a2d99144",
+            "x": 1116.0,
+            "y": 80.0,
             "source": "automatic",
             "pinned": false
           },
           {
             "id": "waypoint_fc125a135b0b5a079728be64a0b3e4e9",
-            "x": 1136.0,
+            "x": 1116.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -200532,7 +201239,7 @@
           "electrical_node_id": "node_a3cbd12f80c1535aac3e7e8b1171e2b5",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -200543,8 +201250,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_58ef4d3c556352478882a6374ec66e61",
+            "id": "waypoint_08b14ce58313512192bafd6db90f29df",
             "x": 660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_3ca60a614b1f5636b470995ec8baf26d",
+            "x": 640.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_58ef4d3c556352478882a6374ec66e61",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -200696,7 +201417,7 @@
           "electrical_node_id": "node_e9dfda167fc45640b62e1d7b143939ea",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -200707,8 +201428,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_f1b6d8075a6f5265896da234e71e1c9c",
+            "id": "waypoint_546f33fb1fa45babaef02d36bfb0e189",
             "x": -660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_57e99ba0ffa65d9da6049018fbe184b9",
+            "x": -680.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_f1b6d8075a6f5265896da234e71e1c9c",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -201024,7 +201759,7 @@
           "electrical_node_id": "node_d93c989bc9a852319096fa125045b2e1",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -201035,8 +201770,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_3d8a786662d95b13a9b85e6e75abd584",
+            "id": "waypoint_33a51cdafff151fda7ec541309f2ba74",
             "x": -660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_4f24ae9d40665f979240306797cb1ef3",
+            "x": -680.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_3d8a786662d95b13a9b85e6e75abd584",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -201147,7 +201896,7 @@
           "electrical_node_id": "node_e15cb25915c55ee5a14599a0bfb1a03e",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -201158,8 +201907,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_03ba06e196d6522bb4ce5398d641a405",
+            "id": "waypoint_d1017c18f1425dc19cf63574fdcd2045",
             "x": 660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_1f27916409b25031a6c1500d25a2f598",
+            "x": 640.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_03ba06e196d6522bb4ce5398d641a405",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -201639,7 +202402,7 @@
           "electrical_node_id": "node_ac5138f077df51ad90fbb8d07ab37fe6",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -201650,8 +202413,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_f2792e8194f05afd8f7974bce1740a66",
+            "id": "waypoint_52c17c3fea895625b0d52d5624711725",
             "x": 660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_c6d773a7b93d5625a5812bd438637e6a",
+            "x": 640.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_f2792e8194f05afd8f7974bce1740a66",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -202213,7 +202990,7 @@
           "electrical_node_id": "node_ee0b397c18275ccb9fd2684c611a7a05",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -202224,8 +203001,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_4c44683d9972554a8e9c97db7032762a",
+            "id": "waypoint_c9031ec567ee5fe59de4824b169f40d1",
             "x": -660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_bb43d636317951dead07c9932763dab2",
+            "x": -680.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_4c44683d9972554a8e9c97db7032762a",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -202295,7 +203086,7 @@
           "electrical_node_id": "node_34fa017d360151dcbfe182c7ac16c1ae",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.48648648648648651"
         },
         "waypoints": [
           {
@@ -202306,8 +203097,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_d0486069f73a52da939410de8b2b2da7",
+            "id": "waypoint_13d05de9ecf556e182e7da344f43547f",
             "x": 900.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_8eae1150fe0f5bfb930abf1783444f07",
+            "x": 880.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_d0486069f73a52da939410de8b2b2da7",
+            "x": 880.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -202459,7 +203264,7 @@
           "electrical_node_id": "node_23be0667015f5a75acaa3b3d617582db",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -202470,8 +203275,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_c9421aaaf34c5bd9a8250d7782ade5d1",
+            "id": "waypoint_7df0a0df8e2454ff9f5b9fbf755edcc2",
             "x": -660.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_9e796ac4a1b95cb08ce373e382f98212",
+            "x": -680.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_c9421aaaf34c5bd9a8250d7782ade5d1",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -202664,7 +203483,7 @@
           "electrical_node_id": "node_085bbf4bd5f85c87ba5450ea33a3776e",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -202675,8 +203494,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_e86d6b155ed45e90a7e68bc55e43f692",
+            "id": "waypoint_a9e2cc5244a554f686977d9180945f70",
             "x": 660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_53b6935fcfab5e609b4c2d4586292235",
+            "x": 640.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_e86d6b155ed45e90a7e68bc55e43f692",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -203238,7 +204071,7 @@
           "electrical_node_id": "node_4ce59236f6b453ab8c2eb01cac32d78c",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -203249,8 +204082,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_4aff2fcddb7250aa805591a09dbe5c70",
+            "id": "waypoint_3cb57a758b9a5042bffd16e7ca98b940",
             "x": 660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_67eb717572c85e63911cde36250b7347",
+            "x": 640.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_4aff2fcddb7250aa805591a09dbe5c70",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -203566,7 +204413,7 @@
           "electrical_node_id": "node_8339389614475778a657b519c9c6139f",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -203577,8 +204424,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_6e775fcf20105fc6b5180f5d143c416b",
+            "id": "waypoint_02ef17b1293756b9a0c6ef23fd7e3e88",
             "x": -660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_e931de1586e25769a7f7f0458f18c1de",
+            "x": -680.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_6e775fcf20105fc6b5180f5d143c416b",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -204140,7 +205001,7 @@
           "electrical_node_id": "node_69f0bbb5fda95f7da5df7a5ea0c6130d",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -204151,8 +205012,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_0b2a9c176f695c4ea590d083909086ae",
+            "id": "waypoint_4b0699a330ef5262a0f448bfc81efacf",
             "x": -660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_f9108a7341de5e14b67acbb9c9d3b100",
+            "x": -680.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_0b2a9c176f695c4ea590d083909086ae",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -204263,7 +205138,7 @@
           "electrical_node_id": "node_d7460d68f605550cbfc93e3068842335",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -204274,8 +205149,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_18b6a10855c75eaebe39ebeee54e20cc",
+            "id": "waypoint_99ac43e888cb5a02b03b5a7f9c1cefed",
             "x": -660.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_9e8454ee9da257b591007f8d461ad989",
+            "x": -680.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_18b6a10855c75eaebe39ebeee54e20cc",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -204386,7 +205275,7 @@
           "electrical_node_id": "node_664dea8f151950a6b855afd92f6b1ef2",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -204397,8 +205286,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_015468d77e5555458225b3ba43e4e0b8",
+            "id": "waypoint_d3592537377453f0a568282031d78b4a",
             "x": 660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_6d4e863a4a1d58c5b4ddb97add35fb41",
+            "x": 640.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_015468d77e5555458225b3ba43e4e0b8",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -204427,7 +205330,7 @@
           "electrical_node_id": "node_482edf7a526a57de97210edbae475f74",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -204438,8 +205341,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_f40a2a75abaa56feb66c20060124f93e",
+            "id": "waypoint_c50acde95c965eb4bdb9c56df8c50e99",
             "x": 660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_788bd4d5490d59f79b9cb9884b7719a2",
+            "x": 640.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_f40a2a75abaa56feb66c20060124f93e",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -204468,7 +205385,7 @@
           "electrical_node_id": "node_95baa2665da55967be340aa34edf41e8",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -204479,8 +205396,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_8d47ecc867385b24873193fbf0a21d37",
+            "id": "waypoint_0862efee6d0d5748be504c9ed2f165fa",
             "x": -660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_9138cca70ebb5742864f4948ef2800d5",
+            "x": -680.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_8d47ecc867385b24873193fbf0a21d37",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -204509,7 +205440,7 @@
           "electrical_node_id": "node_c165691a961a568182c1af5cccdfb491",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.48648648648648651"
         },
         "waypoints": [
           {
@@ -204520,8 +205451,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_071d3ec091c75e7898e03ea089451771",
+            "id": "waypoint_54da814001e952cb98ce99546a72d4f6",
             "x": -900.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_67e24db3dc8c51c18cef009b4f5bb7dc",
+            "x": -920.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_071d3ec091c75e7898e03ea089451771",
+            "x": -920.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -204550,7 +205495,7 @@
           "electrical_node_id": "node_e18027e533ee57089bb8a18cc559a5e7",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -204561,8 +205506,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_d3b6320009d250a985800c7dd7a8fd29",
+            "id": "waypoint_25f8fd1ad68357b7bb83accbe6e323f1",
             "x": 660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_cd61122e4fa65c65bf9c99c4ba11219b",
+            "x": 640.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_d3b6320009d250a985800c7dd7a8fd29",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -204673,7 +205632,7 @@
           "electrical_node_id": "node_0189f35536cb5ce5b1a63b017751de5c",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -204684,8 +205643,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_010e27afc9425a1081e8beaf9537dfca",
+            "id": "waypoint_4b08b6826a60598aba349ca4befcecbb",
             "x": -660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_550d840c753b59c6a9843ce9a5373795",
+            "x": -680.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_010e27afc9425a1081e8beaf9537dfca",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -205329,7 +206302,7 @@
           "electrical_node_id": "node_7ef268e2ee4f58c88a8cc5e0adc14d9c",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -205340,8 +206313,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_6c33fe86c8a254f7a234bdcffa1165b0",
+            "id": "waypoint_5be635c785415daeb5508202f68ec404",
             "x": -660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_5393f9c54a675bbaa14a678191f030c7",
+            "x": -680.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_6c33fe86c8a254f7a234bdcffa1165b0",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -205411,7 +206398,7 @@
           "electrical_node_id": "node_27ca5c3db550546cbbbaf8f5c7961f66",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -205422,8 +206409,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_5656180043115acca5560c2795c00513",
+            "id": "waypoint_045646ef34975275ab8e6185029ab6dd",
             "x": 660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_5c01d8327c3e51a0ae6a1de211cb9e3c",
+            "x": 640.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_5656180043115acca5560c2795c00513",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -205903,7 +206904,7 @@
           "electrical_node_id": "node_a2450a6a752d5f879c989a598e342824",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.48648648648648651"
         },
         "waypoints": [
           {
@@ -205914,8 +206915,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_71682193619a591389b6c598b843243f",
+            "id": "waypoint_fe97907191175ee38afe9b1d5db317b3",
             "x": -900.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_e1058e05cfb85bf5a390d626067f70ac",
+            "x": -920.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_71682193619a591389b6c598b843243f",
+            "x": -920.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -206272,7 +207287,7 @@
           "electrical_node_id": "node_2352871d2d8858ada02d2ce796455154",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -206283,8 +207298,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_d13066e1074958d7904fd4fb540dfe0d",
+            "id": "waypoint_62d1d400f0095ebab37431748d9316f3",
             "x": -660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_5f65d56f6e6c5aa4a54f0ea4a5631eac",
+            "x": -680.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_d13066e1074958d7904fd4fb540dfe0d",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -206518,7 +207547,7 @@
           "electrical_node_id": "node_85b099d8590552438cae5db44ecde025",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -206529,8 +207558,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_e55e33fd176c5f46a77c93634758a023",
+            "id": "waypoint_dc4510f8ec8a5a5eb7bed7b2a8aca64e",
             "x": 660.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_e2eec8e84041587185ed366be7cbc0d7",
+            "x": 640.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_e55e33fd176c5f46a77c93634758a023",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -207092,7 +208135,7 @@
           "electrical_node_id": "node_04edf3770d495c6486b4801d2a3e4c79",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -207103,8 +208146,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_7cf548146b54530083a48e55e507f6f9",
+            "id": "waypoint_f84057c7c5cc5c14b3e42832bb614656",
             "x": -660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_81e4d8f82cdc5a07b56a32c33e056d75",
+            "x": -680.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_7cf548146b54530083a48e55e507f6f9",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -207543,7 +208600,7 @@
           "electrical_node_id": "node_32161e95066b5adc8c8d4ef701d25c9d",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -207554,8 +208611,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_882416627be35e6ba2905c0d102152e6",
+            "id": "waypoint_1d4f16c0602b5ddbbe8aa61c6e3fa816",
             "x": 660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_6260c6966a1f5be69128cb6091784e23",
+            "x": 640.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_882416627be35e6ba2905c0d102152e6",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -207666,7 +208737,7 @@
           "electrical_node_id": "node_86ce4fc05c0953cba124806201bbee3f",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -207677,8 +208748,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_8add22de4c8254d3a730fc663c74be4e",
+            "id": "waypoint_2883c3e6f6d154efba443b1f03220f54",
             "x": 660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_99af0597dbe35e5da4b6c82f3eeda924",
+            "x": 640.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_8add22de4c8254d3a730fc663c74be4e",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -207789,7 +208874,7 @@
           "electrical_node_id": "node_f94a754e6697548489906b05531e5533",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -207800,8 +208885,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_2e1bf634e6eb5457b76a860e7ddf783a",
+            "id": "waypoint_91af97183bf15a1c946ad04dbaaa5187",
             "x": -660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_dd4fb061ef935e0ca13f4d7fef19a5fd",
+            "x": -680.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_2e1bf634e6eb5457b76a860e7ddf783a",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -207994,7 +209093,7 @@
           "electrical_node_id": "node_0c001cb2888b55a4bd100512070c318e",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -208005,8 +209104,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_4044e2a7c17d57afbbb8e160b51f8f18",
+            "id": "waypoint_b49e9ae2f6d25f47ad556f22b71cf6e3",
             "x": 660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_0123e4af8b245464a033566be9ce3829",
+            "x": 640.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_4044e2a7c17d57afbbb8e160b51f8f18",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -208158,7 +209271,7 @@
           "electrical_node_id": "node_28069780cca25274ba55c946c4ff5646",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -208169,8 +209282,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_51edfbe0bca35ebda77ec12ec8747319",
+            "id": "waypoint_c2ec0c6271b8553094245bdcfecc8b79",
             "x": -660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_20f06f65d2485e29a605d6bd78db44e1",
+            "x": -680.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_51edfbe0bca35ebda77ec12ec8747319",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -208281,7 +209408,7 @@
           "electrical_node_id": "node_0e6456c2945d50f4a6d2aa8e0ab80193",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -208292,8 +209419,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_639b60529ef0555692754d2d92800534",
+            "id": "waypoint_52c89d84c85c50fe9dc3eaee714af7b9",
             "x": 660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_b811e8613978556a81123a1838072a88",
+            "x": 640.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_639b60529ef0555692754d2d92800534",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -208486,7 +209627,7 @@
           "electrical_node_id": "node_67faded302a35a30b1205edd1de93ad7",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -208497,8 +209638,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_7a603d1d568453668f12dc00e75da661",
+            "id": "waypoint_b79617643f615f88bec7d332a3957c11",
             "x": 660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_84a2d5ef148255ff9805a2f56cd74291",
+            "x": 640.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_7a603d1d568453668f12dc00e75da661",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -208650,7 +209805,7 @@
           "electrical_node_id": "node_42e35989e8955cefb93d9a03bc54ffd4",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -208661,8 +209816,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_62d6a413777a5316984e745978e713cf",
+            "id": "waypoint_eb362a4cac7452f1b476b234c969d2ca",
             "x": -660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_fc867933c6b25a64b14f074e2ff22916",
+            "x": -680.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_62d6a413777a5316984e745978e713cf",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -208773,7 +209942,7 @@
           "electrical_node_id": "node_b6a04c5075e956d3bb8687b368f79cc6",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.044000000000000025"
         },
         "waypoints": [
           {
@@ -208784,15 +209953,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_dc6bb71b78f85c168df30dc98578000a",
+            "id": "waypoint_90659bbc9e80587f92482b9f93f52084",
             "x": -1380.0,
-            "y": 0.0,
+            "y": 80.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_d0b00209a8e559e0aeb25f5fbae34242",
+            "x": -1116.0,
+            "y": 80.0,
             "source": "automatic",
             "pinned": false
           },
           {
             "id": "waypoint_740e368ae77856e5964f0e802782d544",
-            "x": -1136.0,
+            "x": -1116.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -209149,7 +210325,7 @@
           "electrical_node_id": "node_c0678e8e6e135d0fa4e59b1efd1c99ce",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -209160,8 +210336,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_1921ae94b7f15b2dbd325cc3bb11a8f2",
+            "id": "waypoint_28466285cf445909a2ed547edb3f60b1",
             "x": 660.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_47d1aa1fbfc05a398e3bd7980edbc949",
+            "x": 640.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_1921ae94b7f15b2dbd325cc3bb11a8f2",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -209477,7 +210667,7 @@
           "electrical_node_id": "node_0ec8cf39fb3b5a6baf6a3fdc86e399ad",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -209488,8 +210678,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_6db483a313ec57ddbb9f98b4e8328c6c",
+            "id": "waypoint_0eceb8fbceb753d8bdd512630362001c",
             "x": 660.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_dcd468bc1d6350ac8af3aa8745ee4964",
+            "x": 640.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_6db483a313ec57ddbb9f98b4e8328c6c",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -209518,7 +210722,7 @@
           "electrical_node_id": "node_5eeb8f1309a0531c9a1f7ad57cc7142b",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -209529,8 +210733,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_55c7747d715f563086b3caa02af2a039",
+            "id": "waypoint_d103e7b640a15030a7dac44f60b1b713",
             "x": -660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_c9e1e23edbc952ce8e32054d6471f7ad",
+            "x": -680.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_55c7747d715f563086b3caa02af2a039",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -210297,7 +211515,7 @@
           "electrical_node_id": "node_8c7eceba3f5856969bfff6d6de7993af",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -210308,8 +211526,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_8104b37f046058dc86e90752be874bd0",
+            "id": "waypoint_399d2932ecfe585eacbf913e7a498aab",
             "x": -660.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_64b55175154252378fa08d8496fbd1ae",
+            "x": -680.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_8104b37f046058dc86e90752be874bd0",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -210420,7 +211652,7 @@
           "electrical_node_id": "node_32118e49e7855f5ab3eb760578ade6ed",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -210431,8 +211663,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_ca8e3c15e3aa54f483d01dfef48e343e",
+            "id": "waypoint_c5086436d7445e1f9dd362e0cd64aa4f",
             "x": -660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_ce2c3de8c77155cbab0025fa9776479b",
+            "x": -680.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_ca8e3c15e3aa54f483d01dfef48e343e",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -210502,7 +211748,7 @@
           "electrical_node_id": "node_54527996bc76538685732eb82896e6cf",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -210513,8 +211759,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_3042e2f255195a999ba71b6382546c97",
+            "id": "waypoint_7495ad0ad56b59fa9907fb5c01d66404",
             "x": 660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_80e70dd9ea1453bab35e77af1a12eaf6",
+            "x": 640.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_3042e2f255195a999ba71b6382546c97",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -210748,7 +212008,7 @@
           "electrical_node_id": "node_5f57b33a71e656f39e48e41d181248bd",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -210759,8 +212019,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_89c86731f004561bb3a6df69ab8f342d",
+            "id": "waypoint_31d09e6a5b9555e3be8737732be5b067",
             "x": -660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_70197a5f7f6a5ba3beef33262a5fba04",
+            "x": -680.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_89c86731f004561bb3a6df69ab8f342d",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -210912,7 +212186,7 @@
           "electrical_node_id": "node_8d3af668839e5ecd89f64a5619f06efc",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -210923,8 +212197,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_1b7a97a6533e5a77b871152e4f449c2c",
+            "id": "waypoint_6e02bbfff20d519db5f321247118abed",
             "x": -660.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_487f71adae945945b964ceb228efc237",
+            "x": -680.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_1b7a97a6533e5a77b871152e4f449c2c",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -210994,7 +212282,7 @@
           "electrical_node_id": "node_b98004f80ce1552494846e23165e4c03",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -211005,8 +212293,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_e2dbaf3098215d5fabcba48a2b1aab01",
+            "id": "waypoint_849f2412b54c5fd48587650e06e34eb4",
             "x": -660.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_df7d5545f09652aba5a6fd2f4fe8ef90",
+            "x": -680.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_e2dbaf3098215d5fabcba48a2b1aab01",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -211158,7 +212460,7 @@
           "electrical_node_id": "node_a0be872cfe0f5e0e9c2271f0eed89179",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -211169,8 +212471,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_f6372ec9f6b65b28a94a89bb8a338970",
+            "id": "waypoint_59afbd54213152d389e6eb3b7e045966",
             "x": -660.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_1ef0d49f780b56e9b5acfa8d1ec0ae65",
+            "x": -680.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_f6372ec9f6b65b28a94a89bb8a338970",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -211363,7 +212679,7 @@
           "electrical_node_id": "node_35c1db6e63d159c1a1513cba4f2aba84",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -211374,8 +212690,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_62e9b32d25ab57f5b65f9e46f8319a71",
+            "id": "waypoint_9d09908ccb695abfbfa480c4e677ff18",
             "x": -660.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_313c98353f745177910d6eae49ef3bd4",
+            "x": -680.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_62e9b32d25ab57f5b65f9e46f8319a71",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -211773,7 +213103,7 @@
           "electrical_node_id": "node_578e15010b0952ed969b277ba7f6cc35",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -211784,8 +213114,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_2120e8fdd27e586eb51c29873e838137",
+            "id": "waypoint_9227eb8c4c2d51038e503f62c1c1b903",
             "x": -660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_6af3d6efac8f53158c2da6cf8e7c33a4",
+            "x": -680.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_2120e8fdd27e586eb51c29873e838137",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -212060,7 +213404,7 @@
           "electrical_node_id": "node_5118e8bef02553a7a63e72f07ced2745",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -212071,8 +213415,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_836b7d5c07ea5153bf5de5fac0f86189",
+            "id": "waypoint_ea86e78dc10e5ee5bfcfb747bdf11ee9",
             "x": 660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_bd003ce704be53c998c020b8eafa8d67",
+            "x": 640.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_836b7d5c07ea5153bf5de5fac0f86189",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -212306,7 +213664,7 @@
           "electrical_node_id": "node_71ad49b211ac5834abb626e52f9ce2f8",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -212317,8 +213675,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_fa2d7ca4304c56c5aeed5c480a1a73f7",
+            "id": "waypoint_d74069db64dc5d9fb6a5f1e97c67ba3b",
             "x": 660.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_8c4383352f6b58c4965cce0cf79baa5f",
+            "x": 640.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_fa2d7ca4304c56c5aeed5c480a1a73f7",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -212429,7 +213801,7 @@
           "electrical_node_id": "node_a0d7146e24775373956c9d83bcebc37c",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -212440,8 +213812,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_ce2c42252c4b53c1b8ef153784bbd7f8",
+            "id": "waypoint_c1059e26ac875873af562c87310a9f60",
             "x": -660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_82e71c66ca475e7dbc269ad237bb2d9c",
+            "x": -680.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_ce2c42252c4b53c1b8ef153784bbd7f8",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -212552,7 +213938,7 @@
           "electrical_node_id": "node_f32c01d4d7575240b38283a7a95c3fb3",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -212563,8 +213949,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_4253e1784670591e83620bf251469217",
+            "id": "waypoint_e2fb30157b3f593eb1f22c8513d5b7fe",
             "x": -660.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_1f571327de5e58219288018af8855f9c",
+            "x": -680.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_4253e1784670591e83620bf251469217",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -212839,7 +214239,7 @@
           "electrical_node_id": "node_464b4a3a27ca5356825db541db4a59dd",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -212850,8 +214250,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_9137b3ec3d945905b55071889258f832",
+            "id": "waypoint_47da9892702f57f2994de08679cda618",
             "x": 660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_a1853a0fa2435e82813ca0a73e688d8c",
+            "x": 640.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_9137b3ec3d945905b55071889258f832",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -213126,7 +214540,7 @@
           "electrical_node_id": "node_96606712ffa154dd94af87f7c81fab1a",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -213137,8 +214551,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_3fbcc8bdabc35fe5b9ca672e620795e8",
+            "id": "waypoint_13aecd5f25a7578b9a2e5b1c832b2d4e",
             "x": 660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_15b4b9fb885750b9b18fb12021b0760e",
+            "x": 640.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_3fbcc8bdabc35fe5b9ca672e620795e8",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -213454,7 +214882,7 @@
           "electrical_node_id": "node_1ac7af62cf5150e5a223ea7c24a589f2",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -213465,8 +214893,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_05deb146a0ec587c892f078a862c8325",
+            "id": "waypoint_24a72211d88c5357981cab0fed5edef0",
             "x": 660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_e0731e69df6e5d378c01b1dc18f8faa9",
+            "x": 640.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_05deb146a0ec587c892f078a862c8325",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -213536,7 +214978,7 @@
           "electrical_node_id": "node_ed189ec05f2e5a0e80c5408852541ade",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.48648648648648651"
         },
         "waypoints": [
           {
@@ -213547,8 +214989,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_0c7b1c2a5d4b53ecaadd163413ae1e99",
+            "id": "waypoint_83ecce33eeb6553fac79858c18bbfda7",
             "x": -900.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_2734b6bc76e95ebcb1530bc6466b1534",
+            "x": -920.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_0c7b1c2a5d4b53ecaadd163413ae1e99",
+            "x": -920.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -213659,7 +215115,7 @@
           "electrical_node_id": "node_3a4a4a4490fd56e8892eed3d89fbaa4b",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -213670,8 +215126,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_6c6e9069bfe75416a349a64a73c2f2c6",
+            "id": "waypoint_9672446f8920509596d0bddc96d39f79",
             "x": 660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_3d62b8a522d958509465c4d22998bfa3",
+            "x": 640.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_6c6e9069bfe75416a349a64a73c2f2c6",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -213823,7 +215293,7 @@
           "electrical_node_id": "node_4bfe3b7ace3a51c7b7544f9f7beb47d9",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.48648648648648651"
         },
         "waypoints": [
           {
@@ -213834,8 +215304,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_c40a17164fdf5b8f95ebaf2d00defec0",
+            "id": "waypoint_065ca18654745b51a6201ab0d394fbe5",
             "x": 900.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_8c1c02e2765c56028ae3f56c3cd0df42",
+            "x": 880.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_c40a17164fdf5b8f95ebaf2d00defec0",
+            "x": 880.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -213946,7 +215430,7 @@
           "electrical_node_id": "node_82dc1df534385c82950f9ff5d84d0782",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -213957,8 +215441,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_325c372f0ede5915a699e1793e9d72fa",
+            "id": "waypoint_9332d1f3bab653668d2a35fd5a1dbc4e",
             "x": 660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_2415d2a9ba7c55689488ad6e4cb3cec3",
+            "x": 640.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_325c372f0ede5915a699e1793e9d72fa",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -214192,7 +215690,7 @@
           "electrical_node_id": "node_524a1850d25d53dda3141c9972563197",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -214203,8 +215701,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_654329a25c6f58dd998999a671ee9dcd",
+            "id": "waypoint_9cc05444a8bc55b7a14dae11150636ee",
             "x": 660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_6f3d5650cbc65374872db2d348ee3f20",
+            "x": 640.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_654329a25c6f58dd998999a671ee9dcd",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -214233,7 +215745,7 @@
           "electrical_node_id": "node_327fcc60f48655caad1b971795289130",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.48648648648648651"
         },
         "waypoints": [
           {
@@ -214244,8 +215756,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_0044dbf36d98531291de4809f600a3af",
+            "id": "waypoint_dfb21a0f074d540c8249b226fb2d44ee",
             "x": 900.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_919e4006194755579133490c2437ae1a",
+            "x": 880.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_0044dbf36d98531291de4809f600a3af",
+            "x": 880.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -214479,7 +216005,7 @@
           "electrical_node_id": "node_36ab841d45db5e7bbab2198328502a0e",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -214490,8 +216016,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_5699791753b35dfb8948792d2a8b37d7",
+            "id": "waypoint_d01fba1cff2351ae92198c0ba8b76f93",
             "x": 660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_bd4322bb986655a9a952d34dea0c3c26",
+            "x": 640.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_5699791753b35dfb8948792d2a8b37d7",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -214848,7 +216388,7 @@
           "electrical_node_id": "node_721ea9e8c8dc5caba53f1a4274d9ae8b",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -214859,8 +216399,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_2613f8897de85f84af546d3224e49121",
+            "id": "waypoint_b4c280f39f7f50749594ea3aac20887a",
             "x": 660.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_e3c07be7e32f5edb8108e2564a04ddca",
+            "x": 640.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_2613f8897de85f84af546d3224e49121",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -214930,7 +216484,7 @@
           "electrical_node_id": "node_587957608a1e52bca712fac24d0073ed",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -214941,8 +216495,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_55bd2fbb41e95cfc899141d30ac32604",
+            "id": "waypoint_ef5839f8fa0e5acea37c4fbd69898f1e",
             "x": 660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_21ed41a0b45a5e158c183086ca569a6a",
+            "x": 640.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_55bd2fbb41e95cfc899141d30ac32604",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -214971,7 +216539,7 @@
           "electrical_node_id": "node_ce5ca9b9a1e9525a803a7bb7f98461ea",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.48648648648648651"
         },
         "waypoints": [
           {
@@ -214982,8 +216550,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_890dd14e10f051248be3367a8e62e242",
+            "id": "waypoint_7f2aa81b191356d78e0dc1c289ec1a46",
             "x": 900.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_eafb08d292f15ec9b2e7a8ce810f9f20",
+            "x": 880.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_890dd14e10f051248be3367a8e62e242",
+            "x": 880.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -215258,7 +216840,7 @@
           "electrical_node_id": "node_21e186289b54595e87c179479bd436ca",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -215269,8 +216851,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_603e71e0dae95d4ebf3bb34ab693132b",
+            "id": "waypoint_595035647bd15be4aadf9062ce817d4e",
             "x": -660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_c8da353a33e2583c90875ad426013151",
+            "x": -680.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_603e71e0dae95d4ebf3bb34ab693132b",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -215299,7 +216895,7 @@
           "electrical_node_id": "node_61c1b415910957949696e8e613210a26",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.48648648648648651"
         },
         "waypoints": [
           {
@@ -215310,8 +216906,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_b339961316655cf8bc1a1c23c0640821",
+            "id": "waypoint_e92f960c894758d58d5143e49173f5dd",
             "x": -900.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_52394bf4e1045418a5aa90ae3cc9d818",
+            "x": -920.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_b339961316655cf8bc1a1c23c0640821",
+            "x": -920.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -215340,7 +216950,7 @@
           "electrical_node_id": "node_49f41aa4c5455f1ca422d1ec04b7ae74",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -215351,8 +216961,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_7eb8f34689bc57aba15f0125f7fefb4a",
+            "id": "waypoint_9f8e6ae1ece755b8a8a8820d1d23beb3",
             "x": 660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_335497e6ad0b57698c059740da8a3918",
+            "x": 640.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_7eb8f34689bc57aba15f0125f7fefb4a",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -215627,7 +217251,7 @@
           "electrical_node_id": "node_0e70a60d2f385c6993d1806f5622c966",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -215638,8 +217262,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_877d1bf3c2205fcb9579d3bbae329599",
+            "id": "waypoint_04b7f9ac981a5c6d84a7fc32283b4cea",
             "x": -660.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_eafd8a0175d252eaa9a731bd72f603c0",
+            "x": -680.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_877d1bf3c2205fcb9579d3bbae329599",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -215668,7 +217306,7 @@
           "electrical_node_id": "node_53398ab790c951a58d13d545a1aa973a",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -215679,8 +217317,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_4df2091faa4f5184b35b317e166f83ad",
+            "id": "waypoint_078b10e3c3b65432b1add05a10ec603e",
             "x": -660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_9b955d70b516586094c1e35e15fbbbcc",
+            "x": -680.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_4df2091faa4f5184b35b317e166f83ad",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -215873,7 +217525,7 @@
           "electrical_node_id": "node_9dc9f218568e5ee793f229ddce3695f9",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -215884,8 +217536,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_2c8f5b84dc5a58aa945f88ff76c93560",
+            "id": "waypoint_1034fd73ac2854919b0e24732af634cc",
             "x": 660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_d74d8b35897251bba1b8e50265a76d8d",
+            "x": 640.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_2c8f5b84dc5a58aa945f88ff76c93560",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -215914,7 +217580,7 @@
           "electrical_node_id": "node_f0f0964abc985080b5cbd2053cd28481",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -215925,8 +217591,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_f4f7243c599052f194ee2d78217ed660",
+            "id": "waypoint_d7c5d70accd6541e856977bc449e0368",
             "x": 660.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_d580dccebfc15b839cf1bab2678102e5",
+            "x": 640.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_f4f7243c599052f194ee2d78217ed660",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -216078,7 +217758,7 @@
           "electrical_node_id": "node_310d863f86f55cb9aed3df7f1b75ac19",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -216089,8 +217769,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_5b6e4a62c613594d929c353517705d9b",
+            "id": "waypoint_5f879af9fc065c31952ea04e61a3cd0d",
             "x": -660.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_734900485d115d07b2e64895d517aa11",
+            "x": -680.0,
+            "y": 560.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_5b6e4a62c613594d929c353517705d9b",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -216242,7 +217936,7 @@
           "electrical_node_id": "node_fb84104dc68555f4b49509af775161c8",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -216253,8 +217947,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_fef0de4801755dd2bb4058e4e4c9d338",
+            "id": "waypoint_8d55a674c5ac5e20ae382c79d434ab9b",
             "x": 660.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_a52f545628965a54b437ea32aa27f659",
+            "x": 640.0,
+            "y": 40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_fef0de4801755dd2bb4058e4e4c9d338",
+            "x": 640.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
@@ -216406,7 +218114,7 @@
           "electrical_node_id": "node_41785e9ada6f52d496a861e271b12d80",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -216417,8 +218125,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_628039f12f7852d9b9cf22038de361bd",
+            "id": "waypoint_f06ca5daa67a52958d299360cda261a5",
             "x": -660.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_1a9b4a14c73d5da5863dace858e237f0",
+            "x": -680.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_628039f12f7852d9b9cf22038de361bd",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -217062,7 +218784,7 @@
           "electrical_node_id": "node_3ee2c4bd51845b79971df040e5ef6159",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -217073,8 +218795,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_f9158a5a4ac153aea44234647e62aabe",
+            "id": "waypoint_5aa604f6351e56c0a7a01da855156736",
             "x": -660.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_061dfbddae475a00bb4abbcc0e8ec646",
+            "x": -680.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_f9158a5a4ac153aea44234647e62aabe",
+            "x": -680.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -217267,7 +219003,7 @@
           "electrical_node_id": "node_e95d1f20d6ff5c579f85f267904ec9a2",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -217278,8 +219014,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_d5d3b77c40f95729a0424e3468da3826",
+            "id": "waypoint_cd10bfbeff21589db2c5b11c47407222",
             "x": 660.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_4af04d5e04055dca8ebe5c5435358546",
+            "x": 640.0,
+            "y": 640.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_d5d3b77c40f95729a0424e3468da3826",
+            "x": 640.0,
             "y": 600.0,
             "source": "automatic",
             "pinned": false
@@ -217431,7 +219181,7 @@
           "electrical_node_id": "node_0a476f5d17de5d3b924b0bde6940d93d",
           "branch_port_id": null,
           "target_port_id": null,
-          "anchor_key": ""
+          "anchor_key": "0.47999999999999998"
         },
         "waypoints": [
           {
@@ -217442,8 +219192,22 @@
             "pinned": false
           },
           {
-            "id": "waypoint_2b0d5237b20753578f103034fa074185",
+            "id": "waypoint_1666b3b8883b565f9032220508f9212a",
             "x": -660.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_538019e232165a9a80c34efdba6abb8b",
+            "x": -680.0,
+            "y": -40.0,
+            "source": "automatic",
+            "pinned": false
+          },
+          {
+            "id": "waypoint_2b0d5237b20753578f103034fa074185",
+            "x": -680.0,
             "y": 0.0,
             "source": "automatic",
             "pinned": false
