@@ -1,4 +1,8 @@
-"""Explicit wiring must reject unknown/conflicting nominal voltage atomically."""
+"""Explicit wiring adopts a known peer only into a blank equipment group.
+
+Real conflicts, two unknown ends and existing unknown nodes still reject
+atomically. Preview must predict commit without changing the live model.
+"""
 from __future__ import annotations
 
 import hashlib
@@ -45,7 +49,7 @@ def _reject(controller, callback):
 
 @pytest.mark.parametrize("first_voltage,second_voltage", [(U10, U110), (None, U10), (U10, None), (None, None)])
 @pytest.mark.parametrize("target_kind", ("port", "node"))
-def test_explicit_connections_reject_mismatch_and_unknown_before_any_mutation(first_voltage, second_voltage, target_kind):
+def test_explicit_connections_adopt_only_a_blank_equipment_group_and_reject_conflicts(first_voltage, second_voltage, target_kind):
     controller = _controller()
     first = _load(controller, "A", first_voltage, 0)
     if target_kind == "port":
@@ -58,6 +62,24 @@ def test_explicit_connections_reject_mismatch_and_unknown_before_any_mutation(fi
         command = lambda: controller.connect_port_to_node(first.port_ids[0], second.node_id)
     before = _saved(controller)
     check = controller.validate_connection(first.port_ids[0], target)
+    adoption_allowed = ((first_voltage is None and second_voltage == U10)
+                        or (target_kind == "port" and first_voltage == U10 and second_voltage is None))
+    if adoption_allowed:
+        assert check.valid and check.effective_voltage_id == U10
+        assert _saved(controller) == before  # Preview is genuinely read-only.
+        command()
+        assert endpoint_voltage(controller.model, first.port_ids[0]).voltage_class_id == U10
+        assert endpoint_voltage(controller.model, second.port_ids[0] if target_kind == "port" else second.node_id).voltage_class_id == U10
+        assert controller.model.port_voltage_class(first.port_ids[0]) == U10
+        if target_kind == "port":
+            assert controller.model.port_voltage_class(second.port_ids[0]) == U10
+        assert len(controller.journal) == len(before[2]) + 1
+        after = ElectricalModelMemento.capture(controller.model)
+        controller.undo()
+        assert ElectricalModelMemento.capture(controller.model) == before[0]
+        controller.redo()
+        assert ElectricalModelMemento.capture(controller.model) == after
+        return
     assert not check.valid and check.severity == "error"
     assert "напряжени" in check.message
     assert _saved(controller) == before

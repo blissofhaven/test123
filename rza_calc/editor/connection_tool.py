@@ -76,6 +76,10 @@ class ConnectionDraft:
     vertices: tuple[RouteVertex, ...]
     manual_vertices: tuple[RouteVertex, ...]
     source_anchor_key: str = ""
+    #  Жест, начатый с маркера конца уже существующей ВЛ/КЛ. Только он является
+    #  переносом конца линии; протяжка от вывода аппарата им не является, даже
+    #  если этот вывод уже к чему-то подключён.
+    from_route_endpoint: bool = False
 
 
 @dataclass(frozen=True, slots=True)
@@ -211,6 +215,7 @@ class ConnectionToolState:
     source_port_id: str = ""
     source_representation_id: str = ""
     source_anchor_key: str = ""
+    from_route_endpoint: bool = False
     source_vertex: RouteVertex | None = None
     source_direction: RouteDirection | None = None
     cursor_vertex: RouteVertex | None = None
@@ -232,6 +237,7 @@ class ConnectionToolState:
         direction: RouteDirection | None,
         anchor_key: str = "",
         reconnect: bool = False,
+        from_route_endpoint: bool = False,
     ) -> None:
         if not source_port_id or not source_representation_id:
             raise ValueError(
@@ -244,6 +250,7 @@ class ConnectionToolState:
         self.source_port_id = str(source_port_id)
         self.source_representation_id = str(source_representation_id)
         self.source_anchor_key = str(anchor_key)
+        self.from_route_endpoint = bool(from_route_endpoint)
         self.source_vertex = RouteVertex(x, y)
         self.source_direction = direction
         self.cursor_vertex = self.source_vertex
@@ -336,6 +343,7 @@ class ConnectionToolState:
             tuple(self.preview_vertices),
             tuple(self.manual_vertices),
             self.source_anchor_key,
+            self.from_route_endpoint,
         )
 
     def cancel(self) -> None:
@@ -343,6 +351,7 @@ class ConnectionToolState:
         self.source_port_id = ""
         self.source_representation_id = ""
         self.source_anchor_key = ""
+        self.from_route_endpoint = False
         self.source_vertex = None
         self.source_direction = None
         self.cursor_vertex = None

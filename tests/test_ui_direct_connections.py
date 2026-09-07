@@ -112,12 +112,20 @@ def test_terminal_drag_previews_then_commits_one_ordinary_connection(canvas_fact
         original_commit(draft)
 
     monkeypatch.setattr(canvas, "_commit_connection_draft", commit)
-    monkeypatch.setattr(QMenu, "exec", lambda *_: pytest.fail("A terminal drag must not open a menu"))
+    #  Решение заказчика 31.08.2026: протяжка спрашивает «Провод / ВЛ / КЛ».
+    #  Прежняя проверка «протяжка не открывает меню» осталась от правила до
+    #  этого решения и вешала весь Qt-набор на модальном QMenu.exec. Отвечаем
+    #  «Провод»: тест по-прежнему проверяет, что вышло обычное соединение,
+    #  а не физическая линия.
+    asked = []
+    monkeypatch.setattr(type(canvas), "_ask_dragged_connection_kind",
+                        lambda self, screen_pos: asked.append(screen_pos) or "wire")
     _, end = _drag_start(canvas, ports)
     assert _state(canvas) == before
     assert canvas.scene._connection_target.feedback is ConnectionTargetFeedback.COMPATIBLE
     _mouse(canvas, "release", end)
     assert len(commits) == 1
+    assert len(asked) == 1, "тип обязан спрашиваться ровно один раз за жест"
     assert len(canvas.controller.journal) == journal + 1
     assert len(canvas.controller.model.connections) == 2
     assert len(canvas.controller.diagram.routes) == 1
@@ -126,14 +134,26 @@ def test_terminal_drag_previews_then_commits_one_ordinary_connection(canvas_fact
     assert _state(canvas) == before
 
 
-def test_short_click_retains_click_click_without_type_popup(canvas_factory, monkeypatch):
+def test_short_click_click_asks_the_same_type_as_a_drag(canvas_factory, monkeypatch):
+    """Решение заказчика 02.09.2026: два щелчка — тот же жест, тот же вопрос.
+
+    Раньше выбор «Провод / ВЛ / КЛ» висел только на протяжке с зажатой
+    кнопкой. Тот же самый жест, сделанный двумя щелчками, молча давал провод,
+    и на рабочей схеме выбор оказывался недоступен. Проверяется, что вопрос
+    задан ровно один раз и что ответ «Провод» по-прежнему даёт обычное
+    соединение без физической линии.
+    """
     canvas, ports = _pair(canvas_factory)
-    monkeypatch.setattr(QMenu, "exec", lambda *_: pytest.fail("Click-click must not show a popup"))
+    asked = []
+    monkeypatch.setattr(type(canvas), "_ask_dragged_connection_kind",
+                        lambda self, screen_pos: asked.append(screen_pos) or "wire")
     _mouse(canvas, "click", ports[0].scenePos())
     assert canvas.scene.connection_active and canvas.scene._connection_press_position is None
-    assert not canvas.controller.model.connections
+    assert not canvas.controller.model.connections and not asked
     _mouse(canvas, "click", ports[1].scenePos())
+    assert len(asked) == 1, "второй щелчок обязан спросить тип"
     assert len(canvas.controller.model.connections) == 2
+    assert not canvas.controller.model.logical_lines
     assert not canvas.scene.connection_active
 
 
@@ -276,6 +296,11 @@ def test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port(canvas
                                         width=180, height=20, voltage_class_id=U10)
     controller.rotate_representation(bus.representation_id, angle)
     canvas = canvas_factory(controller)
+    # Эта проверка геометрии выбирает обычный провод; работу настоящего
+    # меню и его отмену отдельно проверяет test_stage02_connection_gestures.
+    choices = []
+    monkeypatch.setattr(type(canvas), "_ask_dragged_connection_kind",
+                        lambda self, position: choices.append(position) or "wire")
     canvas.view.centerOn(0, 0)
     source = canvas.scene._items_by_id[apparatus.representation_id].port_item(apparatus.port_ids[0])
     bus_item = canvas.scene._items_by_id[bus.representation_id]
@@ -290,6 +315,7 @@ def test_drag_from_side_apparatus_projects_to_bus_end_without_moving_port(canvas
     assert QPointF(target.x, target.y) == expected
     assert source.scenePos() == point
     _mouse(canvas, "release", bus_item.scenePos())
+    assert len(choices) == 1
     route = next(iter(controller.diagram.routes.values()))
     assert (route.waypoints[-1].x, route.waypoints[-1].y) == (expected.x(), expected.y())
     assert float(route.end_anchor.anchor_key) == expected_fraction

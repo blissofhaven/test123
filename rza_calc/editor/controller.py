@@ -69,7 +69,7 @@ from .history import (
     ProjectHistoryEvent,
 )
 from .connected_geometry import shift_route_segment
-from .connection_voltage import check_connection_voltage, endpoint_voltage
+from .connection_voltage import VoltageCompatibility, check_connection_voltage, endpoint_voltage
 from .connection_reflow import reflow_degree_two_connections
 from .deletion_cleanup import cleanup_after_deletion
 from .legacy_voltage import preserve_disconnected_legacy_voltages, set_legacy_port_voltage
@@ -1779,6 +1779,25 @@ class ProjectEditorController:
 
         return self._execute(tr("command.add_node"), command)
 
+    def preview_connection_voltage(
+        self,
+        first: ConnectionTarget | PortId | ElectricalNodeId | VoltageClassId,
+        second: ConnectionTarget | PortId | ElectricalNodeId | VoltageClassId,
+    ) -> VoltageCompatibility:
+        """Preview the command's voltage rule, including first-connection adoption.
+
+        The copy may adopt an empty group; the live model and history stay
+        unchanged. Occupied ports are allowed here because reconnecting and
+        inserting a line need the same voltage check. This method does not
+        authorize an electrical topology operation by itself.
+        """
+        model = self.model._transaction_copy()
+        try:
+            _, _, voltage = self._guard_connection_voltage(model, first, second, adopt=True)
+            return VoltageCompatibility(True, "Соединение допустимо.", voltage)
+        except (DomainInvariantError, EditorCommandError) as exc:
+            return VoltageCompatibility(False, str(exc))
+
     def validate_connection(
         self,
         source_port_id: PortId,
@@ -1793,7 +1812,7 @@ class ProjectEditorController:
             if model.connection_for_port(source_port_id) is not None:
                 raise DomainInvariantError("Исходный электрический порт уже подключён.")
             _, target, effective_voltage = self._guard_connection_voltage(
-                self.model, source_port_id, target,
+                model, source_port_id, target, adopt=True,
             )
             if isinstance(target, PortTarget):
                 target_port = model.ports.get(target.port_id)
@@ -1862,9 +1881,10 @@ class ProjectEditorController:
     def _guard_connection_voltage(model, first, second, *, adopt=False):
         """Preflight before allocating nodes/ports or disconnecting a source.
 
-        Only a newly created free endpoint may inherit a known peer voltage.
-        Existing unknown nodes/ports remain unknown and are never silently
-        assigned the target voltage merely to make a connection succeed.
+        A new endpoint and, with adopt=True, an empty equipment voltage group
+        at its first connection may inherit the known peer voltage. Explicit
+        classes, existing unknown nodes and already connected groups are not
+        relabelled. Adoption runs only on a command draft or a preview copy.
         """
         def reference(value):
             if isinstance(value, PortTarget):
@@ -1883,9 +1903,8 @@ class ProjectEditorController:
         #  его ведут. Заполняется только пустое поле: заданный класс остаётся
         #  решением человека, и подмена его молча меняла бы весь расчёт.
         #  Подстановка класса — ИЗМЕНЕНИЕ модели, поэтому она разрешена только
-        #  там, где идёт настоящая команда над черновиком. Предварительная
-        #  проверка совместимости (подсветка цели под курсором) обязана
-        #  оставаться read-only: правка модели вне истории команд ломает отмену.
+        #  на черновике команды или на отдельной копии для предварительной
+        #  проверки. Подсветка цели не меняет рабочую модель и историю.
         if adopt:
             ProjectEditorController._adopt_voltage_from_peer(model, first_ref, second_ref)
             ProjectEditorController._adopt_voltage_from_peer(model, second_ref, first_ref)
@@ -2134,7 +2153,7 @@ class ProjectEditorController:
                 raise EditorCommandError("Электрический порт не найден.")
             if model.connection_for_port(port_id) is None:
                 raise EditorCommandError("Переподключаемый порт ещё не подключён.")
-            _, normalized_target, _ = self._guard_connection_voltage(model, port_id, target)
+            _, normalized_target, _ = self._guard_connection_voltage(model, port_id, target, adopt=True)
             resolved = self._resolve_connection_target(
                 draft, normalized_target, selected_page
             )
@@ -2266,6 +2285,113 @@ class ProjectEditorController:
 
         return self._execute("Переподключить конец ветви", command)
 
+    def _detach_port_to_new_node(
+        self,
+        draft: ProjectDraft,
+        resolved: _ResolvedTarget,
+        peer: _ResolvedTarget,
+    ) -> _ResolvedTarget:
+        """Вывести порт из общего узла, чтобы вставить между ними линию.
+
+        Решение заказчика 02.09.2026: протяжка от вывода, который уже подключён,
+        предлагает тот же выбор «Провод / ВЛ / КЛ». Для ВЛ/КЛ общий узел
+        разрывается: вывод переезжает на собственный узел, а линия встаёт между
+        новым узлом и прежним. Остальные присоединения прежнего узла не
+        затрагиваются; всё это часть одной команды и одного шага отмены.
+
+        Собственная ветвь выделяемого порта следует за портом. Внешние ветви
+        остаются на прежнем узле: меняется только их графическая привязка.
+        Из веера проводов удаляется лишь заменённая связь с выбранной целью,
+        остальные провода сохраняют видимость, ID и ручные точки.
+        """
+        model = draft.electrical_model
+        port_id = resolved.target_port_id
+        if port_id is None:
+            raise EditorCommandError(
+                "Вставить линию можно только в связь, начатую от вывода оборудования."
+            )
+        if peer.target_port_id == port_id:
+            raise EditorCommandError("Нельзя вставить линию от вывода к нему самому.")
+        definition = model.port_definition(port_id)
+        node = ElectricalNode(
+            ElectricalNodeId.new(),
+            f"Узел вывода «{definition.display_name}»",
+            definition.kind_id,
+            model.port_voltage_class(port_id),
+            extensions={
+                "creation_origin": "automatic_line_insertion",
+                "junction_kind": "automatic_endpoint",
+            },
+        )
+        model.add_node(node)
+        model.reconnect_port(port_id, node.id)
+
+        def anchor_on_page(target, page_id, branch_port_id, fallback):
+            representation = draft.diagram.representations[target.representation_id]
+            if representation.page_id == page_id:
+                return RouteEndpointAnchor(
+                    target.anchor_kind, representation.id, target.node_id,
+                    branch_port_id=branch_port_id, target_port_id=target.target_port_id,
+                    anchor_key=target.anchor_key,
+                )
+            # Other sheets may show the same terminal. Reuse the corresponding
+            # symbol on that sheet; never point a route into a different page.
+            if target.target_port_id is not None:
+                equipment_id = model.ports[target.target_port_id].equipment_id
+                representation = next((row for row in
+                    draft.diagram.representations_for_equipment(equipment_id)
+                    if row.page_id == page_id), None)
+                if representation is not None:
+                    return RouteEndpointAnchor(
+                        RouteAnchorKind.EQUIPMENT_PORT, representation.id, target.node_id,
+                        branch_port_id=branch_port_id, target_port_id=target.target_port_id,
+                        anchor_key=target.anchor_key,
+                    )
+            representation = self._ensure_node_representation(
+                draft, target.node_id, page_id,
+                name=model.electrical_nodes[target.node_id].name,
+                x=fallback.x + 40.0, y=fallback.y,
+            )
+            kind = (RouteAnchorKind.BUS if "busbar" in representation.symbol_key
+                    else RouteAnchorKind.ELECTRICAL_NODE)
+            return RouteEndpointAnchor(kind, representation.id, target.node_id,
+                                       branch_port_id=branch_port_id)
+
+        moved = replace(resolved, node_id=node.id)
+        routes = dict(draft.diagram.routes)
+        for route_id, route in tuple(routes.items()):
+            anchors = [route.start_anchor, route.end_anchor]
+            changed = False
+            for index, anchor in enumerate(anchors):
+                if anchor.branch_port_id == port_id:
+                    # This is the selected physical branch's own terminal.
+                    target = moved
+                elif anchor.target_port_id == port_id:
+                    # This is another branch merely drawn against the terminal.
+                    # Its physical Connection must stay on the original node.
+                    target = peer
+                else:
+                    continue
+                representation = draft.diagram.representations[anchor.representation_id]
+                fallback = (route.waypoints[0 if index == 0 else -1]
+                            if route.waypoints else representation)
+                anchors[index] = anchor_on_page(target, route.page_id,
+                                                 anchor.branch_port_id, fallback)
+                changed = True
+            if not changed:
+                continue
+            if (route.kind is DiagramRouteKind.NODE_CONNECTION
+                    and anchors[0].representation_id == anchors[1].representation_id
+                    and anchors[0].target_port_id == anchors[1].target_port_id):
+                # The selected wire has become a graphical self-link on the
+                # old node. The new physical line replaces this link only.
+                del routes[route_id]
+                continue
+            updated = replace(route, start_anchor=anchors[0], end_anchor=anchors[1])
+            routes[route_id] = self._reroute_to_current_port_anchors(draft, updated)
+        draft.diagram = _diagram_with_routes(draft.diagram, routes)
+        return replace(resolved, node_id=node.id)
+
     def create_physical_line(
         self,
         name: str,
@@ -2279,6 +2405,7 @@ class ProjectEditorController:
         note: str = "",
         feeder_id: FeederId | None = None,
         route_waypoints: Iterable[RouteWaypoint] | None = None,
+        split_shared_node: bool = False,
     ) -> PhysicalLineEditResult:
         self._require_edit()
         if not isinstance(physical, PhysicalLineInput):
@@ -2299,9 +2426,11 @@ class ProjectEditorController:
                 fallback_x=120.0,
             )
             if start.node_id == end.node_id:
-                raise EditorCommandError(
-                    "Физическая линия должна соединять два разных узла."
-                )
+                if not split_shared_node:
+                    raise EditorCommandError(
+                        "Физическая линия должна соединять два разных узла."
+                    )
+                start = self._detach_port_to_new_node(draft, start, end)
             model = draft.electrical_model
             logical_line, section, _ = model.create_logical_line(
                 name,
@@ -3023,7 +3152,7 @@ class ProjectEditorController:
                     "Конец другой физической линии подключается отдельной "
                     "командой объединения ветвей."
                 )
-            self._guard_connection_voltage(model, port_id, self._line_connection_voltage(model, section_id))
+            self._guard_connection_voltage(model, port_id, self._line_connection_voltage(model, section_id), adopt=True)
             source_route = self._route_for_equipment(
                 draft.diagram,
                 section_id,

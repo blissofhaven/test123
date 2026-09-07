@@ -352,7 +352,10 @@ def test_analysis_hides_handle_and_cancels_pending_preview(app):
         canvas.close()
 
 
-def test_manual_node_is_absent_but_port_connection_still_creates_one_node(app):
+def test_manual_node_is_absent_but_port_connection_still_creates_one_node(app, monkeypatch):
+    # Enter now offers the same electrical choice as the mouse. This case
+    # verifies automatic nodes; the real menu is covered by Stage 2 gestures.
+    monkeypatch.setattr(EditorCanvas, "_ask_dragged_connection_kind", lambda *_: "wire")
     controller = controller_for("automatic-node")
     first = controller.add_equipment("builtin.load", "Н1", x=100, y=260,
                                      rotation_deg=90, voltage_class_by_group={"main": U10})
@@ -399,7 +402,8 @@ def test_manual_node_is_absent_but_port_connection_still_creates_one_node(app):
         workspace.close()
 
 
-def test_bus_rotation_keeps_fractional_connection_point_in_preview_commit_and_undo(app):
+def test_bus_rotation_keeps_fractional_connection_point_in_preview_commit_and_undo(app, monkeypatch):
+    monkeypatch.setattr(EditorCanvas, "_ask_dragged_connection_kind", lambda *_: "wire")
     controller = controller_for("bus-fraction")
     bus = controller.add_electrical_node(
         "Шины 10 кВ", x=300, y=260, symbol_key="busbar", width=240, height=12,

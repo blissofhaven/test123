@@ -102,7 +102,11 @@ def test_new_independent_taps_have_distinct_exact_bus_endpoints(rotation, vertic
     allocated = controller.diagram.routes[second.route_id]
     assert controller.diagram.routes[first.route_id] == original
     a, b = original.waypoints[-1], allocated.waypoints[-1]
-    assert math.hypot(a.x - b.x, a.y - b.y) >= 20 - 1e-8
+    # Accepted drawing contract: preserve a free point exactly; on collision
+    # use the nearest nonmerging point, ten drawing units away, not twenty.
+    assert math.hypot(a.x - b.x, a.y - b.y) == pytest.approx(10.0, abs=1e-8)
+    assert float(original.end_anchor.anchor_key) == .5
+    assert float(allocated.end_anchor.anchor_key) == pytest.approx(.5 - 10 / 160)
     assert (b.x, b.y) == _bus_point(controller, bus, float(allocated.end_anchor.anchor_key))
     assert allocated.end_anchor.electrical_node_id == original.end_anchor.electrical_node_id == bus.node_id
     assert len(controller.model.connections) == 2

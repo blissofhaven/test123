@@ -65,7 +65,15 @@ def test_inactive_cancel_still_removes_stale_overlay_and_red_feedback(canvas_fac
 
 
 @pytest.mark.parametrize("bus_width", (240, 239))
-def test_bus_preview_allocates_distinct_contacts_and_matches_two_commits(canvas_factory, bus_width):
+def test_bus_preview_allocates_distinct_contacts_and_matches_two_commits(canvas_factory, monkeypatch, bus_width):
+    #  Протяжка спрашивает «Провод / ВЛ / КЛ» с 31.08.2026, а этот тест ведёт
+    #  настоящую мышь. Без ответа модальное меню останавливало и сам тест, и
+    #  весь Qt-набор за ним. Отвечаем «Провод»: проверяется геометрия точек на
+    #  шине, а не меню — его состав закреплён в test_drag_creates_line.
+    from rza_calc.gui.editor_scene import EditorCanvas
+
+    monkeypatch.setattr(EditorCanvas, "_ask_dragged_connection_kind",
+                        lambda self, screen_pos: "wire")
     controller = _controller()
     bus = controller.add_electrical_node("Шина", x=0, y=0, symbol_key="busbar_horizontal", width=bus_width, height=12, voltage_class_id=U10)
     first = controller.add_equipment("builtin.circuit_breaker", "Вход", x=-180, y=-120, voltage_class_by_group={"main": U10})
@@ -95,7 +103,9 @@ def test_bus_preview_allocates_distinct_contacts_and_matches_two_commits(canvas_
         route = next(row for row in controller.diagram.routes.values()
                      if row.start_anchor.target_port_id == port.port_id)
         assert tuple((point.x, point.y) for point in route.waypoints) == preview
-    assert abs(contact_points[0][0] - contact_points[1][0]) >= 20 - 1e-8
+    # New connections use the minimum nonmerging distance of ten units.
+    # The explicit separation command retains its separate twenty-unit rule.
+    assert abs(contact_points[0][0] - contact_points[1][0]) == pytest.approx(10.0, abs=1e-8)
     assert tuple(controller.model.equipment[row.equipment_id].port_ids for row in (first, second)) == originals
     assert len(canvas.scene._bus_attachment_handles) == 2
 
@@ -104,13 +114,15 @@ def test_full_bus_is_incompatible_without_crash_or_extra_connection(canvas_facto
     controller = _controller()
     bus = controller.add_electrical_node("Короткая шина", x=0, y=0, symbol_key="busbar_horizontal", width=20, height=12, voltage_class_id=U10)
     items = [controller.add_equipment("builtin.circuit_breaker", str(i), x=-200 - 200*i, y=-120,
-             voltage_class_by_group={"main": U10}) for i in range(3)]
+             voltage_class_by_group={"main": U10}) for i in range(4)]
     from rza_calc.editor.controller import NodeTarget
-    for i, item in enumerate(items[:2]):
+    # A twenty-unit bus has three valid positions at the accepted ten-unit
+    # threshold. The fourth connection, not the third, must fail atomically.
+    for fraction, item in zip((0, .5, 1), items[:3]):
         controller.connect_port_to_node(item.port_ids[0], bus.node_id,
-            node_representation_id=bus.representation_id, target_anchor_key=str(i))
+            node_representation_id=bus.representation_id, target_anchor_key=str(fraction))
     canvas = canvas_factory(controller)
-    source = canvas.scene._items_by_id[items[2].representation_id].port_item(items[2].port_ids[0])
+    source = canvas.scene._items_by_id[items[3].representation_id].port_item(items[3].port_ids[0])
     before = _state(canvas)
     scene = canvas.scene
     scene.begin_connection(source)

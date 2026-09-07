@@ -1704,7 +1704,7 @@ class RouteEndpointHandle(QGraphicsObject):
         ):
             parent.setSelected(True)
             scene.begin_route_endpoint_reconnect(
-                parent.route.id, at_start=self.at_start
+                parent.route.id, at_start=self.at_start, press_position=event.scenePos()
             )
             event.accept()
             return
@@ -2765,6 +2765,7 @@ class DiagramGraphicsScene(QGraphicsScene):
         self._connected_drag: ConnectedDragGesture | None = None
         self._bus_attachment_preview = None
         self._move_preview = None
+        self._connection_voltage_preview = None
         self._mode = CanvasMode.EDIT
         self._grid_visible = True
         self._snap_enabled = True
@@ -3683,8 +3684,14 @@ class DiagramGraphicsScene(QGraphicsScene):
             return None
         return best[2], best[3]
 
+    def _check_connection_voltage(self, first, second):
+        if callable(self._connection_voltage_preview):
+            return self._connection_voltage_preview(first, second)
+        return check_connection_voltage(self._model, first, second)
+
     def _compatibility_for_port(
-        self, source_port_id: PortId, target_port_id: PortId
+        self, source_port_id: PortId, target_port_id: PortId,
+        *, allow_line_insertion: bool = False,
     ) -> tuple[ConnectionTargetFeedback, str]:
         assert self._model is not None
         if source_port_id == target_port_id:
@@ -3702,13 +3709,18 @@ class DiagramGraphicsScene(QGraphicsScene):
                 ConnectionTargetFeedback.INCOMPATIBLE,
                 "Электрические типы портов несовместимы",
             )
-        voltage = check_connection_voltage(self._model, source_port_id, target_port_id)
+        voltage = self._check_connection_voltage(source_port_id, target_port_id)
         if not voltage.valid:
             return ConnectionTargetFeedback.INCOMPATIBLE, voltage.message
         first = self._model.connection_for_port(source_port_id)
         second = self._model.connection_for_port(target_port_id)
         if first is not None and second is not None:
             if first.electrical_node_id == second.electrical_node_id:
+                if allow_line_insertion:
+                    return (
+                        ConnectionTargetFeedback.COMPATIBLE,
+                        "Уже соединено одним узлом; можно вставить ВЛ или КЛ",
+                    )
                 return (
                     ConnectionTargetFeedback.INCOMPATIBLE,
                     "Порты уже принадлежат одному электрическому узлу",
@@ -3725,7 +3737,8 @@ class DiagramGraphicsScene(QGraphicsScene):
         return ConnectionTargetFeedback.COMPATIBLE, "Подключить к электрическому порту"
 
     def _compatibility_for_node(
-        self, source_port_id: PortId, node_id: ElectricalNodeId
+        self, source_port_id: PortId, node_id: ElectricalNodeId,
+        *, allow_line_insertion: bool = False,
     ) -> tuple[ConnectionTargetFeedback, str]:
         assert self._model is not None
         try:
@@ -3738,11 +3751,16 @@ class DiagramGraphicsScene(QGraphicsScene):
                 ConnectionTargetFeedback.INCOMPATIBLE,
                 "Электрический тип порта не соответствует узлу",
             )
-        voltage = check_connection_voltage(self._model, source_port_id, node_id)
+        voltage = self._check_connection_voltage(source_port_id, node_id)
         if not voltage.valid:
             return ConnectionTargetFeedback.INCOMPATIBLE, voltage.message
         existing = self._model.connection_for_port(source_port_id)
         if existing is not None and existing.electrical_node_id == node_id:
+            if allow_line_insertion:
+                return (
+                    ConnectionTargetFeedback.COMPATIBLE,
+                    "Уже соединено одним узлом; можно вставить ВЛ или КЛ",
+                )
             return (
                 ConnectionTargetFeedback.INCOMPATIBLE,
                 "Порт уже подключён к этому электрическому узлу",
@@ -3770,6 +3788,10 @@ class DiagramGraphicsScene(QGraphicsScene):
         if not self._connection_tool.active or self._model is None:
             return None
         source_id = PortId(self._connection_tool.source_port_id)
+        # Жест от вывода может вставить физическую линию в существующий
+        # узел. Окончательный смысл выбирается в меню; сам порт и неверный
+        # класс напряжения по-прежнему недопустимы до этого выбора.
+        allow_line_insertion = not self._connection_tool.from_route_endpoint
         tolerance = (PORT_HIT_TOLERANCE_PX + BUS_HIT_MARGIN_PX) / self._view_scale()
         rect = QRectF(
             scene_pos.x() - tolerance,
@@ -3789,7 +3811,9 @@ class DiagramGraphicsScene(QGraphicsScene):
                     port_candidates.append((distance_px, item))
         if port_candidates:
             _, item = min(port_candidates, key=lambda row: (row[0], row[1].port_id.value))
-            feedback, message = self._compatibility_for_port(source_id, item.port_id)
+            feedback, message = self._compatibility_for_port(
+                source_id, item.port_id, allow_line_insertion=allow_line_insertion,
+            )
             point = item.mapToScene(QPointF())
             return ConnectionTarget(
                 ConnectionTargetKind.EQUIPMENT_PORT,
@@ -3825,7 +3849,9 @@ class DiagramGraphicsScene(QGraphicsScene):
                 key=lambda row: (row[0], row[1].representation_id.value))
             node_id = item.representation.electrical_node_id
             assert node_id is not None
-            feedback, message = self._compatibility_for_node(source_id, node_id)
+            feedback, message = self._compatibility_for_node(
+                source_id, node_id, allow_line_insertion=allow_line_insertion,
+            )
             return ConnectionTarget(
                 kind,
                 point.x(),
@@ -3868,8 +3894,8 @@ class DiagramGraphicsScene(QGraphicsScene):
                 reconnecting = (
                     self._connection_tool.mode is ConnectionToolMode.RECONNECT
                 )
-                voltage = check_connection_voltage(
-                    self._model, source_id,
+                voltage = self._check_connection_voltage(
+                    source_id,
                     self._model.port_by_role(item.route.equipment_id, "from").id,
                 )
                 return ConnectionTarget(
@@ -3890,7 +3916,9 @@ class DiagramGraphicsScene(QGraphicsScene):
             if item.route.kind is DiagramRouteKind.NODE_CONNECTION:
                 node_id = item.route.electrical_node_id
                 assert node_id is not None
-                feedback, message = self._compatibility_for_node(source_id, node_id)
+                feedback, message = self._compatibility_for_node(
+                    source_id, node_id, allow_line_insertion=allow_line_insertion,
+                )
                 return ConnectionTarget(
                     ConnectionTargetKind.NODE_CONNECTION,
                     point.x(),
@@ -4321,6 +4349,7 @@ class DiagramGraphicsScene(QGraphicsScene):
         route_id: DiagramRouteId,
         *,
         at_start: bool,
+        press_position: QPointF | None = None,
     ) -> bool:
         """Начать переподключение реального порта физической ветви."""
         if self._mode is not CanvasMode.EDIT:
@@ -4344,6 +4373,9 @@ class DiagramGraphicsScene(QGraphicsScene):
             return False
         anchor = route.start_anchor if at_start else route.end_anchor
         point = route.waypoints[0] if at_start else route.waypoints[-1]
+        source_point, source_direction = self._anchor_scene_geometry(
+            anchor, RouteVertex(point.x, point.y)
+        )
         if anchor.branch_port_id is None:
             self.connectionStatusMessage.emit(
                 "У конца физической ветви отсутствует электрический порт"
@@ -4362,12 +4394,17 @@ class DiagramGraphicsScene(QGraphicsScene):
         self._connection_tool.begin(
             source_port_id=anchor.branch_port_id.value,
             source_representation_id=anchor.representation_id.value,
-            x=point.x,
-            y=point.y,
-            direction=None,
+            x=source_point.x,
+            y=source_point.y,
+            direction=source_direction,
             anchor_key=anchor.anchor_key,
             reconnect=True,
+            from_route_endpoint=True,
         )
+        self._connection_press_position = (
+            QPointF(press_position) if press_position is not None else None
+        )
+        self._connection_dragged = False
         self._apply_connection_highlight(None)
         self._preview_item.set_preview(self._connection_tool.preview_vertices)
         self.connectionStatusMessage.emit(
@@ -4649,7 +4686,7 @@ class DiagramGraphicsScene(QGraphicsScene):
             return ElectricalNodeId(value.target_id)
 
         start, end = endpoint(source), endpoint(target)
-        check = (check_connection_voltage(self._model, start, end) if start is not None and end is not None
+        check = (self._check_connection_voltage(start, end) if start is not None and end is not None
                  else endpoint_voltage(self._model, end if end is not None else start)
                  if end is not None or start is not None else None)
         if check is not None and not check.valid:
@@ -4752,7 +4789,12 @@ class DiagramGraphicsScene(QGraphicsScene):
         self.connectionStatusMessage.emit(ui_text("status.connection_waypoint_added"))
         return False
 
-    def _emit_connection_draft(self, *, free_target: bool = False) -> None:
+    def _emit_connection_draft(
+        self,
+        *,
+        free_target: bool = False,
+        screen_pos: object | None = None,
+    ) -> None:
         if self._connection_routing_error:
             self.connectionStatusMessage.emit(self._connection_routing_error)
             return
@@ -4761,8 +4803,22 @@ class DiagramGraphicsScene(QGraphicsScene):
         except RuntimeError as exc:
             self.connectionStatusMessage.emit(str(exc))
             return
-        self.connectionDraftRequested.emit(draft)
+        #  Решение заказчика 02.09.2026: завершение вторым щелчком спрашивает
+        #  тип так же, как протяжка с зажатой кнопкой. Раньше выбор
+        #  «Провод / ВЛ / КЛ» висел только на протяжке, и тот же самый жест,
+        #  сделанный двумя щелчками, молча давал провод.
+        #  Меню открывается только там, где известна точка экрана, то есть
+        #  жест сделал человек. Программное завершение (тесты, сценарии,
+        #  встраиваемый холст) остаётся немодальным: спрашивать там некого, а
+        #  модальное меню повесило бы вызывающий код.
+        # Меню запускает вложенный цикл Qt. Завершаем владение жестом до
+        # него, как и при отпускании протяжки: Esc/фокус/поздний release
+        # не должны продолжать уже подтверждаемый черновик.
         self.cancel_connection(announce=False)
+        if screen_pos is None:
+            self.connectionDraftRequested.emit(draft)
+        else:
+            self.connectionDragDraftRequested.emit(draft, screen_pos)
 
     def _anchor_scene_geometry(
         self,
@@ -5358,6 +5414,7 @@ class DiagramGraphicsScene(QGraphicsScene):
                     self.begin_route_endpoint_reconnect(
                         parent.route.id,
                         at_start=raw_item.at_start,
+                        press_position=event.scenePos(),
                     )
                     event.accept()
                     return
@@ -5366,7 +5423,7 @@ class DiagramGraphicsScene(QGraphicsScene):
                 target = self._connection_target
                 if target is not None:
                     if target.feedback is ConnectionTargetFeedback.COMPATIBLE:
-                        self._emit_connection_draft()
+                        self._emit_connection_draft(screen_pos=event.screenPos())
                     else:
                         self.connectionStatusMessage.emit(
                             target.message or ui_text("status.connection_incompatible")
@@ -5473,9 +5530,9 @@ class DiagramGraphicsScene(QGraphicsScene):
             self.update_connection_cursor(event.scenePos())
             target = self._connection_target
             if target is None:
-                self._emit_connection_draft(free_target=True)
+                self._emit_connection_draft(free_target=True, screen_pos=event.screenPos())
             elif target.feedback is ConnectionTargetFeedback.COMPATIBLE:
-                self._emit_connection_draft()
+                self._emit_connection_draft(screen_pos=event.screenPos())
             else:
                 self.connectionStatusMessage.emit(
                     target.message or ui_text("status.connection_incompatible")
@@ -5720,14 +5777,23 @@ class DiagramGraphicsScene(QGraphicsScene):
                 return
             if event.key() in (Qt.Key.Key_Enter, Qt.Key.Key_Return):
                 target = self._connection_target
+                views = self.views()
+                cursor = self._connection_tool.cursor_vertex
+                screen_pos = (
+                    views[0].viewport().mapToGlobal(
+                        views[0].mapFromScene(QPointF(cursor.x, cursor.y))
+                    ) if views and cursor is not None else None
+                )
                 if target is None:
-                    self._emit_connection_draft(free_target=True)
+                    self._emit_connection_draft(free_target=True, screen_pos=screen_pos)
                 elif target.feedback is ConnectionTargetFeedback.COMPATIBLE:
-                    self._emit_connection_draft()
+                    self._emit_connection_draft(screen_pos=screen_pos)
                 else:
                     self.connectionStatusMessage.emit(
                         target.message or ui_text("status.connection_incompatible")
                     )
+                event.accept()
+                return
                 event.accept()
                 return
         ids = self.selected_representation_ids()
@@ -7084,6 +7150,7 @@ class EditorCanvas(QWidget):
         self.scene = DiagramGraphicsScene(self)
         self.scene._bus_attachment_preview = getattr(controller, "preview_bus_attachment_move", None)
         self.scene._move_preview = getattr(controller, "preview_move_representations", None)
+        self.scene._connection_voltage_preview = getattr(controller, "preview_connection_voltage", None)
         self.view = DiagramGraphicsView(self.scene, self)
         self.hint = QLabel(ui_text("canvas.edit_hint"))
         self.hint.setObjectName("muted")
@@ -7974,7 +8041,12 @@ class EditorCanvas(QWidget):
         # есть, и менять её электрическую природу молча нельзя.
         from ..editor.connection_tool import ConnectionToolMode
 
-        if value.mode is ConnectionToolMode.RECONNECT:
+        #  Уточнение 02.09.2026: молча переподключается только перетаскивание
+        #  маркера конца уже существующей ВЛ/КЛ. Протяжка от вывода аппарата
+        #  спрашивает тип всегда, даже если вывод уже подключён: на реальной
+        #  схеме свободных выводов почти нет, и прежнее правило делало выбор
+        #  недоступным именно там, где он нужен.
+        if getattr(value, "from_route_endpoint", False):
             self._commit_connection_draft(value)
             return
         choice = self._ask_dragged_connection_kind(screen_pos)
@@ -8003,6 +8075,24 @@ class EditorCanvas(QWidget):
         page_id = self.page_id
         if target.kind is ConnectionTargetKind.PHYSICAL_LINE:
             self._commit_tap_from_connection(draft)
+            return
+
+        # Разрешение same-node в preview нужно только для меню ВЛ/КЛ.
+        # Провод здесь уже существует; не пересоздаём его и не добавляем
+        # графическую трассу или пустую команду истории.
+        source_connection = self.controller.model.connection_for_port(source_port_id)
+        target_node = None
+        if target.kind is ConnectionTargetKind.EQUIPMENT_PORT:
+            target_connection = self.controller.model.connection_for_port(PortId(target.target_id))
+            if target_connection is not None:
+                target_node = target_connection.electrical_node_id
+        elif target.kind in {
+            ConnectionTargetKind.ELECTRICAL_NODE, ConnectionTargetKind.BUS,
+            ConnectionTargetKind.NODE_CONNECTION,
+        }:
+            target_node = ElectricalNodeId(target.target_id)
+        if source_connection is not None and source_connection.electrical_node_id == target_node:
+            self.statusMessage.emit("Уже соединено одним электрическим узлом; провод не добавлен")
             return
 
         if target.kind is ConnectionTargetKind.EQUIPMENT_PORT:
@@ -8230,6 +8320,18 @@ class EditorCanvas(QWidget):
             return
         method = getattr(self.controller, "create_physical_line", None)
         kwargs = self._route_geometry_kwargs(method, value)  # type: ignore[arg-type]
+        #  Оба конца жеста могут оказаться на одном узле: так выглядит вставка
+        #  линии в уже существующую связь. Разрешаем это только для протяжки от
+        #  вывода аппарата — там понятно, какой конец переезжает на новый узел.
+        try:
+            import inspect
+
+            if method is not None and "split_shared_node" in inspect.signature(method).parameters:
+                kwargs["split_shared_node"] = (
+                    value.source.kind is ConnectionTargetKind.EQUIPMENT_PORT
+                )
+        except (TypeError, ValueError):
+            pass
         result = self._call(
             "create_physical_line",
             name,

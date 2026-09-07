@@ -22,6 +22,7 @@ from pathlib import Path
 
 import pytest
 
+from rza_calc.domain.diagram import DiagramRouteKind
 from rza_calc.domain.electrical import (DataConfirmation, DomainInvariantError,
                                         LineKind)
 from rza_calc.editor.bus_connections import (BUS_ATTACHMENT_GAP,
@@ -266,12 +267,124 @@ def test_three_choices_are_declared_once_and_cover_wire_and_both_lines():
     assert "ВЛ" in choices["overhead"] and "КЛ" in choices["cable"]
 
 
-def test_reconnect_never_asks_for_a_type():
-    """У переподключения линия уже есть; менять её природу молча нельзя."""
-    assert "if value.mode is ConnectionToolMode.RECONNECT:" in _scene_source()
+def test_only_a_route_endpoint_move_skips_the_type_menu():
+    """Молча переподключается только конец уже существующей ВЛ/КЛ.
+
+    Решение заказчика 02.09.2026 заменило прежнее правило «любой занятый вывод
+    считается переподключением»: на рабочей схеме свободных выводов почти нет,
+    и выбор типа оказывался недоступен именно там, где он нужен.
+    """
+    source = _scene_source()
+    assert 'if getattr(value, "from_route_endpoint", False):' in source
+    assert "if value.mode is ConnectionToolMode.RECONNECT:" not in source
     assert hasattr(_canvas_class(), "_ask_dragged_connection_kind")
 
 
 def test_cancelled_menu_changes_nothing():
     assert "Соединение отменено: тип не выбран" in _scene_source()
     assert hasattr(_canvas_class(), "_physical_line_draft_from_connection")
+
+
+# ── вставка линии в уже существующую связь (решения заказчика 02.09.2026) ──
+def _occupied(controller, bus, fraction=0.4):
+    """Аппарат, вывод которого уже подключён: обычное состояние рабочей схемы."""
+    apparatus = _load(controller, 300)
+    _connect(controller, bus, apparatus, fraction)
+    return apparatus
+
+
+def _insert(controller, bus, apparatus, kind=LineKind.OVERHEAD):
+    """То же, что делает сцена после выбора «ВЛ»/«КЛ» на занятом выводе."""
+    return controller.create_physical_line(
+        "Линия в связь", kind,
+        PortTarget(apparatus.port_ids[0]),
+        NodeTarget(bus.node_id, representation_id=bus.representation_id,
+                   anchor_key="0.4"),
+        physical=PhysicalLineInput(None, DataConfirmation.UNCONFIRMED),
+        page_id=PAGE,
+        split_shared_node=True,
+    )
+
+
+def test_line_is_inserted_into_an_existing_connection():
+    """Главная жалоба: на демо все выводы заняты, и линию было не поставить."""
+    controller, bus = _setup(width=240)
+    apparatus = _occupied(controller, bus)
+    port_id = apparatus.port_ids[0]
+    assert controller.model.connection_for_port(port_id).electrical_node_id == bus.node_id
+    result = _insert(controller, bus, apparatus)
+    moved = controller.model.connection_for_port(port_id).electrical_node_id
+    assert moved != bus.node_id, "вывод обязан переехать на собственный узел"
+    section = controller.model.line_sections[result.section_id]
+    ends = {
+        controller.model.connection_for_port(
+            controller.model.port_by_role(section.equipment_id, role).id
+        ).electrical_node_id
+        for role in ("from", "to")
+    }
+    assert ends == {moved, bus.node_id}, (
+        "линия обязана встать между новым узлом вывода и прежним узлом связи"
+    )
+    assert section.length_mm is None, "метры не выводятся из пикселей"
+    assert not controller.diagram.validate_targets(controller.model)
+
+
+def test_insertion_removes_the_wire_that_showed_the_old_single_node():
+    """Прежний провод изображал один узел, которого больше нет."""
+    controller, bus = _setup(width=240)
+    apparatus = _occupied(controller, bus)
+    port_id = apparatus.port_ids[0]
+    _insert(controller, bus, apparatus)
+    assert not any(
+        route.kind is DiagramRouteKind.NODE_CONNECTION
+        and port_id in (route.start_anchor.target_port_id,
+                        route.end_anchor.target_port_id)
+        for route in controller.diagram.routes.values()
+    )
+
+
+def test_shared_node_is_still_refused_without_the_explicit_flag():
+    """Разделить узел молча нельзя: это делает только явный жест от вывода."""
+    controller, bus = _setup(width=240)
+    apparatus = _occupied(controller, bus)
+    with pytest.raises(EditorCommandError, match="два разных узла"):
+        _line(controller, bus, apparatus)
+
+
+def test_undo_returns_the_port_to_the_shared_node():
+    """Вставка — одна команда: один Ctrl+Z возвращает и узел, и графику."""
+    controller, bus = _setup(width=240)
+    apparatus = _occupied(controller, bus)
+    port_id = apparatus.port_ids[0]
+    before = controller.diagram
+    result = _insert(controller, bus, apparatus)
+    controller.undo()
+    assert controller.model.connection_for_port(port_id).electrical_node_id == bus.node_id
+    assert result.section_id not in controller.model.line_sections
+    assert controller.diagram.routes == before.routes
+
+
+def test_a_gesture_from_an_occupied_port_is_not_a_route_endpoint_move():
+    """Занятый вывод — обычная протяжка, а не перенос конца существующей линии."""
+    from rza_calc.editor.connection_tool import ConnectionToolState
+
+    state = ConnectionToolState()
+    state.begin(source_port_id="p", source_representation_id="r", x=0.0, y=0.0,
+                direction=None, reconnect=True)
+    assert state.from_route_endpoint is False
+    state.begin(source_port_id="p", source_representation_id="r", x=0.0, y=0.0,
+                direction=None, reconnect=True, from_route_endpoint=True)
+    assert state.from_route_endpoint is True
+    state.cancel()
+    assert state.from_route_endpoint is False
+
+
+def test_finishing_by_a_second_click_asks_the_same_menu():
+    """Тот же жест, сделанный двумя щелчками, раньше молча давал провод."""
+    source = _scene_source()
+    body = source.split("def _emit_connection_draft(")[1].split("\n    def ")[0]
+    assert "connectionDragDraftRequested.emit(draft, screen_pos)" in body
+    assert "self._emit_connection_draft(screen_pos=event.screenPos())" in source, (
+        "второй щелчок мышью обязан передавать точку экрана — иначе меню не "
+        "откроется и жест снова молча даст провод"
+    )
