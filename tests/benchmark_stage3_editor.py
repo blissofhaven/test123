@@ -56,8 +56,7 @@ from rza_calc.io.project import load_project, save_project  # noqa: E402
 OBJECT_COUNT = 1024
 EXAMPLE = (
     PROJECT_ROOT
-    / "rza_calc"
-    / "examples"
+    / "tests" / "fixtures" / "legacy_projects"
     / "gtes_sever.json"
 )
 

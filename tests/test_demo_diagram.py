@@ -18,7 +18,7 @@ from rza_calc.editor.symbols import canonical_key
 from rza_calc.io.project import load_project
 
 ROOT = Path(__file__).resolve().parent.parent
-DEMO = ROOT / "rza_calc" / "examples" / "energoraion.json"
+DEMO = ROOT / "tests" / "fixtures" / "legacy_projects" / "energoraion.json"
 
 EPS = 1e-6
 

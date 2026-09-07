@@ -20,7 +20,7 @@ from rza_calc.io.electrical_model import electrical_model_from_dict, electrical_
 from rza_calc.io.project import load_project, save_project
 
 
-DEMO = Path(__file__).resolve().parent.parent / 'rza_calc/examples/energoraion.json'
+DEMO = Path(__file__).resolve().parent.parent / 'tests/fixtures/legacy_projects/energoraion.json'
 # Authorized bus-attachment drawing layout; electrical fingerprint is unchanged.
 DEMO_SHA256 = '6bebd1052a76a17070393bf46ceaa776141d0bc58a3c6884f6e993547bee2215'
 DEMO_FINGERPRINT = 'b275e47230495c199e8c4ad0158838af0f3a3c14a2767fc85a98bbe7a1164445'

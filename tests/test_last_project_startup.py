@@ -17,7 +17,7 @@ from rza_calc.gui.view_model import ProjectViewModel
 
 
 LAST_PROJECT_KEY = "startup/last_project_path"
-EXAMPLE = Path(__file__).resolve().parents[1] / "rza_calc/examples/four_fault_types.json"
+EXAMPLE = Path(__file__).resolve().parents[1] / "tests/fixtures/legacy_projects/four_fault_types.json"
 
 
 @pytest.fixture
@@ -36,7 +36,7 @@ def session(tmp_path, monkeypatch):
     loaded = sys.modules.get("rza_calc.gui.project_settings")
     if loaded is not None:
         monkeypatch.setattr(loaded, "QSettings", isolated_settings)
-    default = tmp_path / "default.json"
+    default = tmp_path / "oilfield_gtes.json"
     remembered = tmp_path / "Последняя схема.json"
     explicit = tmp_path / "command-line.json"
     for path in (default, remembered, explicit):
@@ -63,6 +63,7 @@ def session(tmp_path, monkeypatch):
     for window in windows:
         window.close()
         window.deleteLater()
+    QtCore.QCoreApplication.sendPostedEvents(None, QtCore.QEvent.Type.DeferredDelete)
     qt.processEvents()
     if hasattr(qt, "_rza_project_windows"):
         qt._rza_project_windows = []
@@ -118,6 +119,74 @@ def test_first_startup_uses_existing_default_and_remembers_it(session):
     assert app.main([]) == 0
     assert session.windows[-1].vm.path == session.default
     assert stored(session) == str(session.default.resolve())
+
+
+def test_actual_default_is_the_new_oilfield_project():
+    expected = Path(__file__).resolve().parents[1] / "rza_calc/examples/oilfield_gtes.json"
+    assert app.default_project_path() == expected
+    assert expected.is_file()
+
+
+@pytest.mark.parametrize("name", (
+    "energoraion.json", "energoraion_v1.json", "four_fault_types.json",
+    "gtes_sever.json", "gtes_sever_v1.json",
+    "ps_promyshlennaya.json", "ps_promyshlennaya_v1.json",
+    "ps_severnaya.json", "ps_severnaya_v1.json",
+))
+@pytest.mark.parametrize("exists", (True, False))
+def test_retired_builtin_history_selects_new_project_without_opening_old(session, monkeypatch, name, exists):
+    old = session.default.parent / "previous-installation/rza_calc/examples" / name
+    old.parent.mkdir(parents=True, exist_ok=True)
+    if exists:
+        shutil.copyfile(EXAMPLE, old)
+    seed(session, old)
+    attempted = []
+    original_open = ProjectViewModel.open
+
+    def observed_open(path):
+        attempted.append(Path(path))
+        return original_open(path)
+
+    monkeypatch.setattr(ProjectViewModel, "open", observed_open)
+    assert app.main([]) == 0
+    assert attempted == [session.default]
+    assert session.windows[-1].vm.path == session.default
+    assert stored(session) == str(session.default.resolve())
+    assert not session.messages
+
+
+def test_custom_project_with_retired_example_name_remains_the_last_project(session):
+    custom = session.remembered.with_name("gtes_sever.json")
+    shutil.copyfile(EXAMPLE, custom)
+    seed(session, custom)
+    assert app.main([]) == 0
+    assert session.windows[-1].vm.path == custom
+    assert stored(session) == str(custom.resolve())
+
+
+def test_explicit_cli_project_wins_even_if_it_uses_a_retired_builtin_path(session):
+    explicit = session.default.parent / "rza_calc/examples/ps_promyshlennaya.json"
+    explicit.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(EXAMPLE, explicit)
+    seed(session, session.remembered)
+    assert app.main([str(explicit)]) == 0
+    assert session.windows[-1].vm.path == explicit
+    assert stored(session) == str(explicit.resolve())
+
+
+@pytest.mark.parametrize("failure", ("missing", "corrupt"))
+def test_missing_or_corrupt_last_project_selects_oilfield_fallback(session, failure):
+    if failure == "missing":
+        session.remembered.unlink()
+    else:
+        session.remembered.write_text("{broken json", encoding="utf-8")
+    seed(session, session.remembered)
+    assert app.main([]) == 0
+    assert session.windows[-1].vm.path == session.default
+    assert session.default.name == "oilfield_gtes.json"
+    assert stored(session) == str(session.default.resolve())
+    assert "не удалось" in session.windows[-1].statusBar().currentMessage().lower()
+    assert not session.messages
 
 
 def test_success_survives_a_new_settings_instance_and_next_startup(session):

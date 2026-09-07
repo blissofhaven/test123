@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
-"""Пересборка демонстрационного проекта: резервные вводы и секционирование КТП."""
+"""Пересборка исторической ГТЭС только в tests/fixtures/legacy_projects.
+
+Тестовые данные резервных вводов и секционирования КТП не возвращаются
+в список встроенных схем приложения.
+"""
 import argparse
 import json, copy
 import sys
@@ -13,8 +17,8 @@ from rza_calc.io.project import load_project, save_project
 
 def main(argv: list[str] | None = None) -> None:
     argparse.ArgumentParser(description=__doc__).parse_args(argv)
-    legacy_path = ROOT / 'rza_calc/examples/gtes_sever_v1.json'
-    current_path = ROOT / 'rza_calc/examples/gtes_sever.json'
+    legacy_path = ROOT / 'tests/fixtures/legacy_projects/gtes_sever_v1.json'
+    current_path = ROOT / 'tests/fixtures/legacy_projects/gtes_sever.json'
     src = json.loads(legacy_path.read_text(encoding='utf-8'))
     d = copy.deepcopy(src)
 

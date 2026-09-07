@@ -24,14 +24,24 @@ def _enable_fault_diagnostics() -> None:
 
 
 def default_project_path() -> Path:
-    """Схема, которая открывается при запуске без аргументов.
+    """Нефтепромысел с ГТЭС: первый запуск и резерв при недоступном проекте."""
+    return Path(__file__).resolve().parent.parent / "examples" / "oilfield_gtes.json"
 
-    Раньше открывался `gtes_sever.json` — аудиторский проект ГТЭС, у которого
-    56 непройденных защит и 25 неопределённых результатов. Он для того и
-    сделан: на нём проверяются трудные случаи. Но первым, что видит человек,
-    должна быть схема, нарисованная как надо, а не полигон для дефектов.
+
+def _is_retired_builtin_project(path: Path) -> bool:
+    """Recognize old installed examples without relying on their existence.
+
+    A user's own file with the same name outside rza_calc/examples remains
+    a normal last project. Paths from previous installations are recognized.
     """
-    return Path(__file__).resolve().parent.parent / "examples" / "ps_promyshlennaya.json"
+    retired_names = {
+        "energoraion.json", "energoraion_v1.json", "four_fault_types.json",
+        "gtes_sever.json", "gtes_sever_v1.json",
+        "ps_promyshlennaya.json", "ps_promyshlennaya_v1.json",
+        "ps_severnaya.json", "ps_severnaya_v1.json",
+    }
+    parts = tuple(part.casefold() for part in path.parts)
+    return len(parts) >= 3 and parts[-3:-1] == ("rza_calc", "examples") and parts[-1] in retired_names
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -61,6 +71,8 @@ def main(argv: list[str] | None = None) -> int:
         project_settings.last_project_path()
         if project_settings is not None and explicit_path is None else None
     )
+    if remembered_path is not None and _is_retired_builtin_project(remembered_path):
+        remembered_path = None
     project_path = explicit_path or remembered_path or default_project_path()
 
     QApplication.setHighDpiScaleFactorRoundingPolicy(

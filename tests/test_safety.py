@@ -23,7 +23,7 @@ from rza_calc.core.short_circuit import CurrentDistributionError, ShortCircuitSo
 from rza_calc.io.project import load, load_project
 
 ROOT = Path(__file__).resolve().parent.parent
-EX = ROOT / "rza_calc" / "examples" / "ps_severnaya.json"
+EX = ROOT / "tests" / "fixtures" / "legacy_projects" / "ps_severnaya.json"
 
 
 def _two_section_network() -> tuple[Network, TransformerBranch, TransformerBranch, TieBranch]:

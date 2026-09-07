@@ -119,7 +119,7 @@ def test_view_mode_cannot_assign_voltage(workspace):
 
 def test_imported_transformer_shows_voltage_by_role_without_new_groups():
     _app()
-    project = load_project(str(Path(__file__).resolve().parents[1] / "rza_calc/examples/energoraion.json"))
+    project = load_project(str(Path(__file__).resolve().parents[1] / "tests/fixtures/legacy_projects/energoraion.json"))
     controller = ProjectEditorController(project)
     before = electrical_model_fingerprint(controller.model)
     workspace = EditorWorkspaceWidget(controller)

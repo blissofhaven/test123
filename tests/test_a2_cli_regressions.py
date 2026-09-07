@@ -12,7 +12,7 @@ from rza_calc.core.fingerprint import network_fingerprint
 from rza_calc.io.project import load
 
 ROOT = Path(__file__).resolve().parents[1]
-EXAMPLE = ROOT / "rza_calc/examples/ps_severnaya.json"
+EXAMPLE = ROOT / "tests/fixtures/legacy_projects/ps_severnaya.json"
 
 
 @pytest.mark.parametrize("command", ["feeder", "explain"])

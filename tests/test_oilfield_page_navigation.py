@@ -247,7 +247,7 @@ def test_analysis_keeps_current_physical_route_instead_of_switching_to_remote_sy
 
 def _legacy_route_project():
     from tools.autolayout import build_layout
-    project = load_project(Path(__file__).resolve().parents[1] / "rza_calc/examples/four_fault_types.json")
+    project = load_project(Path(__file__).resolve().parents[1] / "tests/fixtures/legacy_projects/four_fault_types.json")
     project.diagram = build_layout(project, lines_as_routes=True)
     controller = ProjectEditorController(project)
     route = next(row for row in controller.diagram.routes.values() if row.equipment_id is not None)

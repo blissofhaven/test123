@@ -214,7 +214,7 @@ def test_invalid_supplied_sequence_parameters_are_never_silently_used(field, val
 
 @pytest.mark.parametrize("filename", ["energoraion.json", "ps_promyshlennaya.json", "ps_severnaya.json"])
 def test_existing_demo_three_phase_stays_identical(filename):
-    path = Path(__file__).resolve().parents[1] / "rza_calc" / "examples" / filename
+    path = Path(__file__).resolve().parents[1] / "tests" / "fixtures" / "legacy_projects" / filename
     project = load_project(path)
     network = project.network
     method = project.methodology

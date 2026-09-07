@@ -48,7 +48,7 @@ from rza_calc.io.project import (
 
 
 ROOT = Path(__file__).resolve().parent.parent
-EXAMPLE_V6 = ROOT / "rza_calc" / "examples" / "gtes_sever.json"
+EXAMPLE_V6 = ROOT / "tests" / "fixtures" / "legacy_projects" / "gtes_sever.json"
 VOLTAGE_10_KV = VoltageClassId("builtin.voltage.ac.10kv")
 
 

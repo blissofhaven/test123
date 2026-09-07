@@ -73,7 +73,7 @@ def _port_signature(item):
 
 
 def test_render_mode_color_and_state_sync_preserve_entire_project(app):
-    project = load_project(ROOT / "rza_calc" / "examples" / "energoraion.json")
+    project = load_project(ROOT / "tests" / "fixtures" / "legacy_projects" / "energoraion.json")
     model, document = project.electrical_model, project.diagram
     before = model_signature(model, document)
     scene = DiagramGraphicsScene()
@@ -222,7 +222,7 @@ def test_physical_route_names_and_parameters_are_horizontal_without_duplicate_ob
     assert len(labels) == 2
     assert not labels[0].intersects(labels[1])
     assert not any(rect.intersects(QRectF(440, 290, 20, 20)) for rect in labels)
-    project = load_project(ROOT / "rza_calc" / "examples" / "energoraion.json")
+    project = load_project(ROOT / "tests" / "fixtures" / "legacy_projects" / "energoraion.json")
     scene.sync_document(project.diagram, project.electrical_model)
     object_names = {item.representation.equipment_id for item in scene._items_by_id.values()
                     if item.representation.equipment_id is not None and item._label.isVisible()}

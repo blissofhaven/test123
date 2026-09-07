@@ -311,7 +311,7 @@ def test_workspace_grid_snap_view_and_mode_are_serializable_diagram_data() -> No
 def test_real_gtes_place_delete_and_save_remains_consistent(tmp_path: Path) -> None:
     from rza_calc.io.project import load_project, save_project
 
-    source = Path(__file__).resolve().parent.parent / "rza_calc" / "examples" / "gtes_sever.json"
+    source = Path(__file__).resolve().parent.parent / "tests" / "fixtures" / "legacy_projects" / "gtes_sever.json"
     project = load_project(source)
     controller = ProjectEditorController(project)
     controller.set_mode(EditorMode.EDIT)
@@ -337,8 +337,7 @@ def test_unconnected_editor_draft_saves_reopens_and_blocks_only_calculation(
 
     source = (
         Path(__file__).resolve().parent.parent
-        / "rza_calc"
-        / "examples"
+        / "tests" / "fixtures" / "legacy_projects"
         / "gtes_sever.json"
     )
     project = load_project(source)

@@ -498,7 +498,7 @@ def test_7c_every_protection_reports_a_declared_mode(meth):
     from rza_calc.io.project import load_project
 
     project = load_project(Path(__file__).resolve().parent.parent
-                           / "rza_calc" / "examples" / "energoraion.json")
+                           / "tests" / "fixtures" / "legacy_projects" / "energoraion.json")
     result = run(project.network, project.methodology)
     known = {mode.name for mode in project.network.modes.values()}
     for row in result.all_results():

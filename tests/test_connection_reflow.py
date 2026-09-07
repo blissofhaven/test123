@@ -12,7 +12,7 @@ from rza_calc.editor.controller import ProjectEditorController
 from rza_calc.editor.orthogonal_routing import RouteVertex, RoutingObstacle
 from rza_calc.io.project import load_project, save_project
 
-EXAMPLE = Path(__file__).parents[1] / "rza_calc/examples/energoraion.json"
+EXAMPLE = Path(__file__).parents[1] / "tests/fixtures/legacy_projects/energoraion.json"
 
 
 @pytest.fixture

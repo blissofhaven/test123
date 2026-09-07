@@ -68,7 +68,7 @@ def test_table_refresh_reads_one_network_and_next_refresh_gets_new_snapshot(coun
 
 def test_real_electrical_edit_refreshes_table_and_preserves_stale_result_guard():
     qt = QApplication.instance() or QApplication([])
-    path = Path(__file__).resolve().parents[1] / "rza_calc/examples/ps_severnaya.json"
+    path = Path(__file__).resolve().parents[1] / "tests/fixtures/legacy_projects/ps_severnaya.json"
     vm = ProjectViewModel.open(path)
     before = vm.net
     load = next(iter(before.loads.values()))

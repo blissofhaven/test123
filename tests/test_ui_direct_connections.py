@@ -211,7 +211,7 @@ def test_mismatched_voltage_is_red_and_release_cannot_show_choice_or_commit(canv
 
 
 def test_actual_legacy_undeclared_ports_use_topology_voltage_in_preview(canvas_factory):
-    path = Path(__file__).resolve().parent.parent / "rza_calc/examples/energoraion.json"
+    path = Path(__file__).resolve().parent.parent / "tests/fixtures/legacy_projects/energoraion.json"
     raw = path.read_bytes()
     from rza_calc.editor.controller import ProjectEditorController
     canvas = canvas_factory(ProjectEditorController(load_project(path)))
@@ -409,7 +409,7 @@ def _scene_geometry(canvas):
 @pytest.mark.parametrize("index", range(7))
 def test_each_actual_transformer_breaker_pair_preview_commit_and_cancel_share_geometry(canvas_factory, index):
     from rza_calc.editor.controller import ProjectEditorController
-    path = Path(__file__).resolve().parent.parent / "rza_calc/examples/energoraion.json"
+    path = Path(__file__).resolve().parent.parent / "tests/fixtures/legacy_projects/energoraion.json"
     raw = path.read_bytes()
     project = load_project(path)
     pairs = _actual_series_pairs(project)
@@ -460,7 +460,7 @@ def test_each_actual_transformer_breaker_pair_preview_commit_and_cancel_share_ge
 
 def test_cancel_then_drag_another_apparatus_in_same_scene_uses_its_own_original_position(canvas_factory):
     from rza_calc.editor.controller import ProjectEditorController
-    project = load_project(Path(__file__).resolve().parent.parent / "rza_calc/examples/energoraion.json")
+    project = load_project(Path(__file__).resolve().parent.parent / "tests/fixtures/legacy_projects/energoraion.json")
     canvas = canvas_factory(ProjectEditorController(project))
     before = _state(canvas)
     for node, breaker in _actual_series_pairs(project)[:2]:
@@ -491,7 +491,7 @@ def test_cancel_then_drag_another_apparatus_in_same_scene_uses_its_own_original_
 @pytest.mark.parametrize("finish", ("return_valid", "release_invalid"))
 def test_routing_failure_keeps_gesture_recoverable_and_restores_auxiliary_nodes(canvas_factory, monkeypatch, finish):
     from rza_calc.editor.controller import EditorCommandError, ProjectEditorController
-    project = load_project(Path(__file__).resolve().parent.parent / "rza_calc/examples/energoraion.json")
+    project = load_project(Path(__file__).resolve().parent.parent / "tests/fixtures/legacy_projects/energoraion.json")
     node, breaker = _actual_series_pairs(project)[0]
     canvas = canvas_factory(ProjectEditorController(project))
     original_planner = canvas.scene._move_preview
@@ -553,7 +553,7 @@ def _begin_actual_group(canvas, ids):
 @pytest.mark.parametrize("invalid_frame", (False, True))
 def test_group_drag_back_to_origin_keeps_selection_without_a_command(canvas_factory, monkeypatch, invalid_frame):
     from rza_calc.editor.controller import EditorCommandError, ProjectEditorController
-    project = load_project(Path(__file__).resolve().parent.parent / "rza_calc/examples/energoraion.json")
+    project = load_project(Path(__file__).resolve().parent.parent / "tests/fixtures/legacy_projects/energoraion.json")
     canvas = canvas_factory(ProjectEditorController(project))
     pairs = _actual_series_pairs(project)[:2]
     ids = tuple(breaker.id for node, breaker in pairs)
@@ -588,7 +588,7 @@ def test_group_drag_back_to_origin_keeps_selection_without_a_command(canvas_fact
 
 def test_group_repeated_frames_commit_once_then_escape_preserves_group(canvas_factory):
     from rza_calc.editor.controller import ProjectEditorController
-    project = load_project(Path(__file__).resolve().parent.parent / "rza_calc/examples/energoraion.json")
+    project = load_project(Path(__file__).resolve().parent.parent / "tests/fixtures/legacy_projects/energoraion.json")
     canvas = canvas_factory(ProjectEditorController(project))
     pairs = _actual_series_pairs(project)[:2]
     ids = tuple(breaker.id for node, breaker in pairs)

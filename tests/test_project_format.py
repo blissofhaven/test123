@@ -15,10 +15,10 @@ from rza_calc.io.project import FORMAT_VERSION, load_project, save_project
 from test_domain import _structure
 
 ROOT = Path(__file__).resolve().parent.parent
-GTES = ROOT / "rza_calc" / "examples" / "gtes_sever.json"
-PS = ROOT / "rza_calc" / "examples" / "ps_severnaya.json"
-LEGACY_GTES = ROOT / "rza_calc" / "examples" / "gtes_sever_v1.json"
-LEGACY_PS = ROOT / "rza_calc" / "examples" / "ps_severnaya_v1.json"
+GTES = ROOT / "tests" / "fixtures" / "legacy_projects" / "gtes_sever.json"
+PS = ROOT / "tests" / "fixtures" / "legacy_projects" / "ps_severnaya.json"
+LEGACY_GTES = ROOT / "tests" / "fixtures" / "legacy_projects" / "gtes_sever_v1.json"
+LEGACY_PS = ROOT / "tests" / "fixtures" / "legacy_projects" / "ps_severnaya_v1.json"
 
 
 def _write(tmp_path: Path, raw: dict, name: str = "project.json") -> Path:

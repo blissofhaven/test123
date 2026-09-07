@@ -24,7 +24,7 @@ from rza_calc.domain.electrical import (
 from rza_calc.io.project import FORMAT_VERSION, load_project, save_project
 
 
-EXAMPLE = Path(__file__).resolve().parent.parent / "rza_calc" / "examples" / "ps_severnaya.json"
+EXAMPLE = Path(__file__).resolve().parent.parent / "tests" / "fixtures" / "legacy_projects" / "ps_severnaya.json"
 
 
 def test_v3_migrates_to_v4_without_guessing_existing_lines(tmp_path):

@@ -39,7 +39,7 @@ from rza_calc.io.project import load_project, save_project  # noqa: E402
 
 
 ROOT = Path(__file__).resolve().parent.parent
-DEMO = ROOT / "rza_calc" / "examples" / "energoraion.json"
+DEMO = ROOT / "tests" / "fixtures" / "legacy_projects" / "energoraion.json"
 _APP: QApplication | None = None
 
 

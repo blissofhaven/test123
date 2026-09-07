@@ -24,7 +24,7 @@ from rza_calc.core.short_circuit import ShortCircuitSolver
 from rza_calc.io.project import load, save
 
 SQRT3 = math.sqrt(3.0)
-EX = Path(__file__).resolve().parent.parent / "rza_calc" / "examples" / "ps_severnaya.json"
+EX = Path(__file__).resolve().parent.parent / "tests" / "fixtures" / "legacy_projects" / "ps_severnaya.json"
 
 
 @pytest.fixture
@@ -357,7 +357,7 @@ def test_methodology_missing_key_raises(meth):
 
 
 # ── генераторы и трёхобмоточные трансформаторы ───────────────────────────
-GTES = Path(__file__).resolve().parent.parent / "rza_calc" / "examples" / "gtes_sever.json"
+GTES = Path(__file__).resolve().parent.parent / "tests" / "fixtures" / "legacy_projects" / "gtes_sever.json"
 
 
 def test_generator_impedance(meth):

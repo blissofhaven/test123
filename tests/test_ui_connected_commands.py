@@ -26,7 +26,7 @@ from rza_calc.io.diagram import diagram_to_dict
 from rza_calc.io.project import load_project, save_project
 
 
-DEMO = Path(__file__).resolve().parent.parent / "rza_calc/examples/energoraion.json"
+DEMO = Path(__file__).resolve().parent.parent / "tests/fixtures/legacy_projects/energoraion.json"
 
 
 def _controller():

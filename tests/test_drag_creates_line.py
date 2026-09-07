@@ -35,7 +35,7 @@ from rza_calc.io.project import load_project
 
 from test_bus_connection_spacing import PAGE, _bus_point, _connect, _load, _setup
 
-DEMO = Path(__file__).resolve().parents[1] / "rza_calc/examples/energoraion.json"
+DEMO = Path(__file__).resolve().parents[1] / "tests/fixtures/legacy_projects/energoraion.json"
 
 
 def _line(controller, bus, apparatus, kind=LineKind.OVERHEAD, fraction="0.5"):

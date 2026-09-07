@@ -12,7 +12,7 @@ from rza_calc.core.short_circuit import NodeNotEnergizedError
 from rza_calc.io.project import load
 
 ROOT = Path(__file__).resolve().parents[1]
-EXAMPLE = ROOT / "rza_calc/examples/ps_severnaya.json"
+EXAMPLE = ROOT / "tests/fixtures/legacy_projects/ps_severnaya.json"
 
 
 def test_saved_case_replays_after_external_methodology_file_is_replaced_and_deleted(tmp_path):
@@ -60,7 +60,7 @@ def test_case_refuses_replay_on_different_network():
 
 @pytest.mark.parametrize("collection", ["nodes", "branches", "transformers3w", "loads", "modes"])
 def test_case_guards_declaration_order_without_changing_network_fingerprint(collection):
-    example = ROOT / "rza_calc/examples/gtes_sever.json" if collection == "transformers3w" else EXAMPLE
+    example = ROOT / "tests/fixtures/legacy_projects/gtes_sever.json" if collection == "transformers3w" else EXAMPLE
     net, meth, _ = load(example)
     result = run(net, meth)
     original = getattr(net, collection)

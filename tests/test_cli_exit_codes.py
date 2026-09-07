@@ -25,8 +25,8 @@ from rza_calc.cli import main as cli_main
 from rza_calc.core.result import FAIL, OK, UNRESOLVED, ProtectionResult
 
 ROOT = Path(__file__).resolve().parent.parent
-EXAMPLE = ROOT / "rza_calc" / "examples" / "ps_severnaya.json"
-DEMO = ROOT / "rza_calc" / "examples" / "energoraion.json"
+EXAMPLE = ROOT / "tests" / "fixtures" / "legacy_projects" / "ps_severnaya.json"
+DEMO = ROOT / "tests" / "fixtures" / "legacy_projects" / "energoraion.json"
 
 
 def _run(argv: list[str]) -> tuple[int, str]:

@@ -15,7 +15,7 @@ from rza_calc.core.short_circuit import ShortCircuitSolver
 from rza_calc.gui.view_model import ProjectViewModel
 
 ROOT = Path(__file__).resolve().parent.parent
-EXAMPLE = ROOT / "rza_calc" / "examples" / "gtes_sever.json"
+EXAMPLE = ROOT / "tests" / "fixtures" / "legacy_projects" / "gtes_sever.json"
 
 
 # ── стенд: две секции, два ввода, СВ, отходящая линия ──────────────────────

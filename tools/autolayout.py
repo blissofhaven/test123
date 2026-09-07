@@ -13,7 +13,7 @@
 
 Использование:
 
-    python tools/autolayout.py rza_calc/examples/energoraion.json
+    python tools/autolayout.py ПУТЬ_К_ПРОЕКТУ.json
 """
 from __future__ import annotations
 
@@ -607,7 +607,7 @@ def main(path: str) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "path", nargs="?", default=str(ROOT / "rza_calc/examples/energoraion.json"),
+        "path",
         help="Проект для раскладки; относительный путь — от текущей папки",
     )
     main(parser.parse_args().path)

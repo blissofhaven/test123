@@ -88,7 +88,7 @@ def test_demo_own_transformers_cover_inrush_without_inventing_missing_ratios():
 
     from rza_calc.io.project import load
 
-    root = Path(__file__).resolve().parent.parent / "rza_calc" / "examples"
+    root = Path(__file__).resolve().parent.parent / "tests" / "fixtures" / "legacy_projects"
     covered = {}
     for name in ("energoraion.json", "gtes_sever.json", "ps_severnaya.json"):
         net, methodology, _ = load(root / name)

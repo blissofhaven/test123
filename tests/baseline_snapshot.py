@@ -58,12 +58,12 @@ BASELINE_PATH = Path(__file__).resolve().parent / "baseline" / "calculation_base
 
 #  Проекты, числа которых защищены эталоном.
 PROJECTS = {
-    #  Схема, которая открывается при запуске программы. Её числа человек
-    #  видит первыми, поэтому они защищены эталоном наравне с остальными.
-    "ps_promyshlennaya": "rza_calc/examples/ps_promyshlennaya.json",
-    "energoraion": "rza_calc/examples/energoraion.json",
-    "gtes_sever": "rza_calc/examples/gtes_sever.json",
-    "ps_severnaya": "rza_calc/examples/ps_severnaya.json",
+    #  Исторические контрольные схемы остаются тестовыми данными; перенос
+    #  из пользовательских примеров не изменяет защищённые расчётные числа.
+    "ps_promyshlennaya": "tests/fixtures/legacy_projects/ps_promyshlennaya.json",
+    "energoraion": "tests/fixtures/legacy_projects/energoraion.json",
+    "gtes_sever": "tests/fixtures/legacy_projects/gtes_sever.json",
+    "ps_severnaya": "tests/fixtures/legacy_projects/ps_severnaya.json",
 }
 
 ROOT = Path(__file__).resolve().parent.parent

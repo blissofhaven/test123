@@ -16,6 +16,9 @@
     python tools/build_substation_demo.py
     python tools/build_substation_demo.py --layout
 
+Выходные файлы находятся только в tests/fixtures/legacy_projects: это
+исторические тестовые данные, а не встроенные схемы приложения.
+
 Параметры оборудования правдоподобны и взяты из типовых справочных рядов, но
 к реальному объекту не относятся.
 """
@@ -32,8 +35,8 @@ sys.path.insert(0, str(ROOT))
 from rza_calc.io.project import load_project, save_project
 from tools import autolayout
 
-V1_PATH = ROOT / "rza_calc/examples/ps_promyshlennaya_v1.json"
-V7_PATH = ROOT / "rza_calc/examples/ps_promyshlennaya.json"
+V1_PATH = ROOT / "tests/fixtures/legacy_projects/ps_promyshlennaya_v1.json"
+V7_PATH = ROOT / "tests/fixtures/legacy_projects/ps_promyshlennaya.json"
 
 PROT_FULL = {"mtz": True, "to": True, "ozz": True}
 PROT_LINE = {"mtz": True, "to": True, "ozz": False}

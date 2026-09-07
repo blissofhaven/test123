@@ -7,6 +7,9 @@
 
     python tools/build_demo_network.py
 
+Выходные файлы находятся только в tests/fixtures/legacy_projects: это
+исторические тестовые данные, а не встроенные схемы приложения.
+
 Состав сети описан в docs/roadmap/stages/B1-demo-and-analysis.md.
 Параметры оборудования правдоподобны и взяты из типовых справочных рядов, но
 к реальному объекту не относятся.
@@ -23,8 +26,8 @@ sys.path.insert(0, str(ROOT))
 
 from rza_calc.io.project import load_project, save_project
 
-V1_PATH = ROOT / "rza_calc/examples/energoraion_v1.json"
-V7_PATH = ROOT / "rza_calc/examples/energoraion.json"
+V1_PATH = ROOT / "tests/fixtures/legacy_projects/energoraion_v1.json"
+V7_PATH = ROOT / "tests/fixtures/legacy_projects/energoraion.json"
 
 PROT_FULL = {"mtz": True, "to": True, "ozz": True}      # линия с ОЗЗ
 PROT_LINE = {"mtz": True, "to": True, "ozz": False}     # линия без ОЗЗ

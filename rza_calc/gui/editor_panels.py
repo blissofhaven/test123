@@ -839,6 +839,7 @@ class EditorCommandBar(QToolBar):
         self.scale_combo.setMinimumWidth(82)
         for value in (25, 50, 75, 100, 125, 150, 200, 400):
             self.scale_combo.addItem(f"{value} %", value / 100.0)
+        self._preset_zoom_count = self.scale_combo.count()
         self.scale_combo.setCurrentIndex(self.scale_combo.findData(1.0))
         self.addWidget(self.scale_combo)
         self.labels_button = QToolButton(self)
@@ -938,11 +939,27 @@ class EditorCommandBar(QToolBar):
             self.confirm_switching_action.blockSignals(False)
 
     def set_zoom(self, zoom: float) -> None:
-        index = self.scale_combo.findData(round(float(zoom), 2))
-        if index >= 0:
-            self.scale_combo.blockSignals(True)
+        zoom = float(zoom)
+        if not math.isfinite(zoom) or zoom <= 0:
+            return
+        index = next((index for index in range(self._preset_zoom_count)
+                      if math.isclose(float(self.scale_combo.itemData(index)), zoom,
+                                      rel_tol=1e-10, abs_tol=1e-12)), -1)
+        previous = self.scale_combo.blockSignals(True)
+        try:
+            if index < 0:
+                # Fit/wheel/restored zoom need one current value, not a list
+                # of every intermediate scale and not the nearest preset.
+                index = self._preset_zoom_count
+                label = f"{zoom * 100:.1f}".rstrip("0").rstrip(".").replace(".", ",") + " %"
+                if self.scale_combo.count() == index:
+                    self.scale_combo.addItem(label, zoom)
+                else:
+                    self.scale_combo.setItemText(index, label)
+                    self.scale_combo.setItemData(index, zoom)
             self.scale_combo.setCurrentIndex(index)
-            self.scale_combo.blockSignals(False)
+        finally:
+            self.scale_combo.blockSignals(previous)
 
     def set_selection_count(self, count: int) -> None:
         self._selection_count = max(0, int(count))
@@ -1077,6 +1094,9 @@ class EditorWorkspaceWidget(QWidget):
             if item is not None:
                 item.setSelected(True)
         self.command_bar.refresh(self.controller)
+        # Saved viewport restoration is intentionally silent; initialize and
+        # refresh the indicator from the real view after all bindings exist.
+        self.command_bar.set_zoom(self.canvas.view.viewport_state().zoom)
         self._update_inspector()
         self._update_bottom_panel()
 

@@ -15,9 +15,9 @@ if errorlevel 1 (
   exit /b 2
 )
 
-echo Текстовый отчёт по схеме ПС 110/10 кВ "Промышленная".
+echo Текстовый отчёт по учебной схеме нефтепромысла "Таёжный" с ГТЭС.
 echo Окно программы открывается файлом ЗАПУСК.bat
 echo.
-python -m rza_calc rza_calc\examples\ps_promyshlennaya.json report
+python -m rza_calc rza_calc\examples\oilfield_gtes.json report
 echo.
 pause

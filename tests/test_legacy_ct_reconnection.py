@@ -14,7 +14,7 @@ from rza_calc.editor.legacy_ct import CT_BINDINGS_KEY, preserve_legacy_ct_bindin
 from rza_calc.io.electrical_model import electrical_model_from_dict, electrical_model_to_dict
 from rza_calc.io.project import load_project, save_project
 
-DEMO = Path(__file__).resolve().parents[1] / "rza_calc/examples/energoraion.json"
+DEMO = Path(__file__).resolve().parents[1] / "tests/fixtures/legacy_projects/energoraion.json"
 U10 = VoltageClassId("builtin.voltage.ac.10kv")
 
 

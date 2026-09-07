@@ -325,7 +325,7 @@ def test_legacy_three_winding_partial_availability_roundtrips_per_leg() -> None:
 
 def test_real_migrated_examples_compile_all_modes_without_blockers() -> None:
     for filename in ("gtes_sever.json", "ps_severnaya.json"):
-        project = load_project(ROOT / "rza_calc" / "examples" / filename)
+        project = load_project(ROOT / "tests" / "fixtures" / "legacy_projects" / filename)
         engine = TopologyEngine()
         states = tuple(project.electrical_model.operating_states)
         assert states

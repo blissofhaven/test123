@@ -239,8 +239,7 @@ def test_main_window_opens_editor_first_and_keeps_legacy_analysis() -> None:
 
     source = (
         Path(__file__).resolve().parent.parent
-        / "rza_calc"
-        / "examples"
+        / "tests" / "fixtures" / "legacy_projects"
         / "gtes_sever.json"
     )
     vm = ProjectViewModel.open(source)

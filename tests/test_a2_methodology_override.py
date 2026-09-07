@@ -14,7 +14,7 @@ from rza_calc.io.project import ProjectFormatError, load, load_project, save_pro
 
 
 ROOT = Path(__file__).resolve().parents[1]
-EXAMPLE = ROOT / "rza_calc/examples/ps_severnaya.json"
+EXAMPLE = ROOT / "tests/fixtures/legacy_projects/ps_severnaya.json"
 
 
 def _write_project(tmp_path, *, name="project.json", raw=None):

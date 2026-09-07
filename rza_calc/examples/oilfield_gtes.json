@@ -249070,9 +249070,9 @@
         "grid_visible": true,
         "snap_enabled": true,
         "grid_size": 20.0,
-        "zoom": 0.4,
-        "view_x": 0.0,
-        "view_y": 250.0,
+        "zoom": 0.75,
+        "view_x": -660.0,
+        "view_y": -60.0,
         "active_page_id": "page_2c7b4e9ac53859109ec1499d1ea4351e",
         "open_panels": [
           "project",

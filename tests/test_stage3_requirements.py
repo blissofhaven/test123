@@ -62,8 +62,7 @@ from rza_calc.topology import TopologyEngine  # noqa: E402
 U10 = VoltageClassId("builtin.voltage.ac.10kv")
 EXAMPLE = (
     Path(__file__).resolve().parent.parent
-    / "rza_calc"
-    / "examples"
+    / "tests" / "fixtures" / "legacy_projects"
     / "gtes_sever.json"
 )
 

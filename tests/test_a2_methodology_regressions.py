@@ -18,7 +18,7 @@ from rza_calc.core.methodology import (
 from rza_calc.io.project import load
 
 
-EXAMPLE = Path(__file__).resolve().parents[1] / "rza_calc/examples/ps_severnaya.json"
+EXAMPLE = Path(__file__).resolve().parents[1] / "tests/fixtures/legacy_projects/ps_severnaya.json"
 NON_TEXT = [None, False, True, 0, 12, 1.25, [], ["source"], {}, {"name": "source"}]
 
 

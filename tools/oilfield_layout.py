@@ -208,7 +208,7 @@ def build_layout(project, manifest):
         revision=project.diagram.revision+1,
         extensions={'stage3_workspace':{
             'mode':'edit','grid_visible':True,'snap_enabled':True,'grid_size':20.,
-            'zoom':.4,'view_x':0.,'view_y':250.,'active_page_id':first.value,
+            'zoom':.75,'view_x':-660.,'view_y':-60.,'active_page_id':first.value,
             'open_panels':['project','properties','issues'],
             'developer_diagnostics':False,'confirm_switching':True,
         }},

@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def opened(example="four_fault_types"):
-    vm = ProjectViewModel.open(ROOT / f"rza_calc/examples/{example}.json")
+    vm = ProjectViewModel.open(ROOT / f"tests/fixtures/legacy_projects/{example}.json")
     line = next(b for b in vm.net.branches.values() if b.kind == "line")
     vm.select("node", line.node_to)
     vm.select_mode(next(iter(vm.net.modes)))

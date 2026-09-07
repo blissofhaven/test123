@@ -24,7 +24,7 @@ from rza_calc.io.project import load, load_project
 from test_bus_connection_spacing import PAGE, _setup
 
 ROOT = Path(__file__).resolve().parents[1]
-DEMO = ROOT / "rza_calc/examples/ps_promyshlennaya.json"
+DEMO = ROOT / "tests/fixtures/legacy_projects/ps_promyshlennaya.json"
 U6 = VoltageClassId("builtin.voltage.ac.6kv")
 U10 = VoltageClassId("builtin.voltage.ac.10kv")
 

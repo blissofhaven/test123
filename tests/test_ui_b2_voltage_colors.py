@@ -31,7 +31,7 @@ from rza_calc.editor.symbol_svg import symbol_svg  # noqa: E402
 
 
 ROOT = Path(__file__).resolve().parent.parent
-DEMO = ROOT / "rza_calc" / "examples" / "energoraion.json"
+DEMO = ROOT / "tests" / "fixtures" / "legacy_projects" / "energoraion.json"
 
 
 EXPECTED_VOLTAGE_STROKES = {

@@ -28,7 +28,7 @@ from rza_calc.core.model import (GRID, LineBranch, Load, Mode, Network, Node,
 from rza_calc.core.result import OK
 from rza_calc.io.project import load
 
-DEMO = Path(__file__).resolve().parents[1] / "rza_calc/examples/ps_promyshlennaya.json"
+DEMO = Path(__file__).resolve().parents[1] / "tests/fixtures/legacy_projects/ps_promyshlennaya.json"
 
 
 def _network(*, with_breaker: bool) -> Network:

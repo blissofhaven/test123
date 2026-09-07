@@ -46,10 +46,10 @@ from rza_calc.io.project import (  # noqa: E402
 )
 
 ROOT = Path(__file__).resolve().parent.parent
-GTES = ROOT / "rza_calc" / "examples" / "gtes_sever.json"
-PS = ROOT / "rza_calc" / "examples" / "ps_severnaya.json"
-LEGACY_GTES = ROOT / "rza_calc" / "examples" / "gtes_sever_v1.json"
-LEGACY_PS = ROOT / "rza_calc" / "examples" / "ps_severnaya_v1.json"
+GTES = ROOT / "tests" / "fixtures" / "legacy_projects" / "gtes_sever.json"
+PS = ROOT / "tests" / "fixtures" / "legacy_projects" / "ps_severnaya.json"
+LEGACY_GTES = ROOT / "tests" / "fixtures" / "legacy_projects" / "gtes_sever_v1.json"
+LEGACY_PS = ROOT / "tests" / "fixtures" / "legacy_projects" / "ps_severnaya_v1.json"
 LEGACY_EXAMPLES = (LEGACY_PS, LEGACY_GTES)
 LEGACY_SHA256 = {
     "gtes_sever_v1.json": "ac88723c7ebb6dbafea40cd857c33e2848bc75e1f7718b382fd0c24f9677af86",

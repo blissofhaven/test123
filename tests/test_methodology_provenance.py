@@ -25,7 +25,7 @@ from rza_calc.io.project import load
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_PROFILE = ROOT / "rza_calc" / "data" / "methodology_default.json"
 PROJECT_TEMPLATE = ROOT / "rza_calc" / "data" / "methodology_project_template.json"
-EXAMPLE = ROOT / "rza_calc" / "examples" / "ps_severnaya.json"
+EXAMPLE = ROOT / "tests" / "fixtures" / "legacy_projects" / "ps_severnaya.json"
 
 
 def _default() -> Methodology:

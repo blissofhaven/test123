@@ -549,8 +549,7 @@ def test_branch_auto_orientation_faces_selected_semantic_port_toward_tap(
 def test_full_project_roundtrip_keeps_orientation_mode(tmp_path) -> None:
     source = (
         Path(__file__).resolve().parents[1]
-        / "rza_calc"
-        / "examples"
+        / "tests" / "fixtures" / "legacy_projects"
         / "gtes_sever.json"
     )
     project = load_project(source)

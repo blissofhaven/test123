@@ -135,7 +135,7 @@ def test_full_bus_is_incompatible_without_crash_or_extra_connection(canvas_facto
 
 @pytest.mark.parametrize("finish", ("commit_undo", "escape"))
 def test_actual_legacy_physical_line_grab_incident_stroke_moves_same_owner(canvas_factory, finish):
-    path = Path(__file__).resolve().parents[1] / "rza_calc/examples/energoraion.json"
+    path = Path(__file__).resolve().parents[1] / "tests/fixtures/legacy_projects/energoraion.json"
     raw = path.read_bytes()
     canvas = canvas_factory(ProjectEditorController(load_project(path)))
     owner = next(item for item in canvas.scene._items_by_id.values()

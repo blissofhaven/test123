@@ -36,7 +36,7 @@ from rza_calc.io.project import load_project
 from rza_calc.topology import TopologyEngine
 
 OUTPUT = ROOT / "docs" / "work-verification" / "VisualMerge-Sol-20260831" / "visio-style"
-EXAMPLE = ROOT / "rza_calc" / "examples" / "energoraion.json"
+EXAMPLE = ROOT / "tests" / "fixtures" / "legacy_projects" / "energoraion.json"
 
 
 @dataclass

@@ -31,7 +31,7 @@ from rza_calc.io.project import load_project
 from test_ui_b3_label_geometry import _native_line_scene
 
 
-DEMO = Path(__file__).resolve().parent.parent / "rza_calc/examples/energoraion.json"
+DEMO = Path(__file__).resolve().parent.parent / "tests/fixtures/legacy_projects/energoraion.json"
 _APP = None
 
 

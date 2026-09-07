@@ -5,7 +5,7 @@ from pathlib import Path
 from rza_calc.gui.view_model import ProjectViewModel, iter_tree
 
 
-EXAMPLE = Path(__file__).resolve().parent.parent / "rza_calc" / "examples" / "gtes_sever.json"
+EXAMPLE = Path(__file__).resolve().parent.parent / "tests" / "fixtures" / "legacy_projects" / "gtes_sever.json"
 
 
 def make_vm() -> ProjectViewModel:

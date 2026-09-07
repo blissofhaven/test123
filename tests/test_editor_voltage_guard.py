@@ -23,7 +23,7 @@ from test_ui_connected_commands import _controller, _native_line
 
 U10 = VoltageClassId("builtin.voltage.ac.10kv")
 U110 = VoltageClassId("builtin.voltage.ac.110kv")
-DEMO = Path(__file__).resolve().parent.parent / "rza_calc/examples/energoraion.json"
+DEMO = Path(__file__).resolve().parent.parent / "tests/fixtures/legacy_projects/energoraion.json"
 
 
 def _load(controller, name, voltage, x):

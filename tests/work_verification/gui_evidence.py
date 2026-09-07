@@ -51,7 +51,7 @@ from rza_calc.gui.view_model import ProjectViewModel
 from rza_calc.topology import TopologyEngine
 
 
-EXAMPLE = ROOT / "rza_calc" / "examples" / "gtes_sever.json"
+EXAMPLE = ROOT / "tests" / "fixtures" / "legacy_projects" / "gtes_sever.json"
 U10 = VoltageClassId("builtin.voltage.ac.10kv")
 
 

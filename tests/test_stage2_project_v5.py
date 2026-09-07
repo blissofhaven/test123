@@ -56,7 +56,7 @@ from rza_calc.topology import TopologyEngine
 
 
 ROOT = Path(__file__).resolve().parent.parent
-EXAMPLE_V3 = ROOT / "rza_calc" / "examples" / "ps_severnaya.json"
+EXAMPLE_V3 = ROOT / "tests" / "fixtures" / "legacy_projects" / "ps_severnaya.json"
 AVAILABILITY_CAPABILITY = "equipment.availability"
 U10 = VoltageClassId("builtin.voltage.ac.10kv")
 

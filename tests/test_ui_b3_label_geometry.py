@@ -35,7 +35,7 @@ from rza_calc.io.project import load_project  # noqa: E402
 
 
 ROOT = Path(__file__).resolve().parent.parent
-DEMO = ROOT / "rza_calc" / "examples" / "energoraion.json"
+DEMO = ROOT / "tests" / "fixtures" / "legacy_projects" / "energoraion.json"
 MIN_CLEARANCE = 4.0
 COORDINATE_EPSILON = 1e-6
 DEMO_REPRESENTATIONS = 157

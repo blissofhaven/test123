@@ -22,11 +22,11 @@ from test_domain import _structure
 
 ROOT = Path(__file__).resolve().parent.parent
 EXAMPLES = (
-    ROOT / "rza_calc" / "examples" / "ps_severnaya.json",
-    ROOT / "rza_calc" / "examples" / "gtes_sever.json",
+    ROOT / "tests" / "fixtures" / "legacy_projects" / "ps_severnaya.json",
+    ROOT / "tests" / "fixtures" / "legacy_projects" / "gtes_sever.json",
 )
 PS = EXAMPLES[0]
-LEGACY_PS = ROOT / "rza_calc" / "examples" / "ps_severnaya_v1.json"
+LEGACY_PS = ROOT / "tests" / "fixtures" / "legacy_projects" / "ps_severnaya_v1.json"
 
 
 def _write(tmp_path: Path, raw: dict, name: str = "project.json") -> Path:

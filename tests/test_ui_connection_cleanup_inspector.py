@@ -172,7 +172,7 @@ def test_native_inspector_reads_inherited_parameters_and_reports_override_source
 
 
 def test_actual_legacy_lines_show_physical_kind_and_payload_without_conversion(workspace_factory):
-    path = Path(__file__).resolve().parents[1] / "rza_calc/examples/energoraion.json"
+    path = Path(__file__).resolve().parents[1] / "tests/fixtures/legacy_projects/energoraion.json"
     raw = path.read_bytes()
     workspace = workspace_factory(ProjectEditorController(load_project(path)))
     controller = workspace.controller
@@ -208,7 +208,7 @@ def test_inspector_decoration_does_not_emit_a_second_property_edit(workspace_fac
 
 
 def test_legacy_stroke_drag_then_native_inspector_edit_in_same_window_keeps_owner(workspace_factory):
-    path = Path(__file__).resolve().parents[1] / "rza_calc/examples/energoraion.json"
+    path = Path(__file__).resolve().parents[1] / "tests/fixtures/legacy_projects/energoraion.json"
     raw = path.read_bytes()
     workspace = workspace_factory(ProjectEditorController(load_project(path)))
     canvas, controller = workspace.canvas, workspace.controller

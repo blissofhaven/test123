@@ -36,6 +36,7 @@ def isolated_project(tmp_path):
     (project / "tests").mkdir()
     shutil.copy2(ROOT / "tests/baseline_snapshot.py", project / "tests")
     shutil.copytree(ROOT / "tests/baseline", project / "tests/baseline")
+    shutil.copytree(ROOT / "tests/fixtures", project / "tests/fixtures")
     outside = tmp_path / "unrelated working directory"
     outside.mkdir()
     return project, outside
@@ -95,10 +96,10 @@ def test_importing_tools_does_not_rebuild_projects(isolated_project, tool):
     ("build_substation_demo", "ps_promyshlennaya"),
     ("rebuild_demo", "gtes_sever"),
 ])
-def test_generators_write_only_their_examples_in_the_copy(
+def test_legacy_generators_write_only_their_test_fixtures_in_the_copy(
         isolated_project, tool, example):
     project, outside = isolated_project
-    examples = project / "rza_calc/examples"
+    examples = project / "tests/fixtures/legacy_projects"
     target = examples / f"{example}.json"
     target.unlink()  # This path is always inside pytest's disposable copy.
     before = snapshot(project)
@@ -117,30 +118,39 @@ def test_generators_write_only_their_examples_in_the_copy(
     after = snapshot(project)
     changed = {name for name in before.keys() | after.keys()
                if before.get(name) != after.get(name)}
-    assert changed <= {f"rza_calc/examples/{example}.json",
-                       f"rza_calc/examples/{example}_v1.json"}
+    assert changed <= {f"tests/fixtures/legacy_projects/{example}.json",
+                       f"tests/fixtures/legacy_projects/{example}_v1.json"}
     assert list(outside.iterdir()) == []
 
 
-@pytest.mark.parametrize("explicit_target", [False, True])
-def test_autolayout_uses_default_root_or_explicit_absolute_target(
-        isolated_project, explicit_target):
+@pytest.mark.parametrize("external_target", [False, True])
+def test_autolayout_uses_only_an_explicit_project_path(
+        isolated_project, external_target):
     project, outside = isolated_project
-    default = project / "rza_calc/examples/energoraion.json"
-    target = outside / "selected project.json" if explicit_target else default
-    if explicit_target:
+    default = project / "tests/fixtures/legacy_projects/energoraion.json"
+    target = outside / "selected project.json" if external_target else default
+    if external_target:
         shutil.copy2(default, target)
         # Preserve the example's ../data methodology reference in the fixture.
         shutil.copytree(project / "rza_calc/data", outside.parent / "data")
     before = electrical_model_fingerprint(load_project(target).electrical_model)
     script = project / "tools/autolayout.py"
-    result = run_python([script, *([target] if explicit_target else [])], cwd=outside)
+    result = run_python([script, target], cwd=outside)
     assert result.returncode == 0, result.stdout + result.stderr
     data = load_project(target)
     assert data.diagram.routes
     assert not data.diagram.validate_targets(data.electrical_model)
     assert electrical_model_fingerprint(data.electrical_model) == before
     assert not (outside / "rza_calc").exists()
+
+
+def test_autolayout_without_project_path_refuses_without_writing(isolated_project):
+    project, outside = isolated_project
+    before = snapshot(project)
+    result = run_python([project / "tools/autolayout.py"], cwd=outside)
+    assert result.returncode == 2, result.stdout + result.stderr
+    assert snapshot(project) == before
+    assert list(outside.iterdir()) == []
 
 
 def test_baseline_preview_from_foreign_directory_is_read_only(isolated_project):

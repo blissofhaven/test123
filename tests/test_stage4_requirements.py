@@ -64,7 +64,7 @@ from rza_calc.topology import TopologyEngine
 U10 = VoltageClassId("builtin.voltage.ac.10kv")
 U35 = VoltageClassId("builtin.voltage.ac.35kv")
 ROOT = Path(__file__).resolve().parent.parent
-EXAMPLE = ROOT / "rza_calc" / "examples" / "gtes_sever.json"
+EXAMPLE = ROOT / "tests" / "fixtures" / "legacy_projects" / "gtes_sever.json"
 
 
 @dataclass

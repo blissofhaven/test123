@@ -6,7 +6,7 @@ GUI на PySide6 надстраивается сверху и вызывает �
 не считает правильно в CLI, делать интерфейс рано.
 
     python -m rza_calc <проект.json> <команда> [аргументы]
-    python -m rza_calc example <команда>      — встроенный пример ПС 35/10 кВ
+    python -m rza_calc example <команда>      — встроенный пример нефтепромысла с ГТЭС
 
 Команды:
     check                    проверить модель и профиль методики
@@ -418,13 +418,13 @@ def main(argv: list[str] | None = None) -> int:
         print(__doc__)
         return 0
     if argv[0] in ("example", "пример"):
-        path = Path(__file__).resolve().parent / "examples" / "ps_severnaya.json"
+        path = Path(__file__).resolve().parent / "examples" / "oilfield_gtes.json"
     else:
         path = Path(argv[0])
     if not path.exists():
         print(f"Файл проекта не найден: {path}")
         print("Подсказка: слово  example  вместо пути откроет встроенный пример "
-              "ПС Северная 35/10 кВ.")
+              "Нефтепромысел «Таёжный» с ГТЭС.")
         return EXIT_INPUT_ERROR
 
     cmd = argv[1] if len(argv) > 1 else "report"
