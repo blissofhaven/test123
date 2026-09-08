@@ -8,9 +8,12 @@ from ..domain.operating_parameters import (OPERATING_PARAMETERS_KEY,
     operating_parameters_to_dict, validate_operating_parameters)
 
 
-def attach_operating_parameters(model, net, trace):
+def attach_operating_parameters(model, net, trace, *, state_ids=None):
     from .legacy_calculation import _legacy_or_native_id
+    selected = None if state_ids is None else frozenset(state_ids)
     for state in model.operating_states.values():
+        if selected is not None and state.id not in selected:
+            continue
         if OPERATING_PARAMETERS_KEY not in state.extensions:
             continue
         params = validate_operating_parameters(model, state)

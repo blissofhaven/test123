@@ -32,8 +32,10 @@ from .editor_scene import is_switch_control
 from .project_settings import ProjectSettings
 from .mode_toolbar import ModeToolbar
 from .calculation_worker import CalculationWorker
+from .point_fault import (PointFaultDialog, PointFaultWorker, PointFaultOverlayController,
+                          PointFaultDetailsDialog, point_fault_icon)
 from .theme import COLORS, DiagramColorMode, voltage_stroke
-from .view_model import FAULT_TYPE_LABELS, ProjectViewModel, TreeEntry, fault_status_label
+from .view_model import FAULT_TYPE_LABELS, FaultBranchView, ProjectViewModel, TreeEntry, fault_status_label
 
 
 def _presentation_render(method):
@@ -255,7 +257,7 @@ class HeaderWidget(QWidget):
         outer.addWidget(self.summary)
 
         for glyph, title_text, signal in (
-            ("↻", "Пересчитать", self.recalcRequested),
+            ("↻", "Полный расчёт", self.recalcRequested),
             ("▤", "Отчёт", self.reportRequested),
             ("♢", "Проверки", self.checksRequested),
             ("⚙", "Настройки", self.settingsRequested),
@@ -993,6 +995,9 @@ class InspectorPanel(QWidget):
         _fault_table_widths(self.fault_table)
         fault_page = QWidget()
         fault_layout = QVBoxLayout(fault_page)
+        self.fault_source_notice = QLabel('Полный расчёт проекта')
+        self.fault_source_notice.setWordWrap(True)
+        fault_layout.addWidget(self.fault_source_notice)
         self.fault_title = QLabel()
         self.fault_title.setWordWrap(True)
         fault_layout.addWidget(self.fault_title)
@@ -1080,7 +1085,8 @@ class BottomPanel(QWidget):
         fault_page = QWidget()
         fault_layout = QVBoxLayout(fault_page)
         fault_controls = QHBoxLayout()
-        fault_controls.addWidget(QLabel("Вид повреждения:"))
+        self.fault_type_label = QLabel("Вид повреждения:")
+        fault_controls.addWidget(self.fault_type_label)
         self.fault_type_combo = QComboBox()
         self.fault_type_combo.setObjectName("faultTypeCombo")
         for kind, label in FAULT_TYPE_LABELS.items():
@@ -1105,20 +1111,35 @@ class BottomPanel(QWidget):
         self.fault_details.setMaximumHeight(115)
         point_layout.addWidget(self.fault_details)
         self.fault_views.addTab(point_page, 'В точке КЗ')
+        self.fault_views.setTabText(0, 'Точка КЗ — полный расчёт')
+        self.point_result_notice = QLabel()
+        self.point_result_notice.setWordWrap(True)
+        self.point_result_notice.hide()
+        point_layout.insertWidget(0, self.point_result_notice)
         branch_page = QWidget()
         branch_layout = QVBoxLayout(branch_page)
         branch_layout.setContentsMargins(0, 0, 0, 0)
         self.fault_branch_title = QLabel()
         self.fault_branch_title.setWordWrap(True)
         branch_layout.addWidget(self.fault_branch_title)
-        branch_controls = QHBoxLayout()
+        source_controls = QHBoxLayout()
+        source_controls.addWidget(QLabel('Результат:'))
+        self.fault_measurement_source = QComboBox()
+        self.fault_measurement_source.addItem('Полный расчёт проекта', 'full')
+        self.fault_measurement_source.addItem('КЗ в выбранной точке', 'point')
+        source_controls.addWidget(self.fault_measurement_source)
+        self.point_fault_type_combo = QComboBox()
+        self.point_fault_type_combo.setToolTip('Вид КЗ из выполненного расчёта выбранной точки')
+        source_controls.addWidget(self.point_fault_type_combo)
+        branch_layout.addLayout(source_controls)
+        self._point_receipt = None
+        branch_controls = source_controls
         branch_controls.addWidget(QLabel('Измеряемая ветвь:'))
         self.fault_branch_combo = QComboBox()
         self.fault_branch_combo.setObjectName('faultBranchCombo')
         self.fault_branch_combo.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToMinimumContentsLengthWithIcon)
         self.fault_branch_combo.setMinimumContentsLength(25)
         branch_controls.addWidget(self.fault_branch_combo, 1)
-        branch_layout.addLayout(branch_controls)
         self.fault_measurement_table = _table(['Место измерения', 'Ступень, кВ', 'Ед.',
                                                'ΔIA', 'ΔIB', 'ΔIC', '3ΔI0', 'Результат'])
         self.fault_measurement_table.setObjectName('faultMeasurementTable')
@@ -1130,8 +1151,10 @@ class BottomPanel(QWidget):
         branch_layout.addWidget(self.fault_measurement_details)
         self.fault_views.addTab(branch_page, 'Ветви и ТТ')
         self._fault_vm = vm
+        self.fault_measurement_source.currentIndexChanged.connect(lambda: self._refresh_fault_measurements())
+        self.point_fault_type_combo.currentIndexChanged.connect(lambda: self._refresh_fault_measurements())
         self.fault_views.currentChanged.connect(
-            lambda index: self._refresh_fault_measurements() if index == 1 else None)
+            self._fault_view_changed)
         self.fault_branch_combo.currentIndexChanged.connect(
             lambda index: self._refresh_fault_measurements(str(self.fault_branch_combo.itemData(index)))
             if index >= 0 else None)
@@ -1225,11 +1248,48 @@ class BottomPanel(QWidget):
         ] for item in pairs])
         self.report_text.setPlainText(vm.report_text())
 
+    def _fault_view_changed(self, index):
+        self.fault_type_label.setVisible(index == 0)
+        self.fault_type_combo.setVisible(index == 0)
+        if index == 1:
+            self._refresh_fault_measurements()
+        else:
+            self.fault_type_combo.setEnabled(True)
+
+    def set_point_fault_result(self, result, *, prefer=False):
+        self.point_result_notice.setVisible(result is not None)
+        self.point_result_notice.setText('Точечный расчёт готов на схеме; эта таблица относится к полному расчёту проекта.' if result is not None else '')
+        if result is self._point_receipt and not prefer:
+            return
+        self._point_receipt = result
+        self.fault_measurement_source.blockSignals(True)
+        self.point_fault_type_combo.blockSignals(True)
+        self.point_fault_type_combo.clear()
+        if result is not None:
+            for outcome in result.outcomes:
+                self.point_fault_type_combo.addItem(FAULT_TYPE_LABELS[outcome.spec.kind], outcome.spec)
+            self.fault_measurement_source.setCurrentIndex(self.fault_measurement_source.findData('point'))
+        # A stale point stays selected with an explicit reason. It must never
+        # silently fall back to a full result for another point or fault type.
+        self.point_fault_type_combo.blockSignals(False)
+        self.fault_measurement_source.blockSignals(False)
+        if self.fault_views.currentIndex() == 1:
+            self._refresh_fault_measurements()
+
     def _refresh_fault_measurements(self, branch_id=None) -> None:
         # One bounded fresh read, including when a user only changes the local
         # measurement selector. The VM solves once per fault input, not row.
         with self._fault_vm.presentation_snapshot():
-            view = self._fault_vm.fault_branch_view(branch_id)
+            point = self.fault_measurement_source.currentData() == 'point'
+            self.point_fault_type_combo.setVisible(point)
+            self.fault_type_combo.setEnabled(not point)
+            spec = self.point_fault_type_combo.currentData()
+            if point and spec is not None:
+                view = self._fault_vm.point_fault_branch_view(spec, branch_id)
+            elif point:
+                view = FaultBranchView('КЗ в выбранной точке', status='Нет актуального расчёта выбранной точки. Выполните КЗ снова; полный расчёт выбирается отдельно.')
+            else:
+                view = self._fault_vm.fault_branch_view(branch_id)
         self.fault_branch_title.setText(view.title)
         self.fault_branch_combo.blockSignals(True)
         self.fault_branch_combo.clear()
@@ -1335,6 +1395,13 @@ class MainWindow(QMainWindow):
         self.mode_toolbar.calculateRequested.connect(self._recalculate)
         self.mode_toolbar.cancelRequested.connect(self._cancel_calculation)
         self.mode_toolbar.snapshotRequested.connect(self._save_calculation_input)
+        self.mode_toolbar.calculate.setText('Полный расчёт')
+        self.mode_toolbar.calculate.setToolTip('Все режимы, КЗ и поддерживаемые проверки защит проекта')
+        self.point_fault_button = QPushButton('КЗ в точке…')
+        self.point_fault_button.setIcon(point_fault_icon())
+        self.point_fault_button.setToolTip('Выберите шину или аппарат на схеме. Его физическую сторону можно выбрать в окне расчёта.')
+        self.point_fault_button.clicked.connect(self._point_fault_for_selection)
+        self.mode_toolbar.layout().insertWidget(self.mode_toolbar.layout().indexOf(self.mode_toolbar.calculate), self.point_fault_button)
         central = QWidget()
         central_layout = QVBoxLayout(central)
         central_layout.setContentsMargins(0, 0, 0, 0)
@@ -1344,7 +1411,26 @@ class MainWindow(QMainWindow):
         self.header.legacy_mode_frame.hide()
         self._calculation_worker = None
         self._calculation_pending_result = None
+        self._point_worker = None
+        self._point_pending_result = None
+        self._point_context = {}
+        self._point_details = None
+        self._point_overlays = tuple(PointFaultOverlayController(scene) for scene in (
+            self.editor_workspace.scene, self.diagram_panel.view.scene))
+        for overlay in self._point_overlays:
+            overlay.scene.pointFaultRequested.connect(self._open_point_fault_dialog)
+            overlay.detailsRequested.connect(self._show_point_fault_details)
         self.mode_toolbar.refresh(vm)
+
+        file_menu = self.menuBar().addMenu('Файл')
+        self.open_project_action = file_menu.addAction('Открыть проект…')
+        self.open_project_action.triggered.connect(self._open_project_dialog)
+        self.auto_open_project_action = file_menu.addAction('Автоматически открывать последний проект')
+        self.auto_open_project_action.setCheckable(True)
+        self.auto_open_project_action.setEnabled(self._project_settings is not None)
+        self._auto_open_previous = bool(self._project_settings.auto_open_last_project()) if self._project_settings is not None else False
+        self.auto_open_project_action.setChecked(self._auto_open_previous)
+        self.auto_open_project_action.toggled.connect(self._set_auto_open_project)
 
         self.monochrome_action = QAction("Чёрно-белая схема", self)
         self.monochrome_action.setCheckable(True)
@@ -1452,6 +1538,11 @@ class MainWindow(QMainWindow):
             self.statusBar().showMessage(reason)
 
     def closeEvent(self, event) -> None:
+        if self._point_worker is not None and self._point_worker.isRunning():
+            self._close_after_calculation = True
+            self._cancel_calculation()
+            event.ignore()
+            return
         if self._calculation_worker is not None and self._calculation_worker.isRunning():
             self._close_after_calculation = True
             self._cancel_calculation()
@@ -1486,6 +1577,23 @@ class MainWindow(QMainWindow):
             pass
         return "Не удалось запомнить проект для следующего запуска."
 
+    def _set_auto_open_project(self, enabled):
+        if self._project_settings is None:
+            return
+        try:
+            saved = self._project_settings.set_auto_open_last_project(enabled)
+        except OSError:
+            saved = False
+        if saved:
+            self._auto_open_previous = bool(enabled)
+            self.statusBar().showMessage('Автоматическое открытие последнего проекта включено.' if enabled
+                else 'При следующем запуске появится выбор проекта.', 5000)
+        else:
+            self.auto_open_project_action.blockSignals(True)
+            self.auto_open_project_action.setChecked(self._auto_open_previous)
+            self.auto_open_project_action.blockSignals(False)
+            self.statusBar().showMessage('Не удалось сохранить настройку запуска.', 7000)
+
     def _save_editor_project(self) -> None:
         """Сохранить обе канонические модели одним штатным project writer."""
         try:
@@ -1519,7 +1627,7 @@ class MainWindow(QMainWindow):
         replacement = None
         try:
             replacement = MainWindow(
-                ProjectViewModel.open(path), project_settings=self._project_settings
+                ProjectViewModel.open(path, calculate=False), project_settings=self._project_settings
             )
             replacement.showMaximized()
         except Exception as exc:
@@ -1570,6 +1678,124 @@ class MainWindow(QMainWindow):
         self.bottom.refresh(self.vm)
         self.inspector.tabs.setCurrentIndex(inspector_tab)
         self.bottom.tabs.setCurrentIndex(bottom_tab)
+        self._refresh_point_fault_ui()
+
+    def _point_fault_for_selection(self):
+        owner = (self.editor_workspace.canvas if self.workspace_tabs.currentIndex() == 0
+                 else self.diagram_panel.view)
+        items = [item for item in owner.scene.selectedItems()
+                 if getattr(item, 'representation_id', None) is not None or getattr(item, 'route_id', None) is not None]
+        if len(items) != 1:
+            self.statusBar().showMessage('Выберите одну шину, линию или аппарат; либо нажмите правой кнопкой на нужный вывод.')
+            return
+        self._open_point_fault_dialog(owner.scene.point_fault_context(items[0]))
+
+    def _open_point_fault_dialog(self, context):
+        if self._point_worker is not None or self._calculation_worker is not None:
+            self.statusBar().showMessage('Дождитесь завершения или отмените выполняющийся расчёт.')
+            return
+        if self.vm.mode_draft is not None:
+            self.statusBar().showMessage('Примените или сбросьте черновик режима перед расчётом КЗ.')
+            return
+        selected = self.vm.selected_mode_choice()
+        if selected is None:
+            self.statusBar().showMessage('Сначала выберите режим сети.')
+            return
+        dialog = PointFaultDialog(self.editor_controller.model, context, selected.name, self)
+        if dialog.exec() == QDialog.DialogCode.Accepted:
+            self._start_point_fault(dialog.target, dialog.specs, context, state_id=selected.state_id)
+        dialog.deleteLater()
+
+    def _start_point_fault(self, target, specs, context=None, *, state_id=None):
+        if self._point_worker is not None or self._calculation_worker is not None:
+            return
+        try:
+            generation, request = self.vm.begin_point_fault_query(target, specs, state_id=state_id)
+            cached = self.vm.cached_point_fault_query(request)
+            prepared = None if cached is not None else self.vm.point_fault_prepared_mode(request)
+        except (ValueError, KeyError, RuntimeError) as exc:
+            self.statusBar().showMessage(str(exc))
+            return
+        self._point_context = dict(context or {})
+        if cached is not None:
+            if self.vm.publish_point_fault_query(generation, request, cached):
+                self.bottom.set_point_fault_result(cached, prefer=True)
+            self._refresh_point_fault_ui()
+            self.statusBar().showMessage('Показан актуальный расчёт выбранной точки.')
+            return
+        self._point_run = (generation, request)
+        self._point_pending_result = None
+        self._point_saved_editor_mode = self.editor_controller.mode
+        self.editor_workspace._set_mode('analysis')
+        self._set_calculation_editing_enabled(False)
+        worker = PointFaultWorker(request, prepared, self)
+        self._point_worker = worker
+        worker.progressed.connect(self.mode_toolbar.set_progress)
+        worker.completed.connect(self._point_fault_completed)
+        worker.finished.connect(self._point_fault_finished)
+        self._refresh_point_fault_ui()
+        self.mode_toolbar.set_progress(0, 0, 'КЗ: подготавливаю выбранный режим…')
+        worker.start()
+
+    def _point_fault_completed(self, result, error):
+        self._point_pending_result = (result, error)
+
+    def _point_fault_finished(self):
+        worker = self._point_worker
+        result, error = self._point_pending_result or (None, 'Точечный расчёт завершился без результата.')
+        if worker.isInterruptionRequested():
+            result, error = None, 'Расчёт КЗ отменён.'
+        generation, request = self._point_run
+        accepted = self.vm.publish_point_fault_query(generation, request, result, error)
+        self._point_worker = None
+        worker.deleteLater()
+        self.editor_workspace._set_mode(self._point_saved_editor_mode.value)
+        self._set_calculation_editing_enabled(True)
+        self.mode_toolbar.cancel.setEnabled(True)
+        self.mode_toolbar.refresh(self.vm)
+        self._refresh_point_fault_ui()
+        self.statusBar().showMessage('КЗ в выбранной точке рассчитаны.' if accepted
+            else self.vm.point_query_error or error or 'Результат КЗ не опубликован.', 7000)
+        if getattr(self, '_close_after_calculation', False):
+            self.close()
+
+    def _refresh_point_fault_ui(self):
+        if not hasattr(self, '_point_overlays'):
+            return
+        busy = self._point_worker is not None
+        full_busy = self._calculation_worker is not None
+        allowed = not busy and not full_busy and self.vm.mode_draft is None
+        self.point_fault_button.setEnabled(allowed)
+        for overlay in self._point_overlays:
+            overlay.scene.point_fault_enabled = allowed
+        if busy:
+            self.mode_toolbar.selector.setEnabled(False)
+            self.mode_toolbar.manage.setEnabled(False)
+            self.mode_toolbar.apply.setEnabled(False)
+            self.mode_toolbar.reset.setEnabled(False)
+            self.mode_toolbar.calculate.setEnabled(False)
+            self.mode_toolbar.snapshot.setEnabled(False)
+            self.mode_toolbar.cancel.setVisible(True)
+            self.mode_toolbar.progress.setVisible(True)
+        current = self.vm.current_point_fault_result
+        self.bottom.set_point_fault_result(current)
+        self.inspector.fault_source_notice.setText('Точечный расчёт готов на схеме; эта таблица относится к полному расчёту проекта.'
+            if current is not None else 'Полный расчёт проекта')
+        for overlay in self._point_overlays:
+            overlay.set_result(current, self._point_context)
+        if self._point_details is not None and self._point_details.result is not current:
+            self._point_details.invalidate()
+
+    def _show_point_fault_details(self):
+        result = self.vm.current_point_fault_result
+        if result is None:
+            self._refresh_point_fault_ui()
+            return
+        if self._point_details is not None:
+            self._point_details.close()
+            self._point_details.deleteLater()
+        self._point_details = PointFaultDetailsDialog(result, self)
+        self._point_details.show()
 
     def _select_mode(self, mode_id: str) -> None:
         if mode_id not in self.vm.net.modes:
@@ -1640,7 +1866,7 @@ class MainWindow(QMainWindow):
             f"(режим «{self.vm.mode.name}»)", 5000)
 
     def _recalculate(self) -> None:
-        if self._calculation_worker is not None:
+        if self._calculation_worker is not None or self._point_worker is not None:
             return
         try:
             generation, captured = self.vm.begin_background_calculation()
@@ -1664,6 +1890,8 @@ class MainWindow(QMainWindow):
     def _set_calculation_editing_enabled(self, enabled):
         self.editor_workspace.scene.switching_enabled = enabled
         self.diagram_panel.view.scene.switching_enabled = enabled
+        self.editor_workspace.scene.point_fault_enabled = enabled
+        self.diagram_panel.view.scene.point_fault_enabled = enabled
         self.editor_workspace.command_bar.setEnabled(enabled)
         self.editor_workspace.inspector.setEnabled(enabled)
         for action in (self.equipment_card_action, self.parameter_table_action, self.parameter_catalog_action):
@@ -1672,6 +1900,13 @@ class MainWindow(QMainWindow):
             card.setEnabled(enabled)
 
     def _cancel_calculation(self):
+        if self._point_worker is not None:
+            self._point_worker.requestInterruption()
+            self.vm.cancel_point_fault_query()
+            self.mode_toolbar.cancel.setEnabled(False)
+            self.mode_toolbar.status.setText('Отмена КЗ: ожидаю безопасного завершения текущего шага…')
+            self._refresh_point_fault_ui()
+            return
         if self._calculation_worker is not None:
             self._calculation_worker.requestInterruption()
             self.mode_toolbar.cancel.setEnabled(False)

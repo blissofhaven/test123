@@ -12,7 +12,7 @@ pytest.importorskip("PySide6")
 from PySide6 import QtCore
 from PySide6.QtWidgets import QApplication, QFileDialog, QMessageBox, QProgressDialog, QPushButton
 
-from rza_calc.gui import app, main_window
+from rza_calc.gui import app, main_window, newprojectchooser
 from rza_calc.gui.view_model import ProjectViewModel
 
 
@@ -54,10 +54,18 @@ def session(tmp_path, monkeypatch):
         return window
 
     monkeypatch.setattr(main_window, "MainWindow", tracked_window)
+    choices, chooser_calls = [], []
+
+    def choose(settings, *, notice=""):
+        chooser_calls.append(notice)
+        return choices.pop(0) if choices else None
+
+    monkeypatch.setattr(newprojectchooser, "choose_project", choose)
     state = SimpleNamespace(
         qt=qt, settings=settings, ini=ini, factories=factories,
         default=default, remembered=remembered, explicit=explicit,
         messages=messages, windows=windows, window_class=window_class,
+        choices=choices, chooser_calls=chooser_calls,
     )
     yield state
     for window in windows:
@@ -69,8 +77,9 @@ def session(tmp_path, monkeypatch):
         qt._rza_project_windows = []
 
 
-def seed(session, path):
+def seed(session, path, *, auto_open=False):
     session.settings.setValue(LAST_PROJECT_KEY, str(path))
+    session.settings.setValue("startup/auto_open_last_project", auto_open)
     session.settings.sync()
 
 
@@ -79,13 +88,15 @@ def stored(session):
     return session.settings.value(LAST_PROJECT_KEY, "")
 
 
-def test_startup_reopens_last_successful_project(session):
-    seed(session, session.remembered)
+def test_opt_in_startup_reopens_last_successful_project(session):
+    seed(session, session.remembered, auto_open=True)
     assert app.main([]) == 0
     assert session.windows[-1].vm.path == session.remembered
     assert session.windows[-1].isVisible()
     assert not session.messages
     assert session.factories == [("RZA Calc", "РЗА-Про")]
+    assert not session.chooser_calls
+    assert session.windows[-1].vm.result is None
 
 
 def test_successful_explicit_path_wins_and_is_remembered(session):
@@ -95,14 +106,16 @@ def test_successful_explicit_path_wins_and_is_remembered(session):
     assert stored(session) == str(session.explicit.resolve())
 
 
-def test_failed_remembered_project_falls_back_with_nonmodal_reason(session):
+def test_failed_remembered_project_returns_to_chooser_with_reason(session):
     missing = session.remembered.with_name("перемещён.json")
-    seed(session, missing)
+    seed(session, missing, auto_open=True)
+    session.choices.append(session.default)
     assert app.main([]) == 0
     assert session.windows[-1].vm.path == session.default
     status = session.windows[-1].statusBar().currentMessage()
     assert str(missing) in status
     assert "не удалось" in status.lower()
+    assert str(missing) in session.chooser_calls[0]
     assert not session.messages
 
 
@@ -115,10 +128,12 @@ def test_failed_explicit_path_does_not_fall_back_or_replace_remembered(session):
     assert stored(session) == str(session.remembered)
 
 
-def test_first_startup_uses_existing_default_and_remembers_it(session):
+def test_first_startup_opens_explicit_chooser_selection_and_remembers_it(session):
+    session.choices.append(session.default)
     assert app.main([]) == 0
     assert session.windows[-1].vm.path == session.default
     assert stored(session) == str(session.default.resolve())
+    assert session.chooser_calls == [""]
 
 
 def test_actual_default_is_the_new_oilfield_project():
@@ -134,18 +149,20 @@ def test_actual_default_is_the_new_oilfield_project():
     "ps_severnaya.json", "ps_severnaya_v1.json",
 ))
 @pytest.mark.parametrize("exists", (True, False))
-def test_retired_builtin_history_selects_new_project_without_opening_old(session, monkeypatch, name, exists):
+def test_retired_builtin_auto_history_returns_to_chooser_without_opening_old(session, monkeypatch, name, exists):
     old = session.default.parent / "previous-installation/rza_calc/examples" / name
     old.parent.mkdir(parents=True, exist_ok=True)
     if exists:
         shutil.copyfile(EXAMPLE, old)
-    seed(session, old)
+    seed(session, old, auto_open=True)
+    session.choices.append(session.default)
     attempted = []
     original_open = ProjectViewModel.open
 
-    def observed_open(path):
+    def observed_open(path, **kwargs):
         attempted.append(Path(path))
-        return original_open(path)
+        assert kwargs == {"calculate": False}
+        return original_open(path, **kwargs)
 
     monkeypatch.setattr(ProjectViewModel, "open", observed_open)
     assert app.main([]) == 0
@@ -158,7 +175,7 @@ def test_retired_builtin_history_selects_new_project_without_opening_old(session
 def test_custom_project_with_retired_example_name_remains_the_last_project(session):
     custom = session.remembered.with_name("gtes_sever.json")
     shutil.copyfile(EXAMPLE, custom)
-    seed(session, custom)
+    seed(session, custom, auto_open=True)
     assert app.main([]) == 0
     assert session.windows[-1].vm.path == custom
     assert stored(session) == str(custom.resolve())
@@ -175,12 +192,13 @@ def test_explicit_cli_project_wins_even_if_it_uses_a_retired_builtin_path(sessio
 
 
 @pytest.mark.parametrize("failure", ("missing", "corrupt"))
-def test_missing_or_corrupt_last_project_selects_oilfield_fallback(session, failure):
+def test_missing_or_corrupt_last_project_opens_only_the_chooser_selection(session, failure):
     if failure == "missing":
         session.remembered.unlink()
     else:
         session.remembered.write_text("{broken json", encoding="utf-8")
-    seed(session, session.remembered)
+    seed(session, session.remembered, auto_open=True)
+    session.choices.append(session.default)
     assert app.main([]) == 0
     assert session.windows[-1].vm.path == session.default
     assert session.default.name == "oilfield_gtes.json"
@@ -192,6 +210,7 @@ def test_missing_or_corrupt_last_project_selects_oilfield_fallback(session, fail
 def test_success_survives_a_new_settings_instance_and_next_startup(session):
     assert app.main([str(session.explicit)]) == 0
     session.windows[-1].close()
+    session.choices.append(session.explicit)
     assert app.main([]) == 0
     assert session.windows[-1].vm.path == session.explicit
 
@@ -203,24 +222,25 @@ def test_relative_cli_path_is_stored_as_absolute(session, monkeypatch):
 
 
 @pytest.mark.parametrize("corrupt", (False, True))
-def test_unreadable_last_project_does_not_replace_setting_until_fallback_succeeds(
+def test_unreadable_last_project_chooser_cancel_preserves_setting(
     session, monkeypatch, corrupt,
 ):
     if corrupt:
         session.remembered.write_text("{broken json", encoding="utf-8")
     else:
         session.remembered.unlink()
-    seed(session, session.remembered)
+    seed(session, session.remembered, auto_open=True)
     session.default.unlink()
-    assert app.main([]) == 1
+    assert app.main([]) == 0
     assert not session.windows
     assert stored(session) == str(session.remembered)
-    assert str(session.remembered) in session.messages[-1][2]
-    assert str(session.default) in session.messages[-1][2]
+    assert str(session.remembered) in session.chooser_calls[-1]
+    assert not session.messages
 
 
-def test_last_project_full_window_failure_falls_back_before_recording(session, monkeypatch):
-    seed(session, session.remembered)
+def test_last_project_full_window_failure_returns_to_chooser_before_recording(session, monkeypatch):
+    seed(session, session.remembered, auto_open=True)
+    session.choices.append(session.default)
     construct = main_window.MainWindow
 
     def fail_last(vm, **kwargs):
@@ -290,12 +310,12 @@ def test_busy_indicator_is_visible_before_load_and_preparing_window_then_closes(
     construct = main_window.MainWindow
     stages = []
 
-    def observed_open(path):
+    def observed_open(path, **kwargs):
         progress, = visible_progress(session)
         assert progress.minimum() == progress.maximum() == 0
         assert not [button for button in progress.findChildren(QPushButton) if button.isVisible()]
         stages.append(progress.labelText())
-        return original_open(path)
+        return original_open(path, **kwargs)
 
     def observed_construct(*args, **kwargs):
         progress, = visible_progress(session)
@@ -311,17 +331,18 @@ def test_busy_indicator_is_visible_before_load_and_preparing_window_then_closes(
     assert session.windows[-1].isVisible()
 
 
-def test_busy_indicator_updates_for_fallback_and_closes_on_error(session, monkeypatch):
-    seed(session, session.remembered)
+def test_busy_indicator_updates_for_selected_retry_and_closes_on_cancel(session, monkeypatch):
+    seed(session, session.remembered, auto_open=True)
+    session.choices.append(session.default)
     original_open = ProjectViewModel.open
     labels = []
     session.remembered.unlink()
     session.default.unlink()
 
-    def observed_open(path):
+    def observed_open(path, **kwargs):
         progress, = visible_progress(session)
         labels.append(progress.labelText())
-        return original_open(path)
+        return original_open(path, **kwargs)
 
     def observed_error(*args):
         assert not visible_progress(session)
@@ -329,11 +350,12 @@ def test_busy_indicator_updates_for_fallback_and_closes_on_error(session, monkey
 
     monkeypatch.setattr(ProjectViewModel, "open", observed_open)
     monkeypatch.setattr(QMessageBox, "critical", observed_error)
-    assert app.main([]) == 1
+    assert app.main([]) == 0
     assert labels == [f"Открываю проект…\n{session.remembered.name}",
                       f"Открываю проект…\n{session.default.name}"]
     assert not visible_progress(session)
-    assert len(session.messages) == 1
+    assert not session.messages
+    assert len(session.chooser_calls) == 2
 
 
 def test_successful_dialog_open_remembers_only_after_window_is_shown(session, monkeypatch):

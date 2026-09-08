@@ -2761,6 +2761,7 @@ class DiagramGraphicsScene(QGraphicsScene):
     busAttachmentMoveRequested = Signal(object, bool, float)
     propertiesRequested = Signal(object)
     equipmentDetailsRequested = Signal(object)
+    pointFaultRequested = Signal(object)
     linkedPageRequested = Signal(object)
     rotateRequested = Signal(object, int)
     rotationPositionRequested = Signal(object, int)
@@ -2802,6 +2803,7 @@ class DiagramGraphicsScene(QGraphicsScene):
         self._mode = CanvasMode.EDIT
         # Viewing geometry and operating a saved-mode draft are separate rights.
         self.switching_enabled = True
+        self.point_fault_enabled = True
         self._grid_visible = True
         self._snap_enabled = True
         self._grid_size = 20.0
@@ -6198,6 +6200,33 @@ class DiagramGraphicsScene(QGraphicsScene):
             return
         super().keyPressEvent(event)
 
+    def point_fault_context(self, item, point=None):
+        """Canonical point plus a separate display anchor, without pixel physics."""
+        point = point if point is not None else item.sceneBoundingRect().center()
+        if isinstance(item, ElectricalPortItem):
+            return {'port_id': item.port_id, 'representation_id': item.representation_id}
+        if isinstance(item, DiagramObjectItem):
+            local = item.mapFromScene(point)
+            return {'node_id': item.representation.electrical_node_id,
+                    'equipment_id': item.representation.equipment_id,
+                    'representation_id': item.representation_id,
+                    'local_point': (local.x(), local.y())}
+        if isinstance(item, DiagramRouteItem):
+            route = item.route
+            return {'node_id': route.electrical_node_id if route.kind is DiagramRouteKind.NODE_CONNECTION else None,
+                    'equipment_id': route.equipment_id, 'route_id': route.id,
+                    'physical_route': route.kind is DiagramRouteKind.EQUIPMENT_BRANCH,
+                    'route_fraction': self._route_fraction(route, point)}
+        return {}
+
+    def _point_fault_action(self, menu):
+        from .point_fault import point_fault_icon
+        action = menu.addAction('Рассчитать КЗ здесь…')
+        action.setIcon(point_fault_icon())
+        action.setEnabled(self.point_fault_enabled)
+        action.setToolTip('Текущий режим; выбор видов КЗ и физической стороны аппарата')
+        return action
+
     def contextMenuEvent(self, event: QGraphicsSceneContextMenuEvent) -> None:  # noqa: N802
         transform = self.views()[0].transform() if self.views() else QTransform()
         raw_item = self.hit_item(event.scenePos(), transform)
@@ -6215,17 +6244,22 @@ class DiagramGraphicsScene(QGraphicsScene):
             current = current.parentItem()
 
         if port_item is not None:
-            if self._mode is not CanvasMode.EDIT:
-                return
             menu = QMenu(event.widget())
             connected = (
                 self._model is not None
                 and self._model.connection_for_port(port_item.port_id) is not None
             )
+            fault_action = self._point_fault_action(menu)
+            fault_action.setEnabled(self.point_fault_enabled and connected)
+            if not connected:
+                fault_action.setToolTip('Вывод не подключён к электрическому узлу')
             action = menu.addAction(
                 ui_text("action.reconnect" if connected else "action.start_connection")
-            )
-            if menu.exec(event.screenPos()) is action:
+            ) if self._mode is CanvasMode.EDIT else None
+            chosen = menu.exec(event.screenPos())
+            if chosen is fault_action:
+                self.pointFaultRequested.emit(self.point_fault_context(port_item))
+            elif action is not None and chosen is action:
                 self.begin_connection(port_item)
             event.accept()
             return
@@ -6243,6 +6277,7 @@ class DiagramGraphicsScene(QGraphicsScene):
                 event.accept()
                 return
             actions: dict[object, str] = {}
+            actions[self._point_fault_action(menu)] = 'point_fault'
             if (self._mode is CanvasMode.EDIT
                     and route_item.route.kind is DiagramRouteKind.NODE_CONNECTION):
                 actions[menu.addAction("Начать соединение")] = "start_connection"
@@ -6271,6 +6306,10 @@ class DiagramGraphicsScene(QGraphicsScene):
             chosen = menu.exec(event.screenPos())
             action_name = actions.get(chosen)
             if action_name:
+                if action_name == 'point_fault':
+                    self.pointFaultRequested.emit(self.point_fault_context(route_item, event.scenePos()))
+                    event.accept()
+                    return
                 if action_name == "start_connection":
                     route = route_item.route
                     projected = self._project_to_route(route, event.scenePos())
@@ -6308,6 +6347,7 @@ class DiagramGraphicsScene(QGraphicsScene):
             return
         menu = QMenu(event.widget())
         properties_action = menu.addAction(ui_text("action.properties"))
+        fault_action = self._point_fault_action(menu) if isinstance(item, DiagramObjectItem) else None
         linked_page_action = (menu.addAction("Перейти на связанный лист")
                               if isinstance(item, DiagramObjectItem)
                               and item.representation.extensions.get("linked_page_id") else None)
@@ -6373,7 +6413,9 @@ class DiagramGraphicsScene(QGraphicsScene):
             delete = menu.addAction(ui_text("action.delete_project"))
             remove = menu.addAction(ui_text("action.remove_page"))
         chosen = menu.exec(event.screenPos())
-        if chosen is properties_action:
+        if fault_action is not None and chosen is fault_action:
+            self.pointFaultRequested.emit(self.point_fault_context(item, event.scenePos()))
+        elif chosen is properties_action:
             self.equipmentDetailsRequested.emit(ids[0])
         elif linked_page_action is not None and chosen is linked_page_action:
             self.linkedPageRequested.emit(item.representation_id)

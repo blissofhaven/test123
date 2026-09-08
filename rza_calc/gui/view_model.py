@@ -40,6 +40,7 @@ FAULT_STATUS_LABELS = {
     "INVALID_INPUT": "Ошибка данных",
     "MODE_UNAVAILABLE": "Режим не рассчитан",
     "CALCULATION_ERROR": "Расчёт не выполнен",
+    "NOT_CALCULATED": "Выберите точку",
     "STALE_RESULT": "Результаты устарели",
 }
 
@@ -198,18 +199,24 @@ def _human_value(name: str, value: Any) -> str:
 class ProjectViewModel(ModeStateMixin):
     """Состояние открытого проекта и представление данных для окна."""
 
-    def __init__(self, project: ProjectData, path: str | Path):
+    def __init__(self, project: ProjectData, path: str | Path, *, calculate: bool = True):
         self.project = project
         self.path = Path(path)
         self.result: ProjectResult | None = None
         self.calculation_error = ""
+        self.point_query_result = None
+        self.point_query_error = ""
+        self.point_query_busy = False
+        self._point_query_generation = 0
+        self._point_query_cache = {}
         self.selected_kind = "node"
         self.selected_fault_type = FaultType.THREE_PHASE
         self.selected_id = next(iter(self.net.nodes), "")
         self._enable_switching()
         self.mode_id = self._preferred_mode()
         self._custom_base = self.mode_id
-        self.recalculate()
+        if calculate:
+            self.recalculate()
 
     @contextmanager
     def presentation_snapshot(self):
@@ -289,8 +296,148 @@ class ProjectViewModel(ModeStateMixin):
         return network
 
     @classmethod
-    def open(cls, path: str | Path) -> "ProjectViewModel":
-        return cls(load_project(path), path)
+    def open(cls, path: str | Path, *, calculate: bool = True) -> "ProjectViewModel":
+        return cls(load_project(path), path, calculate=calculate)
+
+    # Point queries have their own receipts; they never fabricate ProjectResult.
+    @staticmethod
+    def _point_query_key(request):
+        captured = request.calculation_input
+        return (captured.stamp.fingerprint, captured.execution_versions,
+                request.state_id, request.target, request.specs)
+
+    def begin_point_fault_query(self, target, specs, *, state_id=None):
+        from ..calculation.point_fault import make_point_fault_request
+        if self.mode_draft is not None:
+            raise ValueError('Примените или сбросьте черновик режима перед расчётом КЗ.')
+        if getattr(self, 'calculation_busy', False) or getattr(self, 'point_query_busy', False):
+            raise ValueError('Дождитесь завершения или отмените выполняющийся расчёт.')
+        selected = self.selected_mode_choice()
+        if selected is None or (state_id is not None and selected.state_id != state_id):
+            raise ValueError('Точечный запрос должен относиться к текущему выбранному режиму.')
+        request = make_point_fault_request(self.project, selected.state_id, target, specs)
+        self._point_query_generation = getattr(self, '_point_query_generation', 0) + 1
+        self._point_query_request = request
+        self.point_query_busy = True
+        self.point_query_error = ''
+        return self._point_query_generation, request
+
+    def cancel_point_fault_query(self):
+        self._point_query_generation = getattr(self, '_point_query_generation', 0) + 1
+        self.point_query_busy = False
+        self.point_query_error = 'Расчёт КЗ отменён.'
+
+    def begin_background_calculation(self):
+        if getattr(self, 'point_query_busy', False):
+            raise ValueError('Дождитесь завершения или отмените точечный расчёт КЗ.')
+        return super().begin_background_calculation()
+
+    def update_mode_draft(self, draft):
+        if getattr(self, 'point_query_busy', False):
+            raise ValueError('Дождитесь завершения или отмените точечный расчёт КЗ.')
+        return super().update_mode_draft(draft)
+
+    def cached_point_fault_query(self, request):
+        result = self.__dict__.get('_point_query_cache', {}).get(self._point_query_key(request))
+        return result if result is not None and result.is_current_for(self.project) else None
+
+    def point_fault_prepared_mode(self, request):
+        """Return an immutable mode snapshot reusable by another point worker."""
+        for result in reversed(tuple(self.__dict__.get('_point_query_cache', {}).values())):
+            prepared = result.prepared_mode
+            if (prepared is not None and prepared.state_id == request.state_id
+                    and prepared.calculation_input.stamp == request.calculation_input.stamp
+                    and prepared.calculation_input.execution_versions == request.calculation_input.execution_versions):
+                return prepared
+        return None
+
+    def publish_point_fault_query(self, generation, request, result=None, error=''):
+        if generation != getattr(self, '_point_query_generation', 0):
+            return False
+        self.point_query_busy = False
+        if request != self.__dict__.get('_point_query_request'):
+            self.point_query_error = 'Ответ относится к другому запросу КЗ.'
+            return False
+        if error:
+            self.point_query_error = str(error)
+            return False
+        selected = self.selected_mode_choice()
+        if (self.mode_draft is not None or getattr(self, 'calculation_busy', False)
+                or selected is None or selected.state_id != request.state_id
+                or not request.calculation_input.is_current_for(self.project)):
+            self.point_query_error = 'Исходные данные или выбранный режим изменились. Результат КЗ не опубликован.'
+            return False
+        if result is None or self._point_query_key(result.request) != self._point_query_key(request):
+            self.point_query_error = 'Получен результат другого точечного запроса.'
+            return False
+        cache = self.__dict__.setdefault('_point_query_cache', {})
+        key = self._point_query_key(request)
+        if key not in cache and len(cache) >= 32:
+            cache.pop(next(iter(cache)))
+        cache[key] = result
+        self.point_query_result = result
+        self.point_query_error = ''
+        return True
+
+    @property
+    def current_point_fault_result(self):
+        result = self.__dict__.get('point_query_result')
+        if (result is None or self.mode_draft is not None or getattr(self, 'calculation_busy', False)
+                or getattr(self, 'point_query_busy', False) or self.__dict__.get('point_query_error')):
+            return None
+        return result if result.mode_id == self.mode_id and result.is_current_for(self.project) else None
+
+    def current_point_fault_results(self):
+        """Current point receipts for overlays; geometry is not part of their keys."""
+        if (self.mode_draft is not None or getattr(self, 'calculation_busy', False)
+                or getattr(self, 'point_query_busy', False) or self.__dict__.get('point_query_error')):
+            return ()
+        candidates = tuple(row for row in self.__dict__.get('_point_query_cache', {}).values()
+                           if row.mode_id == self.mode_id)
+        if not candidates:
+            return ()
+        from ..calculation.input import capture_project_input
+        current = capture_project_input(self.project)
+        return tuple(row for row in candidates
+                     if row.request.calculation_input.stamp == current.stamp
+                     and row.request.calculation_input.execution_versions == current.execution_versions)
+
+    def point_fault_branch_view(self, spec, branch_id=None):
+        """Inspect ΔI/CT from a point receipt even when no full run exists."""
+        from ..calculation.point_fault import run_point_fault_network
+        spec = spec if isinstance(spec, FaultSpec) else FaultSpec(spec)
+        result = self.current_point_fault_result
+        title = FAULT_TYPE_LABELS[spec.kind]
+        if result is None:
+            return FaultBranchView(title, status=self.point_query_error or 'Нет актуального точечного расчёта КЗ.')
+        title += f' · {result.mode_name} · {result.node_name}'
+        cached = self.__dict__.get('_point_network_cache')
+        if cached is None or cached[0] is not result:
+            cached = (result, {})
+            self._point_network_cache = cached
+        entries = cached[1]
+        if spec not in entries:
+            try:
+                network = run_point_fault_network(result, spec)
+                net = result.prepared_mode.network_snapshot.materialize()
+                entries[spec] = (network, net, '')
+            except (ValueError, TypeError, KeyError, RuntimeError) as exc:
+                entries[spec] = (None, None, str(exc))
+        network, net, error = entries[spec]
+        if network is None:
+            return FaultBranchView(title, status=error)
+        choices = tuple((bid, f'{net.branches[bid].name} [{bid}]') for bid in network.branches if bid in net.branches)
+        wanted = branch_id or self.__dict__.get('selected_point_fault_branch_id')
+        if wanted not in network.branches or wanted not in net.branches:
+            wanted = choices[0][0] if choices else ''
+        self.selected_point_fault_branch_id = wanted
+        if not wanted:
+            return FaultBranchView(title, status='Нет ветвей с расчётным представлением.')
+        rows = branch_fault_measurements(net.branches[wanted], network.branches[wanted])
+        diagnostics = ' '.join(dict.fromkeys(item.message for item in network.diagnostics
+            if not item.branch_id or item.branch_id == wanted))
+        return FaultBranchView(title, choices, wanted, rows, diagnostics,
+                               tuple(dict.fromkeys((*MEASUREMENT_ASSUMPTIONS, *network.assumptions))))
 
     @property
     def current_result(self) -> ProjectResult | None:
@@ -331,7 +478,8 @@ class ProjectViewModel(ModeStateMixin):
             return blockers
         if self.result is not None:
             return "Результаты устарели: исходные данные изменены. Нажмите «Пересчитать»."
-        return self.calculation_error or "Расчёт не выполнен. Нажмите «Пересчитать»."
+        return self.calculation_error or ("Выберите точку: ПКМ → Рассчитать КЗ здесь… "
+                                          "Полный расчёт запускается отдельной кнопкой.")
 
     def require_current_result(self) -> ProjectResult:
         """Общая граница для выдачи расчёта, отчёта или паспорта случая."""
@@ -548,7 +696,8 @@ class ProjectViewModel(ModeStateMixin):
                 branch.normally_closed = True
 
     def recalculate(self) -> bool:
-        if self.mode_draft is not None or getattr(self, 'calculation_busy', False):
+        if (self.mode_draft is not None or getattr(self, 'calculation_busy', False)
+                or getattr(self, 'point_query_busy', False)):
             self.calculation_error = 'Примените или сбросьте черновик; дождитесь завершения текущего расчёта.'
             return False
         self._discard_presentation_snapshot()
@@ -787,7 +936,9 @@ class ProjectViewModel(ModeStateMixin):
         result = self.current_result
         if result is None:
             reason = self.result_unavailable_reason()
-            code = "STALE_RESULT" if self.result is not None else "CALCULATION_ERROR"
+            code = ("STALE_RESULT" if self.result is not None else
+                    "CALCULATION_ERROR" if self.calculation_error or self._calculation_blocker_error() else
+                    "NOT_CALCULATED")
             return [FaultRow(mode.id, mode.name, None, None, reason,
                              self.selected_fault_type, status_code=code)
                     for mode in self.net.modes.values()]

@@ -33,8 +33,10 @@ def test_old_scheme_is_unchanged_and_loadable_from_fixture_directory(filename):
     assert not (ROOT / "rza_calc/examples" / filename).exists()
 
 
-def test_only_oilfield_is_exposed_as_a_builtin_example():
-    assert {p.name for p in (ROOT / "rza_calc/examples").glob("*.json")} == {"oilfield_gtes.json"}
+def test_only_authorized_training_schemes_are_exposed_as_builtin_examples():
+    assert {p.name for p in (ROOT / "rza_calc/examples").glob("*.json")} == {
+        "oilfield_gtes.json", "compact_training.json",
+    }
     assert {p.name for p in FIXTURES.glob("*.json")} == set(ORIGINAL_SHA256)
 
 

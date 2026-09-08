@@ -1546,6 +1546,7 @@ def _parameter_inputs(model, equipment, behavior, payload, node_ids):
 def adapt_to_calculation(
     model: ElectricalModel,
     topology_snapshot: TopologySnapshot | None = None,
+    *, operating_state_ids=None,
 ) -> AdaptationResult:
     """Build a fresh legacy ``Network`` plus stable result trace.
 
@@ -2049,7 +2050,7 @@ def adapt_to_calculation(
         legacy_branch_to_port=legacy_branch_to_port,
     )
     from .operating_parameters import attach_operating_parameters
-    attach_operating_parameters(model, net, trace)
+    attach_operating_parameters(model, net, trace, state_ids=operating_state_ids)
     return AdaptationResult(net, trace, tuple(diagnostics))
 
 

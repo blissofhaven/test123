@@ -24,7 +24,7 @@ def _enable_fault_diagnostics() -> None:
 
 
 def default_project_path() -> Path:
-    """Нефтепромысел с ГТЭС: первый запуск и резерв при недоступном проекте."""
+    """Deterministic built-in project for an explicit smoke launch."""
     return Path(__file__).resolve().parent.parent / "examples" / "oilfield_gtes.json"
 
 
@@ -57,6 +57,7 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     from .main_window import MainWindow
+    from .newprojectchooser import choose_project
     from .project_settings import ProjectSettings
     from .theme import apply_light_theme
     from .view_model import ProjectViewModel
@@ -69,11 +70,12 @@ def main(argv: list[str] | None = None) -> int:
     explicit_path = Path(args[0]) if args else None
     remembered_path = (
         project_settings.last_project_path()
-        if project_settings is not None and explicit_path is None else None
+        if project_settings is not None and explicit_path is None
+        and project_settings.auto_open_last_project() else None
     )
     if remembered_path is not None and _is_retired_builtin_project(remembered_path):
         remembered_path = None
-    project_path = explicit_path or remembered_path or default_project_path()
+    project_path = explicit_path or (default_project_path() if smoke_test else remembered_path)
 
     QApplication.setHighDpiScaleFactorRoundingPolicy(
         Qt.HighDpiScaleFactorRoundingPolicy.PassThrough
@@ -96,26 +98,37 @@ def main(argv: list[str] | None = None) -> int:
         progress.setMinimumWidth(360)
     try:
         while True:
+            if project_path is None:
+                if progress is not None:
+                    progress.hide()
+                project_path = choose_project(project_settings, notice=startup_notice)
+                if project_path is None:
+                    return 0
             window = None
             try:
                 if progress is not None:
                     progress.setLabelText(f"Открываю проект…\n{project_path.name}")
                     progress.show()
                     app.processEvents()
-                vm = ProjectViewModel.open(project_path.expanduser())
+                vm = ProjectViewModel.open(project_path.expanduser(), calculate=False)
                 if progress is not None:
                     progress.setLabelText(f"Подготавливаю схему…\n{project_path.name}")
                     app.processEvents()
                 window = MainWindow(vm, project_settings=project_settings)
                 window.showMaximized()
+                if smoke_test and (
+                    not window.isVisible() or window.centralWidget() is None
+                    or not vm.project.diagram.pages
+                ):
+                    raise RuntimeError("Smoke: окно или лист схемы не были созданы.")
             except Exception as exc:
                 if window is not None:
                     window.close()
-                if remembered_path is not None:
+                if explicit_path is None and not smoke_test:
                     startup_notice = (
-                        f"Не удалось открыть последний проект: {project_path}. {exc}."
+                        f"Не удалось открыть проект: {project_path}. {exc}. Выберите другой файл."
                     )
-                    project_path = default_project_path()
+                    project_path = None
                     remembered_path = None
                     continue
                 if progress is not None:
@@ -132,8 +145,6 @@ def main(argv: list[str] | None = None) -> int:
             progress.close()
             progress.deleteLater()
     persistence_notice = window._remember_project_path()
-    if startup_notice:
-        startup_notice += " Открыт проект по умолчанию."
     if startup_notice or persistence_notice:
         window.statusBar().showMessage(" ".join(
             notice for notice in (startup_notice, persistence_notice) if notice
