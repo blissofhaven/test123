@@ -1,0 +1,1015 @@
+{
+  "verified_code_commit": "35eef5335251d757d6b7178445c85d5a1a1ed645",
+  "application_version": "0.3.3-safe-hardening",
+  "full_suite": {
+    "verified_commit": "35eef5335251d757d6b7178445c85d5a1a1ed645",
+    "verified_branch": "main",
+    "verified_on": "2026-09-09",
+    "runner": "pytest 9.1.1",
+    "collected": 3812,
+    "total": 3812,
+    "passed": 3812,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "deselected": 0,
+    "warnings": 19,
+    "duration_seconds": 529.723,
+    "environment": {
+      "os": "Windows",
+      "python": "3.14.7",
+      "numpy": "2.5.2",
+      "pyside6": "6.11.2",
+      "qt_platform": "offscreen"
+    },
+    "report": "docs/work-verification/startup-point-fault-2026-09-09.md",
+    "evidence": "docs/work-verification/startup-point-fault-evidence.json",
+    "note": "Один полный прогон на чистом указанном коммите после всех source fixes. Контрольные суммы файлов до/после совпали. Последующий коммит меняет только документацию/доказательства и отдельно проверяется на согласованность."
+  },
+  "source_files_changed_during_run": [],
+  "first_attempt": {
+    "commit": "8a6e2c15b2aaf3edbd6ebf5cf0b71ee3ba95990a",
+    "completed_tests_before_stop": 3462,
+    "failed_text_expectations": 4,
+    "stalled_test": "test_analysis_allows_selection_and_properties_but_blocks_rotation",
+    "reason": "Old recloser double-click card expectation opened the new switching confirmation; four startup tests expected the old hint text.",
+    "production_changes_to_resolve": false,
+    "targeted_after_fix": [
+      73,
+      85
+    ],
+    "log_sha256": "c23f65f7f19879533e4814f1d274502e4cc55a3c4cbc067915346236fe7c6f00"
+  },
+  "full_suite_junit_sha256": "65a06c0b03f61a44baaa10acbbff0cf2ba24d83f933108a6c8056bde4b97dc17",
+  "full_suite_log_sha256": "2f4476f9372c44cebfaf784708f46ff6e8a95e6d2335459d9ae87ff38a3e508b",
+  "point_reference": {
+    "counts": {
+      "topology_compiles": 2,
+      "solver_builds": 10,
+      "fault_at_calls": 40
+    },
+    "numerical_cases": 28,
+    "diagnostic_cases": 12,
+    "full_calculation_calls": 0,
+    "max_difference_ka": 1.637720085286689e-14,
+    "rows": [
+      {
+        "case": "MAX/K1/3ph",
+        "max_difference_ka": 4.189529226675416e-15
+      },
+      {
+        "case": "MAX/K1/LL_BC",
+        "max_difference_ka": 4.348422724850228e-15
+      },
+      {
+        "case": "MAX/K1/LG_A",
+        "diagnostic": "NO_ZERO_SEQUENCE_RETURN_PATH"
+      },
+      {
+        "case": "MAX/K1/LLG_BCG_common",
+        "diagnostic": "NO_ZERO_SEQUENCE_RETURN_PATH"
+      },
+      {
+        "case": "MAX/K2/3ph",
+        "max_difference_ka": 5.402578411571407e-15
+      },
+      {
+        "case": "MAX/K2/LL_BC",
+        "max_difference_ka": 4.76749985125122e-15
+      },
+      {
+        "case": "MAX/K2/LG_A",
+        "diagnostic": "MISSING_SEQUENCE_DATA"
+      },
+      {
+        "case": "MAX/K2/LLG_BCG_common",
+        "diagnostic": "MISSING_SEQUENCE_DATA"
+      },
+      {
+        "case": "MAX/K3/3ph",
+        "max_difference_ka": 2.3241876662647787e-15
+      },
+      {
+        "case": "MAX/K3/LL_BC",
+        "max_difference_ka": 2.886579864025407e-15
+      },
+      {
+        "case": "MAX/K3/LG_A",
+        "diagnostic": "MISSING_SEQUENCE_DATA"
+      },
+      {
+        "case": "MAX/K3/LLG_BCG_common",
+        "diagnostic": "MISSING_SEQUENCE_DATA"
+      },
+      {
+        "case": "MAX/K4/3ph",
+        "max_difference_ka": 1.533876673602434e-14
+      },
+      {
+        "case": "MAX/K4/LL_BC",
+        "max_difference_ka": 6.466036496704425e-15
+      },
+      {
+        "case": "MAX/K4/LG_A",
+        "max_difference_ka": 4.440892098500626e-15
+      },
+      {
+        "case": "MAX/K4/LLG_BCG_common",
+        "max_difference_ka": 1.637720085286689e-14
+      },
+      {
+        "case": "MAX/K5/3ph",
+        "max_difference_ka": 2.4980018054066022e-15
+      },
+      {
+        "case": "MAX/K5/LL_BC",
+        "max_difference_ka": 1.9860273225978185e-15
+      },
+      {
+        "case": "MAX/K5/LG_A",
+        "max_difference_ka": 4.440892098500626e-16
+      },
+      {
+        "case": "MAX/K5/LLG_BCG_common",
+        "max_difference_ka": 3.3306690738754696e-15
+      },
+      {
+        "case": "MIN/K1/3ph",
+        "max_difference_ka": 3.4684476073050936e-15
+      },
+      {
+        "case": "MIN/K1/LL_BC",
+        "max_difference_ka": 2.468881463535899e-15
+      },
+      {
+        "case": "MIN/K1/LG_A",
+        "diagnostic": "NO_ZERO_SEQUENCE_RETURN_PATH"
+      },
+      {
+        "case": "MIN/K1/LLG_BCG_common",
+        "diagnostic": "NO_ZERO_SEQUENCE_RETURN_PATH"
+      },
+      {
+        "case": "MIN/K2/3ph",
+        "max_difference_ka": 4.3794041556113366e-15
+      },
+      {
+        "case": "MIN/K2/LL_BC",
+        "max_difference_ka": 3.4151766781835904e-15
+      },
+      {
+        "case": "MIN/K2/LG_A",
+        "diagnostic": "MISSING_SEQUENCE_DATA"
+      },
+      {
+        "case": "MIN/K2/LLG_BCG_common",
+        "diagnostic": "MISSING_SEQUENCE_DATA"
+      },
+      {
+        "case": "MIN/K3/3ph",
+        "max_difference_ka": 3.5405497909262118e-15
+      },
+      {
+        "case": "MIN/K3/LL_BC",
+        "max_difference_ka": 2.808666774861361e-15
+      },
+      {
+        "case": "MIN/K3/LG_A",
+        "diagnostic": "MISSING_SEQUENCE_DATA"
+      },
+      {
+        "case": "MIN/K3/LLG_BCG_common",
+        "diagnostic": "MISSING_SEQUENCE_DATA"
+      },
+      {
+        "case": "MIN/K4/3ph",
+        "max_difference_ka": 1.517719948885615e-14
+      },
+      {
+        "case": "MIN/K4/LL_BC",
+        "max_difference_ka": 1.1234667099445444e-14
+      },
+      {
+        "case": "MIN/K4/LG_A",
+        "max_difference_ka": 7.993605777301127e-15
+      },
+      {
+        "case": "MIN/K4/LLG_BCG_common",
+        "max_difference_ka": 1.509903313490213e-14
+      },
+      {
+        "case": "MIN/K5/3ph",
+        "max_difference_ka": 3.580361673049448e-15
+      },
+      {
+        "case": "MIN/K5/LL_BC",
+        "max_difference_ka": 3.202372833989377e-15
+      },
+      {
+        "case": "MIN/K5/LG_A",
+        "max_difference_ka": 6.661338147750939e-16
+      },
+      {
+        "case": "MIN/K5/LLG_BCG_common",
+        "max_difference_ka": 3.4844027277880974e-15
+      }
+    ],
+    "protected_hashes_unchanged": {
+      "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\tests\\fixtures\\control_examples\\tkz_reference_01\\project.json": "d153d1d1752e9e13cc143eb4be3af39e903699d39bc23148ff7011856d70edd7",
+      "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\tests\\fixtures\\control_examples\\tkz_reference_01\\testcase_reference.json": "fa6ce6ec89a768ceef47be536aa86be90b1f58d32040f972fbb68ff16e61b3fa",
+      "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\tests\\fixtures\\control_examples\\tkz_reference_01\\testcase_inputs.json": "aeb61aeb5cedacb16e7186d22c84fad8b18a503f3d55fc9a7b97d7a915b247fb",
+      "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\examples\\oilfield_gtes.json": "0f4b04f28f79856c29b01ff9a2356598600fbe738aebe6021d2f67ceb2262715"
+    }
+  },
+  "compact_final": {
+    "owned_source_sha256": {
+      "tools/build_compact_demo.py": "46a6a5aad060f4194e19a1d8531cf807ddc5f41a212fb04c012f37934ab76858",
+      "rza_calc/examples/compact_training.json": "704a78bf666db4e9604ac6730c74bfa1e7fdee2e4ba3402a457dc2748ce9e11e",
+      "tests/test_compact_demo.py": "e3c1d200fb16473e5d5c1c63702bacb0a161b14c82734b5662b178b6ab6bbf85",
+      "docs/compact-training.md": "71851d952a6adac9141c3f3365207029da89649f94b1ce47881badfa4dc0c959"
+    },
+    "final_fingerprint": "4524059204ac8cfc023785c95c8af8021471f5f4c523eefb1d5c16ada517a69c",
+    "metadata_fix": "Canonical line/CT provenance keys; numerical inputs and diagram unchanged.",
+    "previous_v2_sha256": "8ae42b00b33ec19b10ab28dfaa5c8c662549cbb81ddbdc46ae9a01acce6a38b0",
+    "diagram_exact_bytes_equal_to_v2": true,
+    "diagram_fragment_sha256": "e182fb720fe1bb563fab06a8091409359f5dc83874f4c29bcc976953c9a3210c",
+    "all_256_case_records_equal_to_v2": true,
+    "maximum_current_difference_ka": 0.0,
+    "final_test_result": "81 passed in 4.06s; tests-05.txt",
+    "visual_source": "All 4 full-page and 4 window screenshots regenerated from final saved JSON.",
+    "visual_guards": {
+      "fingerprint_unchanged": true,
+      "source_jsons_unchanged": true,
+      "user_settings_unchanged": true,
+      "journal_entries": 0,
+      "full_result": false
+    },
+    "numerical_source": "Final saved JSON loaded through production load_project; 256 available cases.",
+    "limitation": "Independent phase-boundary oracle checks one GTES section; other network cases check availability and reproducibility."
+  },
+  "point_gui": {
+    "json_sha256": "704a78bf666db4e9604ac6730c74bfa1e7fdee2e4ba3402a457dc2748ce9e11e",
+    "fingerprint": "4524059204ac8cfc023785c95c8af8021471f5f4c523eefb1d5c16ada517a69c",
+    "full_result_initially_absent": true,
+    "cases": [
+      {
+        "node": "Учебная ГТЭС 110/10 кВ, 10 кВ, 1 СШ",
+        "mode": "Учебный: нормальная схема MAX",
+        "elapsed_including_real_menu_dialog_ms": 1195.0799999758601,
+        "outcomes": [
+          {
+            "kind": "3ph",
+            "iabc_ka": [
+              2.877557846975836,
+              2.877557846975836,
+              2.8775578469758356
+            ]
+          },
+          {
+            "kind": "2ph",
+            "iabc_ka": [
+              0.0,
+              2.6222974761173115,
+              2.6222974761173115
+            ]
+          },
+          {
+            "kind": "1ph_g",
+            "iabc_ka": [
+              3.793862221412005,
+              1.1102230246251565e-16,
+              5.551115123125783e-17
+            ]
+          },
+          {
+            "kind": "2ph_g",
+            "iabc_ka": [
+              5.551115123125783e-16,
+              4.029485121643264,
+              2.7429302040389736
+            ]
+          }
+        ],
+        "branch_title": "Трёхфазное КЗ · Учебный: нормальная схема MAX · Учебная ГТЭС 110/10 кВ, 10 кВ, 1 СШ",
+        "branch_rows": 3,
+        "menu_events": [
+          [
+            "menu",
+            true
+          ],
+          [
+            "dialog",
+            "Текущий режим: Учебный: нормальная схема MAX",
+            4
+          ]
+        ],
+        "ct_branch": "train_gtes_t1",
+        "measurement_units": [
+          "кА",
+          "кА",
+          "А"
+        ]
+      },
+      {
+        "node": "Учебная КТП 10/0,4 кВ, 0.4 кВ, 1 СШ",
+        "mode": "Учебный: нормальная схема MAX",
+        "elapsed_including_real_menu_dialog_ms": 313.91650007572025,
+        "outcomes": [
+          {
+            "kind": "3ph",
+            "iabc_ka": [
+              11.813788079255472,
+              11.813788079255474,
+              11.813788079255472
+            ]
+          },
+          {
+            "kind": "2ph",
+            "iabc_ka": [
+              0.0,
+              10.314486852419579,
+              10.314486852419579
+            ]
+          },
+          {
+            "kind": "1ph_g",
+            "iabc_ka": [
+              14.602571099247081,
+              4.440892098500626e-16,
+              0.0
+            ]
+          },
+          {
+            "kind": "2ph_g",
+            "iabc_ka": [
+              5.551115123125783e-16,
+              14.026686007302656,
+              13.758557812887984
+            ]
+          }
+        ],
+        "branch_title": "Трёхфазное КЗ · Учебный: нормальная схема MAX · Учебная КТП 10/0,4 кВ, 0.4 кВ, 1 СШ",
+        "branch_rows": 3,
+        "menu_events": [
+          [
+            "menu",
+            true
+          ],
+          [
+            "dialog",
+            "Текущий режим: Учебный: нормальная схема MAX",
+            4
+          ]
+        ],
+        "ct_branch": "train_gtes_t1",
+        "measurement_units": [
+          "кА",
+          "кА",
+          "А"
+        ]
+      }
+    ],
+    "json_unchanged": true,
+    "fingerprint_unchanged": true,
+    "full_result_still_absent": true
+  },
+  "documents": {
+    "head": "f5b96a56e11c4f7dc3ac82f8a534a7946caa1ad9",
+    "checked_scope": "Local Markdown targets before first <details>; URL-decoded paths; remote URLs and heading fragments not fetched/validated",
+    "documents": [
+      "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\README.md",
+      "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\tools\\README.md",
+      "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\roadmap\\ROADMAP.md",
+      "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\roadmap\\BRIEF-FOR-SOL.md",
+      "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\roadmap\\current-state.md",
+      "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\point-fault-workflow.md",
+      "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\roadmap\\protection-input-plan.md",
+      "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\fault-branch-currents.md",
+      "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\work-verification\\startup-point-fault-2026-09-09.md",
+      "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\compact-training.md",
+      "C:\\Users\\shock\\Documents\\Codex\\2026-09-06\\ghb\\work\\startup-point-query\\integration-review.md"
+    ],
+    "missing_documents": [],
+    "links": [
+      {
+        "document": "README.md",
+        "line": 17,
+        "target": "docs/work-verification/fault-branches-ct-2026-09-09.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\work-verification\\fault-branches-ct-2026-09-09.md",
+        "fragment": ""
+      },
+      {
+        "document": "README.md",
+        "line": 18,
+        "target": "docs/point-fault-workflow.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\point-fault-workflow.md",
+        "fragment": ""
+      },
+      {
+        "document": "README.md",
+        "line": 20,
+        "target": "docs/work-verification/startup-point-fault-2026-09-09.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\work-verification\\startup-point-fault-2026-09-09.md",
+        "fragment": ""
+      },
+      {
+        "document": "README.md",
+        "line": 34,
+        "target": "docs/compact-training.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\compact-training.md",
+        "fragment": ""
+      },
+      {
+        "document": "README.md",
+        "line": 38,
+        "target": "docs/engineering-parameters.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\engineering-parameters.md",
+        "fragment": ""
+      },
+      {
+        "document": "README.md",
+        "line": 44,
+        "target": "docs/operating-modes.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\operating-modes.md",
+        "fragment": ""
+      },
+      {
+        "document": "README.md",
+        "line": 57,
+        "target": "docs/fault-branch-currents.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\fault-branch-currents.md",
+        "fragment": ""
+      },
+      {
+        "document": "README.md",
+        "line": 63,
+        "target": "docs/calculation-audit/four-faults-explained.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\calculation-audit\\four-faults-explained.md",
+        "fragment": ""
+      },
+      {
+        "document": "README.md",
+        "line": 71,
+        "target": "docs/roadmap/protection-input-plan.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\roadmap\\protection-input-plan.md",
+        "fragment": ""
+      },
+      {
+        "document": "README.md",
+        "line": 88,
+        "target": "docs/roadmap/ROADMAP.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\roadmap\\ROADMAP.md",
+        "fragment": ""
+      },
+      {
+        "document": "README.md",
+        "line": 89,
+        "target": "docs/roadmap/current-state.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\roadmap\\current-state.md",
+        "fragment": ""
+      },
+      {
+        "document": "README.md",
+        "line": 90,
+        "target": "docs/roadmap/status.json",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\roadmap\\status.json",
+        "fragment": ""
+      },
+      {
+        "document": "README.md",
+        "line": 101,
+        "target": "КАК%20ЗАПУСТИТЬ.txt",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\КАК ЗАПУСТИТЬ.txt",
+        "fragment": ""
+      },
+      {
+        "document": "README.md",
+        "line": 123,
+        "target": "tests/fixtures/legacy_projects/four_fault_types.json",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\tests\\fixtures\\legacy_projects\\four_fault_types.json",
+        "fragment": ""
+      },
+      {
+        "document": "README.md",
+        "line": 125,
+        "target": "rza_calc/examples/oilfield_gtes.json",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\examples\\oilfield_gtes.json",
+        "fragment": ""
+      },
+      {
+        "document": "README.md",
+        "line": 136,
+        "target": "rza_calc/",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc",
+        "fragment": ""
+      },
+      {
+        "document": "README.md",
+        "line": 136,
+        "target": "tests/",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\tests",
+        "fragment": ""
+      },
+      {
+        "document": "README.md",
+        "line": 137,
+        "target": "tools/README.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\tools\\README.md",
+        "fragment": ""
+      },
+      {
+        "document": "README.md",
+        "line": 138,
+        "target": "docs/roadmap/ROADMAP.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\roadmap\\ROADMAP.md",
+        "fragment": ""
+      },
+      {
+        "document": "README.md",
+        "line": 139,
+        "target": "docs/work-verification/",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\work-verification",
+        "fragment": ""
+      },
+      {
+        "document": "README.md",
+        "line": 140,
+        "target": "docs/archive/README.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\archive\\README.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\ROADMAP.md",
+        "line": 11,
+        "target": "current-state.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\roadmap\\current-state.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\ROADMAP.md",
+        "line": 11,
+        "target": "status.json",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\roadmap\\status.json",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\ROADMAP.md",
+        "line": 12,
+        "target": "../../README.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\README.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\ROADMAP.md",
+        "line": 18,
+        "target": "../point-fault-workflow.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\point-fault-workflow.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\ROADMAP.md",
+        "line": 18,
+        "target": "../work-verification/startup-point-fault-2026-09-09.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\work-verification\\startup-point-fault-2026-09-09.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\ROADMAP.md",
+        "line": 24,
+        "target": "../fault-branch-currents.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\fault-branch-currents.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\ROADMAP.md",
+        "line": 29,
+        "target": "protection-input-plan.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\roadmap\\protection-input-plan.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\ROADMAP.md",
+        "line": 32,
+        "target": "../work-verification/fault-branches-ct-2026-09-09.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\work-verification\\fault-branches-ct-2026-09-09.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\ROADMAP.md",
+        "line": 49,
+        "target": "../work-verification/stage-01-calculation-integrity.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\work-verification\\stage-01-calculation-integrity.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\ROADMAP.md",
+        "line": 59,
+        "target": "../work-verification/stage-02-editor-connections.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\work-verification\\stage-02-editor-connections.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\ROADMAP.md",
+        "line": 69,
+        "target": "../work-verification/stage-03-engineering-parameters.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\work-verification\\stage-03-engineering-parameters.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\ROADMAP.md",
+        "line": 79,
+        "target": "../work-verification/stage-04-operating-input.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\work-verification\\stage-04-operating-input.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\ROADMAP.md",
+        "line": 129,
+        "target": "protection-input-plan.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\roadmap\\protection-input-plan.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\BRIEF-FOR-SOL.md",
+        "line": 5,
+        "target": "ROADMAP.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\roadmap\\ROADMAP.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\BRIEF-FOR-SOL.md",
+        "line": 6,
+        "target": "current-state.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\roadmap\\current-state.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\BRIEF-FOR-SOL.md",
+        "line": 6,
+        "target": "status.json",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\roadmap\\status.json",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\BRIEF-FOR-SOL.md",
+        "line": 15,
+        "target": "../point-fault-workflow.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\point-fault-workflow.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\BRIEF-FOR-SOL.md",
+        "line": 15,
+        "target": "../work-verification/startup-point-fault-2026-09-09.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\work-verification\\startup-point-fault-2026-09-09.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\BRIEF-FOR-SOL.md",
+        "line": 19,
+        "target": "../../AGENTS.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\AGENTS.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\BRIEF-FOR-SOL.md",
+        "line": 23,
+        "target": "../fault-branch-currents.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\fault-branch-currents.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\BRIEF-FOR-SOL.md",
+        "line": 28,
+        "target": "protection-input-plan.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\roadmap\\protection-input-plan.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\BRIEF-FOR-SOL.md",
+        "line": 36,
+        "target": "../work-verification/stage-04-operating-input.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\work-verification\\stage-04-operating-input.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\BRIEF-FOR-SOL.md",
+        "line": 38,
+        "target": "../work-verification/fault-branches-ct-2026-09-09.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\work-verification\\fault-branches-ct-2026-09-09.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\BRIEF-FOR-SOL.md",
+        "line": 43,
+        "target": "../../tools/README.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\tools\\README.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\current-state.md",
+        "line": 4,
+        "target": "ROADMAP.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\roadmap\\ROADMAP.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\current-state.md",
+        "line": 4,
+        "target": "status.json",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\roadmap\\status.json",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\current-state.md",
+        "line": 11,
+        "target": "../work-verification/stage-01-calculation-integrity.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\work-verification\\stage-01-calculation-integrity.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\current-state.md",
+        "line": 12,
+        "target": "../work-verification/stage-02-editor-connections.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\work-verification\\stage-02-editor-connections.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\current-state.md",
+        "line": 13,
+        "target": "../work-verification/stage-03-engineering-parameters.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\work-verification\\stage-03-engineering-parameters.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\current-state.md",
+        "line": 14,
+        "target": "../work-verification/stage-04-operating-input.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\work-verification\\stage-04-operating-input.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\current-state.md",
+        "line": 19,
+        "target": "../point-fault-workflow.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\point-fault-workflow.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\current-state.md",
+        "line": 36,
+        "target": "../fault-branch-currents.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\fault-branch-currents.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\current-state.md",
+        "line": 37,
+        "target": "../work-verification/fault-branches-ct-2026-09-09.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\work-verification\\fault-branches-ct-2026-09-09.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\current-state.md",
+        "line": 39,
+        "target": "../work-verification/startup-point-fault-2026-09-09.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\work-verification\\startup-point-fault-2026-09-09.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\current-state.md",
+        "line": 64,
+        "target": "protection-input-plan.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\roadmap\\protection-input-plan.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\roadmap\\current-state.md",
+        "line": 71,
+        "target": "status-2026-09-01.json",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\roadmap\\status-2026-09-01.json",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\point-fault-workflow.md",
+        "line": 8,
+        "target": "compact-training.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\compact-training.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\point-fault-workflow.md",
+        "line": 62,
+        "target": "fault-branch-currents.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\fault-branch-currents.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\point-fault-workflow.md",
+        "line": 67,
+        "target": "calculation-audit/four-faults-explained.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\calculation-audit\\four-faults-explained.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\point-fault-workflow.md",
+        "line": 74,
+        "target": "roadmap/ROADMAP.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\roadmap\\ROADMAP.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\fault-branch-currents.md",
+        "line": 61,
+        "target": "roadmap/protection-input-plan.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\roadmap\\protection-input-plan.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\fault-branch-currents.md",
+        "line": 66,
+        "target": "../tests/fixtures/control_examples/tkz_reference_01/README.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\tests\\fixtures\\control_examples\\tkz_reference_01\\README.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\fault-branch-currents.md",
+        "line": 79,
+        "target": "../rza_calc/core/fault_network.py",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\core\\fault_network.py",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\fault-branch-currents.md",
+        "line": 83,
+        "target": "../rza_calc/core/sequence_network.py",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\core\\sequence_network.py",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\fault-branch-currents.md",
+        "line": 91,
+        "target": "../rza_calc/core/impedance.py",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\core\\impedance.py",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\fault-branch-currents.md",
+        "line": 112,
+        "target": "../rza_calc/core/fault_types.py",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\core\\fault_types.py",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\work-verification\\startup-point-fault-2026-09-09.md",
+        "line": 7,
+        "target": "switch-interaction-2026-09-09.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\work-verification\\switch-interaction-2026-09-09.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\work-verification\\startup-point-fault-2026-09-09.md",
+        "line": 77,
+        "target": "../point-fault-workflow.md",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\docs\\point-fault-workflow.md",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\compact-training.md",
+        "line": 3,
+        "target": "../rza_calc/examples/compact_training.json",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\rza_calc\\examples\\compact_training.json",
+        "fragment": ""
+      },
+      {
+        "document": "docs\\compact-training.md",
+        "line": 84,
+        "target": "../tools/build_compact_demo.py",
+        "exists": true,
+        "resolved": "C:\\Users\\shock\\OneDrive\\Desktop\\Клауд\\rza-calc-0.3-safe-hardening\\tools\\build_compact_demo.py",
+        "fragment": ""
+      }
+    ],
+    "missing_links": [],
+    "historical_details": [
+      {
+        "document": "docs\\roadmap\\ROADMAP.md",
+        "byte_equal_to_HEAD": true,
+        "bytes": 96786,
+        "sha256": "7dcbc71c8a0aa17d74e0ac79d3fb07d9be1a5c61c45a5a8ee180318a1ecd1e13"
+      },
+      {
+        "document": "docs\\roadmap\\BRIEF-FOR-SOL.md",
+        "byte_equal_to_HEAD": true,
+        "bytes": 52284,
+        "sha256": "e7249164f862cb482ec72a9da46e7984de9f716f0ee5667db23fd63b7e807257"
+      },
+      {
+        "document": "docs\\roadmap\\current-state.md",
+        "byte_equal_to_HEAD": true,
+        "bytes": 25304,
+        "sha256": "93ffac5405314fcf917009089ae683f23573b923e82903ef0f5220b13d0858d8"
+      }
+    ],
+    "protected": [
+      {
+        "file": "rza_calc/examples/oilfield_gtes.json",
+        "byte_equal_to_HEAD": true,
+        "sha256": "0f4b04f28f79856c29b01ff9a2356598600fbe738aebe6021d2f67ceb2262715",
+        "head_sha256": "0f4b04f28f79856c29b01ff9a2356598600fbe738aebe6021d2f67ceb2262715"
+      },
+      {
+        "file": "tests/baseline/calculation_baseline.json",
+        "byte_equal_to_HEAD": true,
+        "sha256": "99ec716eb86feb05d984486038f80bb0f7e4bd753d1079078be3055124018c5f",
+        "head_sha256": "99ec716eb86feb05d984486038f80bb0f7e4bd753d1079078be3055124018c5f"
+      }
+    ]
+  },
+  "launcher": {
+    "command": "ЗАПУСК.bat --smoke-test",
+    "exit_code": 0,
+    "qt_visible": true,
+    "qt_maximized": true,
+    "platform": "offscreen",
+    "user_window_controlled": false,
+    "log_sha256": "2c34cb30b64fd012cf096355f2d557866c262b9b2ccce8d19b7ddd0554206134"
+  },
+  "limits": [
+    "No EnergyCS TKZ comparison",
+    "Training assumptions only",
+    "No internal line-offset point",
+    "Point fault does not certify protection settings",
+    "CT remains ideal; unconfirmed input withholds secondary values"
+  ]
+}

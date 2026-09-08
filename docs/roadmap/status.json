@@ -8,7 +8,7 @@
   "repository": {
     "url": "https://github.com/blissofhaven/test123",
     "branch": "main",
-    "verified_code_commit": null
+    "verified_code_commit": "35eef5335251d757d6b7178445c85d5a1a1ed645"
   },
   "plan": {
     "id": "bottom-up-2026-09-07",
@@ -23,22 +23,22 @@
     "stage": "BU05",
     "phase": "first_increment_complete",
     "spec": "docs/roadmap/protection-input-plan.md",
-    "note": "Первый блок ветвей/идеального ТТ проверен. Продолжить приёмку моделей и измерений, затем согласованный общий ввод своих МТЗ/ТО и проверку обязательных сценариев. Полные этапы 5–8 не закрыты; точного исполнения БМРЗ пока нет."
+    "note": "Окно выбора, открытие без полного расчёта, точечные КЗ и отдельная учебная схема проверены. Далее продолжить инженерную приёмку моделей и измерений, затем согласованный общий ввод своих МТЗ/ТО и проверку обязательных сценариев. Полные этапы 5–8 не закрыты; точного исполнения БМРЗ пока нет."
   },
   "tests": {
-    "verified_commit": "1ce00d1f24ca38e665276e69587f783c59665375",
+    "verified_commit": "35eef5335251d757d6b7178445c85d5a1a1ed645",
     "verified_branch": "main",
     "verified_on": "2026-09-09",
     "runner": "pytest 9.1.1",
-    "collected": 3643,
-    "total": 3643,
-    "passed": 3643,
+    "collected": 3812,
+    "total": 3812,
+    "passed": 3812,
     "failed": 0,
     "errors": 0,
     "skipped": 0,
     "deselected": 0,
     "warnings": 19,
-    "duration_seconds": 522.014,
+    "duration_seconds": 529.723,
     "environment": {
       "os": "Windows",
       "python": "3.14.7",
@@ -46,15 +46,9 @@
       "pyside6": "6.11.2",
       "qt_platform": "offscreen"
     },
-    "report": "docs/work-verification/fault-branches-ct-2026-09-09.md",
-    "note": "Исторический полный прогон блока ядра/ТТ на указанном коммите. Последующие startup/point UI и учебная схема проверяются отдельно в startup-point-fault-2026-09-09.md.",
-    "post_patch_tests": {
-      "errors": 0,
-      "failures": 0,
-      "skipped": 0,
-      "tests": 373,
-      "time": 3.002
-    }
+    "report": "docs/work-verification/startup-point-fault-2026-09-09.md",
+    "evidence": "docs/work-verification/startup-point-fault-evidence.json",
+    "note": "Один полный прогон на чистом указанном коммите после всех source fixes. Контрольные суммы файлов до/после совпали. Последующий коммит меняет только документацию/доказательства и отдельно проверяется на согласованность."
   },
   "baseline": {
     "frozen": true,
@@ -318,6 +312,38 @@
     "guide": "docs/point-fault-workflow.md",
     "training": "docs/compact-training.md",
     "report": "docs/work-verification/startup-point-fault-2026-09-09.md",
-    "scope": "Открытие без полного расчёта; один режим и физический узел/порт, выбранные виды металлического КЗ; подготовка топологии повторно используется. Внутренние точки линий пока не поддержаны."
+    "scope": "Открытие без полного расчёта; один режим и физический узел/порт, выбранные виды металлического КЗ; подготовка топологии повторно используется. Внутренние точки линий пока не поддержаны.",
+    "completed_on": "2026-09-09"
+  },
+  "previous_core_suite": {
+    "verified_commit": "1ce00d1f24ca38e665276e69587f783c59665375",
+    "verified_branch": "main",
+    "verified_on": "2026-09-09",
+    "runner": "pytest 9.1.1",
+    "collected": 3643,
+    "total": 3643,
+    "passed": 3643,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "deselected": 0,
+    "warnings": 19,
+    "duration_seconds": 522.014,
+    "environment": {
+      "os": "Windows",
+      "python": "3.14.7",
+      "numpy": "2.5.2",
+      "pyside6": "6.11.2",
+      "qt_platform": "offscreen"
+    },
+    "report": "docs/work-verification/fault-branches-ct-2026-09-09.md",
+    "note": "Исторический полный прогон блока ядра/ТТ на указанном коммите. Последующие startup/point UI и учебная схема проверяются отдельно в startup-point-fault-2026-09-09.md.",
+    "post_patch_tests": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 373,
+      "time": 3.002
+    }
   }
 }
