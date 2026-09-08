@@ -371,6 +371,11 @@ class ShortCircuitSolver:
         from .sequence_network import SequenceFaultSolver
         return SequenceFaultSolver(self).fault_at(node_id, spec)
 
+    def fault_network_at(self, node_id: str, spec):
+        """Superimposed terminal currents and node voltage changes for one fault."""
+        from .sequence_network import SequenceFaultSolver
+        return SequenceFaultSolver(self).fault_network_at(node_id, spec)
+
     def at(self, node_id: str) -> ScResult:
         net, m = self.net, self.m
         node = net.node(node_id)

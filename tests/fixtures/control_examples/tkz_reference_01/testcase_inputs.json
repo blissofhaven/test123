@@ -1,0 +1,115 @@
+{
+  "schema": "rza-independent-nameplate-inputs/1",
+  "provenance": {
+    "source_files_sha256": {
+      "testcase.json": "6e718511111e58546509e2688beb200110d89da38ef35fe4b26f982160edb470",
+      "proverka_raschyota.py": "e33936d663c7722a9d03e8d09e3b7aa038b3c7c0fd740bd5c17e14fc6ebbe6da"
+    },
+    "source_description": "User-supplied Desktop files, independently audited 2026-09-08",
+    "input_fields": [
+      "meta.frequency_hz",
+      "voltage_levels.*.u_avg_kV",
+      "elements.G1.{S_MVA,U_kV,xd2,x2,E2,Ta_s}",
+      "elements.G2.{same_as,in_service}",
+      "elements.T1/T2.{S_MVA,uk_percent,Pk_kW,U_hv_kV,U_lv_kV,vector_group}",
+      "elements.L1/L2/L3.{length_km,r0_ohm_km,x0_ohm_km}"
+    ],
+    "assumption_locations": {
+      "generator_R2_equals_R1": "proverka_raschyota.py:54-56",
+      "line_R2_X2_equal_R1_X1": "proverka_raschyota.py:86-88,99",
+      "transformer_Z2_equals_Z1": "proverka_raschyota.py:84",
+      "T2_Z0_equals_Z1": "proverka_raschyota.py:41",
+      "L3_R0_X0_multipliers": "proverka_raschyota.py:46"
+    },
+    "expected_values_imported": false,
+    "original_script_executed": false
+  },
+  "inputs": {
+    "frequency_hz": 50,
+    "voltage_kv": {
+      "U1": 10.5,
+      "U2": 6.3,
+      "U3": 0.4
+    },
+    "generator": {
+      "rated_mva": 7.5,
+      "rated_kv": 10.5,
+      "xd_subtransient_pu": 0.15,
+      "negative_reactance_pu": 0.18,
+      "emf_subtransient_pu": 1.13,
+      "dc_time_constant_s": 0.08
+    },
+    "transformers": {
+      "T1": {
+        "rated_mva": 6.3,
+        "loss_kw": 46.5,
+        "uk_percent": 7.5,
+        "vector_group": "Dy11",
+        "hv_nominal_kv": 10.5,
+        "lv_nominal_kv": 6.3
+      },
+      "T2": {
+        "rated_mva": 1.0,
+        "loss_kw": 12.2,
+        "uk_percent": 5.5,
+        "vector_group": "Dyn11",
+        "hv_nominal_kv": 6.3,
+        "lv_nominal_kv": 0.4
+      }
+    },
+    "lines": {
+      "L1": {
+        "length_km": 2.0,
+        "r_positive_ohm_km": 0.206,
+        "x_positive_ohm_km": 0.079
+      },
+      "L2": {
+        "length_km": 0.4,
+        "r_positive_ohm_km": 0.443,
+        "x_positive_ohm_km": 0.086
+      },
+      "L3": {
+        "length_km": 0.15,
+        "r_positive_ohm_km": 0.258,
+        "x_positive_ohm_km": 0.06
+      }
+    },
+    "assumed_zero_equivalents": {
+      "T2": {
+        "Z0_equals_Z1": true,
+        "neutral_impedance_ohm": 0
+      },
+      "L3": {
+        "r0_over_r1": 3,
+        "x0_over_x1": 4
+      }
+    },
+    "modes": {
+      "MAX": {
+        "online_generator_ids": [
+          "G1",
+          "G2"
+        ]
+      },
+      "MIN": {
+        "online_generator_ids": [
+          "G1"
+        ]
+      }
+    }
+  },
+  "assumptions": [
+    "Bolted shunt faults at a single point; ABC phase rotation; RMS phasors.",
+    "LLG_BCG_common is B and C bonded to the same ideal ground point, not two remote earth faults.",
+    "Positive internal EMF is1.13pu for both modes. MAX/MIN differ only in online identical generators; G1 always online.",
+    "Generator R1 inferred from X1/(omega*Ta); generator R2=R1 is assumed, X2 is independently supplied.",
+    "Historical cable r0/x0 field names denote positive-sequence per-km impedance here; cable Z2=Z1 is assumed.",
+    "Transformer Z2=Z1. T2 grounded-star Z0=Z1 is a declared educational equivalent, not inferred from Dyn11 alone.",
+    "T2 zero equivalent includes its assumed zero neutral impedance; L3 R0=3R1 and X0=4X1 are explicit assumptions.",
+    "K1-K3 known_open is the ideal isolated, capacitance-free limit. The conditional LG zero is not a prediction of actual earth-fault current.",
+    "The supplied20A capacitive earth-fault network is outside this fixture. Unknown Z0 must not be substituted by known_open.",
+    "Every bus uses a local real positive EMF reference. Transformer group angle is not tested; compare phase magnitudes unless external common phase references are aligned.",
+    "No motor, passive prefault load, fault resistance, conductor-temperature correction, peak/DC transient, or open-phase case is included.",
+    "Nameplate calculation inputs are copied at original precision; no expected_results or computed impedance fields are used."
+  ]
+}

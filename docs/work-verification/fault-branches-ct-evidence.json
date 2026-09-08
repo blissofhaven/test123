@@ -1,0 +1,791 @@
+{
+  "date": "2026-09-09",
+  "application_version": "0.3.2-safe-hardening",
+  "final_full_suite": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 3643,
+    "time": 522.014
+  },
+  "affected_suite_after_patch": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 373,
+    "time": 3.002
+  },
+  "initial_full_suite": {
+    "errors": 0,
+    "failures": 1,
+    "skipped": 0,
+    "tests": 3637,
+    "time": 523.082
+  },
+  "verification_note": "Итоговый полный прогон после всех исправлений исходников. До него выполнен целевой набор373; числа двух прогонов не суммируются. Единственный отказ предыдущего полного прогона относился к устаревшей схеме документации; проверка приведена к действующему статусуv2, а ссылки восстановлены.",
+  "native_reference": {
+    "case_count": 28,
+    "excluded_conditional_cases": 12,
+    "max_complex_fault_difference_ka": 1.637720085286689e-14,
+    "max_physical_kcl_residual_ka": 1.2016112846120873e-14,
+    "errors": {},
+    "rows": [
+      {
+        "id": "MAX/K1/3ph",
+        "fault_current_max_abs_difference_kA": 4.189529226675416e-15,
+        "fault_current_max_relative_difference": 6.748079816740298e-16,
+        "max_physical_KCL_residual_kA": 1.1770632484304826e-14,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 9.930136612989092e-16,
+          "N2": 2.3696319859777823e-15,
+          "N3": 4.577566798522238e-15,
+          "N4": 1.1770632484304826e-14,
+          "N5": 1.629163038068523e-15,
+          "KTP_hv": 4.625929269271486e-15
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MAX/K1/LL_BC",
+        "fault_current_max_abs_difference_kA": 4.348422724850228e-15,
+        "fault_current_max_relative_difference": 8.895066908303033e-16,
+        "max_physical_KCL_residual_kA": 9.471481841097453e-15,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 9.155133597044475e-16,
+          "N2": 1.1102230246251565e-15,
+          "N3": 2.8485800566661892e-15,
+          "N4": 9.471481841097453e-15,
+          "N5": 8.145815190342615e-16,
+          "KTP_hv": 2.3147715496221207e-15
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MAX/K2/3ph",
+        "fault_current_max_abs_difference_kA": 5.402578411571407e-15,
+        "fault_current_max_relative_difference": 1.1427016591086733e-15,
+        "max_physical_KCL_residual_kA": 7.28583859910259e-15,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 4.440892098500626e-16,
+          "N2": 3.1086244689504383e-15,
+          "N3": 3.700743415417189e-15,
+          "N4": 7.28583859910259e-15,
+          "N5": 1.457167719820518e-15,
+          "KTP_hv": 3.560463295469969e-15
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MAX/K2/LL_BC",
+        "fault_current_max_abs_difference_kA": 4.76749985125122e-15,
+        "fault_current_max_relative_difference": 1.2174012664754024e-15,
+        "max_physical_KCL_residual_kA": 9.907948538381925e-15,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 8.881784197001252e-16,
+          "N2": 2.3914935841127266e-15,
+          "N3": 1.7540158058196032e-15,
+          "N4": 9.907948538381925e-15,
+          "N5": 8.721768722241473e-16,
+          "KTP_hv": 1.8483786188066196e-15
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MAX/K3/3ph",
+        "fault_current_max_abs_difference_kA": 2.3241876662647787e-15,
+        "fault_current_max_relative_difference": 6.38709612958241e-16,
+        "max_physical_KCL_residual_kA": 6.267515347265466e-15,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 4.965068306494546e-16,
+          "N2": 2.5894628196555746e-15,
+          "N3": 2.275957200481571e-15,
+          "N4": 6.267515347265466e-15,
+          "N5": 1.0303731760112274e-15,
+          "KTP_hv": 1.5809582800891824e-15
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MAX/K3/LL_BC",
+        "fault_current_max_abs_difference_kA": 2.886579864025407e-15,
+        "fault_current_max_relative_difference": 9.45286477961924e-16,
+        "max_physical_KCL_residual_kA": 8.811046304770125e-15,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 4.965068306494546e-16,
+          "N2": 1.7342238036525468e-15,
+          "N3": 2.094764613337708e-15,
+          "N4": 8.811046304770125e-15,
+          "N5": 3.642919299551295e-16,
+          "KTP_hv": 3.0768835870964694e-15
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MAX/K4/3ph",
+        "fault_current_max_abs_difference_kA": 1.533876673602434e-14,
+        "fault_current_max_relative_difference": 8.019063119636479e-16,
+        "max_physical_KCL_residual_kA": 3.972054645195637e-15,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 5.79553433516819e-16,
+          "N2": 3.1401849173675503e-16,
+          "N3": 8.617648093045562e-16,
+          "N4": 3.972054645195637e-15,
+          "N5": 1.1663032430984396e-15,
+          "KTP_hv": 1.355199909595506e-15
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MAX/K4/LL_BC",
+        "fault_current_max_abs_difference_kA": 6.466036496704425e-15,
+        "fault_current_max_relative_difference": 3.946531499893608e-16,
+        "max_physical_KCL_residual_kA": 5.620338150013253e-15,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 1.3877787807814457e-16,
+          "N2": 3.3306690738754696e-16,
+          "N3": 1.9389211565826713e-15,
+          "N4": 5.620338150013253e-15,
+          "N5": 1.3903675357176711e-15,
+          "KTP_hv": 1.790180836524724e-15
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MAX/K4/LG_A",
+        "fault_current_max_abs_difference_kA": 4.440892098500626e-15,
+        "fault_current_max_relative_difference": 2.0615916252164396e-16,
+        "max_physical_KCL_residual_kA": 4.440892098500626e-15,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 1.1102230246251565e-16,
+          "N2": 4.0412728104402656e-16,
+          "N3": 8.968100940422724e-16,
+          "N4": 4.440892098500626e-15,
+          "N5": 6.830473686658678e-16,
+          "KTP_hv": 6.280369834735101e-16
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MAX/K4/LLG_BCG_common",
+        "fault_current_max_abs_difference_kA": 1.637720085286689e-14,
+        "fault_current_max_relative_difference": 7.667348950376679e-16,
+        "max_physical_KCL_residual_kA": 3.66205343881779e-15,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 1.1102230246251565e-16,
+          "N2": 3.885780586188048e-16,
+          "N3": 6.753223014464258e-16,
+          "N4": 3.66205343881779e-15,
+          "N5": 8.714938268579705e-16,
+          "KTP_hv": 1.3426356273935429e-15
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MAX/K5/3ph",
+        "fault_current_max_abs_difference_kA": 2.4980018054066022e-15,
+        "fault_current_max_relative_difference": 4.6408422371188e-16,
+        "max_physical_KCL_residual_kA": 3.202372833989377e-15,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 5.869931039739981e-17,
+          "N2": 1.0007415106216804e-16,
+          "N3": 3.510833468576701e-16,
+          "N4": 3.202372833989377e-15,
+          "N5": 1.7763568394002505e-15,
+          "KTP_hv": 4.126162952233366e-16
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MAX/K5/LL_BC",
+        "fault_current_max_abs_difference_kA": 1.9860273225978185e-15,
+        "fault_current_max_relative_difference": 4.2668368714644067e-16,
+        "max_physical_KCL_residual_kA": 8.881784197001252e-16,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 5.721958498152797e-17,
+          "N2": 1.1102230246251565e-16,
+          "N3": 2.482534153247273e-16,
+          "N4": 8.881784197001252e-16,
+          "N5": 4.440892098500626e-16,
+          "KTP_hv": 3.546311116759026e-16
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MAX/K5/LG_A",
+        "fault_current_max_abs_difference_kA": 4.440892098500626e-16,
+        "fault_current_max_relative_difference": 1.2647856475256638e-16,
+        "max_physical_KCL_residual_kA": 9.155133597044475e-16,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 1.8683543625880677e-17,
+          "N2": 4.3885418357208765e-17,
+          "N3": 8.582937747229195e-17,
+          "N4": 8.005932084973443e-16,
+          "N5": 9.155133597044475e-16,
+          "KTP_hv": 1.2509268882771003e-16
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MAX/K5/LLG_BCG_common",
+        "fault_current_max_abs_difference_kA": 3.3306690738754696e-15,
+        "fault_current_max_relative_difference": 6.726834384212892e-16,
+        "max_physical_KCL_residual_kA": 1.9860273225978185e-15,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 5.721958498152797e-17,
+          "N2": 5.551115123125783e-17,
+          "N3": 2.5589376332604516e-16,
+          "N4": 1.790180836524724e-15,
+          "N5": 1.9860273225978185e-15,
+          "KTP_hv": 4.619448428525917e-16
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MIN/K1/3ph",
+        "fault_current_max_abs_difference_kA": 3.4684476073050936e-15,
+        "fault_current_max_relative_difference": 1.117326555224913e-15,
+        "max_physical_KCL_residual_kA": 6.225023227851157e-15,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 2.3914935841127266e-15,
+          "N2": 1.0467283057891834e-15,
+          "N3": 3.051711199014825e-15,
+          "N4": 6.225023227851157e-15,
+          "N5": 7.28583859910259e-16,
+          "KTP_hv": 5.551115123125783e-16
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MIN/K1/LL_BC",
+        "fault_current_max_abs_difference_kA": 2.468881463535899e-15,
+        "fault_current_max_relative_difference": 1.0100612197300728e-15,
+        "max_physical_KCL_residual_kA": 3.3586056436543425e-15,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 9.226380847435024e-16,
+          "N2": 2.022123807339147e-15,
+          "N3": 2.964683879044251e-15,
+          "N4": 3.3586056436543425e-15,
+          "N5": 1.3233454002664452e-15,
+          "KTP_hv": 3.7295434094265085e-16
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MIN/K2/3ph",
+        "fault_current_max_abs_difference_kA": 4.3794041556113366e-15,
+        "fault_current_max_relative_difference": 1.3493760821634873e-15,
+        "max_physical_KCL_residual_kA": 8.307134121935505e-15,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 1.0235750533041808e-15,
+          "N2": 1.6011864169946886e-15,
+          "N3": 4.502148676309507e-15,
+          "N4": 8.307134121935505e-15,
+          "N5": 1.0303731760112274e-15,
+          "KTP_hv": 3.1673261733040804e-15
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MIN/K2/LL_BC",
+        "fault_current_max_abs_difference_kA": 3.4151766781835904e-15,
+        "fault_current_max_relative_difference": 1.2910929337374679e-15,
+        "max_physical_KCL_residual_kA": 6.091288500844709e-15,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 1.4812222630807097e-15,
+          "N2": 3.1586798947782716e-15,
+          "N3": 2.218230765660362e-15,
+          "N4": 6.091288500844709e-15,
+          "N5": 8.721768722241473e-16,
+          "KTP_hv": 1.4913234669535414e-15
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MIN/K3/3ph",
+        "fault_current_max_abs_difference_kA": 3.5405497909262118e-15,
+        "fault_current_max_relative_difference": 1.2956448242631714e-15,
+        "max_physical_KCL_residual_kA": 1.2016112846120873e-14,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 6.280369834735101e-16,
+          "N2": 2.482534153247273e-15,
+          "N3": 2.482534153247273e-15,
+          "N4": 1.2016112846120873e-14,
+          "N5": 0.0,
+          "KTP_hv": 2.288783399261119e-15
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MIN/K3/LL_BC",
+        "fault_current_max_abs_difference_kA": 2.808666774861361e-15,
+        "fault_current_max_relative_difference": 1.2462046132237763e-15,
+        "max_physical_KCL_residual_kA": 8.022697548939508e-15,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 5.551115123125783e-16,
+          "N2": 1.3732700395566711e-15,
+          "N3": 2.0380985511143445e-15,
+          "N4": 8.022697548939508e-15,
+          "N5": 3.642919299551295e-16,
+          "KTP_hv": 9.728209369921494e-16
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MIN/K4/3ph",
+        "fault_current_max_abs_difference_kA": 1.517719948885615e-14,
+        "fault_current_max_relative_difference": 8.827957456843454e-16,
+        "max_physical_KCL_residual_kA": 4.440892098500626e-15,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 2.7755575615628914e-16,
+          "N2": 8.082545620880531e-16,
+          "N3": 2.1065000811460206e-15,
+          "N4": 4.440892098500626e-15,
+          "N5": 1.8214596497756474e-16,
+          "KTP_hv": 1.0934428697813141e-15
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MIN/K4/LL_BC",
+        "fault_current_max_abs_difference_kA": 1.1234667099445444e-14,
+        "fault_current_max_relative_difference": 7.697283797768796e-16,
+        "max_physical_KCL_residual_kA": 4.440892098500626e-15,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 2.0014830212433607e-16,
+          "N2": 4.965068306494546e-16,
+          "N3": 1.1957467920563633e-15,
+          "N4": 4.440892098500626e-15,
+          "N5": 6.026293793427027e-16,
+          "KTP_hv": 1.7235296186091125e-15
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MIN/K4/LG_A",
+        "fault_current_max_abs_difference_kA": 7.993605777301127e-15,
+        "fault_current_max_relative_difference": 4.058215954861929e-16,
+        "max_physical_KCL_residual_kA": 1.9263649230728135e-15,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 1.962615573354719e-16,
+          "N2": 9.995861419348e-16,
+          "N3": 1.9263649230728135e-15,
+          "N4": 1.7763568394002505e-15,
+          "N5": 5.483319661056836e-16,
+          "KTP_hv": 1.1188630228279526e-15
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MIN/K4/LLG_BCG_common",
+        "fault_current_max_abs_difference_kA": 1.509903313490213e-14,
+        "fault_current_max_relative_difference": 7.776598553546059e-16,
+        "max_physical_KCL_residual_kA": 1.8585042356428788e-15,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 1.3877787807814457e-16,
+          "N2": 6.866350197783356e-16,
+          "N3": 8.899114524108741e-16,
+          "N4": 1.8585042356428788e-15,
+          "N5": 9.900471607903658e-16,
+          "KTP_hv": 1.0778315928076987e-15
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MIN/K5/3ph",
+        "fault_current_max_abs_difference_kA": 3.580361673049448e-15,
+        "fault_current_max_relative_difference": 6.761139117116101e-16,
+        "max_physical_KCL_residual_kA": 1.2560739669470201e-15,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 2.2551405187698492e-17,
+          "N2": 1.5700924586837752e-16,
+          "N3": 2.9893669801409083e-16,
+          "N4": 8.881784197001252e-16,
+          "N5": 1.2560739669470201e-15,
+          "KTP_hv": 3.895680680159941e-16
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MIN/K5/LL_BC",
+        "fault_current_max_abs_difference_kA": 3.202372833989377e-15,
+        "fault_current_max_relative_difference": 7.004566452940687e-16,
+        "max_physical_KCL_residual_kA": 1.2560739669470201e-15,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 2.7755575615628914e-17,
+          "N2": 1.7554167342883506e-16,
+          "N3": 3.065703529144609e-16,
+          "N4": 1.2560739669470201e-15,
+          "N5": 8.881784197001252e-16,
+          "KTP_hv": 3.4021815010030383e-16
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MIN/K5/LG_A",
+        "fault_current_max_abs_difference_kA": 6.661338147750939e-16,
+        "fault_current_max_relative_difference": 1.910266076488044e-16,
+        "max_physical_KCL_residual_kA": 8.881784197001252e-16,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 6.206335383118183e-17,
+          "N2": 1.4304896245381993e-16,
+          "N3": 9.309503074677274e-17,
+          "N4": 8.881784197001252e-16,
+          "N5": 5.661048867003677e-16,
+          "KTP_hv": 1.1548621071314793e-16
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      },
+      {
+        "id": "MIN/K5/LLG_BCG_common",
+        "fault_current_max_abs_difference_kA": 3.4844027277880974e-15,
+        "fault_current_max_relative_difference": 7.102304181965046e-16,
+        "max_physical_KCL_residual_kA": 2.6737711109153337e-15,
+        "physical_node_KCL_residuals_kA": {
+          "N1": 5.721958498152797e-17,
+          "N2": 2.220446049250313e-16,
+          "N3": 2.482534153247273e-16,
+          "N4": 2.6737711109153337e-15,
+          "N5": 1.790180836524724e-15,
+          "KTP_hv": 4.0029660424867215e-16
+        },
+        "physical_terminal_count": 12,
+        "source_count": null,
+        "passed": true
+      }
+    ]
+  },
+  "independent_edge_cases": {
+    "threshold": {
+      "threshold_ohm": 0.1,
+      "legacy_line_ohm": [
+        0.1,
+        0.0
+      ],
+      "absolute_fault_voltage_kv": [
+        0.0,
+        0.0
+      ],
+      "fault_delta_voltage_kv": [
+        -5.773502691896258,
+        0.0
+      ],
+      "delta_plus_prefault_minus_absolute_kv": [
+        0.0,
+        0.0
+      ],
+      "magnitude_inconsistency_kv": 0.0
+    },
+    "ideal_zero_shunt": [
+      {
+        "z0_low_ohm": [
+          0.001,
+          0.006
+        ],
+        "HV_delta_v012": [
+          null,
+          [
+            -0.547571420776328,
+            0.3321891680098929
+          ],
+          [
+            0.3181896559256983,
+            0.18797121199762118
+          ]
+        ],
+        "HV_is_complete": false,
+        "HV_diagnostics": [
+          "UNREFERENCED_SEQUENCE_VOLTAGE"
+        ],
+        "LV_delta_v012": [
+          [
+            0.06639478377652881,
+            0.0011660972801476066
+          ],
+          [
+            -0.16454532389932156,
+            0.0011660972801476
+          ],
+          [
+            0.06639478377652884,
+            0.0011660972801476022
+          ]
+        ],
+        "HV_terminal_i012": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.22288937300428002,
+            -0.6579436615302048
+          ],
+          [
+            -0.1749349236948192,
+            0.1897922705837519
+          ]
+        ]
+      },
+      {
+        "z0_low_ohm": [
+          0.0,
+          0.0
+        ],
+        "HV_delta_v012": [
+          null,
+          [
+            -0.7717842738021002,
+            0.46075953354227817
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "HV_is_complete": false,
+        "HV_diagnostics": [
+          "UNREFERENCED_SEQUENCE_VOLTAGE"
+        ],
+        "LV_delta_v012": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.23094010767585024,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "HV_terminal_i012": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.3062667357972121,
+            -0.9255973566239364
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ]
+      }
+    ]
+  },
+  "preservation": {
+    "baseline_differences": [
+      {
+        "path": [
+          "projects",
+          "energoraion",
+          "warnings",
+          0
+        ],
+        "before": "Расчёт имеет статус ПРЕДВАРИТЕЛЬНЫЙ. Текущее ядро подтверждено только для ограниченных трёхфазных задач положительной последовательности; промышленная выдача без независимой проверки запрещена.",
+        "after": "Расчёт имеет статус ПРЕДВАРИТЕЛЬНЫЙ. Контрольные примеры подтверждают проверенные модели и условия; перед применением уставок нужна независимая проверка для конкретного объекта."
+      },
+      {
+        "path": [
+          "projects",
+          "energoraion",
+          "warnings",
+          1
+        ],
+        "before": "Iк(2) является оценкой √3/2·Iк(3) только при допущении Z2 = Z1; сеть обратной последовательности не рассчитывается.",
+        "after": "В действующих расчётах защит Iк(2) — оценка √3/2·Iк(3) при Z2 = Z1. Вкладка «КЗ» рассчитывает отдельную сеть обратной последовательности по заданным Z2; её фазные токи пока не заменяют токи в расчётах защит."
+      },
+      {
+        "path": [
+          "projects",
+          "gtes_sever",
+          "warnings",
+          0
+        ],
+        "before": "Расчёт имеет статус ПРЕДВАРИТЕЛЬНЫЙ. Текущее ядро подтверждено только для ограниченных трёхфазных задач положительной последовательности; промышленная выдача без независимой проверки запрещена.",
+        "after": "Расчёт имеет статус ПРЕДВАРИТЕЛЬНЫЙ. Контрольные примеры подтверждают проверенные модели и условия; перед применением уставок нужна независимая проверка для конкретного объекта."
+      },
+      {
+        "path": [
+          "projects",
+          "gtes_sever",
+          "warnings",
+          1
+        ],
+        "before": "Iк(2) является оценкой √3/2·Iк(3) только при допущении Z2 = Z1; сеть обратной последовательности не рассчитывается.",
+        "after": "В действующих расчётах защит Iк(2) — оценка √3/2·Iк(3) при Z2 = Z1. Вкладка «КЗ» рассчитывает отдельную сеть обратной последовательности по заданным Z2; её фазные токи пока не заменяют токи в расчётах защит."
+      },
+      {
+        "path": [
+          "projects",
+          "ps_promyshlennaya",
+          "warnings",
+          0
+        ],
+        "before": "Расчёт имеет статус ПРЕДВАРИТЕЛЬНЫЙ. Текущее ядро подтверждено только для ограниченных трёхфазных задач положительной последовательности; промышленная выдача без независимой проверки запрещена.",
+        "after": "Расчёт имеет статус ПРЕДВАРИТЕЛЬНЫЙ. Контрольные примеры подтверждают проверенные модели и условия; перед применением уставок нужна независимая проверка для конкретного объекта."
+      },
+      {
+        "path": [
+          "projects",
+          "ps_promyshlennaya",
+          "warnings",
+          1
+        ],
+        "before": "Iк(2) является оценкой √3/2·Iк(3) только при допущении Z2 = Z1; сеть обратной последовательности не рассчитывается.",
+        "after": "В действующих расчётах защит Iк(2) — оценка √3/2·Iк(3) при Z2 = Z1. Вкладка «КЗ» рассчитывает отдельную сеть обратной последовательности по заданным Z2; её фазные токи пока не заменяют токи в расчётах защит."
+      },
+      {
+        "path": [
+          "projects",
+          "ps_severnaya",
+          "warnings",
+          0
+        ],
+        "before": "Расчёт имеет статус ПРЕДВАРИТЕЛЬНЫЙ. Текущее ядро подтверждено только для ограниченных трёхфазных задач положительной последовательности; промышленная выдача без независимой проверки запрещена.",
+        "after": "Расчёт имеет статус ПРЕДВАРИТЕЛЬНЫЙ. Контрольные примеры подтверждают проверенные модели и условия; перед применением уставок нужна независимая проверка для конкретного объекта."
+      },
+      {
+        "path": [
+          "projects",
+          "ps_severnaya",
+          "warnings",
+          1
+        ],
+        "before": "Iк(2) является оценкой √3/2·Iк(3) только при допущении Z2 = Z1; сеть обратной последовательности не рассчитывается.",
+        "after": "В действующих расчётах защит Iк(2) — оценка √3/2·Iк(3) при Z2 = Z1. Вкладка «КЗ» рассчитывает отдельную сеть обратной последовательности по заданным Z2; её фазные токи пока не заменяют токи в расчётах защит."
+      }
+    ],
+    "numeric_and_other_baseline_values_exactly_unchanged": true,
+    "preservation": {
+      "docs/roadmap/ROADMAP.md": {
+        "historical_details_unchanged": true,
+        "sha256": "7dcbc71c8a0aa17d74e0ac79d3fb07d9be1a5c61c45a5a8ee180318a1ecd1e13"
+      },
+      "docs/roadmap/BRIEF-FOR-SOL.md": {
+        "historical_details_unchanged": true,
+        "sha256": "e7249164f862cb482ec72a9da46e7984de9f716f0ee5667db23fd63b7e807257"
+      },
+      "docs/roadmap/current-state.md": {
+        "historical_details_unchanged": true,
+        "sha256": "93ffac5405314fcf917009089ae683f23573b923e82903ef0f5220b13d0858d8"
+      },
+      "rza_calc/examples/oilfield_gtes.json": {
+        "all_bytes_unchanged": true,
+        "sha256": "0f4b04f28f79856c29b01ff9a2356598600fbe738aebe6021d2f67ceb2262715"
+      },
+      "docs/calculation-audit/baseline-log.md": {
+        "previous_bytes_preserved_as_prefix": true
+      }
+    }
+  },
+  "ui": {
+    "open_branch_tab_ms": 233.1525000045076,
+    "select_10_ms": 2418.08500001207,
+    "network_query_ms": [
+      26.9370999885723
+    ],
+    "project_sha": "0f4b04f28f79856c29b01ff9a2356598600fbe738aebe6021d2f67ceb2262715",
+    "fingerprint": "3febeb1ad1fb3141ec3608c0596ba3dadf694a9fd8de2865176baff102da0ff4",
+    "result_identity_unchanged": true,
+    "json_and_fingerprint_unchanged": true,
+    "shown_rows": [
+      [
+        "Начало — cp01_in1_head",
+        "115",
+        "кА",
+        "0,5086 (-84,8°)",
+        "0,5086 (155,2°)",
+        "0,5086 (35,2°)",
+        "0 (0°)",
+        "Рассчитано"
+      ],
+      [
+        "Конец — cp01_in1_tail",
+        "115",
+        "кА",
+        "0,5086 (95,2°)",
+        "0,5086 (-24,8°)",
+        "0,5086 (-144,8°)",
+        "0 (0°)",
+        "Рассчитано"
+      ],
+      [
+        "ТТ 600/5 А — cp01_in1_head",
+        "115",
+        "А",
+        "4,2387 (-84,8°)",
+        "4,2387 (155,2°)",
+        "4,2387 (35,2°)",
+        "0 (0°)",
+        "Идеальное масштабирование. Подтверждение ТТ не записано для всех параметров"
+      ]
+    ]
+  },
+  "source_sha256": {
+    "rza_calc/core/fault_network.py": "204ccbe2638249e92ebc4584d5818678aeca7e8b87892996454f987189ea1976",
+    "rza_calc/core/sequence_network.py": "c6a72d46c2c62b81c1ca494b51a07ff042634ce691c4ef6691d6552f183bb1af",
+    "rza_calc/core/short_circuit.py": "7de91a4e5aa1297e1f2973672136d85b569b49b30bdc08d3d9e4022bf7d9f945",
+    "rza_calc/calculation/fault_measurement.py": "e5ba05f975ba0880f059dbbe762b650145cbe35d1519a3db58ed20383674a661",
+    "rza_calc/gui/view_model.py": "06345ee7ecf35b9cecaca5cefcc49a501f894cfc9dce387918063f64feb67591",
+    "rza_calc/gui/main_window.py": "6d5b941de4c990a26f80494b82d3bf4db44248edbaacaa22046345cc982da36d",
+    "rza_calc/version.py": "f1c03de0d3e441e245e25ed259114865194cf2bf3c95dd39413b21f22bc4c4a0"
+  }
+}

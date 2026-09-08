@@ -15,6 +15,8 @@ from typing import Any, Iterable
 
 from ..core.engine import CalculationInputError, ProjectResult, run, run_input
 from ..core.fault_types import FaultSpec, FaultType
+from ..calculation.fault_measurement import (FaultMeasurementRow, MEASUREMENT_ASSUMPTIONS,
+                                           branch_fault_measurements)
 from ..core.model import GeneratorBranch, Mode
 from ..core.result import FAIL, OK, UNRESOLVED
 from ..io.project import ProjectData, load_project
@@ -138,6 +140,16 @@ class FaultRow:
     residual_current_ka: complex | None = None
     status_code: str = ""
     assumptions: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
+class FaultBranchView:
+    title: str
+    choices: tuple[tuple[str, str], ...] = ()
+    branch_id: str = ''
+    rows: tuple[FaultMeasurementRow, ...] = ()
+    status: str = ''
+    assumptions: tuple[str, ...] = MEASUREMENT_ASSUMPTIONS
 
 
 @dataclass(frozen=True)
@@ -836,6 +848,61 @@ class ProjectViewModel(ModeStateMixin):
         lines.append("Uф — остаточное напряжение фазы относительно земли в точке КЗ. "
                      "Токи — первичные, на ступени выбранного узла. Zповр = 0 Ом.")
         return "\n".join(lines)
+
+    def fault_branch_view(self, branch_id: str | None = None) -> FaultBranchView:
+        """Lazily solve a fault once, then select physical measurements by ID.
+
+        Cache entries belong to one current, immutable calculation result.
+        Every public read first checks freshness; an electrical draft or stale
+        result clears the cache. Neither branch selection nor this method runs
+        the project/protection calculation or mutates a saved project.
+        """
+        result = self.current_result
+        if result is None:
+            self.__dict__.pop('_fault_network_cache', None)
+            return FaultBranchView(self.fault_type_label(), status=self.result_unavailable_reason())
+        node_id = self.selected_fault_node()
+        net = result.ctx.net
+        mode = net.modes.get(self.mode_id)
+        title = f'{self.fault_type_label()} · {mode.name if mode else self.mode_id}'
+        if node_id not in net.nodes:
+            return FaultBranchView(title, status='Выберите точку КЗ в дереве или на схеме.')
+        title += f' · {net.nodes[node_id].name}'
+        solver = result.ctx.solvers.get(self.mode_id)
+        if solver is None:
+            return FaultBranchView(title, status=result.ctx.errors.get(self.mode_id, 'Режим не рассчитан.'))
+        if not hasattr(solver, 'fault_network_at'):
+            return FaultBranchView(title, status='Распределение токов ветвей недоступно в этом расчётном API.')
+        cached = self.__dict__.get('_fault_network_cache')
+        if cached is None or cached[0] is not result:
+            cached = (result, {})
+            self._fault_network_cache = cached
+        key = (self.mode_id, node_id, FaultSpec(self.selected_fault_type))
+        entries = cached[1]
+        if key not in entries:
+            if len(entries) >= 8:
+                entries.pop(next(iter(entries)))
+            try:
+                entries[key] = (solver.fault_network_at(node_id, key[2]), '')
+            except Exception as exc:
+                entries[key] = (None, f'{fault_status_label(str(getattr(exc, "code", "CALCULATION_ERROR")))}: {exc}')
+        network, error = entries[key]
+        if network is None:
+            return FaultBranchView(title, status=error)
+        choices = tuple((bid, f'{net.branches[bid].name} [{bid}]') for bid in network.branches if bid in net.branches)
+        wanted = branch_id or self.__dict__.get('selected_fault_branch_id')
+        if not wanted and self.selected_kind == 'branch':
+            wanted = self.selected_id
+        if wanted not in network.branches or wanted not in net.branches:
+            wanted = choices[0][0] if choices else ''
+        self.selected_fault_branch_id = wanted
+        if not wanted:
+            return FaultBranchView(title, status='Нет ветвей с расчётным представлением.')
+        rows = branch_fault_measurements(net.branches[wanted], network.branches[wanted])
+        diagnostics = ' '.join(dict.fromkeys(item.message for item in network.diagnostics
+            if not item.branch_id or item.branch_id == wanted))
+        return FaultBranchView(title, choices, wanted, rows, diagnostics,
+                               tuple(dict.fromkeys((*MEASUREMENT_ASSUMPTIONS, *network.assumptions))))
 
     def setting_rows(self) -> list[SettingRow]:
         result = self.current_result

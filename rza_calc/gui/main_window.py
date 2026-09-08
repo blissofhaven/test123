@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from collections import defaultdict, deque
 from functools import wraps
+from cmath import phase
+from math import degrees
 from pathlib import Path
 
 from PySide6.QtCore import QEvent, QPointF, QRectF, Qt, Signal
@@ -89,6 +91,14 @@ def _phase_magnitudes(values) -> str:
         return "—"
     return " / ".join(f"{abs(value):.4f}".rstrip("0").rstrip(".").replace(".", ",")
                       for value in values)
+
+
+def _fault_phasor(value) -> str:
+    if value is None:
+        return '—'
+    magnitude = f'{abs(value):.4f}'.rstrip('0').rstrip('.').replace('.', ',')
+    angle = f'{degrees(phase(value)):.1f}'.replace('.', ',') if value else '0'
+    return f'{magnitude} ({angle}°)'
 
 
 def _fault_status(row) -> str:
@@ -1081,12 +1091,49 @@ class BottomPanel(QWidget):
         fault_controls.addWidget(self.fault_type_combo)
         fault_controls.addStretch()
         fault_layout.addLayout(fault_controls)
-        fault_layout.addWidget(self.fault_table)
+        self.fault_views = QTabWidget()
+        self.fault_views.setObjectName('faultResultViews')
+        fault_layout.addWidget(self.fault_views)
+        point_page = QWidget()
+        point_layout = QVBoxLayout(point_page)
+        point_layout.setContentsMargins(0, 0, 0, 0)
+        point_layout.addWidget(self.fault_table)
         self.fault_details = QPlainTextEdit()
         self.fault_details.setObjectName("faultDetails")
         self.fault_details.setReadOnly(True)
         self.fault_details.setMaximumHeight(115)
-        fault_layout.addWidget(self.fault_details)
+        point_layout.addWidget(self.fault_details)
+        self.fault_views.addTab(point_page, 'В точке КЗ')
+        branch_page = QWidget()
+        branch_layout = QVBoxLayout(branch_page)
+        branch_layout.setContentsMargins(0, 0, 0, 0)
+        self.fault_branch_title = QLabel()
+        self.fault_branch_title.setWordWrap(True)
+        branch_layout.addWidget(self.fault_branch_title)
+        branch_controls = QHBoxLayout()
+        branch_controls.addWidget(QLabel('Измеряемая ветвь:'))
+        self.fault_branch_combo = QComboBox()
+        self.fault_branch_combo.setObjectName('faultBranchCombo')
+        self.fault_branch_combo.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToMinimumContentsLengthWithIcon)
+        self.fault_branch_combo.setMinimumContentsLength(25)
+        branch_controls.addWidget(self.fault_branch_combo, 1)
+        branch_layout.addLayout(branch_controls)
+        self.fault_measurement_table = _table(['Место измерения', 'Ступень, кВ', 'Ед.',
+                                               'ΔIA', 'ΔIB', 'ΔIC', '3ΔI0', 'Результат'])
+        self.fault_measurement_table.setObjectName('faultMeasurementTable')
+        branch_layout.addWidget(self.fault_measurement_table)
+        self.fault_measurement_details = QPlainTextEdit()
+        self.fault_measurement_details.setObjectName('faultMeasurementDetails')
+        self.fault_measurement_details.setReadOnly(True)
+        self.fault_measurement_details.setMaximumHeight(105)
+        branch_layout.addWidget(self.fault_measurement_details)
+        self.fault_views.addTab(branch_page, 'Ветви и ТТ')
+        self._fault_vm = vm
+        self.fault_views.currentChanged.connect(
+            lambda index: self._refresh_fault_measurements() if index == 1 else None)
+        self.fault_branch_combo.currentIndexChanged.connect(
+            lambda index: self._refresh_fault_measurements(str(self.fault_branch_combo.itemData(index)))
+            if index >= 0 else None)
 
         self.settings_table = _table(["Выбранный объект", "Защита", "Iсз", "t", "Режим", "Статус"])
         settings_page = self._page(self.settings_table)
@@ -1161,6 +1208,9 @@ class BottomPanel(QWidget):
             ])
         _set_fault_rows(self.fault_table, fault_rows)
         self.fault_details.setPlainText(vm.fault_details_text(selected_fault_rows))
+        self._fault_vm = vm
+        if self.fault_views.currentIndex() == 1:
+            self._refresh_fault_measurements()
         status_text = {OK: "Норма", FAIL: "Ошибка", UNRESOLVED: "Не определено"}
         _set_rows(self.settings_table, [[
             vm.selection_title(), row.kind, row.current, row.time, row.mode,
@@ -1173,6 +1223,33 @@ class BottomPanel(QWidget):
             status_text.get(item.status, item.status),
         ] for item in pairs])
         self.report_text.setPlainText(vm.report_text())
+
+    def _refresh_fault_measurements(self, branch_id=None) -> None:
+        # One bounded fresh read, including when a user only changes the local
+        # measurement selector. The VM solves once per fault input, not row.
+        with self._fault_vm.presentation_snapshot():
+            view = self._fault_vm.fault_branch_view(branch_id)
+        self.fault_branch_title.setText(view.title)
+        self.fault_branch_combo.blockSignals(True)
+        self.fault_branch_combo.clear()
+        for identity, label in view.choices:
+            self.fault_branch_combo.addItem(label, identity)
+        self.fault_branch_combo.setCurrentIndex(self.fault_branch_combo.findData(view.branch_id))
+        self.fault_branch_combo.setEnabled(bool(view.choices))
+        self.fault_branch_combo.blockSignals(False)
+        rows = []
+        for item in view.rows:
+            phases = item.iabc if item.iabc is not None else (None, None, None)
+            rows.append([item.label, '—' if item.voltage_stage_kv is None else
+                f'{item.voltage_stage_kv:g}'.replace('.', ','), item.unit,
+                *(_fault_phasor(value) for value in phases), _fault_phasor(item.residual_current), item.status])
+        _set_fault_rows(self.fault_measurement_table, rows)
+        for row_index, values in enumerate(rows):
+            for column, text in enumerate(values):
+                self.fault_measurement_table.item(row_index, column).setToolTip(text)
+        self.fault_measurement_details.setPlainText('\n'.join(filter(None, (
+            view.status, *(f'{row.label}: {row.status}' for row in view.rows),
+            'Значения показаны как модуль (угол комплексного тока в градусах).', *view.assumptions))))
 
 
 class TextDialog(QDialog):

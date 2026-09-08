@@ -274,16 +274,19 @@ class SequenceFaultSolver:
             return complex(0, value.imag)
         return value
 
-    def _driving_impedance(self, nodes, stamps, node_id, sequence):
+    def _driving_impedance(self, nodes, stamps, node_id, sequence, *, response=None,
+                           strict_threshold=False):
         union = _Union(list(nodes | {GRID}))
         for stamp in stamps:
-            if abs(stamp.impedance) <= self.threshold:
+            ideal = (stamp.impedance == 0 or abs(stamp.impedance) < self.threshold
+                     or (not strict_threshold and abs(stamp.impedance) == self.threshold))
+            if ideal:
                 if abs(stamp.tap - 1) > 1e-12:
                     raise ShortCircuitStatusError("UNSUPPORTED_IDEAL_PHASE_SHIFT", "Идеальный трансформатор со сдвигом фаз требует отдельного ограничения напряжений.")
                 union.union(stamp.first, stamp.second)
         target, ground = union.find(node_id), union.find(GRID)
-        if target == ground:
-            return 0j
+        if response is not None:
+            response["representatives"] = {node: union.find(node) for node in nodes | {GRID}}
         adjacency = {}
         for stamp in stamps:
             a, b = union.find(stamp.first), union.find(stamp.second)
@@ -296,6 +299,13 @@ class SequenceFaultSolver:
                 if other not in connected:
                     connected.add(other)
                     todo.append(other)
+        if target == ground:
+            if response is not None:
+                # An ideal fault-side grounding shunt does not reference an
+                # isolated sequence network behind a transformer barrier.
+                response["column"] = {node: 0j if union.find(node) in connected else None
+                                      for node in nodes | {GRID}}
+            return 0j
         if ground not in connected:
             code = "NO_ZERO_SEQUENCE_RETURN_PATH" if sequence == 0 else "NO_SEQUENCE_RETURN_PATH"
             raise ShortCircuitStatusError(
@@ -330,7 +340,18 @@ class SequenceFaultSolver:
             raise ShortCircuitStatusError("NUMERIC_FAILURE", f"Сеть последовательности {sequence} вырождена.") from error
         if not np.isfinite(voltage).all() or not np.allclose(ybus @ voltage, current, rtol=1e-8, atol=1e-8):
             raise ShortCircuitStatusError("NUMERIC_FAILURE", f"Сеть последовательности {sequence}: не выполнен баланс токов.")
+        if response is not None:
+            response["column"] = {
+                node: (0j if union.find(node) == ground else
+                       complex(voltage[index[union.find(node)]]) if union.find(node) in index else None)
+                for node in nodes | {GRID}
+            }
         return complex(voltage[index[target]])
+
+    def fault_network_at(self, node_id, spec):
+        """Return terminal contributions and voltage changes without a guessed load flow."""
+        from .fault_network import build_fault_network
+        return build_fault_network(self, node_id, spec)
 
     def fault_at(self, node_id, spec):
         from .fault_types import FaultSpec, FaultType, solve_fault

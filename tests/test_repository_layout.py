@@ -41,7 +41,12 @@ def test_development_tools_have_no_obsolete_root_copies():
 def test_active_status_points_to_relocated_tools_and_guides():
     status = json.loads((ROOT / "docs" / "roadmap" / "status.json").read_text(encoding="utf-8"))
     assert status["baseline"]["tool"] == "tools/update_baseline.py"
-    assert status["baseline"]["tool"] in status["sol_agents"]["forbidden_for_all"]
+    # Status v2 no longer appoints a historical agent roster. The active
+    # baseline guard lives in repository-wide instructions, also shipped in ZIPs.
+    assert status["schema"] == "rza-roadmap-status/2"
+    instructions = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    assert status["baseline"]["tool"] in instructions
+    assert "Без `--yes` запись не разрешена" in instructions
     for key in ("tools", "historical_root_materials", "report"):
         assert (ROOT / status["repository_layout"][key]).is_file()
 
