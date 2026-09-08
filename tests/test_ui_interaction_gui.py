@@ -12,7 +12,7 @@ os.environ.setdefault("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-gpu --no-sandbox"
 
 from PySide6.QtCore import QEvent, QPointF, Qt  # noqa: E402
 from PySide6.QtTest import QTest  # noqa: E402
-from PySide6.QtWidgets import QApplication, QGraphicsSceneHoverEvent  # noqa: E402
+from PySide6.QtWidgets import QApplication, QGraphicsSceneHoverEvent, QMessageBox  # noqa: E402
 
 from rza_calc.domain.catalog_snapshot import ProjectCatalogSnapshots  # noqa: E402
 from rza_calc.domain.diagram import (  # noqa: E402
@@ -741,13 +741,22 @@ def test_shift_r_toggles_selected_object_to_other_allowed_position() -> None:
         canvas.close()
 
 
-def test_analysis_allows_selection_and_properties_but_blocks_rotation() -> None:
+def test_analysis_allows_selection_and_properties_but_blocks_rotation(monkeypatch) -> None:
     _app()
     controller = _controller("analysis")
-    added = controller.add_equipment("builtin.recloser", "Р1", x=100, y=100)
+    # Switch symbols now toggle on double-click; other equipment opens its card.
+    added = controller.add_equipment("builtin.load", "Нагрузка", x=100, y=100)
     canvas = _show_canvas(controller)
     requested: list[object] = []
+    questions: list[str] = []
+    def decline_unexpected_question(*args):
+        questions.append(args[2])
+        return QMessageBox.StandardButton.No
+    monkeypatch.setattr(QMessageBox, "question", decline_unexpected_question)
     canvas.equipmentDetailsRequested.connect(requested.append)
+    before_fingerprint = electrical_model_fingerprint(controller.model)
+    before_journal = len(controller.journal)
+    before_ports = controller.model.equipment[added.equipment_id].port_ids
     try:
         canvas.set_mode(EditorMode.ANALYSIS)
         _click_scene(canvas, 100, 100)
@@ -757,6 +766,11 @@ def test_analysis_allows_selection_and_properties_but_blocks_rotation() -> None:
         QTest.keyClick(canvas.view, Qt.Key.Key_R)
         QApplication.processEvents()
         assert controller.diagram.representations[added.representation_id].rotation_deg == 0.0
+        assert canvas.scene.selected_representation_ids() == (added.representation_id,)
+        assert questions == []
+        assert controller.model.equipment[added.equipment_id].port_ids == before_ports
+        assert electrical_model_fingerprint(controller.model) == before_fingerprint
+        assert len(controller.journal) == before_journal
     finally:
         canvas.close()
 

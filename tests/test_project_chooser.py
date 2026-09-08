@@ -92,7 +92,9 @@ def test_actual_window_opens_without_solver_or_full_engine(session, monkeypatch,
     assert window.vm.result is None and window.vm.current_result is None
     assert not window.vm.calculation_error
     assert window.vm.project.diagram.pages
-    assert "Расчёт не выполнен" in window.vm.result_unavailable_reason()
+    reason = window.vm.result_unavailable_reason()
+    assert "ПКМ → Рассчитать КЗ здесь" in reason
+    assert "Полный расчёт запускается отдельной кнопкой" in reason
     assert session.explicit.read_bytes() == before
 
 
