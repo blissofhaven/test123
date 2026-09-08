@@ -23,7 +23,7 @@
     "stage": "BU05",
     "phase": "first_increment_complete",
     "spec": "docs/roadmap/protection-input-plan.md",
-    "note": "Окно выбора, открытие без полного расчёта, точечные КЗ и отдельная учебная схема проверены. Сейчас отдельно принимается общий обзор компактного объекта; далее согласованы группировка нефтепромысла и ручное назначение принадлежности, ещё не реализованные. Расчётный порядок сохраняется: приёмка моделей и измерений, затем общий ввод своих МТЗ/ТО и проверка обязательных сценариев. Полные этапы 5–8 не закрыты; точного исполнения БМРЗ пока нет."
+    "note": "Окно выбора, открытие без полного расчёта, точечные КЗ и отдельная учебная схема проверены. Общий обзор компактного объекта проверен отдельным затронутым набором из 319 тестов; далее согласованы группировка нефтепромысла и ручное назначение принадлежности, ещё не реализованные. Расчётный порядок сохраняется: приёмка моделей и измерений, затем общий ввод своих МТЗ/ТО и проверка обязательных сценариев. Полные этапы 5–8 не закрыты; точного исполнения БМРЗ пока нет."
   },
   "tests": {
     "verified_commit": "35eef5335251d757d6b7178445c85d5a1a1ed645",
@@ -309,7 +309,7 @@
   },
   "point_fault_algorithm_version": "selected-point-fault-v1",
   "network_overview": {
-    "status": "verification_pending",
+    "status": "compact_pilot_verified",
     "guide": "docs/network-overview.md",
     "report": "docs/work-verification/network-overview-2026-09-09.md",
     "pilot_project": "rza_calc/examples/compact_training.json",
@@ -317,21 +317,33 @@
     "pilot_interfacility_links": 6,
     "scope": "Структура и межобъектные связи по явной принадлежности, мини-схема только для просмотра, открытие и возврат, поиск, готовые итоги без расчёта, сохранение расположения обзорных карточек с отменой.",
     "targeted_suite": {
-      "status": "pending",
-      "passed": null,
-      "failed": null,
-      "verified_commit": null
+      "status": "passed",
+      "passed": 319,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "warnings": 0,
+      "duration_seconds": 63.771,
+      "verified_commit": "484dfea28b9740d8b4d89e44c5ff524c753e1e19",
+      "clean_tree_at_start": true,
+      "source_changed_during_run": []
     },
-    "pending_acceptance": [
-      "Итоговый затронутый набор и визуальная проверка компактного варианта",
-      "Подписи Т1/Т2, мощностей и напряжений, секций, номеров фидеров и подсказок",
-      "Фильтр мини-схемы Весь объект / РУ"
-    ],
+    "pending_acceptance": [],
     "planned_not_implemented": [
       "Группировка обзора большого нефтепромысла",
       "Ручное назначение принадлежности оборудования объектам"
     ],
-    "note": "Не закрывает новые этапы расчётной дорожной карты. Версия приложения остаётся 0.3.3-safe-hardening; прежний полный прогон 3812 passed не распространяется на новые исходники."
+    "note": "Не закрывает новые этапы расчётной дорожной карты. Версия приложения остаётся 0.3.3-safe-hardening; прежний полный прогон 3812 passed не распространяется на новые исходники.",
+    "verified_code_commit": "484dfea28b9740d8b4d89e44c5ff524c753e1e19",
+    "evidence": "docs/work-verification/network-overview-evidence.json",
+    "completed_on": "2026-09-09",
+    "preview": {
+      "ru_filter": true,
+      "stable_feeder_numbers": true,
+      "feeder_destination_on_hover": true,
+      "transformer_glyph_pixels": 32,
+      "native_windings_and_saved_rotation": true
+    }
   },
   "user_workflow": {
     "guide": "docs/point-fault-workflow.md",

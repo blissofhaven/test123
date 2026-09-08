@@ -1,0 +1,111 @@
+{
+  "schema": "rza-network-overview-verification/1",
+  "verified_on": "2026-09-09",
+  "verified_code_commit": "484dfea28b9740d8b4d89e44c5ff524c753e1e19",
+  "scope": "Affected GUI, navigation, startup and point-fault regression suite; not a new full suite.",
+  "targeted_suite": {
+    "total": 319,
+    "passed": 319,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "warnings": 0,
+    "junit_seconds": 63.771,
+    "wall_seconds": 64.59970120002981,
+    "files": [
+      "tests/test_network_overview.py",
+      "tests/test_outline_icons.py",
+      "tests/test_diagram_preview.py",
+      "tests/test_preview_annotations.py",
+      "tests/test_overview_workflow_gui.py",
+      "tests/test_overview_layout_persistence.py",
+      "tests/test_overview_results.py",
+      "tests/test_project_chooser.py",
+      "tests/test_last_project_startup.py",
+      "tests/test_point_fault_gui.py",
+      "tests/test_point_fault_query.py",
+      "tests/test_switch_interaction_gui.py",
+      "tests/test_ui_interaction_gui.py",
+      "tests/test_stage01_result_freshness.py",
+      "tests/test_editor_refresh_flow.py",
+      "tests/test_large_refresh_snapshot.py",
+      "tests/test_gui_view_model.py",
+      "tests/test_drawing_rules_navigation_cursor.py",
+      "tests/test_roadmap_consistency.py",
+      "tests/test_repository_layout.py",
+      "tests/test_legacy_project_fixtures.py",
+      "tests/test_windows_launcher_format.py"
+    ],
+    "exit_code": 0,
+    "clean_tree_at_start": true,
+    "source_changed_during_run": [],
+    "junit_sha256": "933fad4a58eadb9be28cd302913218fc953e763f2528612610d49268948eb8ec",
+    "log_sha256": "da695dace10d488e7b59c452c0dffb31de4fb15bd5f14fd3e9f14bad5282130b",
+    "arguments": [
+      "-B",
+      "-m",
+      "pytest",
+      "-v",
+      "--capture=sys",
+      "-p",
+      "no:cacheprovider"
+    ]
+  },
+  "environment": {
+    "os": "Windows",
+    "python": "3.14.7",
+    "numpy": "2.5.2",
+    "pyside6": "6.11.2",
+    "qt_platform": "offscreen"
+  },
+  "launcher_smoke": {
+    "command": "ЗАПУСК.bat --smoke-test",
+    "exit_code": 0,
+    "class": "MainWindow",
+    "visible": true,
+    "maximized": true,
+    "overview_selected": true,
+    "full_result_absent": true,
+    "note": "Qt state observed in the offscreen smoke process; not a claim about the user's open window."
+  },
+  "visual_review": {
+    "full_window_pixels": [
+      1680,
+      1020
+    ],
+    "narrow_preview_width_pixels": 330,
+    "cases": [
+      "Whole substation 35/10 kV",
+      "Whole KTP 10/0.4 kV",
+      "RU filters"
+    ],
+    "transformer_glyph_pixels": 32,
+    "annotation_note": "Magnified native winding symbols are in anchored callouts; physical ports and routes are unchanged.",
+    "navigation_probe": "overview -> preview -> detailed sheet -> Back; original fingerprint and source JSON unchanged; no full result",
+    "images_sha256": {
+      "docs/images/network-overview.png": "b44e8b1e18cc450799fe0c47313cb62a23086e36b21dfc84536d39b6f68c95df",
+      "docs/images/mini-transformers.png": "610fba18f3e29cb4420e9bc42910ce1eeeb2e668a22ea3574c6396ebb47db2ec"
+    }
+  },
+  "protected_files_unchanged_from_commit": "a54b8bf",
+  "protected_files_sha256": {
+    "rza_calc/examples/compact_training.json": "704a78bf666db4e9604ac6730c74bfa1e7fdee2e4ba3402a457dc2748ce9e11e",
+    "rza_calc/examples/oilfield_gtes.json": "0f4b04f28f79856c29b01ff9a2356598600fbe738aebe6021d2f67ceb2262715",
+    "tests/baseline/calculation_baseline.json": "99ec716eb86feb05d984486038f80bb0f7e4bd753d1079078be3055124018c5f",
+    "docs/calculation-audit/baseline-log.md": "826ddc034ba7087178b9cb58f731fbc77dac6ffaa7ead7df30a5db4c7e65a962"
+  },
+  "remaining": [
+    "Oilfield grouping by supplier and bus section after compact pilot review",
+    "Manual assignment of unassigned equipment",
+    "Engineering acceptance stages BU05 and later remain open"
+  ],
+  "final_documentation_check": {
+    "passed": 13,
+    "failed": 0,
+    "errors": 0,
+    "seconds": 0.109,
+    "local_links_checked": 49,
+    "historical_details_unchanged": true,
+    "production_files_unchanged_since_acceptance": true
+  }
+}
