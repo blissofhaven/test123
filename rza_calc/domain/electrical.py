@@ -1704,6 +1704,62 @@ class ElectricalModel:
         _require_string(key, "property key", allow_empty=False)
         return self.update_equipment_properties(equipment_id, {key: value})
 
+    def replace_parameter_records(
+        self, equipment_records: Iterable[EquipmentInstance],
+        section_records: Iterable[LineSection] = (),
+    ) -> ChangeSet:
+        """Apply an already typed parameter batch without changing topology.
+
+        One detached model validates the complete batch. No intermediate row
+        becomes visible, and this API cannot replace ports, types, voltage
+        groups, segment identities or a protection-review marker.
+        """
+        equipment_rows, sections = tuple(equipment_records), tuple(section_records)
+        if len({row.id for row in equipment_rows}) != len(equipment_rows):
+            raise DomainInvariantError("Оборудование повторяется в пакете параметров.")
+        if len({row.equipment_id for row in sections}) != len(sections):
+            raise DomainInvariantError("Ветвь линии повторяется в пакете параметров.")
+        def protected_extensions(extensions, *, ct=False):
+            result = thaw_json(extensions)
+            result.pop("rza_calc.parameter_provenance", None)
+            if ct:
+                result.pop("editor_legacy_ct_ports", None)
+                result.pop("rza_calc.ct_port_id", None)
+                result.pop("rza_calc.nameplate", None)
+                result.pop("rza_calc.ct_parameters", None)
+            return result
+        staged = self._transaction_copy()
+        changed = []
+        for row in equipment_rows:
+            old = self._equipment.get(row.id)
+            if old is None or replace(old, name=row.name, note=row.note,
+                    properties=row.properties, extensions=row.extensions,
+                    normal_position=row.normal_position) != row:
+                raise DomainInvariantError("Пакет параметров не может менять тип, ID, порты или класс сети.")
+            if protected_extensions(old.extensions, ct=True) != protected_extensions(row.extensions, ct=True):
+                raise DomainInvariantError("Пакет параметров не может менять служебные ограничения оборудования.")
+            staged._equipment[row.id] = row
+            if row != old:
+                changed.append(row.id)
+        for section in sections:
+            old = self._line_sections.get(section.equipment_id)
+            if (old is None or old.logical_line_id != section.logical_line_id
+                    or old.extensions != section.extensions
+                    or tuple(s.id for s in old.construction_segments) != tuple(s.id for s in section.construction_segments)):
+                raise DomainInvariantError("Пакет параметров не может менять состав или порядок участков линии.")
+            for before, after in zip(old.construction_segments, section.construction_segments):
+                if before.line_kind != after.line_kind or protected_extensions(before.extensions) != protected_extensions(after.extensions):
+                    raise DomainInvariantError("Пакет параметров не может менять тип или служебные данные участка.")
+            staged._line_sections[section.equipment_id] = section
+            if section != old and section.equipment_id not in changed:
+                changed.append(section.equipment_id)
+        issues = [item.message for item in staged.validate_integrity() if item.severity == "error"]
+        if issues:
+            raise DomainInvariantError("Некорректные параметры оборудования: " + "; ".join(issues))
+        if not changed:
+            return ChangeSet(self.revision)
+        return self._commit_transaction(staged, changed=tuple(changed))
+
     def clear_equipment_property(
         self, equipment_id: EquipmentId, key: str
     ) -> ChangeSet:
@@ -3156,7 +3212,7 @@ class ElectricalModel:
         staged = self._transaction_copy()
         staged._logical_lines[line.id] = replace(line, inherited_properties=properties)
         if key in {"r1_ohm_per_km", "x1_ohm_per_km"}:
-            staged._refresh_line_impedance_confirmation(line.id)
+            staged._refresh_line_impedance_confirmation(line.id, previous=self)
         staged._validate_logical_line_records_for_existing(line.id)
         return self._commit_transaction(staged, changed=(line.id,))
 
@@ -3170,7 +3226,7 @@ class ElectricalModel:
         staged = self._transaction_copy()
         staged._equipment[section_id] = replace(equipment, properties=properties)
         if key in {"r1_ohm_per_km", "x1_ohm_per_km"}:
-            staged._refresh_line_impedance_confirmation(section.logical_line_id)
+            staged._refresh_line_impedance_confirmation(section.logical_line_id, previous=self)
         staged._validate_logical_line_records_for_existing(section.logical_line_id)
         return self._commit_transaction(staged, changed=(section_id,))
 
@@ -3186,28 +3242,52 @@ class ElectricalModel:
         staged = self._transaction_copy()
         staged._equipment[section_id] = replace(equipment, properties=properties)
         if key in {"r1_ohm_per_km", "x1_ohm_per_km"}:
-            staged._refresh_line_impedance_confirmation(section.logical_line_id)
+            staged._refresh_line_impedance_confirmation(section.logical_line_id, previous=self)
         staged._validate_logical_line_records_for_existing(section.logical_line_id)
         return self._commit_transaction(staged, changed=(section_id,))
 
     def _refresh_line_impedance_confirmation(
-        self, logical_line_id: LogicalLineId
+        self, logical_line_id: LogicalLineId, *, previous: "ElectricalModel"
     ) -> None:
         line = self._logical_lines[logical_line_id]
         for section_id in line.section_equipment_ids:
             section = self._line_sections[section_id]
             equipment = self._equipment[section_id]
+            equipment_extensions = thaw_json(equipment.extensions)
+            equipment_provenance = equipment_extensions.get("rza_calc.parameter_provenance", {})
+            old_equipment_values = previous.effective_equipment_properties(section_id)
+            equipment_values = self.effective_equipment_properties(section_id)
+            if isinstance(equipment_provenance, dict):
+                for key in ("r1_ohm_per_km", "x1_ohm_per_km"):
+                    if equipment_values.get(key) != old_equipment_values.get(key) and isinstance(equipment_provenance.get(key), dict):
+                        equipment_provenance[key]["confirmation"] = DataConfirmation.UNCONFIRMED.value
+            if equipment_extensions != equipment.extensions:
+                equipment = replace(equipment, extensions=equipment_extensions)
+                self._equipment[section_id] = equipment
             updated: list[LineConstructionSegment] = []
             for segment in section.construction_segments:
                 effective = self._effective_segment_properties(
                     line, equipment, segment
                 )
+                old_effective = previous.effective_line_construction_segment_properties(section_id, segment.id)
+                unchanged = all(effective.get(key) == old_effective.get(key)
+                                for key in ("r1_ohm_per_km", "x1_ohm_per_km"))
                 confirmed = (
+                    unchanged
+                    and segment.impedance_confirmation is DataConfirmation.CONFIRMED
+                    and
                     effective.get("r1_ohm_per_km") is not None
                     and effective.get("x1_ohm_per_km") is not None
                 )
+                extensions = thaw_json(segment.extensions)
+                provenance = extensions.get("rza_calc.parameter_provenance", {})
+                if isinstance(provenance, dict):
+                    for key in ("r1_ohm_per_km", "x1_ohm_per_km"):
+                        if effective.get(key) != old_effective.get(key) and isinstance(provenance.get(key), dict):
+                            provenance[key]["confirmation"] = DataConfirmation.UNCONFIRMED.value
                 updated.append(replace(
                     segment,
+                    extensions=extensions,
                     impedance_confirmation=(
                         DataConfirmation.CONFIRMED
                         if confirmed

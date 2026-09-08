@@ -1485,6 +1485,64 @@ def _native_defaults(
         )
 
 
+def _parameter_inputs(model, equipment, behavior, payload, node_ids):
+    """Project explicit provenance and the physical CT terminal into a fresh DTO."""
+    if behavior.category not in {"branch", "transformer3w", "load"}:
+        return
+    provenance = equipment.extensions.get("rza_calc.parameter_provenance", {})
+    if not isinstance(provenance, Mapping):
+        raise LegacyCalculationAdapterError(f"«{equipment.name}»: неверный формат источников параметров.")
+    provenance = thaw_json(provenance)
+    section = model.line_sections.get(equipment.id)
+    if section is not None:
+        # Each segment supplies its own equivalent. An overridden segment
+        # cannot borrow its parent's confirmation for another numeric value.
+        keys = {"r2_ohm_per_km", "x2_ohm_per_km", "r0_ohm_per_km", "x0_ohm_per_km",
+                "negative_sequence_equal_positive", "zero_sequence_connection", "capacitive_current_a_per_km"}
+        for key in keys:
+            records = []
+            for segment in section.construction_segments:
+                local = segment.extensions.get("rza_calc.parameter_provenance", {})
+                if not isinstance(local, Mapping):
+                    raise LegacyCalculationAdapterError(f"«{equipment.name}»: неверные источники данных участка.")
+                if key in local:
+                    records.append(local[key])
+                elif key not in segment.properties and key in provenance:
+                    records.append(provenance[key])
+            provenance.pop(key, None)
+            if records:
+                chosen = records[0]
+                for record in records:
+                    if (not isinstance(record, Mapping) or record.get("confirmation") != "confirmed"
+                            or not isinstance(record.get("source"), str) or not record["source"].strip()):
+                        chosen = record
+                        break
+                provenance[key] = thaw_json(chosen)
+    if provenance:
+        payload["parameter_provenance"] = provenance
+    if behavior.category == "load":
+        return
+    ct = equipment.extensions.get("rza_calc.ct_parameters", {})
+    allowed_ct = {"ct_ratio", "ct_accuracy", "breaker_t_off", "terminal"}
+    if not isinstance(ct, Mapping) or set(ct) - allowed_ct:
+        raise LegacyCalculationAdapterError(f"«{equipment.name}»: неверный формат параметров ТТ.")
+    supported = {item.name for item in fields(behavior.core_class)}
+    for key, value in ct.items():
+        if key not in supported:
+            raise LegacyCalculationAdapterError(f"«{equipment.name}»: параметр {key} пока не поддерживается этим присоединением.")
+        payload[key] = thaw_json(value)
+    if "rza_calc.ct_port_id" in equipment.extensions:
+        raw = equipment.extensions["rza_calc.ct_port_id"]
+        if raw is None:
+            payload["ct_node"] = None
+        else:
+            port = next((p for p in model.ports_of(equipment.id) if p.id.value == raw), None)
+            node = model.node_for_port(port.id) if port is not None else None
+            if node is None or node.id.value not in node_ids:
+                raise LegacyCalculationAdapterError(f"«{equipment.name}»: сторона установки ТТ не принадлежит подключённому выводу аппарата.")
+            payload["ct_node"] = node_ids[node.id.value]
+
+
 def adapt_to_calculation(
     model: ElectricalModel,
     topology_snapshot: TopologySnapshot | None = None,
@@ -1773,6 +1831,7 @@ def adapt_to_calculation(
             ))
         if not behavior.compatibility:
             _native_defaults(equipment, behavior_key, payload)
+        _parameter_inputs(model, equipment, behavior, payload, node_ids)
         if unused_properties:
             diagnostics.append(AdapterDiagnostic(
                 "info",
@@ -1865,6 +1924,9 @@ def adapt_to_calculation(
                     raw,
                     f"Transformer3W '{equipment.id}', role '{role}'",
                 )
+                provenance = equipment.extensions.get("rza_calc.parameter_provenance", {})
+                if provenance:
+                    net.branches[branch_id].parameter_provenance = thaw_json(provenance)
                 port = model.port_by_role(equipment.id, role)
                 legacy_branch_to_port[branch_id] = port.id.value
                 legacy_object_to_domain[f"branch:{branch_id}"] = equipment.id.value

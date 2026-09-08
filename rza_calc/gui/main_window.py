@@ -1254,6 +1254,17 @@ class MainWindow(QMainWindow):
             self.editor_workspace.command_bar.results_action,
         ):
             view_menu.addAction(action)
+        input_menu = self.menuBar().addMenu("Исходные данные")
+        self.equipment_card_action = QAction("Карточка выбранного оборудования…", self)
+        self.parameter_table_action = QAction("Таблица параметров…", self)
+        self.parameter_catalog_action = QAction("Справочник проекта…", self)
+        self.equipment_card_action.triggered.connect(self._open_selected_equipment_card)
+        self.parameter_table_action.triggered.connect(self._open_parameter_table)
+        self.parameter_catalog_action.triggered.connect(self._open_parameter_catalog)
+        input_menu.addActions([self.equipment_card_action, self.parameter_table_action, self.parameter_catalog_action])
+        self.editor_workspace.command_bar.addSeparator()
+        self.editor_workspace.command_bar.addAction(self.parameter_table_action)
+        self.editor_workspace.command_bar.addAction(self.parameter_catalog_action)
         # These display settings are shared by both views. Refreshing the
         # analysis scene must not launch a calculation or leave a stale label.
         self.editor_workspace.command_bar.labelDisplayRequested.connect(
@@ -1296,6 +1307,32 @@ class MainWindow(QMainWindow):
     def _editor_history_changed(self, event) -> None:
         if event.change.electrical_changed or event.change.catalog_changed:
             self._projectInputChanged.emit()
+
+    def _selected_parameter_equipment_ids(self):
+        workspace = self.editor_workspace
+        objects = (*workspace._selected_ids, *workspace._selected_route_ids)
+        return tuple(dict.fromkeys(eid for item in objects
+            if (eid := workspace._equipment_id_for_object(item)) is not None))
+
+    def _open_selected_equipment_card(self):
+        ids = self._selected_parameter_equipment_ids()
+        if len(ids) != 1:
+            self.statusBar().showMessage("Выберите один аппарат или физическую линию на схеме.")
+            return
+        self.editor_workspace.open_equipment_card(ids[0])
+
+    def _open_parameter_table(self):
+        from .parameter_table import EquipmentParameterTableDialog
+        dialog = EquipmentParameterTableDialog(self.editor_controller, self)
+        dialog.commandApplied.connect(self.editor_workspace.canvas.commandCompleted.emit)
+        dialog.exec()
+
+    def _open_parameter_catalog(self):
+        from .project_parameter_catalog import ProjectParameterCatalogDialog
+        dialog = ProjectParameterCatalogDialog(self.editor_controller,
+            self._selected_parameter_equipment_ids(), self)
+        dialog.commandApplied.connect(self.editor_workspace.canvas.commandCompleted.emit)
+        dialog.exec()
 
     def _refresh_after_editor_change(self) -> None:
         if self._closing:

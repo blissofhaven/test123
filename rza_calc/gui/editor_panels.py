@@ -420,6 +420,7 @@ class QTreeWidgetItemIteratorCompat:
 
 class PropertyInspectorPanel(QWidget):
     propertyEdited = Signal(str, object)
+    detailsRequested = Signal()
 
     FIELD_ROLE = Qt.ItemDataRole.UserRole + 22
     TYPE_ROLE = Qt.ItemDataRole.UserRole + 23
@@ -443,6 +444,12 @@ class PropertyInspectorPanel(QWidget):
         layout = QVBoxLayout(self)
         layout.setContentsMargins(10, 10, 10, 8)
         layout.addWidget(self.title)
+        self.details_button = QToolButton()
+        self.details_button.setObjectName("openEquipmentCard")
+        self.details_button.setText("Открыть полную карточку")
+        self.details_button.clicked.connect(self.detailsRequested.emit)
+        self.details_button.hide()
+        layout.addWidget(self.details_button)
         layout.addWidget(self.tree, 1)
 
     def set_fields(
@@ -1071,8 +1078,14 @@ class EditorWorkspaceWidget(QWidget):
             self._confirm_delete_route
         )
         self.canvas.propertiesRequested.connect(self._focus_properties)
+        self.canvas.equipmentDetailsRequested.connect(self._request_equipment_details)
         self.canvas.view.viewportChanged.connect(lambda state: self.command_bar.set_zoom(state.zoom))
         self.inspector.propertyEdited.connect(self._edit_property)
+        self.inspector.detailsRequested.connect(self._open_selected_equipment_card)
+        from .equipment_parameters import ParameterQuickEditor
+        self.quick_editor = ParameterQuickEditor(controller, self.inspector)
+        self.inspector.layout().insertWidget(2, self.quick_editor)
+        self.quick_editor.commandApplied.connect(self.canvas.commandCompleted.emit)
         self.bottom_panel.objectRequested.connect(self._diagnostic_object_requested)
         self.command_bar.set_tool_state(self.canvas.view.tool_state)
         self.refresh()
@@ -1161,6 +1174,52 @@ class EditorWorkspaceWidget(QWidget):
         self.inspector.setFocus(Qt.FocusReason.OtherFocusReason)
         self.inspector.tree.setFocus(Qt.FocusReason.OtherFocusReason)
         self.statusMessage.emit(ui_text("status.properties_focused"))
+
+    def _equipment_id_for_object(self, object_id):
+        if isinstance(object_id, EquipmentId):
+            return object_id if object_id in self.controller.model.equipment else None
+        if isinstance(object_id, GraphicalRepresentationId):
+            row = self.controller.diagram.representations.get(object_id)
+        elif isinstance(object_id, DiagramRouteId):
+            row = self.controller.diagram.routes.get(object_id)
+        else:
+            return None
+        equipment_id = getattr(row, "equipment_id", None)
+        return equipment_id if equipment_id in self.controller.model.equipment else None
+
+    def _selected_equipment_id(self):
+        objects = (*self._selected_ids, *self._selected_route_ids)
+        equipment_ids = {self._equipment_id_for_object(item) for item in objects}
+        equipment_ids.discard(None)
+        return next(iter(equipment_ids)) if len(equipment_ids) == 1 else None
+
+    def _open_selected_equipment_card(self):
+        equipment_id = self._selected_equipment_id()
+        if equipment_id is not None:
+            self.open_equipment_card(equipment_id)
+
+    def _request_equipment_details(self, object_id):
+        equipment_id = self._equipment_id_for_object(object_id)
+        if equipment_id is None:
+            self._focus_properties(object_id)
+        else:
+            self.open_equipment_card(equipment_id)
+
+    def open_equipment_card(self, equipment_id):
+        """Explicit entry point shared by the diagram and project data table."""
+        from .equipment_parameters import EquipmentParameterCardDialog
+        try:
+            dialog = EquipmentParameterCardDialog(self.controller, equipment_id, self)
+        except (ValueError, KeyError, TypeError, EditorCommandError) as exc:
+            self.statusMessage.emit(str(exc))
+            return
+        self.quick_editor.transfer_draft_to(dialog)
+        dialog.commandApplied.connect(lambda result: self._parameter_card_applied(equipment_id, result))
+        dialog.exec()
+
+    def _parameter_card_applied(self, equipment_id, result):
+        self.quick_editor.card_applied(equipment_id)
+        self.canvas.commandCompleted.emit(result)
 
     def _tree_selection(self, ids: object) -> None:
         self._tree_graphics_selection(ids, ())
@@ -1354,6 +1413,18 @@ class EditorWorkspaceWidget(QWidget):
 
     def _update_inspector(self) -> None:
         fields, title = self._property_fields()
+        equipment_id = self._selected_equipment_id()
+        self.inspector.details_button.setVisible(equipment_id is not None)
+        self.quick_editor.set_equipment(equipment_id)
+        if equipment_id is not None:
+            # Main typed inputs are editable together in quick_editor. Keep
+            # only identity and geometry in the legacy tree below them.
+            general = [row for row in fields if row.key in {"equipment.name", "equipment.type", "line.kind", "legacy.line.kind"}]
+            geometry = [row for row in fields if row.key in {"graphics.x", "graphics.y", "graphics.rotation_deg"}]
+            fields = tuple(PropertyField(row.key, row.label, row.value, row.group,
+                unit=row.unit, source=row.source, required=row.required,
+                error=row.error, hint=row.hint, editable=False, choices=())
+                for row in general) + tuple(geometry)
         if self._selected_ids and not title.startswith("Выбрано:"):
             title = "Выбрано: " + title
         editable = str(getattr(getattr(self.controller, "mode", "edit"), "value", getattr(self.controller, "mode", "edit"))) == "edit"
@@ -1590,6 +1661,10 @@ class EditorWorkspaceWidget(QWidget):
         return fields
 
     def _edit_property(self, key: str, value: Any) -> None:
+        if key.startswith(("equipment.", "line.", "legacy.line.")):
+            self.statusMessage.emit("Электрические параметры изменяются в полной карточке: источник и подтверждение сохраняются вместе со значением.")
+            self._update_inspector()
+            return
         if not self._selected_ids and len(self._selected_route_ids) == 1:
             self._edit_physical_line_property(key, value)
             return

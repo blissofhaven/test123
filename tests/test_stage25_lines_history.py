@@ -12,6 +12,7 @@ from rza_calc.core.methodology import Methodology
 from rza_calc.domain import ProjectStructure
 from rza_calc.domain.electrical import (
     ConnectionId,
+    DataConfirmation,
     DomainInvariantError,
     ElectricalModel,
     ElectricalNode,
@@ -495,6 +496,22 @@ def test_busduct_without_explicit_impedance_blocks_legacy_calculation() -> None:
     model.set_section_override(
         branch.equipment_id, "x1_ohm_per_km", 0.06
     )
+    entered = adapt_to_calculation(model)
+    entered_branch = next(iter(entered.network.branches.values()))
+    assert entered_branch.calculation_block_reason is not None
+    with pytest.raises(ValueError):
+        line_impedance(entered_branch, Methodology.load())
+
+    # Entering numbers is separate from verifying their source.
+    segment = model.line_sections[branch.equipment_id].construction_segments[0]
+    model.update_line_construction_segment(branch.equipment_id, replace(
+        segment,
+        impedance_confirmation=DataConfirmation.CONFIRMED,
+        extensions={"rza_calc.parameter_provenance": {
+            key: {"confirmation": "confirmed", "source": "Паспорт ШМА-630", "origin": "manual"}
+            for key in ("r1_ohm_per_km", "x1_ohm_per_km")
+        }},
+    ))
     confirmed = adapt_to_calculation(model)
     confirmed_branch = next(iter(confirmed.network.branches.values()))
 

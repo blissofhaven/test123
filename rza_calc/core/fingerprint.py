@@ -16,7 +16,7 @@ from enum import Enum
 from typing import Any
 
 from .methodology import Methodology
-from .model import Branch, Network
+from .model import Branch, Load, Network, Transformer3W
 
 
 # Adding absent optional inputs must not invalidate previously saved passports.
@@ -29,9 +29,13 @@ _OPTIONAL_SEQUENCE_FIELDS = frozenset({
 
 
 def _absent_sequence_field(value, name):
+    if isinstance(value, (Load, Transformer3W)) and name == "parameter_provenance":
+        return getattr(value, name) == {}
     if not isinstance(value, Branch):
         return False
     field_value = getattr(value, name)
+    if name in {"sequence_by_system", "parameter_provenance"} and field_value == {}:
+        return True
     return (name in _OPTIONAL_SEQUENCE_FIELDS and field_value is None) or (
         name == "negative_sequence_equal_positive" and field_value is False)
 

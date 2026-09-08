@@ -56,6 +56,11 @@ def calc_ozz(ctx: Context, br: Branch) -> ProtectionResult:
         res.messages.append("Расчёт ОЗЗ в этой версии выполняется только для линий.")
         return res
 
+    from ..parameter_validation import block_unconfirmed_parameters
+    blocked = block_unconfirmed_parameters(ctx, br, "ОЗЗ")
+    if blocked is not None:
+        return blocked
+
     protection_node = net.protection_node_id(br)
     u_nom = net.node(protection_node).u_nom
     neutral = net.neutral_mode(u_nom)

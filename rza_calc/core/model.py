@@ -13,6 +13,7 @@
 from __future__ import annotations
 
 import math
+from copy import deepcopy
 from contextlib import contextmanager
 from dataclasses import dataclass, field, asdict
 from typing import Any, Literal
@@ -89,6 +90,11 @@ class Branch:
     zero_sequence_connection: str | None = field(default=None, kw_only=True)
     # From node_from to node_to; meaningful only for TransformerBranch.
     sequence_phase_shift_deg: float | None = field(default=None, kw_only=True)
+    # Source/generator sequence equivalents may differ by calculation system.
+    # Missing or None members inherit their corresponding common value above.
+    sequence_by_system: dict[str, dict[str, float | None]] = field(default_factory=dict, kw_only=True)
+    # Explicit editor provenance only; absence preserves historical inputs.
+    parameter_provenance: dict[str, dict[str, Any]] = field(default_factory=dict, kw_only=True)
 
     @property
     def has_protection_point(self) -> bool:
@@ -180,6 +186,7 @@ class Transformer3W:
     terminal: str = ""
     prot: "ProtectionSettings | None" = None
     note: str = ""
+    parameter_provenance: dict[str, dict[str, Any]] = field(default_factory=dict, kw_only=True)
 
     def leg_uk(self) -> tuple[float, float, float]:
         """Uк лучей звезды: (ВН, СН, НН), %."""
@@ -260,6 +267,7 @@ class Load:
     k_use: float = 1.0                 # коэффициент использования / одновременности
     k_szp: float | None = None         # индивидуальный коэффициент самозапуска
     motor_share: float | None = None   # доля двигательной нагрузки, 0…1
+    parameter_provenance: dict[str, dict[str, Any]] = field(default_factory=dict, kw_only=True)
 
     @property
     def s_kva(self) -> float:
@@ -460,6 +468,7 @@ class Network:
                 ct_node=t.ct_node if has_ct else None,
                 breaker_t_off=t.breaker_t_off,
                 terminal=t.terminal if has_ct else "",
+                parameter_provenance=deepcopy(t.parameter_provenance),
                 internal_star_leg=True,
                 note=("Луч звезды трёхобмоточного трансформатора. Отрицательное Uк "
                       "у среднего луча — нормально: это следствие пересчёта паспортных "

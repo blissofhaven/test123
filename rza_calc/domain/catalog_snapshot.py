@@ -223,6 +223,18 @@ class CatalogBinding:
 
     @property
     def effective_properties(self) -> Mapping[str, Any]:
+        if self.extensions.get("parameter_schema") == "v1":
+            from .catalog_compatibility import catalog_properties_for_type, apply_catalog_parameter_overrides
+            codec = self.extensions.get("parameter_codec")
+            target = str(self.entry.equipment_type_id)
+            if codec:
+                prefix = f"rza.parameters.v1:{self.entry.equipment_type_id}->"
+                if not isinstance(codec, str) or not codec.startswith(prefix):
+                    raise DomainInvariantError("Неверный код преобразования каталожного снимка.")
+                target = codec[len(prefix):]
+            values = catalog_properties_for_type(self.entry, target)
+            values.update(thaw_json(self.instance_overrides))
+            return _freeze_json(apply_catalog_parameter_overrides(values, target, self.parameter_overrides))
         values = thaw_json(self.entry.properties)
         values.update(thaw_json(self.instance_overrides))
         values.update({
@@ -285,6 +297,15 @@ class ProjectCatalogSnapshots:
             equipment = model.equipment.get(equipment_id)
             if equipment is None:
                 problems.append(f"Каталожный снимок ссылается на удалённое оборудование '{equipment_id}'.")
+                continue
+            if binding.extensions.get("parameter_schema") == "v1":
+                from .catalog_compatibility import catalog_codec
+                try:
+                    expected = catalog_codec(model, equipment, binding.entry)
+                    if binding.extensions.get("parameter_codec") != expected:
+                        raise DomainInvariantError("Код преобразования не соответствует типам марки и аппарата.")
+                except DomainInvariantError as exc:
+                    problems.append(f"Оборудование '{equipment_id}': {exc}")
                 continue
             if (
                 equipment.type_id != binding.entry.equipment_type_id

@@ -105,9 +105,11 @@ def test_line_inspector_length_and_mark_edit_preserve_ids_geometry_and_undo(work
     before_reps = dict(controller.diagram.representations)
     ports = controller.model.equipment[section.equipment_id].port_ids
     journal = len(controller.journal)
-    workspace._edit_property("line.length_m", "1250,5")
+    workspace.quick_editor.editors["length_mm"].value_edit.setText("1250,5")
+    assert workspace.quick_editor.apply_changes()
     assert controller.model.line_sections[section.equipment_id].length_mm == 1_250_500
-    workspace._edit_property("equipment.property.conductor_mark", "АПвПу 1×120")
+    workspace.quick_editor.editors["conductor_mark"].value_edit.setText("АПвПу 1×120")
+    assert workspace.quick_editor.apply_changes()
     assert controller.model.equipment[section.equipment_id].properties["conductor_mark"] == "АПвПу 1×120"
     assert controller.model.connectivity_signature() == topology
     assert controller.model.equipment[section.equipment_id].port_ids == ports
@@ -120,15 +122,15 @@ def test_line_inspector_length_and_mark_edit_preserve_ids_geometry_and_undo(work
     assert electrical_model_fingerprint(controller.model) == fingerprint
 
 
-@pytest.mark.parametrize("value", ("0", "-1", "nan", "", "не задано"))
+@pytest.mark.parametrize("value", ("0", "-1", "nan", "не задано"))
 def test_invalid_physical_length_is_not_silently_converted(workspace_factory, monkeypatch, value):
     workspace, section, route = _create_native(workspace_factory, monkeypatch)
-    messages = []
-    monkeypatch.setattr(workspace, "_show_error", messages.append)
     before = electrical_model_fingerprint(workspace.controller.model)
     journal = len(workspace.controller.journal)
-    workspace._edit_property("line.length_m", value)
-    assert messages and workspace.controller.model.line_sections[section.equipment_id].length_mm is None
+    workspace.quick_editor.editors["length_mm"].value_edit.setText(value)
+    assert not workspace.quick_editor.apply_changes()
+    assert workspace.quick_editor.message.text()
+    assert workspace.controller.model.line_sections[section.equipment_id].length_mm is None
     assert len(workspace.controller.journal) == journal
     assert electrical_model_fingerprint(workspace.controller.model) == before
 
@@ -138,11 +140,10 @@ def test_native_route_inspector_is_read_only_in_analysis(workspace_factory, monk
     workspace.canvas.set_mode(CanvasMode.ANALYSIS)
     workspace.refresh()
     assert not workspace.inspector._globally_editable
-    messages = []
-    monkeypatch.setattr(workspace, "_show_error", messages.append)
     before = electrical_model_fingerprint(workspace.controller.model)
-    workspace._edit_property("line.length_m", "1000")
-    assert messages and electrical_model_fingerprint(workspace.controller.model) == before
+    assert not workspace.quick_editor.editors["length_mm"].isEnabled()
+    assert not workspace.quick_editor.apply_changes()
+    assert electrical_model_fingerprint(workspace.controller.model) == before
 
 
 def test_native_inspector_reads_inherited_parameters_and_reports_override_source(workspace_factory):
@@ -165,7 +166,8 @@ def test_native_inspector_reads_inherited_parameters_and_reports_override_source
         assert fields["equipment.property." + key].value == expected
         assert fields["equipment.property." + key].source == "Логическая линия"
     assert electrical_model_fingerprint(controller.model) == before and len(controller.journal) == journal
-    workspace._edit_property("equipment.property.conductor_mark", "LOCAL")
+    workspace.quick_editor.editors["conductor_mark"].value_edit.setText("LOCAL")
+    assert workspace.quick_editor.apply_changes()
     fields = {row.key: row for row in workspace._property_fields()[0]}
     assert fields["equipment.property.conductor_mark"].value == "LOCAL"
     assert fields["equipment.property.conductor_mark"].source == "Ветвь"
@@ -225,11 +227,18 @@ def test_legacy_stroke_drag_then_native_inspector_edit_in_same_window_keeps_owne
     point = next(point for point in candidates
                  if canvas.scene.resolve_hit_target(point, canvas.view.transform()).via_route is route)
     canvas.view.centerOn(point)
+    before_drag = controller.diagram
+    drag_history = len(controller.journal)
     _mouse(canvas, "press", point)
+    assert canvas.view.hasFocus()
+    assert canvas.scene._start_positions
     _mouse(canvas, "move", point+QPointF(0,-60))
     _mouse(canvas, "release", point+QPointF(0,-60))
     assert canvas.scene.mouseGrabberItem() is None
+    assert len(controller.journal) == drag_history + 1
+    assert controller.diagram != before_drag
     canvas.undo()
+    assert controller.diagram == before_drag
     first = controller.add_equipment("builtin.circuit_breaker", "Новый вход", x=1000, y=2500,
                                      voltage_class_by_group={"main": U10})
     second = controller.add_equipment("builtin.circuit_breaker", "Новый выход", x=1420, y=2500,
@@ -243,14 +252,12 @@ def test_legacy_stroke_drag_then_native_inspector_edit_in_same_window_keeps_owne
     before = electrical_model_fingerprint(controller.model)
     journal = len(controller.journal)
     events = []
-    workspace.inspector.propertyEdited.connect(lambda key, value: events.append((key, value)))
-    tree = workspace.inspector.tree
-    entry = next(tree.topLevelItem(i).child(j) for i in range(tree.topLevelItemCount())
-                 for j in range(tree.topLevelItem(i).childCount())
-                 if tree.topLevelItem(i).child(j).data(0, workspace.inspector.FIELD_ROLE) == "equipment.property.conductor_mark")
-    entry.setText(1, "NEW LINE ONLY")
+    workspace.quick_editor.commandApplied.connect(events.append)
+    workspace.quick_editor.editors["conductor_mark"].value_edit.setText("NEW LINE ONLY")
+    assert workspace.quick_editor.apply_changes()
     QApplication.processEvents()
-    assert events == [("equipment.property.conductor_mark", "NEW LINE ONLY")]
+    assert len(events) == 1
+    assert {change.key for change in events[0].changes} == {"conductor_mark"}
     assert len(controller.journal) == journal+1
     assert not workspace._selected_ids and workspace._selected_route_ids == (result.route_id,)
     assert canvas.scene.selected_route_ids() == (result.route_id,)

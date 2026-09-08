@@ -23,6 +23,11 @@ def calc_mtz(ctx: Context, br: Branch) -> ProtectionResult:
         res.messages.append("На присоединении не задан ТТ — защита не рассчитывается.")
         return res
 
+    from ..parameter_validation import block_unconfirmed_parameters
+    blocked = block_unconfirmed_parameters(ctx, br, "МТЗ")
+    if blocked is not None:
+        return blocked
+
     modes, excluded, applicability_problems = ctx.protection_modes(br)
     res.messages.extend(excluded)
     res.record_coverage("Применимость режимов", len(modes) + len(excluded),

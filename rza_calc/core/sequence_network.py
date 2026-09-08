@@ -8,12 +8,13 @@ from __future__ import annotations
 
 import cmath
 import math
+from collections.abc import Mapping
 from dataclasses import dataclass, replace
 
 import numpy as np
 
 from .impedance import branch_impedance, refer, stage_voltage
-from .model import GRID, LineBranch, TieBranch, TransformerBranch
+from .model import GRID, GeneratorBranch, LineBranch, SourceBranch, TieBranch, TransformerBranch
 from .short_circuit import NodeNotEnergizedError, ShortCircuitStatusError, _Union
 
 
@@ -50,6 +51,60 @@ class SequenceFaultSolver:
         self.base = positive_solver.u_base
         self.threshold = positive_solver.zero_threshold
         self.assumptions = []
+        self._mode_specific_fields = set()
+
+    def _resolved_sequence_branch(self, branch):
+        """Select mode data on a copy before building either sequence graph."""
+        by_system = branch.sequence_by_system
+        if not isinstance(by_system, Mapping) or set(by_system) - {"max", "min"}:
+            raise ShortCircuitStatusError("INVALID_INPUT", f"«{branch.name}»: неверно заданы режимы эквивалентов последовательностей.")
+        if not by_system:
+            return branch
+        if not isinstance(branch, (SourceBranch, GeneratorBranch)):
+            raise ShortCircuitStatusError("INVALID_INPUT", f"«{branch.name}»: отдельные эквиваленты max/min допустимы только у источника или генератора.")
+        selected = by_system.get(self.mode.system, {})
+        allowed = {"r2_ohm", "x2_ohm", "r0_ohm", "x0_ohm", "sequence_reference_kv"}
+        if not isinstance(selected, Mapping) or set(selected) - allowed:
+            raise ShortCircuitStatusError("INVALID_INPUT", f"«{branch.name}», режим «{self.mode.name}»: неверные поля эквивалента последовательностей.")
+        updates = {key: value for key, value in selected.items() if value is not None}
+        if not updates:
+            return branch
+        provenance = branch.parameter_provenance
+        if not isinstance(provenance, Mapping):
+            raise ShortCircuitStatusError("INVALID_INPUT", f"«{branch.name}»: неверно сохранены сведения о проверке параметров.")
+        effective_provenance = dict(provenance)
+        for key in updates:
+            mode_key = f"sequence_by_system.{self.mode.system}.{key}"
+            self._mode_specific_fields.add((branch.id, key))
+            # Common metadata cannot certify (or reject) another mode's value.
+            effective_provenance.pop(key, None)
+            if mode_key in provenance:
+                effective_provenance[key] = provenance[mode_key]
+        return replace(branch, **updates, parameter_provenance=effective_provenance)
+
+    @staticmethod
+    def _unconfirmed(branch, key):
+        provenance = branch.parameter_provenance
+        if not isinstance(provenance, Mapping):
+            return True
+        if key not in provenance:
+            return False
+        info = provenance[key]
+        return (not isinstance(info, Mapping) or info.get("confirmation") != "confirmed"
+                or not isinstance(info.get("source"), str) or not info["source"].strip())
+
+    def _require_confirmed(self, branch, *keys):
+        labels = {"r2_ohm": "R2", "x2_ohm": "X2", "r0_ohm": "R0", "x0_ohm": "X0",
+            "r2_ohm_per_km": "R2 на километр", "x2_ohm_per_km": "X2 на километр",
+            "r0_ohm_per_km": "R0 на километр", "x0_ohm_per_km": "X0 на километр",
+            "sequence_reference_kv": "Ступень напряжения эквивалента",
+            "negative_sequence_equal_positive": "Допущение Z2 = Z1",
+            "zero_sequence_connection": "Схема нулевой последовательности",
+            "sequence_phase_shift_deg": "Сдвиг фаз трансформатора"}
+        for key in keys:
+            if self._unconfirmed(branch, key):
+                raise ShortCircuitStatusError("UNCONFIRMED_INPUT",
+                    f"«{branch.name}», режим «{self.mode.name}»: {labels.get(key, key)} — укажите источник и подтвердите параметр в карточке оборудования.")
 
     def _missing(self, branch, text):
         raise ShortCircuitStatusError(
@@ -84,6 +139,7 @@ class SequenceFaultSolver:
                                         self.base, self.mode.system)
             return 0j if value is None else value
         if sequence == 2 and branch.negative_sequence_equal_positive:
+            self._require_confirmed(branch, "negative_sequence_equal_positive")
             if not isinstance(branch.negative_sequence_equal_positive, bool):
                 raise ShortCircuitStatusError("INVALID_INPUT", "Признак Z2=Z1 должен быть логическим.")
             if any(getattr(branch, key, None) is not None for key in
@@ -99,6 +155,7 @@ class SequenceFaultSolver:
         if isinstance(branch, LineBranch):
             rp, xp = getattr(branch, r_key + "_per_km"), getattr(branch, x_key + "_per_km")
             if rp is not None or xp is not None:
+                self._require_confirmed(branch, r_key + "_per_km", x_key + "_per_km")
                 if r is not None or x is not None:
                     raise ShortCircuitStatusError("INVALID_INPUT", f"«{branch.name}»: одновременно заданы удельное и полное Z{sequence}.")
                 if rp is None or xp is None:
@@ -112,6 +169,7 @@ class SequenceFaultSolver:
                     rp *= self.methodology.k("short_circuit.temp_factor_min")
                 return refer(complex(rp, xp) * length / branch.n_parallel,
                              stage_voltage(self.net.node(branch.node_from), self.methodology), self.base)
+        self._require_confirmed(branch, r_key, x_key, "sequence_reference_kv")
         if r is None or x is None:
             self._missing(branch, f"не заданы {r_key}, {x_key} и опорное напряжение sequence_reference_kv.")
         r = _number(r, f"«{branch.name}», R{sequence}", nonnegative=True)
@@ -119,7 +177,10 @@ class SequenceFaultSolver:
         if branch.sequence_reference_kv is None:
             self._missing(branch, "задайте опорное напряжение сопротивлений sequence_reference_kv в кВ.")
         reference = _number(branch.sequence_reference_kv, "Опорное напряжение", positive=True)
-        self.assumptions.append(f"«{branch.name}»: явно заданное Z{sequence} общее для режимов max/min.")
+        if any((branch.id, key) in self._mode_specific_fields for key in (r_key, x_key, "sequence_reference_kv")):
+            self.assumptions.append(f"«{branch.name}»: Z{sequence} использует данные режима {self.mode.system}; незаданные поля взяты из общего эквивалента.")
+        else:
+            self.assumptions.append(f"«{branch.name}»: явно заданное Z{sequence} общее для режимов max/min.")
         return refer(complex(r, x), reference, self.base)
 
     def _stamps(self, branches, sequence, *, asymmetric):
@@ -131,6 +192,7 @@ class SequenceFaultSolver:
                 continue
             connection = "series"
             if sequence == 0:
+                self._require_confirmed(branch, "zero_sequence_connection")
                 connection = branch.zero_sequence_connection
                 if connection is None and isinstance(branch, LineBranch):
                     connection = "series"
@@ -150,6 +212,8 @@ class SequenceFaultSolver:
             phase = branch.sequence_phase_shift_deg
             tap = 1 + 0j
             if isinstance(branch, TransformerBranch):
+                if asymmetric or phase not in (None, 0):
+                    self._require_confirmed(branch, "sequence_phase_shift_deg")
                 if asymmetric and phase is None:
                     self._missing(branch, "задайте сдвиг положительной последовательности sequence_phase_shift_deg, включая явный 0°.")
                 if phase is not None:
@@ -176,6 +240,11 @@ class SequenceFaultSolver:
         for branch in branches:
             first, second = branch.node_from, branch.node_to
             connection = "series" if isinstance(branch, TieBranch) else branch.zero_sequence_connection
+            if not isinstance(branch, TieBranch) and self._unconfirmed(branch, "zero_sequence_connection"):
+                # An unchecked barrier must not hide a relevant input. Treat
+                # it as unknown for reachability; _stamps then reports the
+                # exact unconfirmed connection only if this path is reached.
+                connection = None
             if connection == "blocked":
                 continue
             if connection == "from_ground":
@@ -273,6 +342,8 @@ class SequenceFaultSolver:
         prefault = node.prefault_voltage_kv if node.prefault_voltage_kv is not None else stage
         _number(prefault, "Напряжение до КЗ", positive=True)
         asymmetric = spec.kind is not FaultType.THREE_PHASE
+        if asymmetric:
+            branches = [self._resolved_sequence_branch(branch) for branch in branches]
         # Preserve exact legacy Z1 in the existing no-phase-shift convention.
         has_shift = any(getattr(b, "sequence_phase_shift_deg", None) not in (None, 0) for b in branches)
         if not asymmetric and not has_shift:

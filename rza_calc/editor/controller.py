@@ -5252,6 +5252,35 @@ class ProjectEditorController:
 
         self._execute(tr("command.rename"), command)
 
+    def equipment_parameter_snapshot(self, equipment_id, segment_id=None):
+        from .parameter_editing import equipment_snapshot
+        return equipment_snapshot(self, equipment_id, segment_id)
+
+    def equipment_parameter_snapshots(self, equipment_ids):
+        from .parameter_editing import equipment_snapshots
+        return equipment_snapshots(self, equipment_ids)
+
+    def preview_parameter_patch(self, patches):
+        from .parameter_editing import preview_parameter_patch
+        return preview_parameter_patch(self, patches)
+
+    def apply_parameter_preview(self, preview):
+        from .parameter_editing import apply_parameter_preview
+        return apply_parameter_preview(self, preview)
+
+    def preview_catalog_update(self, equipment_ids, entry):
+        from .parameter_editing import preview_catalog_update
+        return preview_catalog_update(self, equipment_ids, entry)
+
+    def apply_catalog_update(self, preview, selected, *, preserve_manual=True, inherit_confirmation=True):
+        from .parameter_editing import apply_catalog_update
+        return apply_catalog_update(self, preview, selected, preserve_manual=preserve_manual,
+                                    inherit_confirmation=inherit_confirmation)
+
+    def save_parameter_catalog_entry(self, entry):
+        from .parameter_editing import save_parameter_catalog_entry
+        return save_parameter_catalog_entry(self, entry)
+
     def set_equipment_property(
         self, equipment_id: EquipmentId, key: str, value: Any
     ) -> None:

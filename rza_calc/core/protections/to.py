@@ -31,6 +31,11 @@ def calc_to(ctx: Context, br: Branch) -> ProtectionResult:
             "от тока внешнего КЗ с учётом затухания подпитки и обычно вытесняется "
             "продольной дифференциальной защитой. Требуется отдельная методика.")
         return res
+    from ..parameter_validation import block_unconfirmed_parameters
+    blocked = block_unconfirmed_parameters(ctx, br, "ТО")
+    if blocked is not None:
+        return blocked
+
     modes, excluded, mode_problems = ctx.protection_modes(br)
     modes = iter_in_declaration_order(net, modes)
     res.messages.extend(excluded)

@@ -31,6 +31,7 @@ from rza_calc.domain.electrical import (  # noqa: E402
 from rza_calc.domain.fingerprint import electrical_model_fingerprint  # noqa: E402
 from rza_calc.editor import EditorMode, EditorTool, ProjectEditorController  # noqa: E402
 from rza_calc.editor.controller import NodeTarget, PhysicalLineInput  # noqa: E402
+from rza_calc.editor.collision import DiagramCollisionService  # noqa: E402
 from rza_calc.editor.orientation import OrientationMode  # noqa: E402
 from rza_calc.editor.state import orientation_mode_for_representation  # noqa: E402
 from rza_calc.gui.editor_panels import (  # noqa: E402
@@ -185,7 +186,7 @@ def test_double_click_requests_properties_once_and_keeps_selection() -> None:
     added = controller.add_equipment("builtin.transformer_2w", "Т1", x=100, y=100)
     canvas = _show_canvas(controller)
     requested: list[object] = []
-    canvas.propertiesRequested.connect(requested.append)
+    canvas.equipmentDetailsRequested.connect(requested.append)
     try:
         _click_scene(canvas, 100, 100, double=True)
         assert requested == [added.representation_id]
@@ -295,7 +296,7 @@ def test_repeat_placement_requires_explicit_pin_and_escape_finishes() -> None:
         workspace.close()
 
 
-def test_invalid_collision_keeps_one_shot_active_without_domain_object() -> None:
+def test_collision_proposes_nearest_free_and_one_shot_commits_once() -> None:
     _app()
     controller = _controller("placement-collision")
     controller.add_equipment("builtin.transformer_2w", "Т1", x=100, y=100)
@@ -307,14 +308,33 @@ def test_invalid_collision_keeps_one_shot_active_without_domain_object() -> None
     }
     before = electrical_model_fingerprint(controller.model)
     before_journal = len(controller.journal)
+    before_diagram = controller.diagram
     try:
         canvas.view.begin_placement(payload)
-        _click_scene(canvas, 100, 100)
-        assert len(controller.model.equipment) == 1
-        assert canvas.view.tool_state.tool is EditorTool.PLACE_EQUIPMENT_ONCE
+        canvas.view._update_equipment_drop_feedback(payload, QPointF(100, 100))
+        proposal = canvas.view._placement_proposal
+        assert proposal.valid and proposal.adjusted
+        assert (proposal.x, proposal.y) != (100, 100)
+        geometry = canvas.view._equipment_preview_geometry(payload, QPointF(proposal.x, proposal.y),
+                                                           rotation_deg=proposal.rotation_deg)
+        assert DiagramCollisionService(controller.diagram, controller.model).check_placement(geometry).allowed
         assert electrical_model_fingerprint(controller.model) == before
         assert len(controller.journal) == before_journal
-        assert canvas.view._placement_valid is False
+        _click_scene(canvas, 100, 100)
+        assert len(controller.model.equipment) == 2
+        assert canvas.view.tool_state.tool is EditorTool.SELECT
+        created = next(row for rid, row in controller.diagram.representations.items()
+                       if rid not in before_diagram.representations)
+        assert (created.x, created.y, created.rotation_deg) == (proposal.x, proposal.y, proposal.rotation_deg)
+        assert all(controller.diagram.representations[rid] == row
+                   for rid, row in before_diagram.representations.items())
+        assert len(controller.journal) == before_journal + 1
+        _click_scene(canvas, 300, 100)
+        assert len(controller.model.equipment) == 2
+        assert len(controller.journal) == before_journal + 1
+        canvas.undo()
+        assert controller.diagram == before_diagram
+        assert electrical_model_fingerprint(controller.model) == before
     finally:
         canvas.close()
 
@@ -519,6 +539,8 @@ def test_standalone_preview_and_commit_use_same_snapped_collision_point() -> Non
     }
     before_equipment = frozenset(controller.model.equipment)
     before_journal = len(controller.journal)
+    before_diagram = controller.diagram
+    before_fingerprint = electrical_model_fingerprint(controller.model)
     try:
         allowed_at_raw, _ = canvas.view._check_placement_collision(
             payload,
@@ -533,16 +555,28 @@ def test_standalone_preview_and_commit_use_same_snapped_collision_point() -> Non
             canvas.view._placement_payload,
             QPointF(125.0, 100.0),
         )
-        assert canvas.view._drop_equipment_point == QPointF(120.0, 100.0)
-        assert canvas.view._placement_valid is False
-
-        canvas._add_equipment(
-            canvas.view._placement_payload,
-            125.0,
-            100.0,
-        )
+        assert canvas.view._drop_equipment_point == QPointF(140.0, 100.0)
+        proposal = canvas.view._placement_proposal
+        assert canvas.view._placement_valid and proposal.valid and proposal.adjusted
+        collision = DiagramCollisionService(controller.diagram, controller.model)
+        snapped = canvas.view._equipment_preview_geometry(payload, QPointF(120, 100), rotation_deg=180)
+        accepted = canvas.view._equipment_preview_geometry(payload, QPointF(proposal.x, proposal.y), rotation_deg=180)
+        assert not collision.check_placement(snapped).allowed
+        assert collision.check_placement(accepted).allowed
         assert frozenset(controller.model.equipment) == before_equipment
         assert len(controller.journal) == before_journal
+
+        _click_scene(canvas, 125.0, 100.0)
+        assert len(controller.model.equipment) == len(before_equipment) + 1
+        assert len(controller.journal) == before_journal + 1
+        created = next(row for rid, row in controller.diagram.representations.items()
+                       if rid not in before_diagram.representations)
+        assert (created.x, created.y, created.rotation_deg) == (proposal.x, proposal.y, proposal.rotation_deg)
+        assert all(controller.diagram.representations[rid] == row
+                   for rid, row in before_diagram.representations.items())
+        canvas.undo()
+        assert controller.diagram == before_diagram
+        assert electrical_model_fingerprint(controller.model) == before_fingerprint
     finally:
         canvas.close()
 
@@ -713,7 +747,7 @@ def test_analysis_allows_selection_and_properties_but_blocks_rotation() -> None:
     added = controller.add_equipment("builtin.recloser", "Р1", x=100, y=100)
     canvas = _show_canvas(controller)
     requested: list[object] = []
-    canvas.propertiesRequested.connect(requested.append)
+    canvas.equipmentDetailsRequested.connect(requested.append)
     try:
         canvas.set_mode(EditorMode.ANALYSIS)
         _click_scene(canvas, 100, 100)

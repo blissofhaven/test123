@@ -461,6 +461,37 @@ def _nearest_section(table: dict, s: float | None) -> str:
 # ──────────────────────────────────────────────────────────────────────────
 #  Диспетчер: сопротивление любой ветви, приведённое к базисной ступени
 # ──────────────────────────────────────────────────────────────────────────
+def _require_confirmed_positive_inputs(br, regime):
+    provenance = getattr(br, "parameter_provenance", {})
+    if not provenance:
+        return
+    keys = set()
+    if isinstance(br, SourceBranch):
+        mode = getattr(br, "input_mode_" + regime)
+        power = mode == "power" or (mode is None and getattr(br, "s_kz_" + regime) is not None)
+        keys = {("s_kz_" if power else "i_kz_") + regime}
+        keys |= {key for key in ("input_mode_" + regime, "voltage_kv", "x_r_ratio") if getattr(br, key) is not None}
+    elif isinstance(br, GeneratorBranch):
+        keys = {"u_nom", "xd2", "r_pu"} | ({"s_nom"} if br.s_nom else {"p_nom", "cos_phi"})
+        if br.r_pu is None:
+            keys.discard("r_pu")
+    elif isinstance(br, TransformerBranch):
+        keys = {"s_nom", "u_hv", "u_lv", "uk", "p_k"}
+        if br.internal_star_leg:
+            keys |= {"u_mv", "uk_hm", "uk_hl", "uk_ml"}
+        if br.p_k is None:
+            keys.discard("p_k")
+    elif isinstance(br, LineBranch):
+        keys = {"length_mm", "parallel_count", "r1_ohm_per_km", "x1_ohm_per_km"}
+        if br.r0 is None or br.x0 is None:
+            keys |= {"cross_section_mm2", "material"}
+    for key in sorted(keys):
+        record = provenance.get(key)
+        if record is not None and (not isinstance(record, dict) or record.get("confirmation") != "confirmed"
+                or not isinstance(record.get("source"), str) or not record["source"].strip()):
+            raise ValueError(f"«{br.name}»: параметр {key} не подтверждён; укажите источник и подтвердите значение в карточке.")
+
+
 def branch_impedance(net, br: Branch, m: Methodology, u_base: float,
                      regime: str = "max") -> tuple[complex | None, Step | None]:
     """
@@ -476,6 +507,8 @@ def branch_impedance(net, br: Branch, m: Methodology, u_base: float,
     """
     if isinstance(br, TieBranch):
         return None, None
+
+    _require_confirmed_positive_inputs(br, regime)
 
     if isinstance(br, SourceBranch):
         node = net.node(br.node_to)

@@ -28,6 +28,7 @@ FAULT_TYPE_LABELS = {
 }
 
 FAULT_STATUS_LABELS = {
+    "UNCONFIRMED_INPUT": "Данные не подтверждены",
     "MISSING_SEQUENCE_DATA": "Нет исходных данных",
     "NOT_ENERGIZED": "Нет питания",
     "NO_ZERO_SEQUENCE_RETURN_PATH": "Нет контура нулевой последовательности",

@@ -2746,6 +2746,7 @@ class DiagramGraphicsScene(QGraphicsScene):
     routeSegmentMoveRequested = Signal(object, int, float, float)
     busAttachmentMoveRequested = Signal(object, bool, float)
     propertiesRequested = Signal(object)
+    equipmentDetailsRequested = Signal(object)
     linkedPageRequested = Signal(object)
     rotateRequested = Signal(object, int)
     rotationPositionRequested = Signal(object, int)
@@ -5711,14 +5712,14 @@ class DiagramGraphicsScene(QGraphicsScene):
                 if object_item.representation.extensions.get("linked_page_id"):
                     self.linkedPageRequested.emit(object_item.representation_id)
                 else:
-                    self.propertiesRequested.emit(object_item.representation_id)
+                    self.equipmentDetailsRequested.emit(object_item.representation_id)
                 event.accept()
                 return
             route_item = self._route_ancestor(raw_item)
             if route_item is not None:
                 self.clearSelection()
                 route_item.setSelected(True)
-                self.propertiesRequested.emit(route_item.route_id)
+                self.equipmentDetailsRequested.emit(route_item.route_id)
                 event.accept()
                 return
         super().mouseDoubleClickEvent(event)
@@ -6054,9 +6055,9 @@ class DiagramGraphicsScene(QGraphicsScene):
             return
         if event.key() in (Qt.Key.Key_Enter, Qt.Key.Key_Return):
             if ids:
-                self.propertiesRequested.emit(ids[0])
+                self.equipmentDetailsRequested.emit(ids[0])
             elif route_ids:
-                self.propertiesRequested.emit(route_ids[0])
+                self.equipmentDetailsRequested.emit(route_ids[0])
             event.accept()
             return
         if control and event.key() == Qt.Key.Key_Z and not shift:
@@ -6300,7 +6301,7 @@ class DiagramGraphicsScene(QGraphicsScene):
             remove = menu.addAction(ui_text("action.remove_page"))
         chosen = menu.exec(event.screenPos())
         if chosen is properties_action:
-            self.propertiesRequested.emit(ids[0])
+            self.equipmentDetailsRequested.emit(ids[0])
         elif linked_page_action is not None and chosen is linked_page_action:
             self.linkedPageRequested.emit(item.representation_id)
         elif start_connection is not None and chosen is start_connection:
@@ -7477,6 +7478,7 @@ class EditorCanvas(QWidget):
     deleteConfirmationRequested = Signal(object)
     routeDeleteConfirmationRequested = Signal(object)
     propertiesRequested = Signal(object)
+    equipmentDetailsRequested = Signal(object)
     toolStateChanged = Signal(object)
     placementFinished = Signal(object)
 
@@ -7556,6 +7558,7 @@ class EditorCanvas(QWidget):
         self.scene.routeSegmentMoveRequested.connect(self._move_route_segment)
         self.scene.busAttachmentMoveRequested.connect(self._move_bus_attachment)
         self.scene.propertiesRequested.connect(self.propertiesRequested.emit)
+        self.scene.equipmentDetailsRequested.connect(self.equipmentDetailsRequested.emit)
         self.scene.linkedPageRequested.connect(self.navigate_linked_page)
         self.scene.rotateRequested.connect(self._rotate_selected)
         self.scene.rotationPositionRequested.connect(self._set_selected_orientation)

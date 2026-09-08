@@ -22,6 +22,7 @@ from rza_calc.domain.diagram import (  # noqa: E402
 )
 from rza_calc.domain.fingerprint import electrical_model_fingerprint  # noqa: E402
 from rza_calc.editor import EditorMode  # noqa: E402
+from rza_calc.editor import equipment_attachment as attachment_module  # noqa: E402
 from rza_calc.editor.connection_tool import ConnectionToolMode  # noqa: E402
 from rza_calc.gui import editor_scene as editor_scene_module  # noqa: E402
 from rza_calc.gui.editor_panels import EditorWorkspaceWidget  # noqa: E402
@@ -267,7 +268,7 @@ def test_preview_reuses_collision_snapshot_until_revision_changes(
     _app()
     controller = _controller("preview-cache")
     controller.add_equipment("builtin.load", "Нагрузка", x=100, y=100)
-    original = editor_scene_module.DiagramCollisionService
+    original = attachment_module.DiagramCollisionService
     constructions = 0
 
     class CountingCollisionService(original):
@@ -277,7 +278,7 @@ def test_preview_reuses_collision_snapshot_until_revision_changes(
             super().__init__(*args, **kwargs)
 
     monkeypatch.setattr(
-        editor_scene_module,
+        attachment_module,
         "DiagramCollisionService",
         CountingCollisionService,
     )
@@ -289,20 +290,31 @@ def test_preview_reuses_collision_snapshot_until_revision_changes(
     }
     try:
         canvas.view.begin_placement(payload)
+        before = _snapshot(controller)
         for x in range(300, 1300, 10):
             canvas.view._update_equipment_drop_feedback(
                 payload,
                 QPointF(float(x), 300.0),
             )
         assert constructions == 1
+        first_service = controller._attachment_collision[2]
+        assert _snapshot(controller) == before
 
         controller.add_equipment("builtin.load", "Нагрузка 2", x=600, y=600)
         canvas.refresh()
+        changed = _snapshot(controller)
         canvas.view._update_equipment_drop_feedback(
             payload,
             QPointF(420.0, 300.0),
         )
         assert constructions == 2
+        second_service = controller._attachment_collision[2]
+        assert second_service is not first_service
+        for x in range(300, 1300, 10):
+            canvas.view._update_equipment_drop_feedback(payload, QPointF(float(x), 300.0))
+        assert constructions == 2
+        assert controller._attachment_collision[2] is second_service
+        assert _snapshot(controller) == changed
     finally:
         canvas.close()
 
@@ -542,10 +554,34 @@ def test_ghost_rotation_rechecks_collision_immediately_without_mouse_move(
         QTest.keyClick(canvas.view, Qt.Key.Key_R, modifiers)
         QApplication.processEvents()
         assert canvas.view._placement_rotation_deg == expected_rotation
-        assert not canvas.view._placement_valid
-        assert canvas.view._placement_conflict_name
-        assert messages and "нельзя" in messages[-1].casefold()
+        proposal = canvas.view._placement_proposal
+        assert canvas.view._placement_valid and proposal.valid
+        assert proposal.adjusted and proposal.rotation_deg == expected_rotation
+        assert (proposal.x, proposal.y) != (point.x(), point.y())
+        collision = attachment_module.DiagramCollisionService(controller.diagram, controller.model)
+        requested = canvas.view._equipment_preview_geometry(payload, point, rotation_deg=expected_rotation)
+        actual = canvas.view._equipment_preview_geometry(payload, QPointF(proposal.x, proposal.y),
+                                                         rotation_deg=expected_rotation)
+        assert not collision.check_placement(requested).allowed
+        assert collision.check_placement(actual).allowed
         assert canvas.view._placement_payload is not None
         assert _snapshot(controller) == before
+        original_diagram = controller.diagram
+        # Release at the same cursor position uses the newly rotated, safe
+        # proposal; the existing apparatus stays exactly where it was.
+        QTest.mouseClick(canvas.view.viewport(), Qt.MouseButton.LeftButton,
+                         pos=canvas.view.mapFromScene(point))
+        QApplication.processEvents()
+        new_rows = tuple(row for rid, row in controller.diagram.representations.items()
+                         if rid not in original_diagram.representations)
+        assert len(new_rows) == 1
+        created = new_rows[0]
+        assert (created.x, created.y, created.rotation_deg) == (proposal.x, proposal.y, proposal.rotation_deg)
+        assert len(controller.journal) == before[2] + 1
+        assert all(controller.diagram.representations[rid] == row
+                   for rid, row in original_diagram.representations.items())
+        canvas.undo()
+        assert controller.diagram == original_diagram
+        assert electrical_model_fingerprint(controller.model) == before[-1]
     finally:
         canvas.close()
