@@ -1,0 +1,1028 @@
+{
+  "schema": "rza-roadmap-status/1",
+  "updated": "2026-09-01",
+  "repository_layout": {
+    "updated": "2026-09-01",
+    "tools": "tools/README.md",
+    "historical_root_materials": "docs/archive/README.md",
+    "report": "docs/work-verification/repository-layout-report.md",
+    "verification": {
+      "targeted_passed": 42,
+      "targeted_failed": 0,
+      "full_suite_collected": 1962,
+      "full_suite_completed": false,
+      "full_suite_note": "Прогон остановлен после прекращения продвижения в GUI-наборе. Полная приёмка не заявлена.",
+      "observed_failures_reproduced_before_cleanup": 11,
+      "before_cleanup_commit": "60b9f9434d1970827084d6af98445ea3ba3fd7bf",
+      "affected_modules_before_and_after": "11 failed, 41 passed",
+      "baseline_output": "Расхождений с эталоном нет.",
+      "native_windows_launcher_exit_code": 0,
+      "protected_files_unchanged": 95,
+      "historical_files_byte_identical": 9
+    },
+    "note": "Организационный перенос без изменения приложения, схем и эталона. Прежние handover/журналы остаются историческими; актуальные команды — в tools/README.md. Git-копию не заменять прежним архивом."
+  },
+  "roadmap_version": "3.8",
+  "application_version": "0.3.1-safe-hardening",
+  "kernel_version": "legacy-positive-sequence-2",
+  "algorithm_version": "dense-ybus-v3-uavg",
+  "baseline": {
+    "frozen": true,
+    "file": "tests/baseline/calculation_baseline.json",
+    "test": "tests/test_calculation_baseline.py",
+    "tool": "tools/update_baseline.py",
+    "log": "docs/calculation-audit/baseline-log.md",
+    "tolerance": {
+      "relative": 1e-09,
+      "absolute": 1e-12
+    },
+    "covers": {
+      "fault_points": 907,
+      "protections": 314,
+      "selectivity_pairs": 760
+    },
+    "verified_by": "независимый ручной расчёт в относительных единицах; внешней промышленной сверки нет — ограничение указано в отчёте A1",
+    "note": "Покрасневший тест — повод искать причину, а не обновлять эталон. Обновление только tools/update_baseline.py с записью в журнале. Ревизия DemoSubstation: добавлен четвёртый демо-проект ps_promyshlennaya (открывается при запуске). Числа трёх прежних проектов не изменились.",
+    "revision": "DemoSubstation"
+  },
+  "tests": {
+    "verified_commit": "833ba6f53bc62a8150390e2110885114ad929d3d",
+    "verified_branch": "main",
+    "verified_by": "Max",
+    "verified_on": "2026-09-01",
+    "runner": "самодельный мини-запускатель без pytest и без PySide6",
+    "collected": 805,
+    "passed": 671,
+    "failed": 10,
+    "skipped": 181,
+    "modules_not_importable": 26,
+    "failures_all_environmental": true,
+    "regressions_outside_qt": 0,
+    "failure_breakdown": {
+      "pyside6_absent": 9,
+      "cpython_311_frozen_slots_dataclass": 1
+    },
+    "cpython_311_note": "test_equipment_placement_registry::test_registry_is_immutable_and_deterministic ожидает AttributeError при записи чужого поля. У @dataclass(frozen=True, slots=True) класс пересоздаётся, и сгенерированный __setattr__ на CPython 3.11 даёт TypeError: super(type, obj). Воспроизводится тремя строками вне проекта; на 3.12+ поведение исправлено. Дефектом приложения не является, но тест зависит от версии Python.",
+    "skipped_note": "Пропуски — ограничение мини-запускателя: параметризованные случаи и фикстуры pytest он не разворачивает. Отказами не являются.",
+    "relocation_entrypoints_checked_manually": {
+      "modules": [
+        "test_repository_layout",
+        "test_tool_entrypoints",
+        "test_windows_launcher_format"
+      ],
+      "parametrized_cases_run": 20,
+      "parametrized_cases_passed": 20,
+      "note": "Все пять команд из tools/ запущены с --help из своего и чужего каталога, импортированы, и три генератора пересобрали примеры в одноразовой копии. Ни один файл вне ожидаемых примеров не изменился."
+    },
+    "baseline_output": "Расхождений с эталоном нет.",
+    "demo_ps_promyshlennaya": "19 ✓ / 4 ✗ / 0 «?», селективность 47 из 47",
+    "demo_energoraion": "116 ✓ / 3 ✗ / 0 «?», селективность 353 из 353",
+    "total": 805,
+    "note": "Приведено к факту 01.09.2026. ПРЕЖНЯЯ ЗАПИСЬ БЫЛА НЕВЕРНОЙ: она утверждала «1896 passed, 0 failed» по прогону BusSizeRestore, то есть по состоянию ДО переноса файлов в tools/ и docs/archive/, а сообщение самого коммита переноса говорит обратное — «Full suite did not complete… Eleven observed failures». Числа 1896 и 269 остаются в ui_bus_size_restore как исторические: они получены pytest на Windows с PySide6 и в моей среде не воспроизводимы, поэтому переносить их сюда как текущее состояние нельзя. Проверено фактически: перенос не задел ни одного не-Qt теста, эталон чист, оба демо-расчёта не изменились. НЕ ПРОВЕРЕНО: ничего Qt-зависимого — 26 модулей не импортируются без PySide6. Полная приёмка требует прогона pytest на машине с Qt."
+  },
+  "owners": {
+    "A": "Max",
+    "B": "Sol Ultra"
+  },
+  "next_action": {
+    "stage": "B3",
+    "owner": "Max",
+    "phase": "acceptance",
+    "spec": "docs/roadmap/stages/B3-labels.md",
+    "note": "Max принимает B3, ConnectionCleanup и возврат прежней толщины шин BusSizeRestore по отдельной просьбе заказчика. Остальные исправления сохранены; новый этап не начат. AUD-PROT-011/64 выключателя, UI-CRASH-001 и B3-PERF-001 остаются открытыми.",
+    "integration_report": "docs/work-verification/visual-merge-report.md",
+    "correction_report": "docs/work-verification/bus-size-restore-report.md",
+    "correction_report_drag_line": "docs/work-verification/drag-creates-line-report.md",
+    "drag_line_note": "Max 31.08.2026 по четырём решениям заказчика: протяжка от вывода предлагает Провод/ВЛ/КЛ; стрелка по рисунку от начала жеста к концу; точка на шине ставится под проводом и сдвигается только при слипании; снята блокировка подключения посторонним висящим концом в охраннике ТТ. Эталон чист, демо не изменено, ядро не тронуто. Меню мышью не проверялось — нет PySide6.",
+    "ui_fixes_report": "docs/work-verification/ui-fixes-report.md",
+    "ui_fixes_note": "Max 31.08.2026 по пяти замечаниям со снимков: читаемые диалоги (тёмный текст на тёмном фоне), транзитные точки не рисуются — один провод от выключателя до нагрузки, треугольник нагрузки 24×32, призрак размещения строится из библиотеки обозначений (была вторая графика: выключатель и разъединитель рисовались одинаково), класс напряжения подставляется при первом подключении. Смена класса у ПОДКЛЮЧЁННОГО аппарата разрешена НЕ была: это инвариант домена, решение вынесено заказчику. Эталон чист, числа демо не изменились, 711/848 без PySide6, 0 не-Qt отказов."
+  },
+  "stages": [
+    {
+      "id": "R1",
+      "title": "Верные числа",
+      "track": "A",
+      "owner": "Max",
+      "status": "done",
+      "depends": [],
+      "report": "docs/work-verification/stage-R1-report.md"
+    },
+    {
+      "id": "B1",
+      "title": "Демо-сеть и вкладка «Анализ»",
+      "track": "B",
+      "owner": "Max",
+      "status": "done",
+      "depends": [
+        "R1"
+      ],
+      "report": "docs/work-verification/B1-report.md",
+      "spec": "docs/roadmap/stages/B1-demo-and-analysis.md"
+    },
+    {
+      "id": "A1",
+      "title": "Заморозка эталона",
+      "track": "A",
+      "owner": "Max",
+      "status": "done",
+      "depends": [
+        "R1",
+        "B1"
+      ],
+      "spec": "docs/roadmap/stages/A1-baseline-freeze.md",
+      "report": "docs/work-verification/A1-report.md",
+      "note": "A1.1 — корректирующая правка: устойчивость определяющего режима (AUD-CALC-011)"
+    },
+    {
+      "id": "A2",
+      "title": "Методика вместо заглушки",
+      "track": "A",
+      "owner": "Max",
+      "status": "done",
+      "completed_by": "Sol (коррекция A2.1 после Max)",
+      "depends": [
+        "A1"
+      ],
+      "spec": "docs/roadmap/stages/A2-methodology.md",
+      "report": "docs/work-verification/A2-1-report.md",
+      "original_report": "docs/work-verification/A2-report.md",
+      "acceptance_report": "docs/work-verification/A2-acceptance-Sol-20260831.md",
+      "correction_report": "docs/work-verification/A2-1-report.md",
+      "note": "A2.1 завершён: 1007 passed, baseline clean; согласованное IO расширение реализовано, сохранение и сквозной CLI replay проверены. Профиль остаётся ТИПОВЫМ, нормативные пункты не выдумываются."
+    },
+    {
+      "id": "A3",
+      "title": "Модель параметров оборудования",
+      "track": "A",
+      "owner": "Max",
+      "status": "ready",
+      "depends": [
+        "A1"
+      ],
+      "spec": "docs/roadmap/stages/A3-parameter-model.md"
+    },
+    {
+      "id": "A4",
+      "title": "Справочники оборудования",
+      "track": "A",
+      "owner": "Max",
+      "status": "blocked",
+      "depends": [
+        "A3"
+      ],
+      "spec": "docs/roadmap/stages/A4-catalogs.md"
+    },
+    {
+      "id": "A5",
+      "title": "Полная схема РУ + ударный ток и тепловой импульс",
+      "track": "A",
+      "owner": "Max",
+      "status": "blocked",
+      "depends": [
+        "A3",
+        "A4"
+      ],
+      "spec": "docs/roadmap/stages/A5-switchgear.md",
+      "estimate_days": "19-27"
+    },
+    {
+      "id": "A6",
+      "title": "Точки КЗ",
+      "track": "A",
+      "owner": "Max",
+      "status": "ready",
+      "depends": [
+        "A1"
+      ]
+    },
+    {
+      "id": "A7",
+      "title": "Единый расчётный путь",
+      "track": "A",
+      "owner": "Max",
+      "status": "blocked",
+      "depends": [
+        "A5",
+        "A6"
+      ]
+    },
+    {
+      "id": "A8",
+      "title": "Сети последовательностей и виды КЗ",
+      "track": "A",
+      "owner": "Max",
+      "status": "blocked",
+      "depends": [
+        "A7"
+      ]
+    },
+    {
+      "id": "A9",
+      "title": "Подпитка от двигателей",
+      "track": "A",
+      "owner": "Max",
+      "status": "blocked",
+      "depends": [
+        "A5"
+      ],
+      "estimate_days": "5-7"
+    },
+    {
+      "id": "A10",
+      "title": "Защиты: ТЗНП, ДЗТ, ДЗ 110 кВ, направленная ОЗЗ, ЗМН, УРОВ, АПВ, АВР",
+      "track": "A",
+      "owner": "Max",
+      "status": "blocked",
+      "depends": [
+        "A5",
+        "A8"
+      ]
+    },
+    {
+      "id": "A11",
+      "title": "Производительность и масштаб",
+      "track": "A",
+      "owner": "Max",
+      "status": "ready",
+      "depends": [
+        "A1"
+      ],
+      "estimate_days": "6-9",
+      "note": "приоритет повышен: сети больше 1000 узлов"
+    },
+    {
+      "id": "B2",
+      "title": "Цвет по классам напряжения",
+      "track": "B",
+      "owner": "Sol",
+      "status": "done",
+      "depends": [
+        "B1"
+      ],
+      "spec": "docs/roadmap/stages/B2-voltage-colors.md",
+      "report": "docs/work-verification/B2-report.md"
+    },
+    {
+      "id": "B3",
+      "title": "Подписи «имя + параметр»",
+      "track": "B",
+      "owner": "Sol",
+      "status": "done",
+      "depends": [
+        "B1"
+      ],
+      "spec": "docs/roadmap/stages/B3-labels.md",
+      "report": "docs/work-verification/B3-report.md",
+      "note": "Подписи native/legacy, физические трассы, горизонтальный текст, ручной приоритет/save/undo, автоматика с зазором 4 и скрытие ниже 60%. Старые явные позиции не переписываются: переход в авто — отдельная команда. AUD-SYM-002 закрыт. A3 остаётся желательным: адаптер параметров локален. Ограничение плотных 1024 объектов — B3-PERF-001, продолжение B9 не начато.",
+      "integration_report": "docs/work-verification/visual-merge-report.md"
+    },
+    {
+      "id": "B4",
+      "title": "Результаты расчёта на схеме",
+      "track": "B",
+      "owner": "Sol",
+      "status": "blocked",
+      "depends": [
+        "B3",
+        "A6"
+      ]
+    },
+    {
+      "id": "B5",
+      "title": "Панель свойств по модели параметров",
+      "track": "B",
+      "owner": "Sol",
+      "status": "blocked",
+      "depends": [
+        "A3"
+      ],
+      "spec": "docs/roadmap/stages/B5-property-panel.md"
+    },
+    {
+      "id": "B6",
+      "title": "Каталоги и импорт",
+      "track": "B",
+      "owner": "Sol",
+      "status": "blocked",
+      "depends": [
+        "A4",
+        "B5"
+      ]
+    },
+    {
+      "id": "B7",
+      "title": "Выпуск документации: бланки уставок, Excel, протокол, чертёж",
+      "track": "B",
+      "owner": "Sol",
+      "status": "blocked",
+      "depends": [
+        "B2",
+        "B3",
+        "B4",
+        "A4"
+      ],
+      "estimate_days": "10-14"
+    },
+    {
+      "id": "B8",
+      "title": "Символы новых аппаратов",
+      "track": "B",
+      "owner": "Sol",
+      "status": "blocked",
+      "depends": [
+        "A5"
+      ]
+    },
+    {
+      "id": "B9",
+      "title": "Плотность и качество графики",
+      "track": "B",
+      "owner": "Sol",
+      "status": "ready",
+      "depends": [
+        "B2",
+        "B3"
+      ],
+      "note": "Зависимости B2/B3 закрыты; этап не начат, нужна отдельная команда. Включить B3-PERF-001: стоимость автоподписей на крайне плотных больших схемах."
+    },
+    {
+      "id": "A4b",
+      "title": "Справочники ТТ и ТН",
+      "track": "A",
+      "owner": "Max",
+      "status": "blocked",
+      "depends": [
+        "A5"
+      ]
+    },
+    {
+      "id": "B10",
+      "title": "Ячейка РУ в редакторе",
+      "track": "B",
+      "owner": "Sol",
+      "status": "blocked",
+      "depends": [
+        "A5",
+        "B5",
+        "B8"
+      ]
+    },
+    {
+      "id": "A10b",
+      "title": "Режимы нейтрали 6-35 кВ: ДГР, резистор, защиты от ОЗЗ",
+      "track": "A",
+      "owner": "Max",
+      "status": "blocked",
+      "depends": [
+        "A5",
+        "A8"
+      ],
+      "estimate_days": "10-14"
+    }
+  ],
+  "open_defects": [
+    {
+      "id": "OPEN-1",
+      "level": "critical",
+      "title": "Смешение Uср и Uном при приведении",
+      "status": "closed",
+      "closed_by": "R1"
+    },
+    {
+      "id": "OPEN-2",
+      "level": "critical",
+      "title": "Паспортный коэффициент трансформации не используется",
+      "status": "closed",
+      "closed_by": "R1"
+    },
+    {
+      "id": "OPEN-12",
+      "level": "medium",
+      "title": "_path_steps перечисляет все ветви",
+      "status": "closed",
+      "closed_by": "R1"
+    },
+    {
+      "id": "OPEN-3",
+      "level": "critical",
+      "title": "Iк(2) — оценка, сетей последовательностей нет",
+      "status": "open",
+      "stage": "A8"
+    },
+    {
+      "id": "OPEN-4",
+      "level": "high",
+      "title": "Однофазное КЗ отсутствует",
+      "status": "open",
+      "stage": "A8"
+    },
+    {
+      "id": "OPEN-5",
+      "level": "high",
+      "title": "Методика: заглушка заменена типовым профилем, утверждение инженером не выполнено",
+      "status": "partially_closed",
+      "stage": "A2",
+      "closed_by": "A2",
+      "note": "Статус ЗАГЛУШКА снят: у каждого коэффициента есть происхождение и источник. Но точные пункты документов не сверены (19 из 21 позиции), и профиль не утверждён для объекта. Полное закрытие — работа инженера, а не этапа: заполнить approval и перевести профиль в статус ПРОЕКТНЫЙ."
+    },
+    {
+      "id": "OPEN-6",
+      "level": "high",
+      "title": "Подпитка двигателей не считается",
+      "status": "open",
+      "stage": "A9"
+    },
+    {
+      "id": "OPEN-7",
+      "level": "medium",
+      "title": "Fingerprint на каждом обращении к сети",
+      "status": "open",
+      "stage": "A11"
+    },
+    {
+      "id": "OPEN-8",
+      "level": "medium",
+      "title": "Время расчёта растёт как N^2.4…2.7",
+      "status": "open",
+      "stage": "A11"
+    },
+    {
+      "id": "OPEN-9",
+      "level": "medium",
+      "title": "Точки КЗ описаны, но не работают",
+      "status": "open",
+      "stage": "A6"
+    },
+    {
+      "id": "OPEN-10",
+      "level": "medium",
+      "title": "Две расчётные модели",
+      "status": "open",
+      "stage": "A7"
+    },
+    {
+      "id": "OPEN-11",
+      "level": "medium",
+      "title": "Аппарат без нормального положения молча отключается",
+      "status": "open",
+      "stage": "A5"
+    },
+    {
+      "id": "OPEN-13",
+      "level": "medium",
+      "title": "Демо-проекты целиком на compatibility equipment",
+      "status": "open",
+      "stage": "A7"
+    },
+    {
+      "id": "OPEN-14",
+      "level": "low",
+      "title": "Код возврата CLI смешивает ошибку и FAIL защиты",
+      "status": "closed",
+      "stage": "A2",
+      "closed_by": "A2.1",
+      "reopened_by": "A2.1: неизвестный feeder/explain возвращает код 1 вместо 2"
+    },
+    {
+      "id": "OPEN-15",
+      "level": "low",
+      "title": "Нет упаковки, lock-файла и CI",
+      "status": "open",
+      "stage": "A11"
+    },
+    {
+      "id": "OPEN-16",
+      "level": "low",
+      "title": "Нет ТТ, ТН, ЗН, двигателя, предохранителя, реактора, БСК",
+      "status": "open",
+      "stage": "A5"
+    },
+    {
+      "id": "OPEN-17",
+      "level": "low",
+      "title": "Вид «Анализ» не связан с библиотекой обозначений",
+      "status": "open",
+      "stage": "B1"
+    }
+  ],
+  "decisions": {
+    "date": "2026-08-30",
+    "source": "заказчик",
+    "items": [
+      {
+        "topic": "детальность схемы",
+        "value": "полная схема РУ как в EnergyCS ТКЗ",
+        "effect": "выключатель, разъединитель, ТТ, ТН — отдельные объекты; появляется присоединение (ячейка); этап A5 переработан и вырос до 14–20 дней"
+      },
+      {
+        "topic": "справочники",
+        "value": [
+          "кабели и провода",
+          "силовые трансформаторы",
+          "выключатели и терминалы РЗА",
+          "трансформаторы тока и напряжения"
+        ],
+        "effect": "A4 расширен; каталог ТТ/ТН вынесен в A4б после A5"
+      },
+      {
+        "topic": "расчёт уставок",
+        "value": [
+          "дистанционная защита 110 кВ",
+          "направленная ОЗЗ и ЗЗ по напряжению",
+          "дифзащита трансформатора",
+          "АПВ и АВР"
+        ],
+        "effect": "A10 расширен; ДЗ и направленная ОЗЗ требуют A8 и ТН из A5"
+      },
+      {
+        "topic": "приоритет",
+        "value": "сначала числа, визуал параллельно Sol",
+        "effect": "порядок треков сохранён: A1 — ворота, дальше Max в треке A, Sol в треке B"
+      },
+      {
+        "topic": "методика",
+        "value": "заполняется по РД/СТО силами Max, у каждого коэффициента — ссылка на источник",
+        "effect": "A2 не зависит от внешнего инженера; профили «типовой по РД» и «проектный»"
+      },
+      {
+        "topic": "режим нейтрали 6-35 кВ",
+        "value": [
+          "изолированная",
+          "компенсированная (ДГР)",
+          "резистивно-заземлённая",
+          "глухозаземлённая 110 кВ и выше"
+        ],
+        "effect": "новый этап A10б (10-14 дней): модель ДГР и резистора нейтрали, выбор применимой защиты по режиму, защиты на высших гармониках"
+      },
+      {
+        "topic": "терминалы РЗА",
+        "value": [
+          "БМРЗ (Механотроника)",
+          "ЭКРА",
+          "Бреслер ТОР 300",
+          "РЗЛ / РС-80 и другие по уточнению"
+        ],
+        "effect": "состав справочника терминалов в A4: шкалы ступеней, шаг уставки, набор функций"
+      },
+      {
+        "topic": "сверка чисел",
+        "value": "расчёта в EnergyCS ТКЗ нет — сверка независимыми ручными расчётами в относительных единицах",
+        "effect": "A1 подтверждает эталон другим методом (о.е. при базисной мощности), а не повторным прогоном того же кода; ограничение записывается в отчёт"
+      },
+      {
+        "topic": "ударный ток и тепловой импульс",
+        "value": "нужны, вместе с A5 (ГОСТ Р 52735)",
+        "effect": "A5 вырос до 19-27 дней: Ta, ky, iуд, ia,τ, Bк; проверки динамической и термической стойкости выключателя и ТТ"
+      },
+      {
+        "topic": "размер сетей",
+        "value": "больше 1000 узлов",
+        "effect": "A11 поднят сразу после A1 и вырос до 6-9 дней; вопрос разрежённой матрицы вернулся; свёртка ячеек и плотность схемы стали обязательными"
+      },
+      {
+        "topic": "выдача документов",
+        "value": [
+          "бланк уставок по каждому терминалу",
+          "сводная таблица в Excel",
+          "протокол ТКЗ и уставок Word/PDF",
+          "схема и карта селективности как чертёж"
+        ],
+        "effect": "B7 переработан в «Выпуск документации», 10-14 дней; бланк уставок зависит от справочника терминалов A4"
+      },
+      {
+        "topic": "двигатели",
+        "value": "есть, подпитку учитывать",
+        "effect": "A9 поднят, зависит только от A5 (для трёхфазного КЗ хватает прямой последовательности), 5-7 дней"
+      }
+    ]
+  },
+  "defects": [
+    {
+      "id": "AUD-PROT-011",
+      "level": "высокий",
+      "found": "опыт добавления выключателей по запросу заказчика 2026-08-31",
+      "title": "Идеальный замкнутый выключатель создаёт ложную точку зоны резервирования",
+      "detail": "Context.zone_points исключает основную точку и дубли только по ID, а не по электрической эквивалентности. В эксперименте 64 выключателя добавили 35 ложных резервных проверок МТЗ. Старые числа совпали; полный diff 419 = 384 новых узловых результата + 35 проверок. Фильтрация эквивалентных основной зоне точек только в памяти устранила 35 строк, но не является внедрённым исправлением.",
+      "closes": "внеплановая коррекция ядра после разрешения заказчика; не автоматический запуск следующего этапа",
+      "owner": "Max",
+      "status": "closed",
+      "report": "docs/work-verification/connected-breakers-audit.md",
+      "evidence": "docs/work-verification/ConnectedEditing-Sol-20260831/breaker-experiment/summary.json",
+      "next_evidence": "Разрешение core/baseline, zero/nonzero/open/multiple/3W регрессии, сохранение старых результатов и проверка новых точек. Производственный проект и эталон не изменены.",
+      "closed_by": "DemoSubstation",
+      "fix": "ShortCircuitSolver.electrical_point() открывает наружу объединение узлов ветвями нулевого сопротивления, которое матрица проводимостей делает и так. Context.zone_points() различает точки по нему, а не по ID узла: идеальный включённый выключатель больше не порождает вторую проверку той же точки с требованием 1,2 вместо 1,5. На трёх прежних демо не изменилось ни одного числа.",
+      "pinned_by": "tests/test_ideal_switch_zone.py"
+    },
+    {
+      "id": "AUD-PROT-010",
+      "level": "высокий",
+      "found": "B1",
+      "title": "Зона резервирования МТЗ не отсекается за трансформатором",
+      "detail": "core/context.py: zone_points() пропускает саму ветвь-трансформатор, но не её поддерево. При backup_through_transformer = 0 защита 110 кВ проверяется по КЗ на конце фидера 10 кВ за двумя ступенями трансформации. Даёт ложные нарушения Kч (два из пяти ✗ демо-сети).",
+      "closes": "A1 (контрольный пример) + A2",
+      "owner": "Max",
+      "pinned_by": "tests/test_control_examples.py::test_6_backup_zone_must_not_cross_a_transformer (пометка known_defect снята) + test_6b_backup_zone_stops_with_an_explanation_not_a_silence",
+      "note": "A2.1: допустимый обход не подавляется отвергнутой ветвью-трансформатором. Оба порядка объявления ветвей, отсутствие обхода и явное разрешение прохода закреплены регрессиями.",
+      "status": "closed",
+      "closed_by": "A2.1",
+      "fix": "core/context.py: _backup_reachable() обходит сеть вниз от точек ОСНОВНОЙ зоны и останавливается на каждом ПОСЛЕДУЮЩЕМ трансформаторе; сам защищаемый трансформатор границей не является. backup_zone_stops_at_transformer() разделяет два случая пустой зоны, и mtz.py выдаёт для них разные сообщения."
+    },
+    {
+      "id": "AUD-SYM-001",
+      "level": "средний",
+      "found": "B1",
+      "title": "Проекты формата v1 рисуются прямоугольниками «generic»",
+      "detail": "editor/symbols.py: _BEHAVIOR_TO_KEY не знает поведений legacy.*. В демо-проекте обойдено данными (diagram_symbol_key у типов). Ключ обязан стоять у типа, а не только у представления: orientation.base_port_layout() берёт выводы из типа.",
+      "closes": "B2",
+      "owner": "Sol",
+      "status": "closed",
+      "closed_by": "B2",
+      "pinned_by": "tests/test_ui_b2_voltage_colors.py::test_all_eight_legacy_behaviors_resolve_to_real_symbols"
+    },
+    {
+      "id": "AUD-SYM-002",
+      "level": "низкий",
+      "found": "B1",
+      "title": "Подпись повёрнутого аппарата поворачивается вместе с ним",
+      "detail": "DiagramLabelItem — потомок DiagramObjectItem. Нужна обратная ротация вокруг точки привязки, как для примитивов с rotates=False.",
+      "closes": "B3",
+      "owner": "Sol",
+      "status": "closed",
+      "closed_by": "B3",
+      "pinned_by": "tests/test_ui_b3_labels.py::test_rotated_label_text_is_horizontal_without_changing_permanent_port_roles"
+    },
+    {
+      "id": "UI-CRASH-001",
+      "level": "высокий",
+      "found": "жалоба заказчика 2026-08-31",
+      "title": "Нативное переполнение стека Qt6Gui.dll при работе со схемой",
+      "detail": "Windows Event 1000: три аварии 31.08.2026, Qt6Gui.dll 6.11.2.0, 0xc00000fd, RVA 0x698e87. Конкретный вызывающий путь не установлен; в 384 перемещениях полного MainWindow и отдельном стресс-прогоне не воспроизведён. Ошибки жизненного цикла жеста и 160 повторных перестроений исправлены, но это не доказывает устранение нативной аварии.",
+      "closes": "внеплановое исправление после воспроизведения или получения стека; не запуск следующего этапа",
+      "owner": "Sol",
+      "status": "open",
+      "report": "docs/work-verification/drag-hover-fix-report.md",
+      "next_evidence": "Объект и точные действия либо снимок/текст окна запуска после вылета. До Qt включён faulthandler в существующий stderr."
+    },
+    {
+      "id": "B3-PERF-001",
+      "level": "средний",
+      "found": "B3",
+      "title": "Автоподписи медленны на крайне плотной схеме из 1024 элементов",
+      "detail": "После устранения лишнего полного перебора препятствий функциональный тест 1024 элементов прошёл за 76.92s в полном прогоне (включает создание, показ, выделение, перемещение, масштаб). Обычная демо-схема из четырёх ПС проверена без пересечений, но это не приёмка производительности больших схем.",
+      "closes": "B9",
+      "owner": "Sol",
+      "status": "open",
+      "evidence": "docs/work-verification/B3-Sol-20260831/pytest-full.txt"
+    },
+    {
+      "id": "AUD-CALC-011",
+      "level": "средний",
+      "found": "A1.1, приёмка состояния Sol Ultra",
+      "status": "closed",
+      "title": "Определяющий режим выбирался по последнему биту решателя",
+      "detail": "Выбор режима, определяющего уставку, делался строгим сравнением (i > best) без допуска и без разрешения равенства. В радиальной сети несколько режимов дают физически один и тот же ток, различаясь на 1–2 последних бита, поэтому имя определяющего режима зависело от сборки численной библиотеки: тот же проект на двух машинах давал разные имена при совпадающих до последнего знака числах. Затрагивало 28 из 291 защиты. Расчётные числа не затронуты.",
+      "fix": "rza_calc/core/protections/selection.py: среди режимов в полосе 1e-9 вокруг экстремума берётся первый по порядку объявления в проекте. Применено во всех ШЕСТИ местах выбора: отстройка ТО, чувствительность ТО, рабочий ток МТЗ, чувствительность МТЗ, уставка ОЗЗ, чувствительность ОЗЗ. Во всех шести равенство раскрывается оговоркой в протоколе расчёта.",
+      "closed_by": "A1.1",
+      "owner": "Max",
+      "pinned_by": "tests/test_control_examples.py::test_7, test_7b, test_7c"
+    },
+    {
+      "id": "AUD-UI-003",
+      "level": "средний",
+      "found": "заказчик 31.08.2026",
+      "status": "closed",
+      "closed_by": "DragLine",
+      "title": "Точка подключения на шине уезжала вбок от провода, провод рисовал крючок",
+      "detail": "available_bus_fraction раздвигала КАЖДОЕ новое присоединение на 20 единиц от соседнего, поэтому кружок на шине не совпадал с проводом, который к нему приходит. Теперь точка ставится под проводом; раздвижка включается только при попадании ближе порога слияния (10 единиц), и отодвигает на минимум.",
+      "owner": "Max",
+      "pinned_by": "tests/test_drag_creates_line.py::test_attachment_stays_exactly_where_the_wire_was_brought"
+    },
+    {
+      "id": "AUD-UI-004",
+      "level": "высокий",
+      "found": "заказчик 31.08.2026",
+      "status": "closed",
+      "closed_by": "DragLine",
+      "title": "Охранник привязки ТТ запрещал подключение из-за постороннего висящего конца",
+      "detail": "legacy_ct.preserve_legacy_ct_bindings вычисляла расчётный ID узла для каждого подключённого вывода legacy-оборудования при ПОИСКЕ стороны ТТ. Один вывод на узле без класса напряжения обрушивал всю команду: «Невозможно определить узел привязки ТТ». Теперь неопределимый узел просто не попадает в кандидаты; там, где переезжает сама сторона ТТ, отказ сохранён.",
+      "owner": "Max",
+      "pinned_by": "tests/test_drag_creates_line.py::test_unresolvable_side_node_does_not_block_an_unrelated_connection"
+    },
+    {
+      "id": "AUD-PROT-012",
+      "level": "средний",
+      "found": "DemoSubstation 31.08.2026",
+      "status": "open",
+      "owner": "Max",
+      "title": "Выключатель как отдельный объект скрывает трансформатор от поиска зоны ТО",
+      "detail": "_transformers_at() ищет трансформаторы среди ветвей, присоединённых к дальнему концу линии. Если между линией и трансформатором стоит выключатель — отдельная ветвь нулевого сопротивления, — трансформатор не находится, и отстройка ТО «за трансформатором» молча вырождается в отстройку по концу самой линии. На новой демо-схеме ТО питающей ВЛ-110 по этой причине не применяется. Лечится тем же приёмом, что AUD-PROT-011: искать по электрической точке, а не по смежности узлов.",
+      "closes": "A5 «Полная схема РУ» — там выключатели становятся объектами повсеместно"
+    },
+    {
+      "id": "AUD-SYM-003",
+      "level": "средний",
+      "found": "заказчик 31.08.2026",
+      "status": "closed",
+      "closed_by": "UIFixes",
+      "owner": "Max",
+      "title": "Призрак размещения рисовался отдельным кодом: выключатель и разъединитель одинаковы",
+      "detail": "gui/editor_scene.py рисовал предварительное изображение под курсором собственными drawLine, а не примитивами symbol_for(). Для «breaker» и «disconnector» ветка была общей — две чёрточки и диагональ, — поэтому выбранный в палитре выключатель показывался чужим обозначением, не совпадающим с тем, что появлялось после отпускания кнопки. Та же «вторая графика», что убиралась на B1. Габариты тоже шли от общего умолчания 80×50 вместо собственных 64×32.",
+      "pinned_by": "tests/test_placement_and_voltage.py::test_ghost_uses_the_symbol_library_not_its_own_drawing"
+    },
+    {
+      "id": "AUD-UI-005",
+      "level": "высокий",
+      "found": "заказчик 31.08.2026",
+      "status": "closed",
+      "closed_by": "UIFixes",
+      "owner": "Max",
+      "title": "Текст сообщения об ошибке нечитаем в тёмной теме Windows",
+      "detail": "Правило темы `* { color: #172033 }` задавало тёмный текст всему, но у QMessageBox не было своего фона — он брался из системной темы. Сообщение об ошибке приходилось выделять мышью, чтобы прочесть. Диалогам задан собственный светлый фон.",
+      "pinned_by": "tests/test_placement_and_voltage.py::test_dialogs_carry_their_own_background"
+    },
+    {
+      "id": "OPEN-18",
+      "level": "средний",
+      "found": "заказчик 31.08.2026",
+      "status": "open",
+      "owner": "заказчик + Max",
+      "title": "Смена класса напряжения у подключённого аппарата запрещена инвариантом домена",
+      "detail": "Заказчик просил разрешить смену с предупреждением в панели ошибок. Домен держит инвариант «класс вывода совпадает с классом узла», на нём стоит адаптер, топология и приведение токов; модель с несовпадением не собирается. Инвариант не ломался — это отдельное решение с последствиями для расчёта. Сейчас даётся понятное сообщение с обеими сторонами и указанием, что делать.",
+      "closes": "отдельное задание по доменной модели"
+    }
+  ],
+  "demo_projects": {
+    "energoraion": {
+      "path": "rza_calc/examples/energoraion.json",
+      "substations": 4,
+      "feeders": 24,
+      "modes": 6,
+      "protections": 119,
+      "ok": 116,
+      "fail": 3,
+      "unresolved": 0,
+      "fingerprint": "ac7fc6a31eefc060",
+      "builder": "tools/build_demo_network.py",
+      "layout": "tools/autolayout.py",
+      "note": "было 114 ✓ / 5 ✗ до A2: два нарушения Kч были ложными и создавались дефектом AUD-PROT-010"
+    },
+    "gtes_sever": {
+      "path": "rza_calc/examples/gtes_sever.json",
+      "protections": 156,
+      "fingerprint": "57b086344b61458d"
+    },
+    "ps_severnaya": {
+      "path": "rza_calc/examples/ps_severnaya.json",
+      "protections": 16,
+      "fingerprint": "8252e99f37299c41"
+    },
+    "ps_promyshlennaya": {
+      "path": "rza_calc/examples/ps_promyshlennaya.json",
+      "opens_by_default": true,
+      "substations": 1,
+      "transformers": 2,
+      "sections": 2,
+      "feeders": 8,
+      "breakers": 13,
+      "modes": 5,
+      "protections": 24,
+      "ok": 19,
+      "fail": 4,
+      "unresolved": 0,
+      "selectivity_pairs_ok": "47 из 47",
+      "builder": "tools/build_substation_demo.py",
+      "layout": "tools/autolayout.py",
+      "note": "Образцовая схема: выключатели с обеих сторон обоих трансформаторов, на вводах 10 кВ, на секционном и на каждом фидере. Четыре ✗ — Kч ОЗЗ кабельных фидеров: структурное ограничение при четырёх сопоставимых фидерах на секцию, объяснено программой в протоколе."
+    }
+  },
+  "estimate_days_total": {
+    "track_A": "112-163",
+    "track_B": "41-58",
+    "critical_path": "115-165"
+  },
+  "briefs": {
+    "sol": "docs/roadmap/BRIEF-FOR-SOL.md",
+    "note": "полный бриф для Sol Ultra: правила, владение файлами трёх агентов, команды самопроверки, методическая часть"
+  },
+  "sol_agents": {
+    "split": "по каталогам, один файл — один агент",
+    "B-GUI": "rza_calc/gui/**",
+    "B-EDITOR": "rza_calc/editor/**",
+    "B-TEST": "tests/test_ui_*, tests/test_stage3_*, tests/test_stage4_*, tests/benchmark_*, docs/**",
+    "forbidden_for_all": [
+      "rza_calc/core/**",
+      "rza_calc/domain/**",
+      "rza_calc/adapters/**",
+      "rza_calc/topology/**",
+      "rza_calc/calculation/**",
+      "rza_calc/io/**",
+      "rza_calc/data/**",
+      "tests/baseline/**",
+      "tools/update_baseline.py"
+    ],
+    "may_take_track_A": "только по готовому ТЗ из docs/roadmap/stages/, когда у Max кончается лимит",
+    "self_check": "Sol проверяет себя сам по разделу 5 брифа"
+  },
+  "work_mode": {
+    "mode": "sequential",
+    "decided": "2026-08-30",
+    "rule": "в каждый момент этап ведёт ровно один исполнитель; второй проект не открывает на запись",
+    "handover": "архив проекта целиком + SHA-256; принимающий начинает с него, а не со своей копии, и первым делом гонит полный прогон и сверку эталона",
+    "note": "три агента Sol работают одновременно только внутри его хода",
+    "current_turn": "Max",
+    "turn_started": "2026-08-31",
+    "handover_archive": "rza-2026-08-31-thin-buses.zip",
+    "handover_document": "docs/roadmap/ПЕРЕДАЧА-thin-buses-для-Max.md",
+    "handover_note": "Последняя выдача BusSizeRestore: прежние тонкие шины, остальные исправления ConnectionCleanup сохранены. 1896 passed, native 269 passed, baseline clean. Начинать с rza-2026-08-31-thin-buses.zip и сверить соседний SHA-256. Предыдущая выдача сохранена в резерве."
+  },
+  "methodology": {
+    "profile": "rza_calc/data/methodology_default.json",
+    "template": "rza_calc/data/methodology_project_template.json",
+    "status": "ТИПОВОЙ",
+    "statuses": [
+      "ЗАГЛУШКА",
+      "ТИПОВОЙ",
+      "ПРОЕКТНЫЙ"
+    ],
+    "documented_positions": 21,
+    "confirmed_sources": 2,
+    "note": "Статус профиля — заявка, которую содержимое обязано подтверждать: несоответствие блокирует расчёт. Номера пунктов нормативных документов намеренно не проставлены и закреплены тестом test_no_source_field_pretends_to_cite_an_exact_clause."
+  },
+  "ui_connected_editing": {
+    "date": "2026-08-31",
+    "status": "ui_done_breakers_pending_core_approval",
+    "report": "docs/work-verification/connected-editing-report.md",
+    "breaker_audit": "docs/work-verification/connected-breakers-audit.md",
+    "input_snapshot_sha256": "1b75fc3e78e9f17029b01f012a878bc7a4978421c29757d293c908262cb4d61e",
+    "service_node_glyphs_hidden_in_select": true,
+    "real_terminals_and_junctions_preserved": true,
+    "hidden_line_ports_do_not_hijack_drag": true,
+    "explicit_connection_tools_reveal_endpoints": true,
+    "wire_drag_keeps_electrical_endpoints": true,
+    "bus_attachment_slides_without_moving_bus": true,
+    "single_command_undo_and_save_reload_verified": true,
+    "all_preexisting_tests_unchanged": true,
+    "new_test_cases": 78,
+    "native_targeted_passed": 135,
+    "native_targeted_seconds": 37.37,
+    "native_mainwindow_phases": 10,
+    "user_saved_demo_unchanged": true,
+    "calculation_baseline_changed": false,
+    "real_breakers_added": false,
+    "planned_additional_breakers": 64,
+    "model_change_authorized_by_user": true,
+    "core_baseline_correction_authorized": false,
+    "blocking_defect": "AUD-PROT-011",
+    "native_crash_fixed": false,
+    "manual_mouse_acceptance": false
+  },
+  "ui_schematic_fixes": {
+    "date": "2026-08-31",
+    "status": "visual_done_core_baseline_approval_pending",
+    "report": "docs/work-verification/schematic-visual-fix-report.md",
+    "input_snapshot_sha256": "791a50dcb80a005b8259bfb46debfb38631629317a3636c1b6b2b28cfec072d7",
+    "user_saved_demo_sha256": "898d808dff3dbf13bea28ee9fa6d2e21bcc91bb29c5f1e8aa5d11744f69f75af",
+    "toolbar_state_contrast_fixed": true,
+    "compact_orientation_icons": true,
+    "false_interior_junctions_fixed": true,
+    "collision_preview_uses_commit_rules": true,
+    "line_direction": "declared from/to roles, not calculated current",
+    "direction_markers_avoid_bridges_gaps_and_nodes": true,
+    "real_breakers_added": false,
+    "pending_model_decision": "Добавление реальных выключателей заказчик разрешил. Новый блокер AUD-PROT-011: требуется решение о правке расчётного ядра и штатном расширении эталона; не заменять аппараты фиктивным рисунком.",
+    "calculation_baseline_changed": false,
+    "native_crash_fixed": false,
+    "native_crash_defect": "UI-CRASH-001",
+    "native_targeted_passed": 139,
+    "manual_mouse_acceptance": false
+  },
+  "ui_drag_fixes": {
+    "date": "2026-08-31",
+    "status": "partially_resolved",
+    "report": "docs/work-verification/drag-hover-fix-report.md",
+    "input_snapshot_sha256": "dbe5684709b56ce53e9ce2e3e8b9a78d10724b326ef1739c68bf5ca782f942d7",
+    "drag_lifecycle_fixed": true,
+    "repeated_scene_rebuild_fixed": true,
+    "input_selection_contrast_fixed": true,
+    "native_crash_fixed": false,
+    "native_crash_defect": "UI-CRASH-001",
+    "calculation_baseline_changed": false,
+    "manual_mouse_acceptance": false,
+    "note": "Отдельная серая маска поверх подписи на схеме не воспроизведена; исправленный контраст относится к полям ввода."
+  },
+  "visual_merge": {
+    "date": "2026-08-31",
+    "status": "done",
+    "source_task": "Визуальное обозначение оборудования на Однол.схеме",
+    "source_folder": "Готовый проект — A2.1/rza-calc-0.3-safe-hardening",
+    "report": "docs/work-verification/visual-merge-report.md",
+    "input_snapshot_sha256": "22bbd1472ae3259a8912e5e2f7c63d99d4223266f9cd77e869c94ac0c87c5643",
+    "kept_b3_horizontal_labels": true,
+    "calculation_baseline_changed": false
+  },
+  "ui_safe_drawing": {
+    "date": "2026-08-31",
+    "status": "done_superseded_by_connection_cleanup",
+    "historical_record": true,
+    "current_behavior_report": "docs/work-verification/connection-cleanup-report.md",
+    "report": "docs/work-verification/safe-drawing-report.md",
+    "input_snapshot_sha256": "1f20a5e2883162b6cfa257f73fcab352d14afefdc3e1b6bc1af6539249688454",
+    "incompatible_and_unknown_existing_endpoints_blocked": true,
+    "voltage_uses_nominal_electrical_zones_not_display_colour": true,
+    "isolated_voltage_groups_explicit_and_undoable": true,
+    "connected_voltage_groups_read_only": true,
+    "port_drag_then_connection_type_choice": true,
+    "orthogonal_preview_and_commit_share_plan": true,
+    "degree_two_hidden_joint_reflow_preserves_electrical_ids": true,
+    "side_bus_connections_use_bus_end": true,
+    "existing_manual_bus_anchors_not_reset": true,
+    "arrows_only_belong_to_real_lines": true,
+    "qt_ungrab_origin_jump_workaround_tested": true,
+    "group_selection_after_return_drag_preserved": true,
+    "invalid_drag_frame_recoverable": true,
+    "compact_inspector_values_and_units_visible": true,
+    "crossing_question_4_pending": false,
+    "new_test_cases": 154,
+    "all_preexisting_test_files_byte_identical": false,
+    "preexisting_test_fixture_files_changed": 9,
+    "explicit_unknown_voltage_policy_test_replaced": true,
+    "other_preexisting_assertions_ast_identical": true,
+    "native_targeted_passed": 186,
+    "native_targeted_seconds": 50.98,
+    "native_mainwindow_probes": 3,
+    "native_sequential_transformer_breaker_pairs": 7,
+    "native_png_evidence": 11,
+    "qt_callback_errors": 0,
+    "user_saved_demo_unchanged": true,
+    "calculation_baseline_changed": false,
+    "real_breakers_added": false,
+    "pending_core_defect": "AUD-PROT-011",
+    "native_crash_fixed": false,
+    "manual_mouse_acceptance": false
+  },
+  "ui_connection_cleanup": {
+    "date": "2026-08-31",
+    "status": "done_awaiting_Max_acceptance",
+    "report": "docs/work-verification/connection-cleanup-report.md",
+    "input_snapshot_sha256": "d3906aa6ea9349b5c08ce8f0eaf933924331bc6d04072e17b10ccfb17373f7bb",
+    "input_passed": 1708,
+    "input_seconds": 219.58,
+    "input_baseline_clean": true,
+    "full_passed": 1896,
+    "full_seconds": 242.65,
+    "native_passed": 291,
+    "native_seconds": 58.36,
+    "net_test_count_growth": 188,
+    "preexisting_test_files_changed": 10,
+    "source_freeze_files": 208,
+    "native_png_evidence": 14,
+    "qt_callback_errors": 0,
+    "ordinary_wire_without_type_menu": true,
+    "physical_palette_only_overhead_and_cable": true,
+    "legacy_lines_retyped_to_native": false,
+    "legacy_voltage_and_ct_binding_preserved_per_port": true,
+    "inspector_one_edit_one_command": true,
+    "explicit_mouse_grab_released": true,
+    "independent_bus_contacts_and_explicit_t_nodes": true,
+    "local_orphan_cleanup_undoable": true,
+    "bus_gap_minimum_full_light_pixels": 2,
+    "bus_gap_tested_zooms": [
+      0.6,
+      1,
+      1.4,
+      2
+    ],
+    "demo_graphical_routes_changed": 23,
+    "demo_electrical_sections_unchanged": true,
+    "demo_sha256": "6bebd1052a76a17070393bf46ceaa776141d0bc58a3c6884f6e993547bee2215",
+    "baseline_clean": true,
+    "calculation_baseline_changed": false,
+    "manual_label_offsets_preserved": true,
+    "manual_mouse_acceptance": false,
+    "evidence": "docs/work-verification/ConnectionCleanup-Sol-20260831",
+    "real_breakers_added": false,
+    "pending_core_defect": "AUD-PROT-011",
+    "bus_drawing_superseded_by": "ui_bus_size_restore"
+  },
+  "ui_bus_size_restore": {
+    "date": "2026-08-31",
+    "status": "done_awaiting_Max_acceptance",
+    "report": "docs/work-verification/bus-size-restore-report.md",
+    "input_archive_sha256": "e1f0655c8719d5075cf74d4cd3d6f463ec6c10cdafaa191b683b0dadedc82669",
+    "full_passed": 1896,
+    "full_seconds": 258.84,
+    "native_passed": 269,
+    "native_seconds": 60.41,
+    "original_symbol_exact_match": true,
+    "original_symbol_size_cases": 5,
+    "source_freeze_files": 208,
+    "native_png_evidence": 2,
+    "qt_callback_errors": 0,
+    "demo_file_unchanged": true,
+    "connection_cleanup_preserved": true,
+    "baseline_clean": true,
+    "calculation_baseline_changed": false,
+    "manual_mouse_acceptance": false,
+    "evidence": "docs/work-verification/BusSizeRestore-Sol-20260831"
+  }
+}
