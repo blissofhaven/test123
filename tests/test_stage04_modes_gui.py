@@ -139,7 +139,9 @@ def test_invalid_and_stale_mode_drafts_do_not_write(vm):
     assert vm.mode_draft is not None
 
 
-def test_real_editor_switch_signal_changes_only_draft_then_apply(window):
+def test_real_editor_switch_signal_changes_only_draft_then_apply(window, monkeypatch):
+    from PySide6.QtWidgets import QMessageBox
+    monkeypatch.setattr(QMessageBox, 'question', lambda *args: QMessageBox.StandardButton.Yes)
     vm, controller = window.vm, window.editor_controller
     created = controller.add_equipment('builtin.circuit_breaker', 'QF режима', x=700, y=600)
     QApplication.processEvents()

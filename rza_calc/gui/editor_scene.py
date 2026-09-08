@@ -531,6 +531,20 @@ def _effective_equipment_position(
     return position
 
 
+def is_switch_control(model: ElectricalModel, equipment_id: EquipmentId | None) -> bool:
+    """Identify an actual switching apparatus, not a branch with end switches."""
+    equipment = model.equipment.get(equipment_id)
+    if equipment is None:
+        return False
+    definition = model.equipment_type(equipment.type_id, equipment.type_version)
+    if definition.behavior_key in {'switch', 'recloser'}:
+        return 'switch.position' in definition.capabilities
+    payload = equipment.properties.get('legacy_payload', {})
+    return (definition.behavior_key == 'legacy.tie'
+            and 'legacy.switch.position' in definition.capabilities
+            and isinstance(payload, Mapping) and payload.get('switchable') is True)
+
+
 class PortVisualState(StrEnum):
     NORMAL = "normal"
     SOURCE = "source"
@@ -2786,6 +2800,8 @@ class DiagramGraphicsScene(QGraphicsScene):
         self._connection_voltage_preview = None
         self._bus_exit_direction_preview = None
         self._mode = CanvasMode.EDIT
+        # Viewing geometry and operating a saved-mode draft are separate rights.
+        self.switching_enabled = True
         self._grid_visible = True
         self._snap_enabled = True
         self._grid_size = 20.0
@@ -5738,6 +5754,8 @@ class DiagramGraphicsScene(QGraphicsScene):
                     object_item.setSelected(True)
                 if object_item.representation.extensions.get("linked_page_id"):
                     self.linkedPageRequested.emit(object_item.representation_id)
+                elif self._is_switch_control_item(object_item):
+                    self._request_switch_toggle(object_item)
                 else:
                     self.equipmentDetailsRequested.emit(object_item.representation_id)
                 event.accept()
@@ -5750,6 +5768,31 @@ class DiagramGraphicsScene(QGraphicsScene):
                 event.accept()
                 return
         super().mouseDoubleClickEvent(event)
+
+    def _is_switch_control_item(self, item: DiagramObjectItem) -> bool:
+        return (item._canonical_key in {'circuit_breaker', 'disconnector', 'recloser'}
+                and is_switch_control(item._model, item.representation.equipment_id))
+
+    def _switch_unavailable_reason(self, item: DiagramObjectItem) -> str:
+        if not self.switching_enabled:
+            return 'Переключения сейчас недоступны. Дождитесь завершения расчёта или отмените его.'
+        if item._availability() is EquipmentAvailability.OUT_OF_SERVICE:
+            return 'Аппарат выведен из работы в этом режиме. Измените доступность в окне «Режимы…».'
+        if item._effective_position not in (SwitchPosition.OPEN, SwitchPosition.CLOSED):
+            return 'Положение аппарата не задано. Укажите его в окне «Режимы…».'
+        return ''
+
+    def _request_switch_toggle(self, item: DiagramObjectItem) -> None:
+        if not self._is_switch_control_item(item):
+            return
+        if reason := self._switch_unavailable_reason(item):
+            self.connectionStatusMessage.emit(reason)
+            return
+        self.equipmentContextActionRequested.emit('switch', {
+            'representation_id': item.representation_id,
+            'equipment_id': item.representation.equipment_id,
+            'position': SwitchPosition.CLOSED if item._switch_open else SwitchPosition.OPEN,
+        })
 
     def mouseReleaseEvent(self, event: QGraphicsSceneMouseEvent) -> None:  # noqa: N802
         if (event.button() == Qt.MouseButton.LeftButton
@@ -6295,7 +6338,7 @@ class DiagramGraphicsScene(QGraphicsScene):
             equipment = item._model.equipment.get(
                 item.representation.equipment_id
             )
-            if item._behavior_key in {"switch", "recloser"}:
+            if self._is_switch_control_item(item):
                 menu.addSeparator()
                 switch_action = menu.addAction(
                     ui_text(
@@ -6304,6 +6347,9 @@ class DiagramGraphicsScene(QGraphicsScene):
                         else "action.switch_off"
                     )
                 )
+                unavailable = self._switch_unavailable_reason(item)
+                switch_action.setEnabled(not unavailable)
+                switch_action.setToolTip(unavailable or 'Изменить положение в выбранном режиме')
             if (
                 self._mode is CanvasMode.EDIT
                 and equipment is not None
@@ -6374,18 +6420,7 @@ class DiagramGraphicsScene(QGraphicsScene):
             and chosen is switch_action
             and isinstance(item, DiagramObjectItem)
         ):
-            self.equipmentContextActionRequested.emit(
-                "switch",
-                {
-                    "representation_id": item.representation_id,
-                    "equipment_id": item.representation.equipment_id,
-                    "position": (
-                        SwitchPosition.CLOSED
-                        if item._switch_open
-                        else SwitchPosition.OPEN
-                    ),
-                },
-            )
+            self._request_switch_toggle(item)
         elif (
             remove_series_action is not None
             and chosen is remove_series_action

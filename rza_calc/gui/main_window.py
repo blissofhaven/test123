@@ -28,6 +28,7 @@ from ..editor import ProjectEditorController
 from ..io.project import save_project
 from .editor_panels import EditorWorkspaceWidget
 from .analysis_scheme import AnalysisSchemeView
+from .editor_scene import is_switch_control
 from .project_settings import ProjectSettings
 from .mode_toolbar import ModeToolbar
 from .calculation_worker import CalculationWorker
@@ -1318,6 +1319,10 @@ class MainWindow(QMainWindow):
         self.editor_workspace = EditorWorkspaceWidget(self.editor_controller)
         self.editor_workspace.canvas.mode_draft_switching = True
         self.editor_workspace.canvas.switchDraftRequested.connect(self._stage_equipment_switch)
+        self.diagram_panel.view.switchDraftRequested.connect(self._stage_equipment_switch)
+        self.diagram_panel.view.equipmentDetailsRequested.connect(
+            lambda equipment_id: self.editor_workspace.open_equipment_card(equipment_id))
+        self.diagram_panel.view.statusMessage.connect(self.statusBar().showMessage)
         self.workspace_tabs = QTabWidget()
         self.workspace_tabs.setObjectName("workspaceTabs")
         self.workspace_tabs.addTab(self.editor_workspace, "Редактор схемы")
@@ -1657,6 +1662,8 @@ class MainWindow(QMainWindow):
         worker.start()
 
     def _set_calculation_editing_enabled(self, enabled):
+        self.editor_workspace.scene.switching_enabled = enabled
+        self.diagram_panel.view.scene.switching_enabled = enabled
         self.editor_workspace.command_bar.setEnabled(enabled)
         self.editor_workspace.inspector.setEnabled(enabled)
         for action in (self.equipment_card_action, self.parameter_table_action, self.parameter_catalog_action):
@@ -1698,9 +1705,35 @@ class MainWindow(QMainWindow):
         self._refresh_mode_views()
 
     def _stage_equipment_switch(self, equipment_id, position):
+        from ..domain.electrical import SwitchPosition, EquipmentAvailability
+        if getattr(self.vm, 'calculation_busy', False):
+            self.statusBar().showMessage('Расчёт выполняется. Дождитесь завершения или отмените его.')
+            return
+        model = self.editor_controller.model
+        if not is_switch_control(model, equipment_id) or not isinstance(position, SwitchPosition):
+            self.statusBar().showMessage('Этот объект не является самостоятельным коммутационным аппаратом.')
+            return
+        try:
+            preview = self.vm.mode_preview_model() if self.vm.mode_draft is not None else None
+        except (ValueError, RuntimeError) as exc:
+            self.statusBar().showMessage(str(exc))
+            return
+        state_model, state_id = preview or (model, self.editor_controller.active_operating_state_id)
+        state = state_model.operating_states.get(state_id)
+        if state is not None and state.availability.get(equipment_id) is EquipmentAvailability.OUT_OF_SERVICE:
+            self.statusBar().showMessage('Аппарат выведен из работы. Измените доступность в окне «Режимы…».')
+            return
+        if self.editor_controller.workspace_state.confirm_switching:
+            verb = 'Включить' if position is SwitchPosition.CLOSED else 'Отключить'
+            answer = QMessageBox.question(self, 'Подтверждение переключения',
+                f'{verb} {model.equipment[equipment_id].name}?',
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                QMessageBox.StandardButton.No)
+            if answer != QMessageBox.StandardButton.Yes:
+                return
         try:
             self.vm.stage_equipment_switch(equipment_id, position)
-        except ValueError as exc:
+        except (ValueError, RuntimeError) as exc:
             self.statusBar().showMessage(str(exc))
         self._refresh_mode_views()
 

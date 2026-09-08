@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-"""Однолинейная схема во вкладке «Анализ и расчёты» — только для просмотра.
+"""Однолинейная схема во вкладке «Анализ и расчёты».
 
 Вторая система графики удалена: анализ показывает ту же сцену, те же условные
 обозначения и ту же раскладку, что и редактор. Отличие одно — здесь ничего
 нельзя переместить, создать или удалить, поэтому сцена работает в режиме
-``CanvasMode.ANALYSIS`` и не связана с командной историей.
+``CanvasMode.ANALYSIS``. Переключение аппаратов передаётся в общий черновик
+режима; просмотр не изменяет геометрию и не применяет черновик.
 """
 from __future__ import annotations
 
@@ -21,6 +22,9 @@ class AnalysisSchemeView(QWidget):
     """Просмотровая обёртка над сценой редактора."""
 
     selectionRequested = Signal(str, str)
+    switchDraftRequested = Signal(object, object)
+    equipmentDetailsRequested = Signal(object)
+    statusMessage = Signal(str)
 
     def __init__(self, vm, parent: QWidget | None = None):
         super().__init__(parent)
@@ -47,8 +51,22 @@ class AnalysisSchemeView(QWidget):
         self._setting_selection = False
         self.scene.representationSelectionChanged.connect(self._selection_changed)
         self.scene.routeSelectionChanged.connect(self._route_selection_changed)
+        self.scene.equipmentContextActionRequested.connect(self._equipment_action)
+        self.scene.equipmentDetailsRequested.connect(self._equipment_details)
+        self.scene.connectionStatusMessage.connect(self.statusMessage.emit)
         self.page_selector.currentIndexChanged.connect(self._page_selected)
         self.refresh(vm)
+
+    def _equipment_action(self, action, payload):
+        if action == 'switch':
+            self.switchDraftRequested.emit(payload.get('equipment_id'), payload.get('position'))
+
+    def _equipment_details(self, object_id):
+        if self._document is None:
+            return
+        item = self._document.representations.get(object_id) or self._document.routes.get(object_id)
+        if item is not None and item.equipment_id is not None:
+            self.equipmentDetailsRequested.emit(item.equipment_id)
 
     # ── Совместимость с прежним API панели схемы ─────────────────────────
     def zoom_in(self) -> None:
