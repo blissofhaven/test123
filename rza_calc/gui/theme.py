@@ -185,11 +185,48 @@ QLineEdit, QComboBox {
     selection-color: #172033;
 }
 QLineEdit:focus, QComboBox:focus { border-color: #4E83EE; }
-QTreeWidget, QTableWidget, QListWidget, QTextEdit, QPlainTextEdit {
+QLineEdit:disabled, QComboBox:disabled, QAbstractSpinBox:disabled,
+QCheckBox:disabled, QLabel:disabled, QPushButton:disabled {
+    color: #68758A;
+}
+QAbstractSpinBox {
     background: #FFFFFF;
+    color: #172033;
+    border: 1px solid #D7DEE9;
+    border-radius: 4px;
+    selection-background-color: #CFE0FF;
+    selection-color: #172033;
+}
+QScrollArea, QScrollArea > QWidget > QWidget {
+    background: #FFFFFF;
+}
+QMenuBar, QMenu {
+    background: #FFFFFF;
+    color: #172033;
+}
+QMenu { border: 1px solid #CBD5E1; padding: 4px; }
+QMenu::item { padding: 6px 28px; background: transparent; }
+QMenu::item:selected, QMenuBar::item:selected, QMenuBar::item:pressed {
+    background: #EAF1FF;
+    color: #172033;
+}
+QMenu::item:disabled { color: #68758A; }
+QMenu::separator { height: 1px; background: #DCE3ED; margin: 4px 8px; }
+QComboBox QAbstractItemView {
+    background: #FFFFFF;
+    color: #172033;
+    border: 1px solid #CBD5E1;
+    selection-background-color: #CFE0FF;
+    selection-color: #172033;
+}
+QTreeView, QTableView, QListView, QTextEdit, QPlainTextEdit {
+    background: #FFFFFF;
+    color: #172033;
     border: none;
     outline: none;
     alternate-background-color: #F8FAFD;
+    selection-background-color: #CFE0FF;
+    selection-color: #172033;
 }
 QTreeWidget::item {
     min-height: 27px;
@@ -230,15 +267,61 @@ QScrollBar:vertical { width: 10px; background: transparent; }
 QScrollBar::handle:vertical { background: #C8D1DE; border-radius: 4px; min-height: 28px; }
 QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }
 QToolTip {
-    background: #172033;
-    color: #FFFFFF;
-    border: none;
+    background: #FFFFFF;
+    color: #172033;
+    border: 1px solid #CBD5E1;
     padding: 5px;
 }
 """
 
 
+def apply_light_theme(app) -> None:
+    """Keep native controls and unstyled containers readable on dark Windows."""
+    from PySide6.QtCore import Qt
+    from PySide6.QtGui import QColor, QPalette
+
+    app.styleHints().setColorScheme(Qt.ColorScheme.Light)
+    app.setStyle("Fusion")
+    palette = QPalette()
+    roles = {
+        QPalette.ColorRole.Window: COLORS["surface"],
+        QPalette.ColorRole.WindowText: COLORS["text"],
+        QPalette.ColorRole.Base: COLORS["surface"],
+        QPalette.ColorRole.AlternateBase: COLORS["surface_alt"],
+        QPalette.ColorRole.Text: COLORS["text"],
+        QPalette.ColorRole.Button: COLORS["surface"],
+        QPalette.ColorRole.ButtonText: COLORS["text"],
+        QPalette.ColorRole.BrightText: COLORS["surface"],
+        QPalette.ColorRole.Highlight: COLORS["blue"],
+        QPalette.ColorRole.HighlightedText: COLORS["surface"],
+        QPalette.ColorRole.PlaceholderText: COLORS["muted"],
+        QPalette.ColorRole.ToolTipBase: COLORS["surface"],
+        QPalette.ColorRole.ToolTipText: COLORS["text"],
+        QPalette.ColorRole.Link: COLORS["blue"],
+        QPalette.ColorRole.LinkVisited: COLORS["blue_dark"],
+        QPalette.ColorRole.Light: COLORS["surface"],
+        QPalette.ColorRole.Midlight: COLORS["surface_alt"],
+        QPalette.ColorRole.Mid: COLORS["border"],
+        QPalette.ColorRole.Dark: COLORS["border_strong"],
+        QPalette.ColorRole.Shadow: COLORS["muted"],
+        QPalette.ColorRole.Accent: COLORS["blue"],
+    }
+    for role, color in roles.items():
+        # setColor(role, color) covers active, inactive and disabled windows.
+        palette.setColor(role, QColor(color))
+    for role in (QPalette.ColorRole.WindowText, QPalette.ColorRole.Text,
+                 QPalette.ColorRole.ButtonText):
+        palette.setColor(QPalette.ColorGroup.Disabled, role, QColor(COLORS["muted"]))
+    palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.Highlight,
+                     QColor(COLORS["border"]))
+    palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.HighlightedText,
+                     QColor(COLORS["muted"]))
+    app.setPalette(palette)
+    app.setStyleSheet(STYLESHEET)
+
+
 __all__ = [
+    "apply_light_theme",
     "COLORS",
     "DIAGRAM_DEENERGIZED_STROKE",
     "DIAGRAM_MONOCHROME_STROKE",

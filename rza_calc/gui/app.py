@@ -58,7 +58,7 @@ def main(argv: list[str] | None = None) -> int:
 
     from .main_window import MainWindow
     from .project_settings import ProjectSettings
-    from .theme import STYLESHEET
+    from .theme import apply_light_theme
     from .view_model import ProjectViewModel
 
     args = list(sys.argv[1:] if argv is None else argv)
@@ -81,8 +81,7 @@ def main(argv: list[str] | None = None) -> int:
     app = QApplication.instance() or QApplication([sys.argv[0], *args])
     app.setApplicationName("РЗА-Про")
     app.setOrganizationName("RZA Calc")
-    app.setStyle("Fusion")
-    app.setStyleSheet(STYLESHEET)
+    apply_light_theme(app)
     startup_notice = ""
     progress = None
     if not smoke_test:
