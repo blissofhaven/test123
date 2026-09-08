@@ -1,0 +1,770 @@
+{
+  "differences": 72,
+  "change_categories": {
+    "protections": 71,
+    "warnings (длина)": 1
+  },
+  "changed_mtz": [
+    "VT1",
+    "VT2",
+    "G1_bt",
+    "G2_bt",
+    "G3_bt",
+    "G4_bt",
+    "AT1",
+    "AT2",
+    "VL110_1",
+    "VL110_2"
+  ],
+  "all_fault_currents_exact_equal": true,
+  "all_selectivity_exact_equal": true,
+  "all_other_projects_exact_equal": true,
+  "all_to_results_exact_equal": true,
+  "old_warnings_retained": true,
+  "added_warnings": [
+    "Режим «Максимальный (все ГТГ)»: параллельная работа источников присутствует в прежней схеме; явное разрешение режима ещё не записано.",
+    "Режим «Минимальный (ГТГ-3, ГТГ-4)»: параллельная работа источников присутствует в прежней схеме; явное разрешение режима ещё не записано.",
+    "Режим «Т1 Восток отключён, СВ включён»: параллельная работа источников присутствует в прежней схеме; явное разрешение режима ещё не записано.",
+    "Режим «Т1 отключён + минимальный»: параллельная работа источников присутствует в прежней схеме; явное разрешение режима ещё не записано."
+  ],
+  "network_fingerprint_preserved": "d829ab976c52826c0f9cfe9755be48b91b9eb9c2981d9141649d2fe734da41fa",
+  "files_sha256_preserved": {
+    "C:\\Users\\shock\\Documents\\Codex\\2026-09-06\\ghb\\work\\stage-04\\review-tree\\tests\\baseline\\calculation_baseline.json": "e7c253a7e055d474d3c3738f544177d55b7b443d0842a887294bf387b1247887",
+    "C:\\Users\\shock\\Documents\\Codex\\2026-09-06\\ghb\\work\\stage-04\\core-baseline-candidate.json": "919220f6356b0ec4fbbaa0b982accc8f2f7406dbe3d9810576571ae2b6ac8ad9",
+    "C:\\Users\\shock\\Documents\\Codex\\2026-09-06\\ghb\\work\\stage-04\\review-tree\\tests\\fixtures\\legacy_projects\\gtes_sever.json": "e51a23e41141a260f892117781e1d1eceb8056a118ed32a0a93b7add4182f0e8"
+  },
+  "independent_connectivity_proof": [
+    {
+      "mode": "max",
+      "branch": "VT1",
+      "alternate_path_without_branch": [
+        "VT2",
+        "VT2_mv",
+        "VT1_mv"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G1",
+          "G2",
+          "G3",
+          "G4"
+        ],
+        "to": [
+          "G1",
+          "G2",
+          "G3",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "max",
+      "branch": "VT2",
+      "alternate_path_without_branch": [
+        "VT1",
+        "VT1_mv",
+        "VT2_mv"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G1",
+          "G2",
+          "G3",
+          "G4"
+        ],
+        "to": [
+          "G1",
+          "G2",
+          "G3",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "max",
+      "branch": "G1_bt",
+      "alternate_path_without_branch": null,
+      "feeding_sources_after_cut": {
+        "from": [
+          "G1"
+        ],
+        "to": [
+          "G2",
+          "G3",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "max",
+      "branch": "G2_bt",
+      "alternate_path_without_branch": null,
+      "feeding_sources_after_cut": {
+        "from": [
+          "G2"
+        ],
+        "to": [
+          "G1",
+          "G3",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "max",
+      "branch": "G3_bt",
+      "alternate_path_without_branch": null,
+      "feeding_sources_after_cut": {
+        "from": [
+          "G3"
+        ],
+        "to": [
+          "G1",
+          "G2",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "max",
+      "branch": "G4_bt",
+      "alternate_path_without_branch": null,
+      "feeding_sources_after_cut": {
+        "from": [
+          "G4"
+        ],
+        "to": [
+          "G1",
+          "G2",
+          "G3"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "max",
+      "branch": "AT1",
+      "alternate_path_without_branch": [
+        "AT2"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G1",
+          "G2",
+          "G3",
+          "G4"
+        ],
+        "to": [
+          "G1",
+          "G2",
+          "G3",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "max",
+      "branch": "AT2",
+      "alternate_path_without_branch": [
+        "AT1"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G1",
+          "G2",
+          "G3",
+          "G4"
+        ],
+        "to": [
+          "G1",
+          "G2",
+          "G3",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "max",
+      "branch": "VL110_1",
+      "alternate_path_without_branch": [
+        "VL110_2"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G1",
+          "G2",
+          "G3",
+          "G4"
+        ],
+        "to": [
+          "G1",
+          "G2",
+          "G3",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "max",
+      "branch": "VL110_2",
+      "alternate_path_without_branch": [
+        "VL110_1"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G1",
+          "G2",
+          "G3",
+          "G4"
+        ],
+        "to": [
+          "G1",
+          "G2",
+          "G3",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "min",
+      "branch": "VT1",
+      "alternate_path_without_branch": [
+        "VT2",
+        "VT2_mv",
+        "VT1_mv"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G3",
+          "G4"
+        ],
+        "to": [
+          "G3",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "min",
+      "branch": "VT2",
+      "alternate_path_without_branch": [
+        "VT1",
+        "VT1_mv",
+        "VT2_mv"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G3",
+          "G4"
+        ],
+        "to": [
+          "G3",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "min",
+      "branch": "G3_bt",
+      "alternate_path_without_branch": null,
+      "feeding_sources_after_cut": {
+        "from": [
+          "G3"
+        ],
+        "to": [
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "min",
+      "branch": "G4_bt",
+      "alternate_path_without_branch": null,
+      "feeding_sources_after_cut": {
+        "from": [
+          "G4"
+        ],
+        "to": [
+          "G3"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "min",
+      "branch": "AT1",
+      "alternate_path_without_branch": [
+        "AT2"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G3",
+          "G4"
+        ],
+        "to": [
+          "G3",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "min",
+      "branch": "AT2",
+      "alternate_path_without_branch": [
+        "AT1"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G3",
+          "G4"
+        ],
+        "to": [
+          "G3",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "min",
+      "branch": "VL110_1",
+      "alternate_path_without_branch": [
+        "VL110_2"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G3",
+          "G4"
+        ],
+        "to": [
+          "G3",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "min",
+      "branch": "VL110_2",
+      "alternate_path_without_branch": [
+        "VL110_1"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G3",
+          "G4"
+        ],
+        "to": [
+          "G3",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "one",
+      "branch": "VT1",
+      "alternate_path_without_branch": [
+        "VT2",
+        "VT2_mv",
+        "VT1_mv"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G3"
+        ],
+        "to": [
+          "G3"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "one",
+      "branch": "VT2",
+      "alternate_path_without_branch": [
+        "VT1",
+        "VT1_mv",
+        "VT2_mv"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G3"
+        ],
+        "to": [
+          "G3"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "one",
+      "branch": "G3_bt",
+      "alternate_path_without_branch": null,
+      "feeding_sources_after_cut": {
+        "from": [
+          "G3"
+        ],
+        "to": []
+      },
+      "not_radial": false
+    },
+    {
+      "mode": "one",
+      "branch": "AT1",
+      "alternate_path_without_branch": [
+        "AT2"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G3"
+        ],
+        "to": [
+          "G3"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "one",
+      "branch": "AT2",
+      "alternate_path_without_branch": [
+        "AT1"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G3"
+        ],
+        "to": [
+          "G3"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "one",
+      "branch": "VL110_1",
+      "alternate_path_without_branch": [
+        "VL110_2"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G3"
+        ],
+        "to": [
+          "G3"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "one",
+      "branch": "VL110_2",
+      "alternate_path_without_branch": [
+        "VL110_1"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G3"
+        ],
+        "to": [
+          "G3"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "t1off",
+      "branch": "VT2",
+      "alternate_path_without_branch": null,
+      "feeding_sources_after_cut": {
+        "from": [
+          "G1",
+          "G2",
+          "G3",
+          "G4"
+        ],
+        "to": []
+      },
+      "not_radial": false
+    },
+    {
+      "mode": "t1off",
+      "branch": "G1_bt",
+      "alternate_path_without_branch": null,
+      "feeding_sources_after_cut": {
+        "from": [
+          "G1"
+        ],
+        "to": [
+          "G2",
+          "G3",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "t1off",
+      "branch": "G2_bt",
+      "alternate_path_without_branch": null,
+      "feeding_sources_after_cut": {
+        "from": [
+          "G2"
+        ],
+        "to": [
+          "G1",
+          "G3",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "t1off",
+      "branch": "G3_bt",
+      "alternate_path_without_branch": null,
+      "feeding_sources_after_cut": {
+        "from": [
+          "G3"
+        ],
+        "to": [
+          "G1",
+          "G2",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "t1off",
+      "branch": "G4_bt",
+      "alternate_path_without_branch": null,
+      "feeding_sources_after_cut": {
+        "from": [
+          "G4"
+        ],
+        "to": [
+          "G1",
+          "G2",
+          "G3"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "t1off",
+      "branch": "AT1",
+      "alternate_path_without_branch": [
+        "AT2"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G1",
+          "G2",
+          "G3",
+          "G4"
+        ],
+        "to": [
+          "G1",
+          "G2",
+          "G3",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "t1off",
+      "branch": "AT2",
+      "alternate_path_without_branch": [
+        "AT1"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G1",
+          "G2",
+          "G3",
+          "G4"
+        ],
+        "to": [
+          "G1",
+          "G2",
+          "G3",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "t1off",
+      "branch": "VL110_1",
+      "alternate_path_without_branch": [
+        "VL110_2"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G1",
+          "G2",
+          "G3",
+          "G4"
+        ],
+        "to": [
+          "G1",
+          "G2",
+          "G3",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "t1off",
+      "branch": "VL110_2",
+      "alternate_path_without_branch": [
+        "VL110_1"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G1",
+          "G2",
+          "G3",
+          "G4"
+        ],
+        "to": [
+          "G1",
+          "G2",
+          "G3",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "t1off_min",
+      "branch": "VT2",
+      "alternate_path_without_branch": null,
+      "feeding_sources_after_cut": {
+        "from": [
+          "G3",
+          "G4"
+        ],
+        "to": []
+      },
+      "not_radial": false
+    },
+    {
+      "mode": "t1off_min",
+      "branch": "G3_bt",
+      "alternate_path_without_branch": null,
+      "feeding_sources_after_cut": {
+        "from": [
+          "G3"
+        ],
+        "to": [
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "t1off_min",
+      "branch": "G4_bt",
+      "alternate_path_without_branch": null,
+      "feeding_sources_after_cut": {
+        "from": [
+          "G4"
+        ],
+        "to": [
+          "G3"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "t1off_min",
+      "branch": "AT1",
+      "alternate_path_without_branch": [
+        "AT2"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G3",
+          "G4"
+        ],
+        "to": [
+          "G3",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "t1off_min",
+      "branch": "AT2",
+      "alternate_path_without_branch": [
+        "AT1"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G3",
+          "G4"
+        ],
+        "to": [
+          "G3",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "t1off_min",
+      "branch": "VL110_1",
+      "alternate_path_without_branch": [
+        "VL110_2"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G3",
+          "G4"
+        ],
+        "to": [
+          "G3",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    },
+    {
+      "mode": "t1off_min",
+      "branch": "VL110_2",
+      "alternate_path_without_branch": [
+        "VL110_1"
+      ],
+      "feeding_sources_after_cut": {
+        "from": [
+          "G3",
+          "G4"
+        ],
+        "to": [
+          "G3",
+          "G4"
+        ]
+      },
+      "not_radial": true
+    }
+  ]
+}

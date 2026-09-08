@@ -292,6 +292,8 @@ class Mode:
     # separate from switch positions: CLOSED equipment may still be taken out
     # of service, and an IN_SERVICE line need not be a switching apparatus.
     availability: dict[str, bool] = field(default_factory=dict)
+    # Derived, explicit operating inputs. Empty preserves historical DTO identity.
+    operating_parameters: dict[str, Any] = field(default_factory=dict, kw_only=True)
 
     def is_available(self, object_id: str) -> bool:
         return bool(self.availability.get(object_id, True))
@@ -821,7 +823,7 @@ class Network:
         return self.nodes[nid]
 
     # ---------- проверка модели ----------
-    def validate(self) -> list[str]:
+    def validate(self, mode: Mode | None = None, *, require_source_data: bool = True) -> list[str]:
         problems: list[str] = []
 
         def is_finite(value: object) -> bool:
@@ -864,10 +866,12 @@ class Network:
 
         for g in gens:
             owner = f"Генератор «{g.name}»"
+            required = require_source_data and (mode is None or self.branch_conducting(g, mode))
             if g.node_from != GRID:
                 problems.append(f"{owner} должен начинаться от узла GRID.")
             for title, value in (("Uном", g.u_nom), ('x"d', g.xd2), ("cosφ", g.cos_phi)):
-                check_finite(owner, title, value)
+                if value is not None or required:
+                    check_finite(owner, title, value)
             if g.s_nom:
                 check_finite(owner, "Sном", g.s_nom)
             if g.p_nom is not None:
@@ -878,8 +882,10 @@ class Network:
                 apparent_power = g.s_from_p
             except Exception:
                 apparent_power = math.nan
-            if not is_finite(apparent_power) or apparent_power <= 0:
+            if required and (not is_finite(apparent_power) or apparent_power <= 0):
                 problems.append(f"{owner}: не задана положительная мощность.")
+            if is_finite(g.s_nom) and g.s_nom < 0:
+                problems.append(f"{owner}: мощность не может быть отрицательной.")
             if is_finite(g.xd2) and g.xd2 <= 0:
                 problems.append(f'{owner}: x"d должно быть больше нуля.')
             if is_finite(g.u_nom) and g.u_nom <= 0:
@@ -897,25 +903,27 @@ class Network:
                 ("max", source.s_kz_max, source.i_kz_max, source.input_mode_max),
                 ("min", source.s_kz_min, source.i_kz_min, source.input_mode_min),
             ):
-                if s_value is None and i_value is None:
-                    if regime == "max":
-                        problems.append(f"{owner}: не задан ни Sкз.max, ни Iкз.max.")
-                    else:
-                        problems.append(f"{owner}: не задан минимальный режим системы.")
-                    continue
+                required = (require_source_data and (mode is None or (
+                    self.branch_conducting(source, mode) and mode.system == regime)))
                 if input_mode not in (None, "power", "current"):
                     problems.append(
                         f"{owner}: способ задания режима {regime} должен быть "
                         "'power' или 'current'."
                     )
-                if s_value is not None and i_value is not None and input_mode is None:
+                if s_value is None and i_value is None:
+                    if required and regime == "max":
+                        problems.append(f"{owner}: не задан ни Sкз.max, ни Iкз.max.")
+                    elif required:
+                        problems.append(f"{owner}: не задан минимальный режим системы.")
+                    continue
+                if required and s_value is not None and i_value is not None and input_mode is None:
                     problems.append(
                         f"{owner}: одновременно заданы противоречивые способы "
                         f"описания режима {regime} — Sкз и Iкз. Выберите один первичный параметр."
                     )
-                if input_mode == "power" and s_value is None:
+                if required and input_mode == "power" and s_value is None:
                     problems.append(f"{owner}: для режима {regime} выбран ввод по Sкз, но Sкз не задана.")
-                if input_mode == "current" and i_value is None:
+                if required and input_mode == "current" and i_value is None:
                     problems.append(f"{owner}: для режима {regime} выбран ввод по Iкз, но Iкз не задан.")
                 if s_value is not None:
                     field_name = f"Sкз.{regime}"

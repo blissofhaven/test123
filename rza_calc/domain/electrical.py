@@ -1088,24 +1088,23 @@ def _without_legacy_mode_references(
     equipment: EquipmentInstance,
 ) -> Mapping[str, Any] | None:
     """Return changed extensions, or ``None`` when this state has no refs."""
-    owned_keys = _legacy_mode_keys_for_equipment(equipment)
-    if not owned_keys:
-        return None
+    owned_keys = set(_legacy_mode_keys_for_equipment(equipment))
+    equipment_marker = equipment.extensions.get("legacy_calculation", {})
+    if isinstance(equipment_marker, Mapping) and equipment_marker.get("legacy_id"):
+        owned_keys.add(equipment_marker["legacy_id"])
     marker = state.extensions.get("legacy_calculation")
     if not isinstance(marker, Mapping):
         return None
-    raw_states = marker.get("states")
-    if not isinstance(raw_states, Mapping):
-        return None
-    removed_keys = owned_keys.intersection(raw_states)
-    if not removed_keys:
-        return None
-
+    changed = False
     extensions = thaw_json(state.extensions)
-    mutable_states = extensions["legacy_calculation"]["states"]
-    for key in removed_keys:
-        del mutable_states[key]
-    return extensions
+    for field_name in ("states", "availability"):
+        values = extensions["legacy_calculation"].get(field_name)
+        if not isinstance(values, dict):
+            continue
+        for key in owned_keys.intersection(values):
+            del values[key]
+            changed = True
+    return extensions if changed else None
 
 
 class ElectricalModel:
@@ -3830,6 +3829,13 @@ class ElectricalModel:
             position_changed = equipment_id in state.positions
             availability_changed = equipment_id in state.availability
             extensions = _without_legacy_mode_references(state, equipment)
+            from .operating_parameters import without_operating_parameter_references
+            input_extensions = state.extensions if extensions is None else extensions
+            cleaned_extensions = without_operating_parameter_references(
+                input_extensions, equipment_id, equipment.port_ids,
+            )
+            if cleaned_extensions != input_extensions:
+                extensions = cleaned_extensions
             if not position_changed and not availability_changed and extensions is None:
                 continue
             positions = dict(state.positions)
@@ -4537,6 +4543,14 @@ class ElectricalModel:
                     equipment.id.value,
                 ))
         for state in self._operating_states.values():
+            if "rza_calc.operating_parameters" in state.extensions:
+                from .operating_parameters import validate_operating_parameters
+                try:
+                    validate_operating_parameters(self, state)
+                except (ValueError, TypeError) as exc:
+                    issues.append(DomainIssue(
+                        "invalid_operating_parameters", str(exc), state.id.value,
+                    ))
             for equipment_id in state.positions:
                 equipment = self._equipment.get(equipment_id)
                 if equipment is None:

@@ -13,11 +13,12 @@ from dataclasses import asdict, dataclass, fields, is_dataclass
 from pathlib import Path
 from typing import Any, Iterable
 
-from ..core.engine import CalculationInputError, ProjectResult, run
+from ..core.engine import CalculationInputError, ProjectResult, run, run_input
 from ..core.fault_types import FaultSpec, FaultType
 from ..core.model import GeneratorBranch, Mode
 from ..core.result import FAIL, OK, UNRESOLVED
 from ..io.project import ProjectData, load_project
+from .mode_state import ModeStateMixin
 
 
 FAULT_TYPE_LABELS = {
@@ -182,7 +183,7 @@ def _human_value(name: str, value: Any) -> str:
     return str(value)
 
 
-class ProjectViewModel:
+class ProjectViewModel(ModeStateMixin):
     """Состояние открытого проекта и представление данных для окна."""
 
     def __init__(self, project: ProjectData, path: str | Path):
@@ -217,9 +218,11 @@ class ProjectViewModel:
             network = self.net
             blockers = self.project.calculation_blockers
             raw_result = self.result
+            canonical = getattr(raw_result, 'calculation_input', None)
             current = (raw_result if raw_result is not None and not blockers
-                       and raw_result.is_current_for(network, self.project.methodology)
-                       else None)
+                       and self.mode_draft is None and not getattr(self, 'calculation_busy', False)
+                       and (self._canonical_result_current(raw_result) if canonical is not None
+                            else raw_result.is_current_for(network, self.project.methodology)) else None)
             self._presentation = _PresentationSnapshot(
                 self.project, network, blockers, raw_result, current,
                 self.project.electrical_model, self.project.electrical_model.revision,
@@ -255,17 +258,14 @@ class ProjectViewModel:
         редактирования canonical ElectricalModel проект сам перестраивает
         совместимое расчётное представление.
 
-        Пользовательский режим и признак коммутируемости живут только в этом
-        производном представлении, поэтому при каждом его перестроении они
-        восстанавливаются здесь. Иначе набранный вручную состав аппаратов
-        («открыл СВ, вывел Т2») молча исчезал после любой правки схемы, а
-        `mode_id` продолжал указывать на несуществующий режим.
+        Сохранённые режимы принадлежат canonical модели. Незавершённые
+        переключения находятся в отдельном ModeDraft и не дописываются в view.
         """
         presentation = self._presentation_values()
         if presentation is not None:
             return presentation.network
         network = self.project.network
-        if network is not self.__dict__.get("_applied_network"):
+        if not isinstance(self.project, ProjectData) and network is not self.__dict__.get("_applied_network"):
             self.__dict__["_applied_network"] = network
             self._enable_switching()
             custom = self.__dict__.get("_custom_mode")
@@ -288,15 +288,30 @@ class ProjectViewModel:
         GUI и экспорта должны брать его через эту проверку. Геометрия схемы
         не входит в расчётный fingerprint.
         """
+        if self.mode_draft is not None or getattr(self, 'calculation_busy', False):
+            return None
         presentation = self._presentation_values()
         if presentation is not None:
             return presentation.current_result
+        if self.result is not None and getattr(self.result, 'calculation_input', None) is not None:
+            return self.result if self._canonical_result_current(self.result) else None
         result = self.result
         if result is None or self.project.calculation_blockers:
             return None
         return result if result.is_current_for(self.net, self.project.methodology) else None
 
+    def _canonical_result_current(self, result):
+        from ..version import ALGORITHM_VERSION, KERNEL_VERSION
+        case = result.calculation_case
+        return (case is not None and case.kernel_version == KERNEL_VERSION
+                and case.algorithm_version == ALGORITHM_VERSION
+                and result.calculation_input.is_current_for(self.project))
+
     def result_unavailable_reason(self) -> str:
+        if self.mode_draft is not None:
+            return 'Черновик режима: прежние расчётные числа скрыты. Примените или сбросьте изменения.'
+        if getattr(self, 'calculation_busy', False):
+            return 'Расчёт выполняется. Доступен просмотр схемы; изменения временно недоступны.'
         if self.current_result is not None:
             return ""
         blockers = self._calculation_blocker_error()
@@ -328,6 +343,11 @@ class ProjectViewModel:
         )
 
     def _preferred_mode(self) -> str:
+        if isinstance(self.project, ProjectData):
+            saved = self.mode_controller.active_operating_state_id
+            choice = next((row for row in self.operating_mode_choices() if row.state_id == saved), None)
+            if choice is not None:
+                return choice.calculation_mode_id
         if "max" in self.net.modes:
             return "max"
         return next(iter(self.net.modes), "")
@@ -338,14 +358,22 @@ class ProjectViewModel:
 
     def select_mode(self, mode_id: str) -> None:
         self._discard_presentation_snapshot()
+        if isinstance(self.project, ProjectData):
+            selected = next((row for row in self.operating_mode_choices()
+                             if row.calculation_mode_id == mode_id or str(row.state_id) == str(mode_id)), None)
+            if selected is not None:
+                self.choose_operating_mode(selected.state_id)
+                return
         if mode_id not in self.net.modes:
             raise KeyError(f"Режим '{mode_id}' не найден.")
         self.mode_id = mode_id
         if mode_id != "gui_custom":
             self._custom_base = mode_id
 
-    def ensure_custom_mode(self) -> Mode:
-        """Создать пользовательский режим в памяти из текущего режима."""
+    def ensure_custom_mode(self):
+        """Начать копию сохранённого режима; применение выполняется явно."""
+        if isinstance(self.project, ProjectData):
+            return self.begin_mode_draft(clone=True)
         self._discard_presentation_snapshot()
         existing = self.net.modes.get("gui_custom")
         if existing is not None:
@@ -369,6 +397,15 @@ class ProjectViewModel:
         return custom
 
     def set_generator_enabled(self, branch_id: str, enabled: bool) -> None:
+        if isinstance(self.project, ProjectData):
+            from dataclasses import replace
+            from ..domain.electrical import EquipmentAvailability
+            draft = self.begin_mode_draft()
+            equipment_id = self.mode_controller.resolve_operating_mode_equipment(branch_id)
+            values = dict(draft.availability)
+            values[equipment_id] = EquipmentAvailability.IN_SERVICE if enabled else EquipmentAvailability.OUT_OF_SERVICE
+            self.update_mode_draft(replace(draft, availability=values))
+            return
         self._discard_presentation_snapshot()
         branch = self.net.branches.get(branch_id)
         if not isinstance(branch, GeneratorBranch):
@@ -389,12 +426,19 @@ class ProjectViewModel:
             solver = result.ctx.solvers.get(mode.id)
         currents = {}
         if result is not None:
-            for branch_id, rows in result.results.items():
-                for item in rows.values():
-                    value = getattr(item, "i_work", None)
-                    if value is not None:
-                        currents[branch_id] = float(value)
-                        break
+            selected = result.ctx.net.modes.get(mode.id)
+            records = getattr(selected, 'operating_parameters', {}).get('working_currents', {})
+            ambiguous = set()
+            for record in records.values():
+                value = record.get('value')
+                if record.get('confirmation') != 'confirmed' or not record.get('source') or value is None:
+                    continue
+                for branch_id in record.get('applies_to', ()):
+                    if branch_id in currents and currents[branch_id] != float(value):
+                        ambiguous.add(branch_id)
+                    currents[branch_id] = float(value)
+            for branch_id in ambiguous:
+                currents.pop(branch_id, None)
         return build_electrical_map(self.net, mode, solver, currents)
 
     def switch_closed(self, switch_id: str) -> bool:
@@ -406,12 +450,9 @@ class ProjectViewModel:
         return switch_closed(switch, self.net.branches[switch.branch_id], self.mode)
 
     def toggle_switch(self, switch_id: str) -> bool:
-        """Транзакционное переключение аппарата.
-
-        Состояние меняется в пользовательском режиме, затем сеть пересчитывается.
-        Если расчёт не проходит, изменение откатывается и поднимается ошибка —
-        смешанного состояния «новые положения со старыми токами» не возникает.
-        """
+        """Изменить положение в общем черновике; применение и расчёт отдельно."""
+        if isinstance(self.project, ProjectData):
+            return self.stage_calculation_switch(switch_id)
         self._discard_presentation_snapshot()
         from ..core.model import parse_switch_id
         parsed = parse_switch_id(switch_id)
@@ -449,6 +490,9 @@ class ProjectViewModel:
                 f"«{branch.name}» не является коммутируемым: у присоединения "
                 "не задан выключатель."
             )
+        if isinstance(self.project, ProjectData):
+            self.set_generator_enabled(branch_id, enabled)
+            return
         custom = self.ensure_custom_mode()
         custom.states[branch_id] = bool(enabled)
 
@@ -476,6 +520,8 @@ class ProjectViewModel:
         выставляется по наличию паспортных данных выключателя и сохраняется
         в проект при следующей записи.
         """
+        if isinstance(self.project, ProjectData):
+            return
         for branch in self.net.branches.values():
             if getattr(branch, "switchable", False):
                 continue
@@ -490,6 +536,9 @@ class ProjectViewModel:
                 branch.normally_closed = True
 
     def recalculate(self) -> bool:
+        if self.mode_draft is not None or getattr(self, 'calculation_busy', False):
+            self.calculation_error = 'Примените или сбросьте черновик; дождитесь завершения текущего расчёта.'
+            return False
         self._discard_presentation_snapshot()
         # Старый удачный ответ не остаётся текущим при ошибке новой попытки.
         # Номер попытки также защищает более новый ответ от позднего завершения.
@@ -504,11 +553,18 @@ class ProjectViewModel:
                 return False
             # Ленивые solver не должны читать поздние inplace-правки режима
             # или ветви через сохранённую ссылку на производный Network.
-            candidate = run(deepcopy(self.net), self.project.methodology)
+            if isinstance(self.project, ProjectData):
+                from ..calculation.input import capture_project_input
+                candidate = run_input(capture_project_input(self.project))
+            else:
+                candidate = run(deepcopy(self.net), self.project.methodology)
             if generation != self._calculation_generation:
                 return False
             blockers = self._calculation_blocker_error()
-            if blockers or not candidate.is_current_for(self.net, self.project.methodology):
+            canonical = getattr(candidate, 'calculation_input', None)
+            current = (canonical.is_current_for(self.project) if canonical is not None
+                       else candidate.is_current_for(self.net, self.project.methodology))
+            if blockers or not current:
                 self.calculation_error = blockers or (
                     "Исходные данные изменились во время расчёта. "
                     "Нажмите «Пересчитать» для текущей схемы."
@@ -536,11 +592,18 @@ class ProjectViewModel:
         for branch in self.net.branches.values():
             if not isinstance(branch, GeneratorBranch):
                 continue
+            enabled = mode.is_closed(branch) if mode else branch.normally_closed
+            if self.mode_draft is not None:
+                from ..domain.electrical import EquipmentAvailability
+                equipment_id = self.mode_controller.resolve_operating_mode_equipment(branch.id)
+                availability = self.mode_draft.availability.get(equipment_id)
+                if availability is not None:
+                    enabled = availability is EquipmentAvailability.IN_SERVICE
             rows.append(GeneratorStatus(
                 branch.id,
                 branch.name,
                 float(branch.p_nom or 0.0),
-                mode.is_closed(branch) if mode else branch.normally_closed,
+                enabled,
             ))
         return rows
 

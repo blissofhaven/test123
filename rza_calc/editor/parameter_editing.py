@@ -249,7 +249,7 @@ def _specs(model, equipment, segment_id):
     return tuple(specs)
 
 
-def _ct_port_value(model,equipment):
+def _ct_port_value(model,equipment,read_context=None):
     if "rza_calc.ct_port_id" in equipment.extensions:
         return equipment.extensions["rza_calc.ct_port_id"]
     saved=equipment.extensions.get("editor_legacy_ct_ports",{}).get("ct_node",{})
@@ -260,9 +260,11 @@ def _ct_port_value(model,equipment):
     if node_id is None:
         return None
     from .legacy_ct import _node_identity_or_none
-    cache={}
-    candidates=[pid.value for pid in equipment.port_ids if model.node_for_port(pid) is not None
-        and _node_identity_or_none(model,model.node_for_port(pid).id,cache)==node_id]
+    if read_context is None:
+        read_context = ({row.port_id: row.electrical_node_id for row in model.connections.values()}, {})
+    nodes_by_port, identity_cache = read_context
+    candidates=[pid.value for pid in equipment.port_ids if pid in nodes_by_port
+        and _node_identity_or_none(model,nodes_by_port[pid],identity_cache)==node_id]
     return candidates[0] if len(candidates)==1 else None
 
 
@@ -305,7 +307,7 @@ def _field_provenance(equipment, segment, key, path):
     return inherited.get(key, {}) if isinstance(inherited, Mapping) else {}
 
 
-def _values(model, equipment, specs, segment_id=None):
+def _values(model, equipment, specs, segment_id=None, *, read_context=None):
     effective = model.effective_equipment_properties(equipment.id)
     section = model.line_sections.get(equipment.id)
     segment = next((s for s in section.construction_segments if s.id == segment_id), None) if section else None
@@ -317,7 +319,7 @@ def _values(model, equipment, specs, segment_id=None):
         if spec.scope == "identity":
             value = getattr(equipment, path[0], None)
         elif spec.scope == "ct_port":
-            value = _ct_port_value(model,equipment)
+            value = _ct_port_value(model,equipment,read_context)
         elif spec.scope in {"nameplate","ct"}:
             namespace="rza_calc.nameplate" if spec.scope=="nameplate" else "rza_calc.ct_parameters"
             value = _read_path(equipment.extensions.get(namespace,{}),path,_ABSENT)
@@ -354,11 +356,11 @@ def _values(model, equipment, specs, segment_id=None):
     return MappingProxyType(values)
 
 
-def equipment_snapshot(controller, equipment_id, segment_id=None, *, stamp=None):
+def equipment_snapshot(controller, equipment_id, segment_id=None, *, stamp=None, _read_context=None):
     model = controller.model
     equipment = model.equipment[equipment_id]
     specs = _specs(model, equipment, segment_id)
-    values = _values(model, equipment, specs, segment_id)
+    values = _values(model, equipment, specs, segment_id, read_context=_read_context)
     binding=controller._project.catalog_snapshots.bindings.get(equipment_id)
     if binding is not None and segment_id is None:
         from rza_calc.domain.catalog_compatibility import catalog_values
@@ -378,7 +380,12 @@ def equipment_snapshot(controller, equipment_id, segment_id=None, *, stamp=None)
 def equipment_snapshots(controller,equipment_ids):
     """One consistent input capture for a table, including a large project."""
     stamp=_stamp(controller)
-    return tuple(equipment_snapshot(controller,eid,stamp=stamp) for eid in equipment_ids)
+    # Reuse physical-port lookup and proven legacy node identities only within
+    # this synchronous read. A later edit/reconnect always gets a fresh context.
+    read_context=({row.port_id: row.electrical_node_id
+                   for row in controller.model.connections.values()}, {})
+    return tuple(equipment_snapshot(controller,eid,stamp=stamp,_read_context=read_context)
+                 for eid in equipment_ids)
 
 
 def _metadata(extensions, key, value, clear):

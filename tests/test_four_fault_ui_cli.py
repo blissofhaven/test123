@@ -131,14 +131,17 @@ def test_cli_does_not_mislabel_missing_sequence_as_not_energized():
     ["--node", "bus", "--node", "bus"], ["unexpected"],
 ])
 def test_cli_rejects_invalid_options_before_calculation(monkeypatch, capsys, args):
-    monkeypatch.setattr(cli, "run", lambda *_: pytest.fail("Invalid input must not start calculation"))
+    monkeypatch.setattr(cli, "run_input", lambda *_: pytest.fail("Invalid input must not start calculation"))
     assert cli.main(["example", "sc", *args]) == cli.EXIT_INPUT_ERROR
     assert "Ошибка запроса" in capsys.readouterr().out
 
 
 def test_cli_plain_sc_keeps_legacy_output_and_selected_errors_have_exit_three(monkeypatch, capsys):
     vm, solver = make_vm()
-    monkeypatch.setattr(cli, "run", lambda *_: vm.result)
+    import rza_calc.io.project as project_io
+    monkeypatch.setattr(project_io, 'load_project', lambda *_: SimpleNamespace(require_calculation_ready=lambda: None))
+    monkeypatch.setattr(cli, 'capture_project_input', lambda project: project)
+    monkeypatch.setattr(cli, "run_input", lambda *_: vm.result)
     monkeypatch.setattr(cli, "cmd_sc", lambda result: "legacy-sc-output")
     monkeypatch.setattr(cli, "exit_code", lambda *_: cli.EXIT_OK)
     assert cli.main(["example", "sc"]) == cli.EXIT_OK

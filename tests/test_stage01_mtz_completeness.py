@@ -28,15 +28,21 @@ def network(*, load_kw=50):
 
 
 def test_ideal_ring_cannot_hide_behind_successful_radial_mode():
+    from rza_calc.core.load_current import working_current
     net = network()
-    result = run(net, Methodology.load()).get('Q', 'МТЗ')
-    assert result.i_primary is not None
-    assert any(c.status == OK for c in result.checks)
+    meth = Methodology.load()
+    successful = working_current(net, net.branches['Q'], net.modes['radial'], meth)
+    result = run(net, meth).get('Q', 'МТЗ')
+    assert result.i_primary is None and result.i_secondary is None
+    assert successful.step in result.steps
     assert result.status == UNRESOLVED
     assert not result.is_complete
-    row = next(c for c in result.coverage if 'основной зоне' in c.name)
+    # A setting cannot be chosen before every required working current exists;
+    # sensitivity against a partial setting would be premature.
+    row = next(c for c in result.coverage if c.name == 'Рабочий ток')
     assert (row.checked, row.required) == (1, 2)
     assert 'ring' in '\n'.join(row.problems)
+    assert 'радиальная сумма нагрузок' in '\n'.join(row.problems)
     assert 'ПОЛНОТА ПРОВЕРКИ' in result.explain()
     assert '1 из 2' in result.explain()
 
@@ -92,19 +98,26 @@ def test_backup_error_does_not_disappear_when_main_zone_passes(monkeypatch):
     assert 'backup current unavailable' in result.explain()
 
 
-def test_working_current_failure_keeps_successful_conditions_but_not_ok(monkeypatch):
+def test_working_current_failure_keeps_successful_trace_without_partial_setting(monkeypatch):
     from rza_calc.core.protections import mtz
     net = network()
     net.modes['ring'].states['Q2'] = False
     original = mtz.working_current
+    meth = Methodology.load()
+    successful = original(net, net.branches['Q'], net.modes['radial'], meth)
     def current(net, br, mode, meth):
         if mode.id == 'ring':
             raise ValueError('test: working current unavailable')
         return original(net, br, mode, meth)
     monkeypatch.setattr(mtz, 'working_current', current)
-    result = calc_mtz(Context(net, Methodology.load()), net.branches['Q'])
-    assert result.i_primary is not None
+    result = calc_mtz(Context(net, meth), net.branches['Q'])
+    assert result.i_primary is None and result.i_secondary is None
+    assert successful.step in result.steps
     assert result.status == UNRESOLVED
+    assert not result.is_complete
+    row = next(c for c in result.coverage if c.name == 'Рабочий ток')
+    assert (row.checked, row.required) == (1, 2)
+    assert 'ring' in '\n'.join(row.problems)
     assert 'working current unavailable' in result.explain()
 
 

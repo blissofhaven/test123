@@ -22,6 +22,8 @@ from .protections.to import calc_to
 from .result import FAIL, OK, UNRESOLVED, ProtectionResult
 from .trace import Step, fmt
 from ..version import ALGORITHM_VERSION, APPLICATION_VERSION, KERNEL_VERSION
+from ..calculation.input import (CalculationCancelled, checkpoint,
+    capture_network_input, prepare_calculation_input)
 
 
 class CalculationCaseError(ValueError):
@@ -222,6 +224,7 @@ class ProjectResult:
     warnings: list[str] = field(default_factory=list)
     calculation_case: CalculationCase | None = None
     preliminary: bool = True
+    calculation_input: Any = field(default=None, repr=False, compare=False)
 
     def freshness_for(self, net: Network, meth: Methodology) -> str:
         if self.calculation_case is None:
@@ -263,7 +266,36 @@ class ProjectResult:
 
 
 def run(net: Network, meth: Methodology) -> ProjectResult:
-    blocking = ([f"Модель: {p}" for p in net.validate()]
+    """Compatibility entry point; caller-owned mutable DTOs never reach solvers."""
+    try:
+        request = capture_network_input(net, meth)
+    except (TypeError, ValueError) as exc:
+        raise CalculationInputError([str(exc)]) from exc
+    return run_input(request)
+
+
+def run_input(request, *, cancelled=None, progress=None) -> ProjectResult:
+    """Prepare and calculate solely from immutable captured records."""
+    try:
+        prepared = prepare_calculation_input(request, cancelled=cancelled, progress=progress)
+        net = prepared.compatibility_network.materialize()
+        meth = prepared.methodology.to_methodology()
+    except CalculationCancelled:
+        raise
+    except (TypeError, ValueError, KeyError) as exc:
+        raise CalculationInputError([str(exc)]) from exc
+    result = _run_owned(net, meth, cancelled=cancelled, progress=progress, calculation_input=prepared)
+    checkpoint(cancelled, progress, 1, 1, "Расчёт завершён")
+    result.calculation_input = prepared
+    result.ctx.calculation_input = prepared
+    return result
+
+
+def _run_owned(net: Network, meth: Methodology, *, cancelled=None, progress=None,
+               calculation_input=None) -> ProjectResult:
+    mode_sources = ((calculation_input is not None and calculation_input.stamp.canonical)
+                    or any(mode.operating_parameters for mode in net.modes.values()))
+    blocking = ([f"Модель: {p}" for p in net.validate(require_source_data=not mode_sources)]
                 + [f"Методика: {p}" for p in meth.blocking_errors()])
     if blocking:
         raise CalculationInputError(blocking)
@@ -376,13 +408,15 @@ def run(net: Network, meth: Methodology) -> ProjectResult:
         )
 
     with net.frozen_topology():
-        return _run_frozen(net, meth, case, warnings)
+        return _run_frozen(net, meth, case, warnings, cancelled=cancelled, progress=progress,
+                           calculation_input=calculation_input)
 
 
 def _run_frozen(net: Network, meth: Methodology, case: CalculationCase,
-                warnings: list[str]) -> ProjectResult:
+                warnings: list[str], *, cancelled=None, progress=None, calculation_input=None) -> ProjectResult:
     """Тело расчёта. Сеть внутри не изменяется — это использует кэш топологии."""
-    ctx = Context(net, meth)
+    ctx = Context(net, meth, cancelled=cancelled, progress=progress, calculation_input=calculation_input)
+    warnings.extend(ctx.mode_warnings)
     for mid, err in ctx.errors.items():
         warnings.append(f"Режим «{net.modes[mid].name}» не рассчитан: {err}")
     for mode_id, solver in ctx.solvers.items():
@@ -391,7 +425,9 @@ def _run_frozen(net: Network, meth: Methodology, case: CalculationCase,
 
     pr = ProjectResult(ctx, warnings=list(dict.fromkeys(warnings)), calculation_case=case)
 
-    for br in net.protection_points():
+    protection_points = net.protection_points()
+    for index, br in enumerate(protection_points):
+        checkpoint(cancelled, progress, index, len(protection_points), "Защиты: " + br.name)
         by_kind: dict[str, ProtectionResult] = {}
         if br.prot.mtz:
             by_kind["МТЗ"] = calc_mtz(ctx, br)
@@ -401,6 +437,7 @@ def _run_frozen(net: Network, meth: Methodology, case: CalculationCase,
             by_kind["ОЗЗ"] = calc_ozz(ctx, br)
         pr.results[br.id] = by_kind
 
+    checkpoint(cancelled, progress, 0, 1, "Согласование защит")
     pr.time_steps = sel.assign_times(ctx, pr.results)
     pr.pairs = sel.check(ctx, pr.results)
     return pr

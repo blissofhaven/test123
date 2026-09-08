@@ -21,6 +21,8 @@ GUI на PySide6 надстраивается сверху и вызывает �
     report                   всё сразу
     save-case <паспорт.json>  сохранить полный профиль и паспорт расчёта
     replay-case <паспорт.json> повторить расчёт по сохранённой методике
+    save-input <вход.json> сохранить неизменяемый вход без геометрии
+    replay-input          рассчитать архив входа, указанный вместо проекта
 
 save-case создаёт только новый файл (существующий не перезаписывается).
 Сохранение паспорта не превращает отрицательный инженерный результат в успех:
@@ -56,7 +58,9 @@ import sys
 from pathlib import Path
 
 from .core import selectivity as sel
-from .core.engine import CalculationCase, ProjectResult, render_table, run, summary_table
+from .core.engine import CalculationCase, ProjectResult, render_table, run, run_input, summary_table
+from .calculation.input import (capture_project_input, load_calculation_input,
+                                save_calculation_input)
 from .core.fault_types import FaultSpec, FaultType
 from .core.result import FAIL, OK, UNRESOLVED
 from .core.trace import fmt
@@ -440,16 +444,28 @@ def main(argv: list[str] | None = None) -> int:
         print("Ошибка запроса: replay-case требует один путь сохранённого паспорта.")
         return EXIT_INPUT_ERROR
 
-    from .io.project import load
+    from .io.project import load, load_project
     saved_case = None
     try:
         if cmd == "replay-case":
             saved_case = CalculationCase.load(args[0])
             net, meth, meta = load(path, methodology_override=saved_case.to_methodology())
             pr = saved_case.replay(net)
+        elif cmd == "replay-input":
+            if args:
+                raise CliInputError("replay-input не принимает дополнительных аргументов.")
+            pr = run_input(load_calculation_input(path))
         else:
-            net, meth, meta = load(path)
-            pr = run(net, meth)
+            project = load_project(path)
+            request = capture_project_input(project)
+            if cmd == "save-input":
+                if len(args) != 1:
+                    raise CliInputError("save-input требует путь нового файла расчётного входа.")
+                save_calculation_input(request, args[0])
+                print(f"Расчётный вход сохранён: {Path(args[0]).resolve()}")
+                return EXIT_OK
+            project.require_calculation_ready()
+            pr = run_input(request)
     except (OSError, KeyError, ValueError) as exc:
         print("Расчёт не выполнен: исходные данные содержат блокирующую ошибку.")
         print(exc)
@@ -479,6 +495,9 @@ def main(argv: list[str] | None = None) -> int:
         elif cmd == "replay-case":
             print(f"Расчёт повторён по паспорту: {Path(args[0]).resolve()}")
             print(f"Исходный паспорт, UTC: {saved_case.created_at_utc}")
+            print(cmd_report(pr))
+        elif cmd == "replay-input":
+            print(f"Расчёт выполнен по неизменяемому входу: {path.resolve()}")
             print(cmd_report(pr))
         elif cmd == "save-case":
             if len(args) != 1:

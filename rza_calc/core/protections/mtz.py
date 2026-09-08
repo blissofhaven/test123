@@ -56,6 +56,10 @@ def calc_mtz(ctx: Context, br: Branch) -> ProtectionResult:
             load_problems.append(f"Режим «{mode.name}» ({mode.id}): {exc}")
     res.record_coverage("Рабочий ток", len(per_mode), len(ordered), load_problems)
     available = [mode for mode in ordered if mode.id in per_mode]
+    if load_problems:
+        res.steps.extend(value.step for value in per_mode.values())
+        res.messages.append("Уставка МТЗ не выбрана: рабочий ток отсутствует хотя бы в одном обязательном режиме. Полученные токи остальных режимов приведены только как промежуточные данные.")
+        return res
     if not available:
         res.messages.append("Рабочий ток не рассчитан ни в одном применимом режиме.")
         return res

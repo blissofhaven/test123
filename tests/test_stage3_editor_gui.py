@@ -11,7 +11,9 @@ import pytest
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 os.environ.setdefault("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-gpu --no-sandbox")
 
-from PySide6.QtWidgets import QApplication, QGraphicsScene  # noqa: E402
+from PySide6.QtCore import Qt, QTimer  # noqa: E402
+from PySide6.QtTest import QTest  # noqa: E402
+from PySide6.QtWidgets import QApplication, QDialogButtonBox, QGraphicsScene  # noqa: E402
 
 from rza_calc.domain.catalog_snapshot import ProjectCatalogSnapshots  # noqa: E402
 from rza_calc.domain.diagram import (  # noqa: E402
@@ -27,6 +29,8 @@ from rza_calc.gui.editor_panels import (  # noqa: E402
     EquipmentLibraryTree,
 )
 from rza_calc.gui.editor_scene import EditorCanvas  # noqa: E402
+from rza_calc.gui.line_parameters import LineParametersDialog  # noqa: E402
+from rza_calc.domain.fingerprint import electrical_model_fingerprint  # noqa: E402
 from rza_calc.gui.strings import RU, ui_text  # noqa: E402
 
 
@@ -127,7 +131,8 @@ def test_library_hides_manual_node_and_buses_create_real_electrical_nodes() -> N
 
 
 @pytest.mark.parametrize("kind", (LineKind.OVERHEAD, LineKind.CABLE))
-def test_physical_line_library_item_creates_real_branch_ports_and_route(kind) -> None:
+@pytest.mark.parametrize("accept_parameters", (True, False))
+def test_physical_line_library_item_creates_real_branch_ports_and_route(kind, accept_parameters) -> None:
     _app()
     controller = _controller()
     voltage = VoltageClassId("builtin.voltage.ac.10kv")
@@ -144,10 +149,50 @@ def test_physical_line_library_item_creates_real_branch_ports_and_route(kind) ->
         first_port = workspace.scene._items_by_id[first.representation_id].port_item(first.port_ids[-1])
         second_port = workspace.scene._items_by_id[second.representation_id].port_item(second.port_ids[0])
         journal = len(controller.journal)
+        diagram_before = controller.diagram
+        fingerprint_before = electrical_model_fingerprint(controller.model)
         workspace.canvas._add_equipment(payload, first_port.scenePos().x(), first_port.scenePos().y())
         assert workspace.scene.physical_line_active
         workspace.scene.update_physical_line_cursor(second_port.scenePos())
-        assert workspace.scene.finish_physical_line()
+        seen, timed_out = [], []
+        poll, watchdog = QTimer(workspace), QTimer(workspace)
+        watchdog.setSingleShot(True)
+        def answer():
+            dialog = next((widget for widget in QApplication.topLevelWidgets()
+                if isinstance(widget, LineParametersDialog) and widget.isVisible()
+                and widget.parent() is workspace.canvas), None)
+            if dialog is None:
+                return
+            poll.stop()
+            seen.append(dialog._kind)
+            assert len(controller.journal) == journal
+            dialog.mode_combo.setCurrentIndex(dialog.mode_combo.findData("draft"))
+            button = QDialogButtonBox.StandardButton.Ok if accept_parameters else QDialogButtonBox.StandardButton.Cancel
+            QTest.mouseClick(dialog.buttons.button(button), Qt.MouseButton.LeftButton)
+            watchdog.stop()
+        def timeout():
+            timed_out.append(True)
+            poll.stop()
+            for dialog in QApplication.topLevelWidgets():
+                if isinstance(dialog, LineParametersDialog) and dialog.isVisible() and dialog.parent() is workspace.canvas:
+                    dialog.reject()
+        poll.timeout.connect(answer)
+        watchdog.timeout.connect(timeout)
+        poll.start(1)
+        watchdog.start(1500)
+        try:
+            assert workspace.scene.finish_physical_line()
+        finally:
+            poll.stop()
+            watchdog.stop()
+        assert seen == [kind] and not timed_out
+        if not accept_parameters:
+            assert len(controller.journal) == journal
+            assert controller.diagram == diagram_before
+            assert electrical_model_fingerprint(controller.model) == fingerprint_before
+            assert not controller.model.line_sections and not controller.diagram.routes
+            assert not workspace.scene.physical_line_active
+            return
         assert len(controller.journal) == journal+1
         assert len(controller.model.equipment) == 3
         section = next(iter(controller.model.line_sections.values()))

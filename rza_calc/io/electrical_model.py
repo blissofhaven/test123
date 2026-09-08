@@ -696,7 +696,7 @@ def _parse_state(value: Any, index: int) -> OperatingState:
     positions = _object(row["positions"], context + ".positions")
     availability = _object(row["availability"], context + ".availability")
     try:
-        return OperatingState(
+        state = OperatingState(
             _id(row["id"], OperatingStateId, context + ".id"),
             _string(row["name"], context + ".name"),
             {
@@ -716,6 +716,9 @@ def _parse_state(value: Any, index: int) -> OperatingState:
                 for key, value in availability.items()
             },
         )
+        from ..domain.operating_parameters import operating_parameters
+        operating_parameters(state)
+        return state
     except (DomainInvariantError, ValueError) as exc:
         raise ElectricalModelFormatError(f"{context}: {exc}") from exc
 

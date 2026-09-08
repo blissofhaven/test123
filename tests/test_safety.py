@@ -94,7 +94,7 @@ def test_transformer_fallback_current_uses_ct_side():
     assert "35" in value.step.given["U стороны ТТ"]
 
 
-def test_parallel_lines_use_full_group_load_for_n_minus_one_setting():
+def test_parallel_lines_require_current_and_explicit_n_minus_one_carries_full_load():
     meth = Methodology.load()
     net = Network("две параллельные линии")
     net.add_node(Node("bus", "Шины 10 кВ", 10))
@@ -114,9 +114,20 @@ def test_parallel_lines_use_full_group_load_for_n_minus_one_setting():
     mode = net.add_mode(Mode("parallel", "Обе линии"))
     expected = (1800 / 0.9) / (math.sqrt(3.0) * 10.0)
     for line in lines:
-        value = working_current(net, line, mode, meth)
+        # The total demand cannot determine this branch's share with both
+        # parallel paths closed. An imagined N-1 must not substitute for it.
+        with pytest.raises(ValueError, match="Кольцо|Параллельная группа"):
+            working_current(net, line, mode, meth)
+        other = next(item for item in lines if item.id != line.id)
+        repair = net.add_mode(Mode(
+            "repair_" + other.id, "Выведена " + other.name,
+            availability={other.id: False},
+        ))
+        assert net.branch_conducting(line, repair)
+        assert not net.branch_conducting(other, repair)
+        value = working_current(net, line, repair, meth)
         assert abs(value.value - expected) < 1e-9
-        assert "параллельно" in (value.step.note or "")
+        assert value.step.given["Режим"] == repair.name
 
 
 def test_section_breaker_carries_transferred_section_in_transfer_mode():

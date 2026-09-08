@@ -323,19 +323,31 @@ def test_07_route_waypoint_move_does_not_change_topology() -> None:
     project, controller = _controller("07")
     first = controller.add_equipment("builtin.external_grid", "Источник", x=0, y=0, voltage_class_by_group={"main": U10})
     second = controller.add_equipment("builtin.load", "Нагрузка", x=160, y=80, voltage_class_by_group={"main": U10})
-    connected = controller.connect_ports(first.port_ids[0], second.port_ids[0])
+    terminals = [controller._port_anchor_geometry(
+        controller.model, controller.diagram.representations[item.representation_id], item.port_ids[0]
+    ) for item in (first, second)]
+    initial_points = tuple(RouteWaypoint(RouteWaypointId.new(), x, y) for x, y in (
+        (terminals[0].x, terminals[0].y), (terminals[0].x, 40),
+        (terminals[1].x, 40), (terminals[1].x, terminals[1].y),
+    ))
+    connected = controller.connect_ports(
+        first.port_ids[0], second.port_ids[0], route_waypoints=initial_points)
     assert connected.route_id is not None
     topology_before = project.electrical_model.connectivity_signature()
     route = project.diagram.routes[connected.route_id]
     moved = (
-        replace(route.waypoints[0], x=route.waypoints[0].x + 20.0),
-        RouteWaypoint(RouteWaypointId.new(), route.waypoints[0].x + 20.0, route.waypoints[-1].y),
+        route.waypoints[0],
+        replace(route.waypoints[1], y=45),
+        replace(route.waypoints[2], y=45),
         route.waypoints[-1],
     )
+    assert [(p.x, p.y) for p in (moved[0], moved[-1])] == [
+        (p.x, p.y) for p in terminals]
 
     controller.reroute_diagram_route(connected.route_id, moved)
 
     assert project.electrical_model.connectivity_signature() == topology_before
+    assert project.diagram.routes[connected.route_id].waypoints == moved
 
 
 # 8. Пересечение линий не создаёт узел.

@@ -273,6 +273,10 @@ def test_bus_same_node_line_insertion_is_symmetric_and_preserves_other_taps(canv
     controller.connect_port_to_node(peer.port_ids[0], bus.node_id)
     canvas = canvas_factory(controller)
     before = _state(canvas)
+    original_routes = dict(controller.diagram.routes)
+    replaced = next(route.id for route in original_routes.values()
+                    if any(anchor.target_port_id == first.port_ids[0]
+                           for anchor in (route.start_anchor, route.end_anchor)))
     calls = menu_reply(canvas, "cable")
     canvas.activate_connection_tool()
     start = QPointF(-60, 0)
@@ -281,11 +285,23 @@ def test_bus_same_node_line_insertion_is_symmetric_and_preserves_other_taps(canv
     _mouse(canvas, "press", start)
     _mouse(canvas, "move", (start + end) / 2)
     _mouse(canvas, "move", end)
+    from rza_calc.editor.equipment_attachment import occupied_segments
+    assert canvas.scene._connection_replaced_route_id == replaced
+    assert canvas.scene._new_route_occupied_segments(reconnect=True) == occupied_segments(
+        controller.diagram, canvas.page_id, (replaced,))
+    _mouse(canvas, "move", QPointF(-200, 500))
+    assert canvas.scene._connection_replaced_route_id is None
+    assert canvas.scene._new_route_occupied_segments(reconnect=True) == occupied_segments(
+        controller.diagram, canvas.page_id, ())
+    assert _state(canvas) == before
+    _mouse(canvas, "move", end)
     _mouse(canvas, "release", end)
     assert_one_menu(canvas, calls, before)
     assert len(controller.model.line_sections) == 1
     assert controller.model.node_for_port(peer.port_ids[0]).id == bus.node_id
     assert controller.model.node_for_port(first.port_ids[0]).id != bus.node_id
+    assert all(controller.diagram.routes[key] == route
+               for key, route in original_routes.items() if key != replaced)
     assert not controller.diagram.validate_targets(controller.model)
     controller.undo()
     assert _state(canvas) == before

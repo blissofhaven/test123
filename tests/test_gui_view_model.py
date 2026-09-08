@@ -30,13 +30,21 @@ def test_gui_mode_changes_generator_cards_and_power():
 
 def test_gui_custom_mode_can_change_generator_composition_and_recalculate():
     vm = make_vm()
+    original_modes = tuple(vm.net.modes)
     vm.ensure_custom_mode()
     vm.set_generator_enabled("G1", False)
     vm.set_generator_enabled("G4", False)
-    assert vm.mode_id == "gui_custom"
+    assert vm.mode_draft is not None and tuple(vm.net.modes) == original_modes
     assert vm.total_generation_mw() == 20.0
+    assert vm.current_result is None and not vm.recalculate()
+    from dataclasses import replace
+    vm.update_mode_draft(replace(vm.mode_draft,
+        parameters=replace(vm.mode_draft.parameters, parallel_operation=True)))
+    assert vm.apply_mode_draft()
+    assert vm.mode_id not in original_modes
     assert vm.recalculate()
-    assert "gui_custom" in vm.result.ctx.solvers
+    assert vm.mode_id in vm.result.ctx.solvers
+    assert "gui_custom" not in vm.net.modes
 
 
 def test_gui_builds_honest_fallback_tree_for_legacy_project():
@@ -55,4 +63,3 @@ def test_gui_selection_exposes_properties_faults_and_settings():
     assert any(row.label == "Терминал РЗА" for row in vm.properties())
     assert len(vm.fault_rows()) == len(vm.net.modes)
     assert {row.kind for row in vm.setting_rows()} == {"МТЗ", "ТО", "ОЗЗ"}
-

@@ -2760,6 +2760,7 @@ class DiagramGraphicsScene(QGraphicsScene):
         self.setItemIndexMethod(QGraphicsScene.ItemIndexMethod.BspTreeIndex)
         self._document: DiagramDocument | None = None
         self._model: ElectricalModel | None = None
+        self._model_revision: int | None = None
         self._page_id: PageId | None = None
         self._operating_state_id: OperatingStateId | None = None
         self._topology_engine = TopologyEngine()
@@ -3155,6 +3156,7 @@ class DiagramGraphicsScene(QGraphicsScene):
             self._syncing = False
         self._document = document
         self._model = model
+        self._model_revision = model.revision
         self._page_id = page_id
         self._operating_state_id = operating_state_id
         self._render_context = render_context
@@ -4519,6 +4521,26 @@ class DiagramGraphicsScene(QGraphicsScene):
             target = self._available_bus_target(target)
         peer = RouteVertex(target.x, target.y) if target is not None else RouteVertex(scene_pos.x(), scene_pos.y())
         source = self._connection_tool.source_target
+        if source is not None and source.kind in {
+            ConnectionTargetKind.BUS, ConnectionTargetKind.ELECTRICAL_NODE,
+        }:
+            # A same-node insertion can be drawn in either direction. Only
+            # the unique wire between these exact visible ends is replaced;
+            # all other taps remain occupied, including a different target.
+            candidates = []
+            if target is not None and target.kind is ConnectionTargetKind.EQUIPMENT_PORT:
+                for route in self._document.routes.values():
+                    if route.page_id != self._page_id or route.kind is not DiagramRouteKind.NODE_CONNECTION:
+                        continue
+                    for first, second in ((route.start_anchor, route.end_anchor),
+                                          (route.end_anchor, route.start_anchor)):
+                        if (str(first.representation_id) == source.representation_id
+                                and str(first.electrical_node_id) == source.target_id
+                                and str(second.representation_id) == target.representation_id
+                                and str(second.target_port_id) == target.target_id):
+                            candidates.append(route.id)
+                            break
+            self._connection_replaced_route_id = candidates[0] if len(candidates) == 1 else None
         if source is not None and source.kind is ConnectionTargetKind.BUS and callable(self._bus_exit_direction_preview):
             direction = self._bus_exit_direction_preview(source, peer)
             self._connection_tool.source_target = replace(source, direction=direction)
@@ -4534,15 +4556,20 @@ class DiagramGraphicsScene(QGraphicsScene):
                 occupied_segments=self._new_route_occupied_segments(reconnect=True),
             )
         except RoutingError as exc:
-            self._connection_routing_error = str(exc)
+            # An already invalid target (for example a full bus) keeps its
+            # actionable cause; a failed preview must not obscure it.
+            reason = (target.message if target is not None
+                      and target.feedback is ConnectionTargetFeedback.INCOMPATIBLE
+                      and target.message else str(exc))
+            self._connection_routing_error = reason
             self._connection_tool.preview_vertices = ()
             self._preview_item.clear()
             if target is not None:
-                target = replace(target, feedback=ConnectionTargetFeedback.INCOMPATIBLE, message=str(exc))
+                target = replace(target, feedback=ConnectionTargetFeedback.INCOMPATIBLE, message=reason)
                 self._connection_target = target
                 self._connection_tool.target = target
             self._apply_connection_highlight(target)
-            self.connectionStatusMessage.emit(str(exc))
+            self.connectionStatusMessage.emit(reason)
             return
         feedback = target.feedback if target is not None else ConnectionTargetFeedback.NEUTRAL
         self._preview_item.set_preview(
@@ -7481,6 +7508,7 @@ class EditorCanvas(QWidget):
     equipmentDetailsRequested = Signal(object)
     toolStateChanged = Signal(object)
     placementFinished = Signal(object)
+    switchDraftRequested = Signal(object, object)
 
     def __init__(
         self,
@@ -7491,6 +7519,8 @@ class EditorCanvas(QWidget):
     ):
         super().__init__(parent)
         self.controller = controller
+        self.mode_draft_switching = False
+        self._operating_mode_preview = None
         self.confirm_deletions = bool(confirm_deletions)
         self._pending_tap_branch: PendingTapBranch | None = None
         self._navigation_back = []
@@ -7606,11 +7636,12 @@ class EditorCanvas(QWidget):
                 candidate = PageId(str(active_page))
                 if candidate in self.controller.diagram.pages:
                     page_id = candidate
+        preview = self._operating_mode_preview
         self.scene.sync_document(
             self.controller.diagram,
-            self.controller.model,
+            preview[0] if preview is not None else self.controller.model,
             page_id=page_id,
-            operating_state_id=getattr(
+            operating_state_id=preview[1] if preview is not None else getattr(
                 self.controller, "active_operating_state_id", None
             ),
         )
@@ -7631,11 +7662,12 @@ class EditorCanvas(QWidget):
         setter = getattr(self.controller, "set_active_page", None)
         if callable(setter):
             self._call("set_active_page", page_id)
+        preview = self._operating_mode_preview
         self.scene.sync_document(
             self.controller.diagram,
-            self.controller.model,
+            preview[0] if preview is not None else self.controller.model,
             page_id=page_id,
-            operating_state_id=getattr(
+            operating_state_id=preview[1] if preview is not None else getattr(
                 self.controller, "active_operating_state_id", None
             ),
         )
@@ -9249,6 +9281,9 @@ class EditorCanvas(QWidget):
             self.errorOccurred.emit("Не удалось определить коммутационный аппарат.")
             return
         method = getattr(self.controller, "switch_equipment", None)
+        if self.mode_draft_switching:
+            self.switchDraftRequested.emit(equipment_id, position)
+            return
         if callable(method):
             if self.controller.workspace_state.confirm_switching:
                 equipment = self.controller.model.equipment.get(equipment_id)

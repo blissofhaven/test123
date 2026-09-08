@@ -328,22 +328,32 @@ def test_route_only_edit_has_undo_redo_and_never_changes_topology() -> None:
     controller = ProjectEditorController(project)
     first = controller.add_equipment("builtin.load", "Нагрузка-1", x=0, y=0, voltage_class_by_group={"main": U10})
     second = controller.add_equipment("builtin.load", "Нагрузка-2", x=200, y=0, voltage_class_by_group={"main": U10})
-    connected = controller.connect_ports(first.port_ids[0], second.port_ids[0])
+    terminals = [controller._port_anchor_geometry(
+        controller.model, controller.diagram.representations[item.representation_id], item.port_ids[0]
+    ) for item in (first, second)]
+    initial_points = tuple(RouteWaypoint(RouteWaypointId.new(), x, y) for x, y in (
+        (terminals[0].x, terminals[0].y), (terminals[0].x, -60),
+        (terminals[1].x, -60), (terminals[1].x, terminals[1].y),
+    ))
+    connected = controller.connect_ports(
+        first.port_ids[0], second.port_ids[0], route_waypoints=initial_points)
     assert connected.route_id is not None
     original = project.diagram.routes[connected.route_id]
     signature = project.electrical_model.connectivity_signature()
     changed_points = (
-        RouteWaypoint(RouteWaypointId.new(), 0, 0),
+        original.waypoints[0],
         RouteWaypoint(
             RouteWaypointId.new(),
-            80,
-            0,
+            terminals[0].x,
+            -100,
             RouteWaypointSource.USER,
             True,
         ),
-        RouteWaypoint(RouteWaypointId.new(), 80, 40),
-        RouteWaypoint(RouteWaypointId.new(), 200, 40),
+        RouteWaypoint(RouteWaypointId.new(), terminals[1].x, -100),
+        original.waypoints[-1],
     )
+    assert [(p.x, p.y) for p in (changed_points[0], changed_points[-1])] == [
+        (p.x, p.y) for p in terminals]
 
     controller.reroute_diagram_route(connected.route_id, changed_points)
     assert project.diagram.routes[connected.route_id].waypoints == changed_points

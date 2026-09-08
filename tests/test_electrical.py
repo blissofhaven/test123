@@ -258,6 +258,15 @@ def test_open_branch_leaves_the_admittance_matrix():
 
 
 # ── демонстрационный проект целиком ────────────────────────────────────────
+def _apply_and_calculate_mode(vm):
+    from dataclasses import replace
+    assert vm.mode_draft is not None and vm.current_result is None
+    vm.update_mode_draft(replace(vm.mode_draft,
+        parameters=replace(vm.mode_draft.parameters, parallel_operation=True)))
+    vm.apply_mode_draft()
+    assert vm.recalculate()
+
+
 def test_demo_switch_toggle_is_transactional_and_recomputes():
     vm = ProjectViewModel.open(EXAMPLE)
     before = vm.electrical_map()
@@ -265,6 +274,7 @@ def test_demo_switch_toggle_is_transactional_and_recomputes():
     assert before.nodes["K1_10_1"].i3_a is not None
 
     assert vm.toggle_switch("SW:VF1:from") is False
+    _apply_and_calculate_mode(vm)
     after = vm.electrical_map()
     assert not after.node_is_live("K1_10_1")
     assert after.nodes["K1_10_1"].i3_a is None, "старый ток обязан исчезнуть"
@@ -272,6 +282,7 @@ def test_demo_switch_toggle_is_transactional_and_recomputes():
     assert after.switches["SW:VF1:from"].current_a == 0.0
 
     assert vm.toggle_switch("SW:VF1:from") is True
+    _apply_and_calculate_mode(vm)
     restored = vm.electrical_map()
     assert restored.nodes["K1_10_1"].i3_a is not None
 
@@ -280,6 +291,7 @@ def test_demo_ktp_reserve_input_is_real_and_carries_supply():
     vm = ProjectViewModel.open(EXAMPLE)
     # Рабочий ввод отключён — секция питается настоящим резервным фидером.
     vm.toggle_switch("SW:VF1:from")
+    _apply_and_calculate_mode(vm)
     electrical = vm.electrical_map()
     assert not electrical.node_is_live("K1_10_1")
     assert electrical.node_is_live("K1_10_2"), "резервный ввод должен держать 2 СШ"
@@ -297,6 +309,7 @@ def test_demo_deenergized_point_has_no_current_at_all():
     vm = ProjectViewModel.open(EXAMPLE)
     vm.toggle_switch("SW:VF1:from")
     vm.toggle_switch("SW:VF1R:from")
+    _apply_and_calculate_mode(vm)
     electrical = vm.electrical_map()
     for node_id in ("K1_10_1", "K1_10_2", "K1_04_1", "K1_04_2"):
         assert electrical.nodes[node_id].i3_a is None
@@ -310,6 +323,7 @@ def test_demo_state_comes_only_from_the_core_map():
     assert before is not None
     assert before.node_is_live("K1_10_1")
     vm.toggle_switch("SW:VF1:from")
+    _apply_and_calculate_mode(vm)
     after = vm.electrical_map()
     assert after.nodes["K1_10_1"].energized is False
     assert not after.node_is_live("K1_10_1")

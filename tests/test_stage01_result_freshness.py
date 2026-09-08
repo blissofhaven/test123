@@ -9,7 +9,7 @@ os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
 import pytest
 
-from rza_calc.core.engine import run
+from rza_calc.core.engine import run_input
 from rza_calc.core.result import Check, FAIL, OK, UNRESOLVED
 from rza_calc.domain.electrical import thaw_json
 from rza_calc.editor.controller import ProjectEditorController
@@ -23,7 +23,7 @@ def opened(example="four_fault_types"):
     line = next(b for b in vm.net.branches.values() if b.kind == "line")
     vm.select("node", line.node_to)
     vm.select_mode(next(iter(vm.net.modes)))
-    return vm, ProjectEditorController(vm.project)
+    return vm, vm.mode_controller
 
 
 def edit_payload(controller, predicate, **changes):
@@ -80,13 +80,13 @@ def test_every_electrical_input_invalidates_all_result_consumers(change):
     assert vm.status_counts()[OK] == 0
     assert vm.status_counts()[UNRESOLVED] > 0
     assert all(node.i3_a is None and node.i2_a is None for node in vm.electrical_map().nodes.values())
-    assert "устар" in " ".join(vm.warnings()).lower()
+    assert ("черновик" if change == "switch" else "устар") in " ".join(vm.warnings()).lower()
 
 
 def test_geometry_selection_mode_and_fault_type_reuse_current_snapshot(monkeypatch):
     vm, controller = opened()
     snapshot = vm.result
-    monkeypatch.setattr("rza_calc.gui.view_model.run", lambda *_: pytest.fail("No recalculation for presentation choices"))
+    monkeypatch.setattr("rza_calc.gui.view_model.run_input", lambda *_: pytest.fail("No recalculation for presentation choices"))
     representation = next(iter(controller.diagram.representations))
     controller.set_label(representation, text="Подпись для проверки")
     vm.select_mode("min")
@@ -144,9 +144,15 @@ def test_cached_fault_details_follow_the_current_result_and_selection(change):
 
 
 def test_editing_operating_state_invalidates_snapshot_even_after_mode_selection():
-    vm, _ = opened()
+    from dataclasses import replace
+    from rza_calc.domain.electrical import EquipmentAvailability
+    vm, controller = opened()
     line = next(b for b in vm.net.branches.values() if b.kind == "line")
-    vm.net.modes["min"].states[line.id] = False
+    mode = next(row for row in vm.operating_modes() if row.calculation_mode_id == 'min')
+    draft = controller.operating_mode_draft(mode.state_id)
+    eid = controller.resolve_operating_mode_equipment(line.id)
+    draft = replace(draft, availability={**draft.availability, eid: EquipmentAvailability.OUT_OF_SERVICE})
+    controller.apply_operating_mode_preview(controller.preview_operating_mode(draft))
     vm.select_mode("max")
     vm.select_fault_type("1ph_g")
     assert vm.current_result is None
@@ -156,13 +162,14 @@ def test_editing_operating_state_invalidates_snapshot_even_after_mode_selection(
 def test_inplace_edits_leave_the_historical_solver_network_and_modes_unchanged():
     from rza_calc.core.fingerprint import network_fingerprint
 
-    vm, _ = opened()
+    vm, controller = opened()
     result = vm.result
     frozen_fingerprint = network_fingerprint(result.ctx.net)
     before = result.ctx.solvers["min"].at("FAULT").i3
     live_line = next(b for b in vm.net.branches.values() if b.kind == "line")
-    live_line.length_km = 20.0
-    vm.net.modes["min"].states[live_line.id] = False
+    # Stage 4 makes the canonical input authoritative; editing the derived
+    # Network is no longer a supported project mutation.
+    change_length(controller)
     assert vm.current_result is None
     assert result.ctx.net is not vm.net
     assert network_fingerprint(result.ctx.net) == frozen_fingerprint
@@ -202,7 +209,7 @@ def test_failed_recalculation_cannot_leave_old_ok_or_currents(monkeypatch):
     vm, _ = opened("ps_severnaya")
     def fail(*_):
         raise ValueError("Контрольная ошибка нового расчёта")
-    monkeypatch.setattr("rza_calc.gui.view_model.run", fail)
+    monkeypatch.setattr("rza_calc.gui.view_model.run_input", fail)
     assert not vm.recalculate()
     assert vm.current_result is None
     assert vm.result is None
@@ -214,14 +221,14 @@ def test_failed_recalculation_cannot_leave_old_ok_or_currents(monkeypatch):
 @pytest.mark.parametrize("change", ["network", "methodology"])
 def test_snapshot_changed_during_calculation_is_rejected_at_publication(monkeypatch, change):
     vm, controller = opened()
-    def delayed(net, methodology):
-        candidate = run(net, methodology)
+    def delayed(captured):
+        candidate = run_input(captured)
         if change == "network":
             change_length(controller)
         else:
-            methodology.data["mtz"]["k_ots"]["value"] = 1.2
+            vm.project.methodology.data["mtz"]["k_ots"]["value"] = 1.2
         return candidate
-    monkeypatch.setattr("rza_calc.gui.view_model.run", delayed)
+    monkeypatch.setattr("rza_calc.gui.view_model.run_input", delayed)
     assert not vm.recalculate()
     assert vm.current_result is None and vm.result is None
     assert "измен" in vm.calculation_error.lower()
@@ -231,15 +238,15 @@ def test_late_older_calculation_cannot_erase_a_newer_result(monkeypatch):
     vm, controller = opened()
     calls = []
     latest = []
-    def delayed(net, methodology):
-        candidate = run(net, methodology)
+    def delayed(captured):
+        candidate = run_input(captured)
         calls.append(candidate)
         if len(calls) == 1:
             change_length(controller)
             assert vm.recalculate()
             latest.append(vm.result)
         return candidate
-    monkeypatch.setattr("rza_calc.gui.view_model.run", delayed)
+    monkeypatch.setattr("rza_calc.gui.view_model.run_input", delayed)
     assert not vm.recalculate()
     assert vm.current_result is latest[0]
     assert not vm.calculation_error
@@ -249,15 +256,15 @@ def test_late_older_failure_cannot_erase_a_newer_result(monkeypatch):
     vm, controller = opened()
     calls = []
     latest = []
-    def delayed(net, methodology):
+    def delayed(captured):
         calls.append(None)
         if len(calls) == 1:
             change_length(controller)
             assert vm.recalculate()
             latest.append(vm.result)
             raise ValueError("Ошибка предыдущей попытки")
-        return run(net, methodology)
-    monkeypatch.setattr("rza_calc.gui.view_model.run", delayed)
+        return run_input(captured)
+    monkeypatch.setattr("rza_calc.gui.view_model.run_input", delayed)
     assert not vm.recalculate()
     assert vm.current_result is latest[0]
     assert not vm.calculation_error
@@ -294,7 +301,12 @@ def test_real_window_updates_after_controller_undo_redo_and_tab_type_mode_change
         app.processEvents()
         assert window.bottom.fault_table.item(0, 2).text() == "—"
         window.header.recalcRequested.emit()
-        app.processEvents()
+        from PySide6.QtTest import QTest
+        import time
+        deadline = time.monotonic() + 5
+        while window._calculation_worker is not None and time.monotonic() < deadline:
+            QTest.qWait(5)
+        assert window._calculation_worker is None
         assert window.bottom.fault_table.item(0, 2).text() != "—"
     finally:
         window.close()

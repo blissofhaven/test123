@@ -1,0 +1,446 @@
+[
+  {
+    "path": "gtes_sever/protections/AT1|МТЗ/checks/Kч в основной зоне",
+    "expected": {
+      "required": 1.5,
+      "status": "fail",
+      "value": 0.439140481942
+    },
+    "actual": "<отсутствует>"
+  },
+  {
+    "path": "gtes_sever/protections/AT1|МТЗ/checks/Полнота: Рабочий ток",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": null,
+      "required": null,
+      "status": "unresolved"
+    }
+  },
+  {
+    "path": "gtes_sever/protections/AT1|МТЗ/governing_mode",
+    "expected": "Максимальный (все ГТГ)",
+    "actual": ""
+  },
+  {
+    "path": "gtes_sever/protections/AT1|МТЗ/i_calc_a",
+    "expected": 38.3887284251,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/AT1|МТЗ/i_primary_a",
+    "expected": 80.0,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/AT1|МТЗ/i_secondary_a",
+    "expected": 0.5,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/AT1|МТЗ/status",
+    "expected": "fail",
+    "actual": "unresolved"
+  },
+  {
+    "path": "gtes_sever/protections/AT2|МТЗ/checks/Kч в основной зоне",
+    "expected": {
+      "required": 1.5,
+      "status": "fail",
+      "value": 0.439140481942
+    },
+    "actual": "<отсутствует>"
+  },
+  {
+    "path": "gtes_sever/protections/AT2|МТЗ/checks/Полнота: Рабочий ток",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": null,
+      "required": null,
+      "status": "unresolved"
+    }
+  },
+  {
+    "path": "gtes_sever/protections/AT2|МТЗ/governing_mode",
+    "expected": "Максимальный (все ГТГ)",
+    "actual": ""
+  },
+  {
+    "path": "gtes_sever/protections/AT2|МТЗ/i_calc_a",
+    "expected": 38.3887284251,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/AT2|МТЗ/i_primary_a",
+    "expected": 80.0,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/AT2|МТЗ/i_secondary_a",
+    "expected": 0.5,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/AT2|МТЗ/status",
+    "expected": "fail",
+    "actual": "unresolved"
+  },
+  {
+    "path": "gtes_sever/protections/G1_bt|МТЗ/checks/Kч в основной зоне",
+    "expected": {
+      "required": 1.5,
+      "status": "fail",
+      "value": 1.20510966498
+    },
+    "actual": "<отсутствует>"
+  },
+  {
+    "path": "gtes_sever/protections/G1_bt|МТЗ/checks/Полнота: Рабочий ток",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": null,
+      "required": null,
+      "status": "unresolved"
+    }
+  },
+  {
+    "path": "gtes_sever/protections/G1_bt|МТЗ/governing_mode",
+    "expected": "Максимальный (все ГТГ)",
+    "actual": ""
+  },
+  {
+    "path": "gtes_sever/protections/G1_bt|МТЗ/i_calc_a",
+    "expected": 2506.91564253,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/G1_bt|МТЗ/i_primary_a",
+    "expected": 3000.0,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/G1_bt|МТЗ/i_secondary_a",
+    "expected": 15.0,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/G1_bt|МТЗ/status",
+    "expected": "fail",
+    "actual": "unresolved"
+  },
+  {
+    "path": "gtes_sever/protections/G2_bt|МТЗ/checks/Kч в основной зоне",
+    "expected": {
+      "required": 1.5,
+      "status": "fail",
+      "value": 1.20510966498
+    },
+    "actual": "<отсутствует>"
+  },
+  {
+    "path": "gtes_sever/protections/G2_bt|МТЗ/checks/Полнота: Рабочий ток",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": null,
+      "required": null,
+      "status": "unresolved"
+    }
+  },
+  {
+    "path": "gtes_sever/protections/G2_bt|МТЗ/governing_mode",
+    "expected": "Максимальный (все ГТГ)",
+    "actual": ""
+  },
+  {
+    "path": "gtes_sever/protections/G2_bt|МТЗ/i_calc_a",
+    "expected": 2506.91564253,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/G2_bt|МТЗ/i_primary_a",
+    "expected": 3000.0,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/G2_bt|МТЗ/i_secondary_a",
+    "expected": 15.0,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/G2_bt|МТЗ/status",
+    "expected": "fail",
+    "actual": "unresolved"
+  },
+  {
+    "path": "gtes_sever/protections/G3_bt|МТЗ/checks/Kч в основной зоне",
+    "expected": {
+      "required": 1.5,
+      "status": "fail",
+      "value": 1.41934568164
+    },
+    "actual": "<отсутствует>"
+  },
+  {
+    "path": "gtes_sever/protections/G3_bt|МТЗ/checks/Полнота: Рабочий ток",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": null,
+      "required": null,
+      "status": "unresolved"
+    }
+  },
+  {
+    "path": "gtes_sever/protections/G3_bt|МТЗ/governing_mode",
+    "expected": "Максимальный (все ГТГ)",
+    "actual": ""
+  },
+  {
+    "path": "gtes_sever/protections/G3_bt|МТЗ/i_calc_a",
+    "expected": 1002.76625701,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/G3_bt|МТЗ/i_primary_a",
+    "expected": 1100.0,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/G3_bt|МТЗ/i_secondary_a",
+    "expected": 5.5,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/G3_bt|МТЗ/status",
+    "expected": "fail",
+    "actual": "unresolved"
+  },
+  {
+    "path": "gtes_sever/protections/G4_bt|МТЗ/checks/Kч в основной зоне",
+    "expected": {
+      "required": 1.5,
+      "status": "fail",
+      "value": 1.41934568164
+    },
+    "actual": "<отсутствует>"
+  },
+  {
+    "path": "gtes_sever/protections/G4_bt|МТЗ/checks/Полнота: Рабочий ток",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": null,
+      "required": null,
+      "status": "unresolved"
+    }
+  },
+  {
+    "path": "gtes_sever/protections/G4_bt|МТЗ/governing_mode",
+    "expected": "Максимальный (все ГТГ)",
+    "actual": ""
+  },
+  {
+    "path": "gtes_sever/protections/G4_bt|МТЗ/i_calc_a",
+    "expected": 1002.76625701,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/G4_bt|МТЗ/i_primary_a",
+    "expected": 1100.0,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/G4_bt|МТЗ/i_secondary_a",
+    "expected": 5.5,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/G4_bt|МТЗ/status",
+    "expected": "fail",
+    "actual": "unresolved"
+  },
+  {
+    "path": "gtes_sever/protections/VL110_1|МТЗ/checks/Kч в основной зоне",
+    "expected": {
+      "required": 1.5,
+      "status": "fail",
+      "value": 1.15841701848
+    },
+    "actual": "<отсутствует>"
+  },
+  {
+    "path": "gtes_sever/protections/VL110_1|МТЗ/checks/Полнота: Рабочий ток",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": null,
+      "required": null,
+      "status": "unresolved"
+    }
+  },
+  {
+    "path": "gtes_sever/protections/VL110_1|МТЗ/governing_mode",
+    "expected": "Максимальный (все ГТГ)",
+    "actual": ""
+  },
+  {
+    "path": "gtes_sever/protections/VL110_1|МТЗ/i_calc_a",
+    "expected": 49.2267071625,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/VL110_1|МТЗ/i_primary_a",
+    "expected": 60.0,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/VL110_1|МТЗ/i_secondary_a",
+    "expected": 1.0,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/VL110_1|МТЗ/status",
+    "expected": "fail",
+    "actual": "unresolved"
+  },
+  {
+    "path": "gtes_sever/protections/VL110_2|МТЗ/checks/Kч в основной зоне",
+    "expected": {
+      "required": 1.5,
+      "status": "fail",
+      "value": 1.15841701848
+    },
+    "actual": "<отсутствует>"
+  },
+  {
+    "path": "gtes_sever/protections/VL110_2|МТЗ/checks/Полнота: Рабочий ток",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": null,
+      "required": null,
+      "status": "unresolved"
+    }
+  },
+  {
+    "path": "gtes_sever/protections/VL110_2|МТЗ/governing_mode",
+    "expected": "Максимальный (все ГТГ)",
+    "actual": ""
+  },
+  {
+    "path": "gtes_sever/protections/VL110_2|МТЗ/i_calc_a",
+    "expected": 49.2267071625,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/VL110_2|МТЗ/i_primary_a",
+    "expected": 60.0,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/VL110_2|МТЗ/i_secondary_a",
+    "expected": 1.0,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/VL110_2|МТЗ/status",
+    "expected": "fail",
+    "actual": "unresolved"
+  },
+  {
+    "path": "gtes_sever/protections/VT1|МТЗ/checks/Kч в основной зоне",
+    "expected": {
+      "required": 1.5,
+      "status": "fail",
+      "value": 0.246494452319
+    },
+    "actual": "<отсутствует>"
+  },
+  {
+    "path": "gtes_sever/protections/VT1|МТЗ/checks/Полнота: Рабочий ток",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": null,
+      "required": null,
+      "status": "unresolved"
+    }
+  },
+  {
+    "path": "gtes_sever/protections/VT1|МТЗ/governing_mode",
+    "expected": "Максимальный (все ГТГ)",
+    "actual": ""
+  },
+  {
+    "path": "gtes_sever/protections/VT1|МТЗ/i_calc_a",
+    "expected": 227.901422049,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/VT1|МТЗ/i_primary_a",
+    "expected": 240.0,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/VT1|МТЗ/i_secondary_a",
+    "expected": 6.0,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/VT1|МТЗ/status",
+    "expected": "fail",
+    "actual": "unresolved"
+  },
+  {
+    "path": "gtes_sever/protections/VT2|МТЗ/checks/Kч в зоне резервирования",
+    "expected": {
+      "required": 1.2,
+      "status": "fail",
+      "value": 0.637815109562
+    },
+    "actual": "<отсутствует>"
+  },
+  {
+    "path": "gtes_sever/protections/VT2|МТЗ/checks/Kч в основной зоне",
+    "expected": {
+      "required": 1.5,
+      "status": "fail",
+      "value": 0.246494452319
+    },
+    "actual": "<отсутствует>"
+  },
+  {
+    "path": "gtes_sever/protections/VT2|МТЗ/checks/Полнота: Рабочий ток",
+    "expected": "<нет в эталоне>",
+    "actual": {
+      "value": null,
+      "required": null,
+      "status": "unresolved"
+    }
+  },
+  {
+    "path": "gtes_sever/protections/VT2|МТЗ/governing_mode",
+    "expected": "Максимальный (все ГТГ)",
+    "actual": ""
+  },
+  {
+    "path": "gtes_sever/protections/VT2|МТЗ/i_calc_a",
+    "expected": 227.901422049,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/VT2|МТЗ/i_primary_a",
+    "expected": 240.0,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/VT2|МТЗ/i_secondary_a",
+    "expected": 6.0,
+    "actual": null
+  },
+  {
+    "path": "gtes_sever/protections/VT2|МТЗ/status",
+    "expected": "fail",
+    "actual": "unresolved"
+  },
+  {
+    "path": "gtes_sever/warnings (длина)",
+    "expected": 5,
+    "actual": 9
+  }
+]

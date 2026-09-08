@@ -176,6 +176,8 @@ def test_native_10kv_feeder_with_three_taps_recloser_and_backup_roundtrip(
     fingerprint_before_recloser = electrical_model_fingerprint(
         project.electrical_model
     )
+    upstream_route = next(route for route in project.diagram.routes.values()
+        if route.equipment_id == tap_1.first_section_id)
     recloser = controller.insert_series_equipment(
         tap_1.second_section_id,
         3_000_000,
@@ -183,9 +185,25 @@ def test_native_10kv_feeder_with_three_taps_recloser_and_backup_roundtrip(
         "Реклоузер Р-1",
         properties={"rated_current_a": 630.0, "rated_voltage_v": 10_000},
         normal_position=SwitchPosition.CLOSED,
-        x=700.0,
+        # The first graphical split is at x=860. Keep the apparatus on the
+        # continuation, outside the unchanged upstream conductor (320..860).
+        x=1_100.0,
         y=0.0,
     )
+    assert project.diagram.routes[upstream_route.id] == upstream_route
+    # Neither new route, including the forced leads at the apparatus terminals,
+    # may share a positive-length segment with that retained upstream wire.
+    for route_id in recloser.route_ids:
+        route = project.diagram.routes[route_id]
+        for first, second in zip(route.waypoints, route.waypoints[1:]):
+            for old_first, old_second in zip(upstream_route.waypoints, upstream_route.waypoints[1:]):
+                for axis, cross_axis in (("x", "y"), ("y", "x")):
+                    cross = [getattr(point, cross_axis) for point in (first, second, old_first, old_second)]
+                    if max(cross) - min(cross) > 1e-9:
+                        continue
+                    new_interval = sorted((getattr(first, axis), getattr(second, axis)))
+                    old_interval = sorted((getattr(old_first, axis), getattr(old_second, axis)))
+                    assert min(new_interval[1], old_interval[1]) - max(new_interval[0], old_interval[0]) <= 1e-9
     fingerprint_with_recloser = electrical_model_fingerprint(
         project.electrical_model
     )
@@ -327,6 +345,7 @@ def test_native_10kv_feeder_with_three_taps_recloser_and_backup_roundtrip(
     target = tmp_path / "automatic-junctions-native.json"
     save_project(target, project)
     restored = load_project(target)
+    assert restored.diagram.routes[upstream_route.id] == upstream_route
 
     assert (
         electrical_model_fingerprint(restored.electrical_model)

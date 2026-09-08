@@ -27,6 +27,8 @@ from ..io.project import save_project
 from .editor_panels import EditorWorkspaceWidget
 from .analysis_scheme import AnalysisSchemeView
 from .project_settings import ProjectSettings
+from .mode_toolbar import ModeToolbar
+from .calculation_worker import CalculationWorker
 from .theme import COLORS, DiagramColorMode, voltage_stroke
 from .view_model import FAULT_TYPE_LABELS, ProjectViewModel, TreeEntry, fault_status_label
 
@@ -181,6 +183,7 @@ class HeaderWidget(QWidget):
         outer.addLayout(brand_box)
 
         mode_frame = QFrame()
+        self.legacy_mode_frame = mode_frame
         mode_frame.setObjectName("modeCard")
         mode_layout = QVBoxLayout(mode_frame)
         mode_layout.setContentsMargins(10, 7, 10, 7)
@@ -1231,13 +1234,35 @@ class MainWindow(QMainWindow):
         root_layout.addWidget(vertical, 1)
         # Редактор — главный рабочий экран; вкладка анализа показывает ту же
         # сцену только для просмотра. Второй графики в продукте больше нет.
-        self.editor_controller = ProjectEditorController(vm.project)
+        self.editor_controller = vm.mode_controller
+        selected_mode = vm.selected_mode_choice()
+        if selected_mode is not None:
+            self.editor_controller.select_operating_mode(selected_mode.state_id)
         self.editor_workspace = EditorWorkspaceWidget(self.editor_controller)
+        self.editor_workspace.canvas.mode_draft_switching = True
+        self.editor_workspace.canvas.switchDraftRequested.connect(self._stage_equipment_switch)
         self.workspace_tabs = QTabWidget()
         self.workspace_tabs.setObjectName("workspaceTabs")
         self.workspace_tabs.addTab(self.editor_workspace, "Редактор схемы")
         self.workspace_tabs.addTab(root, "Анализ и расчёты")
-        self.setCentralWidget(self.workspace_tabs)
+        self.mode_toolbar = ModeToolbar(self)
+        self.mode_toolbar.modeSelected.connect(self._choose_operating_mode)
+        self.mode_toolbar.manageRequested.connect(self._open_mode_manager)
+        self.mode_toolbar.applyRequested.connect(self._apply_mode_draft)
+        self.mode_toolbar.resetRequested.connect(self._reset_mode_draft)
+        self.mode_toolbar.calculateRequested.connect(self._recalculate)
+        self.mode_toolbar.cancelRequested.connect(self._cancel_calculation)
+        self.mode_toolbar.snapshotRequested.connect(self._save_calculation_input)
+        central = QWidget()
+        central_layout = QVBoxLayout(central)
+        central_layout.setContentsMargins(0, 0, 0, 0)
+        central_layout.addWidget(self.mode_toolbar)
+        central_layout.addWidget(self.workspace_tabs, 1)
+        self.setCentralWidget(central)
+        self.header.legacy_mode_frame.hide()
+        self._calculation_worker = None
+        self._calculation_pending_result = None
+        self.mode_toolbar.refresh(vm)
 
         self.monochrome_action = QAction("Чёрно-белая схема", self)
         self.monochrome_action.setCheckable(True)
@@ -1334,15 +1359,22 @@ class MainWindow(QMainWindow):
         dialog.commandApplied.connect(self.editor_workspace.canvas.commandCompleted.emit)
         dialog.exec()
 
+    @_presentation_render
     def _refresh_after_editor_change(self) -> None:
         if self._closing:
             return
-        self.refresh()
+        self.vm._mode_preview = None
+        self._refresh_mode_views()
         reason = self.vm.result_unavailable_reason()
         if reason:
             self.statusBar().showMessage(reason)
 
     def closeEvent(self, event) -> None:
+        if self._calculation_worker is not None and self._calculation_worker.isRunning():
+            self._close_after_calculation = True
+            self._cancel_calculation()
+            event.ignore()
+            return
         self._closing = True
         self._unsubscribe_editor()
         super().closeEvent(event)
@@ -1449,6 +1481,7 @@ class MainWindow(QMainWindow):
         inspector_tab = self.inspector.tabs.currentIndex()
         bottom_tab = self.bottom.tabs.currentIndex()
         self.header.refresh(self.vm)
+        self.mode_toolbar.refresh(self.vm)
         if diagram:
             self.diagram_panel.refresh(self.vm)
         self.inspector.refresh(self.vm)
@@ -1461,8 +1494,12 @@ class MainWindow(QMainWindow):
             QMessageBox.warning(self, "Режим", f"Режим «{mode_id}» отсутствует в проекте.")
             self.header.refresh(self.vm)
             return
-        self.vm.select_mode(mode_id)
-        self.refresh()
+        try:
+            self.vm.select_mode(mode_id)
+        except ValueError as exc:
+            self.statusBar().showMessage(str(exc))
+            return
+        self._refresh_mode_views()
         self.statusBar().showMessage(f"Выбран режим: {self.vm.mode.name}", 4000)
 
     @_presentation_render
@@ -1474,18 +1511,14 @@ class MainWindow(QMainWindow):
 
     def _custom_mode(self) -> None:
         self.vm.ensure_custom_mode()
-        self.vm.recalculate()
-        self.refresh()
+        self._refresh_mode_views()
         self.statusBar().showMessage(
-            "Пользовательский режим создан в памяти. Выберите состав генераторов.", 5000
+            "Создан черновик копии режима. Настройте его и нажмите «Применить режим».", 5000
         )
 
     def _generator_changed(self, branch_id: str, enabled: bool) -> None:
-        if self.vm.mode_id != "gui_custom":
-            self.vm.ensure_custom_mode()
         self.vm.set_generator_enabled(branch_id, enabled)
-        self.vm.recalculate()
-        self.refresh()
+        self._refresh_mode_views()
 
     @_presentation_render
     def _select_object(self, kind: str, object_id: str) -> None:
@@ -1518,24 +1551,138 @@ class MainWindow(QMainWindow):
         branch = self.vm.net.branches.get(parsed[0]) if parsed else None
         if branch is not None:
             self.vm.select("branch", branch.id)
-        self.refresh()
+        self._refresh_mode_views()
         name = branch.name if branch is not None else switch_id
         self.statusBar().showMessage(
             f"{name}: выключатель {'включён' if closed else 'отключён'} "
             f"(режим «{self.vm.mode.name}»)", 5000)
 
     def _recalculate(self) -> None:
-        ok = self.vm.recalculate()
+        if self._calculation_worker is not None:
+            return
+        try:
+            generation, captured = self.vm.begin_background_calculation()
+        except Exception as exc:
+            self.statusBar().showMessage(str(exc))
+            return
+        self._calculation_run = (generation, captured)
+        self._calculation_pending_result = None
+        self._saved_editor_mode = self.editor_controller.mode
+        self.editor_workspace._set_mode('analysis')
+        self._set_calculation_editing_enabled(False)
+        worker = CalculationWorker(captured, self)
+        self._calculation_worker = worker
+        worker.progressed.connect(self.mode_toolbar.set_progress)
+        worker.completed.connect(self._calculation_completed)
+        worker.finished.connect(self._calculation_finished)
         self.refresh(diagram=False)
-        if ok:
-            counts = self.vm.status_counts()
-            self.statusBar().showMessage(
-                f"Пересчёт завершён: {counts.get(OK, 0)} в норме, "
-                f"{counts.get(FAIL, 0)} нарушений, {counts.get(UNRESOLVED, 0)} не определено",
-                7000,
-            )
-        else:
-            QMessageBox.critical(self, "Расчёт заблокирован", self.vm.calculation_error)
+        self.mode_toolbar.set_progress(0, 0, 'Подготавливаю расчётный снимок…')
+        worker.start()
+
+    def _set_calculation_editing_enabled(self, enabled):
+        self.editor_workspace.command_bar.setEnabled(enabled)
+        self.editor_workspace.inspector.setEnabled(enabled)
+        for action in (self.equipment_card_action, self.parameter_table_action, self.parameter_catalog_action):
+            action.setEnabled(enabled)
+        for card in self.header.generator_cards.values():
+            card.setEnabled(enabled)
+
+    def _cancel_calculation(self):
+        if self._calculation_worker is not None:
+            self._calculation_worker.requestInterruption()
+            self.mode_toolbar.cancel.setEnabled(False)
+            self.mode_toolbar.status.setText('Отмена: ожидаю безопасного завершения текущего шага…')
+
+    def _calculation_completed(self, result, error):
+        self._calculation_pending_result = (result, error)
+
+    def _calculation_finished(self):
+        worker = self._calculation_worker
+        result, error = self._calculation_pending_result or (None, 'Расчёт завершился без результата.')
+        if worker.isInterruptionRequested():
+            result, error = None, 'Расчёт отменён. Частичный результат не опубликован.'
+        generation, captured = self._calculation_run
+        self.vm.publish_background_calculation(generation, captured, result, error)
+        self._calculation_worker = None
+        worker.deleteLater()
+        self.editor_workspace._set_mode(self._saved_editor_mode.value)
+        self._set_calculation_editing_enabled(True)
+        self.mode_toolbar.cancel.setEnabled(True)
+        self._refresh_mode_views()
+        self.statusBar().showMessage(self.vm.calculation_error or 'Расчёт завершён.', 7000)
+        if getattr(self, '_close_after_calculation', False):
+            self.close()
+
+    def _choose_operating_mode(self, state_id):
+        try:
+            self.vm.choose_operating_mode(state_id)
+        except ValueError as exc:
+            self.statusBar().showMessage(str(exc))
+        self._refresh_mode_views()
+
+    def _stage_equipment_switch(self, equipment_id, position):
+        try:
+            self.vm.stage_equipment_switch(equipment_id, position)
+        except ValueError as exc:
+            self.statusBar().showMessage(str(exc))
+        self._refresh_mode_views()
+
+    def _refresh_mode_views(self):
+        preview = None
+        if self.vm.mode_draft is not None:
+            try:
+                preview = self.vm.mode_preview_model()
+            except (ValueError, RuntimeError) as exc:
+                self.statusBar().showMessage(str(exc))
+        canvas = self.editor_workspace.canvas
+        canvas._operating_mode_preview = preview
+        model = preview[0] if preview is not None else self.editor_controller.model
+        state_id = preview[1] if preview is not None else self.editor_controller.active_operating_state_id
+        # A canvas command has already synchronized this exact model/document.
+        # Direct history commands and a new draft still need their own sync.
+        if (canvas.scene._document is not self.editor_controller.diagram
+                or canvas.scene._model is not model
+                or canvas.scene._model_revision != model.revision
+                or canvas.scene._operating_state_id != state_id):
+            canvas.refresh()
+        self.refresh()
+
+    def _apply_mode_draft(self):
+        try:
+            self.vm.apply_mode_draft()
+        except (ValueError, RuntimeError) as exc:
+            self.statusBar().showMessage(str(exc))
+        self._refresh_mode_views()
+
+    def _reset_mode_draft(self):
+        self.vm.reset_mode_draft()
+        self._refresh_mode_views()
+
+    def _open_mode_manager(self):
+        from .mode_dialog import OperatingModeDialog
+        dialog = OperatingModeDialog(self.vm, self)
+        dialog.draftChanged.connect(self._refresh_mode_views)
+        dialog.modesApplied.connect(self._refresh_mode_views)
+        dialog.highlightsRequested.connect(self._highlight_mode_changes)
+        dialog.exec()
+        self._refresh_mode_views()
+
+    def _highlight_mode_changes(self, equipment_ids):
+        ids = tuple(row.id for row in self.editor_controller.diagram.representations.values()
+                    if row.page_id == self.editor_workspace.canvas.page_id and row.equipment_id in equipment_ids)
+        self.editor_workspace.canvas.scene.select_representations(ids)
+
+    def _save_calculation_input(self):
+        path, _ = QFileDialog.getSaveFileName(self, 'Сохранить расчёт — исходные данные и методика для CLI',
+                    str(self.vm.path.with_name(self.vm.path.stem + '-input.json')), 'Расчётный снимок (*.json)')
+        if not path:
+            return
+        try:
+            self.vm.save_calculation_snapshot(path, overwrite=True)
+        except Exception as exc:
+            self.statusBar().showMessage(str(exc))
+            return
+        self.statusBar().showMessage('Сохранены использованные исходные данные и методика. Воспроизведение: CLI replay-input. ' + path, 10000)
 
     def _show_report(self) -> None:
         TextDialog("Сводка расчёта", self.vm.report_text(), self).exec()

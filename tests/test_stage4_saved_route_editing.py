@@ -68,8 +68,11 @@ def _controller() -> ProjectEditorController:
 
 
 def _connected_route(controller: ProjectEditorController):
-    first = controller.add_equipment("builtin.load", "Нагрузка 1", x=0, y=0, voltage_class_by_group={"main": U10})
-    second = controller.add_equipment("builtin.load", "Нагрузка 2", x=180, y=0, voltage_class_by_group={"main": U10})
+    # The route is saved against real terminals at (0,0)/(180,0).
+    # Bodies stay outside its corridor; placing both endpoints in load centres
+    # made every subsequent edit correctly fail the apparatus collision guard.
+    first = controller.add_equipment("builtin.load", "Нагрузка 1", x=0, y=-20, height=40, rotation_deg=180, voltage_class_by_group={"main": U10})
+    second = controller.add_equipment("builtin.load", "Нагрузка 2", x=180, y=-20, height=40, rotation_deg=180, voltage_class_by_group={"main": U10})
     waypoints = (
         RouteWaypoint(RouteWaypointId("waypoint.saved.start"), 0, 0),
         RouteWaypoint(RouteWaypointId("waypoint.saved.corner.1"), 60, 0),
@@ -109,12 +112,21 @@ def test_add_manual_waypoint_to_saved_route_is_one_graphical_command() -> None:
     route = controller.diagram.routes[connected.route_id]
     manual = [item for item in route.waypoints if item.source.value == "user"]
     assert len(manual) == 1
-    assert manual[0].pinned is True
+    assert manual[0].pinned is False
     assert (manual[0].x, manual[0].y) == (105.0, 45.0)
     _assert_orthogonal(route)
     assert controller.model.connectivity_signature() == topology_before
     assert controller.model.revision == electrical_revision_before
     assert len(controller.journal) == history_before + 1
+    canvas._route_context_action("pin_route_bends", {"route_id": connected.route_id})
+    pinned = controller.diagram.routes[connected.route_id]
+    fixed_manual = next(item for item in pinned.waypoints if item.id == manual[0].id)
+    assert fixed_manual.pinned and (fixed_manual.x, fixed_manual.y) == (105.0, 45.0)
+    assert len(controller.journal) == history_before + 2
+    assert controller.model.connectivity_signature() == topology_before
+    assert controller.model.revision == electrical_revision_before
+    controller.undo()
+    assert controller.diagram.routes[connected.route_id] == route
     controller.undo()
     assert not [
         item
@@ -128,6 +140,10 @@ def test_move_internal_segment_pins_its_corners_without_topology_change() -> Non
     controller = _controller()
     connected = _connected_route(controller)
     canvas = EditorCanvas(controller)
+    unpinned = controller.diagram.routes[connected.route_id]
+    canvas._route_context_action("pin_route_bends", {"route_id": connected.route_id})
+    pinned = controller.diagram.routes[connected.route_id]
+    assert all(item.pinned for item in pinned.waypoints[1:-1])
     route_item = canvas.scene._route_items_by_id[connected.route_id]
     route_item.setSelected(True)
     assert 2 in route_item._segment_handles
@@ -141,24 +157,29 @@ def test_move_internal_segment_pins_its_corners_without_topology_change() -> Non
     moved = [
         item
         for item in route.waypoints
-        if item.source.value == "user" and item.pinned
+        if item.id in {RouteWaypointId("waypoint.saved.corner.2"), RouteWaypointId("waypoint.saved.corner.3")}
     ]
     assert {(item.x, item.y) for item in moved} == {(60.0, 120.0), (180.0, 120.0)}
     assert {item.id for item in moved} == {
         RouteWaypointId("waypoint.saved.corner.2"),
         RouteWaypointId("waypoint.saved.corner.3"),
     }
+    assert all(item.source.value == "user" and item.pinned for item in moved)
     _assert_orthogonal(route)
     assert controller.model.connectivity_signature() == topology_before
     assert controller.model.revision == electrical_revision_before
     assert len(controller.journal) == history_before + 1
+    controller.undo()
+    assert controller.diagram.routes[connected.route_id] == pinned
+    controller.undo()
+    assert controller.diagram.routes[connected.route_id] == unpinned
 
 
 def test_short_internal_segment_also_has_a_move_handle() -> None:
     _app()
     controller = _controller()
-    first = controller.add_equipment("builtin.load", "Короткий A", x=0, y=0, voltage_class_by_group={"main": U10})
-    second = controller.add_equipment("builtin.load", "Короткий B", x=100, y=0, voltage_class_by_group={"main": U10})
+    first = controller.add_equipment("builtin.load", "Короткий A", x=0, y=20, height=40, voltage_class_by_group={"main": U10})
+    second = controller.add_equipment("builtin.load", "Короткий B", x=100, y=-20, height=40, rotation_deg=180, voltage_class_by_group={"main": U10})
     connected = controller.connect_ports(
         first.port_ids[0],
         second.port_ids[0],
@@ -174,6 +195,9 @@ def test_short_internal_segment_also_has_a_move_handle() -> None:
     canvas = EditorCanvas(controller)
     route_item = canvas.scene._route_items_by_id[connected.route_id]
     route_item.setSelected(True)
+    original = controller.diagram.routes[connected.route_id]
+    topology_before = controller.model.connectivity_signature()
+    history_before = len(controller.journal)
 
     assert 1 in route_item._segment_handles
     route_item.commit_segment_move(1, QPointF(70, 5))
@@ -183,7 +207,12 @@ def test_short_internal_segment_also_has_a_move_handle() -> None:
         (70.0, 0.0),
         (70.0, 10.0),
     }
+    assert all(not item.pinned for item in route.waypoints)
     _assert_orthogonal(route)
+    assert controller.model.connectivity_signature() == topology_before
+    assert len(controller.journal) == history_before + 1
+    controller.undo()
+    assert controller.diagram.routes[connected.route_id] == original
 
 
 def test_context_delete_of_node_connection_does_not_require_equipment_id() -> None:
@@ -306,13 +335,25 @@ def test_context_tap_stays_preview_until_user_finishes_branch(monkeypatch) -> No
     assert len(main.section_equipment_ids) == 2
     assert len(controller.model.line_sections) == 3
     assert len(controller.diagram.routes) == 3
-    assert any(
-        waypoint.source.value == "user" and waypoint.pinned
-        for route in controller.diagram.routes.values()
-        if route.equipment_id not in set(main.section_equipment_ids)
-        for waypoint in route.waypoints
-    )
+    branch_route, = [route for route in controller.diagram.routes.values()
+                    if route.equipment_id not in set(main.section_equipment_ids)]
+    assert all(not waypoint.pinned for waypoint in branch_route.waypoints)
+    assert any(waypoint.source.value == "user" and (waypoint.x, waypoint.y) == (220.0, 80.0)
+               for waypoint in branch_route.waypoints)
+    _assert_orthogonal(branch_route)
     assert len(controller.journal) == history_before + 1
+    connected_topology = controller.model.connectivity_signature()
+    canvas._route_context_action("pin_route_bends", {"route_id": branch_route.id})
+    fixed = controller.diagram.routes[branch_route.id]
+    assert all(point.pinned for point in fixed.waypoints[1:-1])
+    assert [(p.id,p.x,p.y) for p in fixed.waypoints] == [(p.id,p.x,p.y) for p in branch_route.waypoints]
+    assert controller.model.connectivity_signature() == connected_topology
+    assert len(controller.journal) == history_before + 2
+    controller.undo()
+    assert controller.diagram.routes[branch_route.id] == branch_route
+    controller.undo()
+    assert controller.model.connectivity_signature() == topology_before
+    assert len(controller.model.line_sections) == 1
 
 
 def test_cancel_context_tap_removes_preview_without_project_changes(monkeypatch) -> None:

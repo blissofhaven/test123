@@ -119,7 +119,7 @@ class AnalysisSchemeView(QWidget):
         if self._document is None or page_id not in self._document.pages:
             return
         if page_id != self.scene.page_id:
-            state = self._canonical_operating_state_id(str(getattr(self._vm, "mode_id", "")), self._model)
+            state = getattr(self, '_preview_state_id', None) or self._canonical_operating_state_id(str(getattr(self._vm, "mode_id", "")), self._model)
             self.scene.sync_document(self._document, self._model, page_id=page_id,
                                      operating_state_id=state, topology_state_available=state is not None)
             self.scene.set_mode(CanvasMode.ANALYSIS)
@@ -211,6 +211,14 @@ class AnalysisSchemeView(QWidget):
         project = getattr(vm, "project", None)
         document = getattr(project, "diagram", None)
         model = getattr(project, "electrical_model", None)
+        self._preview_state_id = None
+        if getattr(vm, 'mode_draft', None) is not None:
+            try:
+                preview = vm.mode_preview_model()
+            except (ValueError, RuntimeError):
+                preview = None
+            if preview is not None:
+                model, self._preview_state_id = preview
         if not isinstance(document, DiagramDocument) or not isinstance(
             model, ElectricalModel
         ):
@@ -239,7 +247,7 @@ class AnalysisSchemeView(QWidget):
         self._empty = not document.representations
         if self._empty:
             return
-        operating_state_id = self._canonical_operating_state_id(
+        operating_state_id = self._preview_state_id or self._canonical_operating_state_id(
             str(getattr(vm, "mode_id", "")),
             model,
         )

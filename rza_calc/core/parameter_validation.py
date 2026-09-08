@@ -79,6 +79,11 @@ def block_unconfirmed_parameters(ctx, br, kind):
         found = []
         try:
             if kind == "МТЗ" and load_inputs and not isinstance(br, GeneratorBranch):
+                from .load_current import external_current_record
+                if external_current_record(net, br, mode) is not None:
+                    # This mode consumes the explicit CT current, whose own
+                    # confirmation is checked by working_current, not these loads.
+                    continue
                 loads = net.downstream_loads(br, mode)
                 if not loads:
                     zone, parallel = net.group_zone(br, mode)

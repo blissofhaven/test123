@@ -51,15 +51,22 @@ def _choose(combo, voltage):
     combo.activated.emit(index)
 
 
-def test_opening_unknown_voltage_properties_never_assigns_a_default(workspace):
+@pytest.mark.parametrize("type_id,groups", [
+    ("builtin.circuit_breaker", ("main",)),
+    ("builtin.transformer_2w", ("hv", "lv")),
+    ("builtin.transformer_3w", ("hv", "mv", "lv")),
+])
+def test_opening_unknown_voltage_properties_never_assigns_a_default(workspace, type_id, groups):
     controller = workspace.controller
-    added = controller.add_equipment("builtin.circuit_breaker", "Новый Q")
+    added = controller.add_equipment(type_id, "Новый аппарат")
     before = electrical_model_fingerprint(controller.model), controller.journal
     fields = _select(workspace, added.representation_id)
-    field = fields["equipment.voltage_class.main"]
-    combo = _combo(workspace, field.key)
-    assert field.value is None and field.editable and field.required
-    assert combo.currentIndex() == -1 and combo.isEnabled()
+    for group in groups:
+        field = fields["equipment.voltage_class." + group]
+        combo = _combo(workspace, field.key)
+        assert field.value is None and field.editable and field.required
+        assert combo.currentIndex() == -1 and combo.isEnabled()
+    assert not controller.model.equipment[added.equipment_id].voltage_class_by_group
     assert before == (electrical_model_fingerprint(controller.model), controller.journal)
 
 
@@ -78,18 +85,29 @@ def test_explicit_group_choice_preserves_ids_and_undoes(workspace):
     assert electrical_model_fingerprint(controller.model) == before
 
 
-def test_transformer_sides_are_separate_semantic_choices(workspace):
+@pytest.mark.parametrize("type_id,groups", [
+    ("builtin.transformer_2w", {"hv", "lv"}),
+    ("builtin.transformer_3w", {"hv", "mv", "lv"}),
+])
+def test_transformer_sides_are_separate_semantic_choices(workspace, type_id, groups):
     controller = workspace.controller
-    added = controller.add_equipment("builtin.transformer_3w", "Т1", rotation_deg=180)
+    added = controller.add_equipment(type_id, "Т1", rotation_deg=180)
+    before = electrical_model_fingerprint(controller.model), len(controller.journal)
     fields = _select(workspace, added.representation_id)
     keys = {key for key in fields if key.startswith("equipment.voltage_class.")}
-    assert keys == {"equipment.voltage_class.hv", "equipment.voltage_class.mv", "equipment.voltage_class.lv"}
+    assert keys == {"equipment.voltage_class." + group for group in groups}
     _choose(_combo(workspace, "equipment.voltage_class.hv"), U110)
     _select(workspace, added.representation_id)
     _choose(_combo(workspace, "equipment.voltage_class.lv"), U10)
     equipment = controller.model.equipment[added.equipment_id]
     assert equipment.voltage_class_by_group == {"hv": U110, "lv": U10}
     assert equipment.port_ids == added.port_ids
+    assert not controller.model.connections
+    assert len(controller.journal) == before[1] + 2
+    controller.undo()
+    assert controller.model.equipment[added.equipment_id].voltage_class_by_group == {"hv": U110}
+    controller.undo()
+    assert electrical_model_fingerprint(controller.model) == before[0]
 
 
 def test_bus_voltage_is_explicit_and_readonly_after_connection(workspace):
@@ -106,15 +124,25 @@ def test_bus_voltage_is_explicit_and_readonly_after_connection(workspace):
     assert not _combo(workspace, "node.voltage_class").isEnabled()
     fields = _select(workspace, load.representation_id)
     assert not fields["equipment.voltage_class.main"].editable
+    assert not _combo(workspace, "equipment.voltage_class.main").isEnabled()
 
 
-def test_view_mode_cannot_assign_voltage(workspace):
+@pytest.mark.parametrize("type_id,groups", [
+    ("builtin.load", ("main",)),
+    ("builtin.transformer_2w", ("hv", "lv")),
+    ("builtin.transformer_3w", ("hv", "mv", "lv")),
+])
+def test_view_mode_cannot_assign_voltage(workspace, type_id, groups):
     from rza_calc.editor.state import EditorMode
     controller = workspace.controller
-    added = controller.add_equipment("builtin.load", "Нагрузка")
+    added = controller.add_equipment(type_id, "Аппарат")
+    before = electrical_model_fingerprint(controller.model), controller.journal
     controller.set_mode(EditorMode.ANALYSIS)
     _select(workspace, added.representation_id)
-    assert not _combo(workspace, "equipment.voltage_class.main").isEnabled()
+    for group in groups:
+        combo = _combo(workspace, "equipment.voltage_class." + group)
+        assert not combo.isEnabled() and combo.currentIndex() == -1
+    assert before == (electrical_model_fingerprint(controller.model), controller.journal)
 
 
 def test_imported_transformer_shows_voltage_by_role_without_new_groups():

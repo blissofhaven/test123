@@ -448,7 +448,15 @@ def test_aud_top_003_view_model_result_must_use_current_project_network() -> Non
     assert not snapshot_mode.is_closed(snapshot_branch)
     assert network_fingerprint(snapshot) == frozen_fingerprint
     assert not result.is_current_for(current_network, project.methodology)
+    # Stage 4 treats the canonical model as input. A direct mutation of its
+    # disposable compatibility view does not modify the saved operating state.
+    assert vm.current_result is result
+    assert result.calculation_input.is_current_for(project)
+    model.set_switch_position(state_id, recloser, SwitchPosition.CLOSED)
     assert vm.current_result is None
+    assert not result.calculation_input.is_current_for(project)
+    assert not snapshot_mode.is_closed(snapshot_branch)
+    assert network_fingerprint(snapshot) == frozen_fingerprint
 
 
 def test_aud_top_004_projection_must_reject_foreign_topology_registry() -> None:

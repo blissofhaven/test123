@@ -2048,6 +2048,8 @@ def adapt_to_calculation(
         legacy_object_to_domain=legacy_object_to_domain,
         legacy_branch_to_port=legacy_branch_to_port,
     )
+    from .operating_parameters import attach_operating_parameters
+    attach_operating_parameters(model, net, trace)
     return AdaptationResult(net, trace, tuple(diagnostics))
 
 

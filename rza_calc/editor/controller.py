@@ -2631,9 +2631,11 @@ class ProjectEditorController:
 
         moved = replace(resolved, node_id=node.id)
         routes = dict(draft.diagram.routes)
+        pending = {}
         for route_id, route in tuple(routes.items()):
             anchors = [route.start_anchor, route.end_anchor]
             changed = False
+            changed_indices = []
             for index, anchor in enumerate(anchors):
                 if anchor.branch_port_id == port_id:
                     # This is the selected physical branch's own terminal.
@@ -2650,6 +2652,7 @@ class ProjectEditorController:
                 anchors[index] = anchor_on_page(target, route.page_id,
                                                  anchor.branch_port_id, fallback)
                 changed = True
+                changed_indices.append(index)
             if not changed:
                 continue
             if (route.kind is DiagramRouteKind.NODE_CONNECTION
@@ -2660,8 +2663,18 @@ class ProjectEditorController:
                 del routes[route_id]
                 continue
             updated = replace(route, start_anchor=anchors[0], end_anchor=anchors[1])
-            routes[route_id] = self._reroute_to_current_port_anchors(draft, updated)
-        draft.diagram = _diagram_with_routes(draft.diagram, routes)
+            pending[route_id] = (updated, tuple(changed_indices))
+        # Replaced and retargeted leads no longer occupy their old paths. Each
+        # retained branch gets a separate bus tap before its new path is reserved.
+        # Unaffected routes and their attachment points remain byte-for-byte intact.
+        settled = {key: route for key, route in routes.items() if key not in pending}
+        draft.diagram = _diagram_with_routes(draft.diagram, settled)
+        for route_id, (updated, changed_indices) in pending.items():
+            allocated = self._route_with_available_bus_anchors(
+                draft, updated, endpoint_indices=changed_indices,
+            )
+            settled[route_id] = self._reroute_to_current_port_anchors(draft, allocated)
+            draft.diagram = _diagram_with_routes(draft.diagram, settled)
         return replace(resolved, node_id=node.id)
 
     @staticmethod
@@ -3059,6 +3072,8 @@ class ProjectEditorController:
                     target_port_id=branch.target_port_id, anchor_key=branch.anchor_key),
                 equipment_id=branch_section.equipment_id,
                 waypoints=self._effective_route_waypoints(tap, target_representation, route_waypoints))
+            if route_waypoints is None:
+                route = self._reroute_to_current_port_anchors(draft, route)
             self._add_route(draft, route)
             return TapEditResult(split.logical_line_id, branch_line.id, split.removed_section_id,
                 split.first_section_id, split.second_section_id, branch_section.equipment_id,
@@ -4991,21 +5006,29 @@ class ProjectEditorController:
             draft.diagram = _diagram_with_representations(draft.diagram, values)
 
             routes = dict(draft.diagram.routes)
-            for route_id, route in tuple(routes.items()):
-                if row.id not in {
-                    route.start_anchor.representation_id,
-                    route.end_anchor.representation_id,
-                }:
-                    continue
-                if not any(
+            affected = {
+                route_id: route for route_id, route in routes.items()
+                if any(
                     anchor.representation_id == row.id
                     and (anchor.target_port_id is not None or anchor.kind is RouteAnchorKind.BUS)
                     for anchor in (route.start_anchor, route.end_anchor)
-                ):
-                    continue
-                routes[route_id] = self._reroute_to_current_port_anchors(
-                    draft, route, previous_representations={row.id: row}
                 )
+            }
+            # The old terminal leads all move in this transaction. Reserve
+            # unchanged routes and each completed new route, not stale leads
+            # whose terminals can exchange positions during a half turn.
+            settled = {key: route for key, route in routes.items() if key not in affected}
+            for route_id, route in affected.items():
+                routes[route_id] = self._reroute_to_current_port_anchors(
+                    draft, route, previous_representations={row.id: row},
+                    occupied_segments=tuple(
+                        (a.x, a.y, b.x, b.y)
+                        for other in settled.values() if other.page_id == route.page_id
+                        for a, b in zip(other.waypoints, other.waypoints[1:])
+                        if (a.x, a.y) != (b.x, b.y)
+                    ),
+                )
+                settled[route_id] = routes[route_id]
             if routes != dict(draft.diagram.routes):
                 draft.diagram = _diagram_with_routes(draft.diagram, routes)
             return float(turn)
@@ -5251,6 +5274,55 @@ class ProjectEditorController:
             draft.electrical_model.rename_equipment(equipment_id, name)
 
         self._execute(tr("command.rename"), command)
+
+    # Stage 04: canonical operating scenarios share the project transaction.
+    def operating_mode_choices(self):
+        from .mode_editing import operating_mode_choices
+        return operating_mode_choices(self)
+
+    def operating_mode_snapshots(self):
+        from .mode_editing import operating_mode_snapshots
+        return operating_mode_snapshots(self)
+
+    def operating_mode_targets(self):
+        from .mode_editing import operating_mode_targets
+        return operating_mode_targets(self)
+
+    def operating_mode_draft(self, state_id=None, clone_from=None):
+        from .mode_editing import operating_mode_draft
+        return operating_mode_draft(self, state_id, clone_from)
+
+    def preview_operating_mode(self, draft):
+        from .mode_editing import preview_operating_mode
+        return preview_operating_mode(self, draft)
+
+    def apply_operating_mode_preview(self, preview):
+        from .mode_editing import apply_operating_mode_preview
+        return apply_operating_mode_preview(self, preview)
+
+    def operating_mode_preview_model(self, preview):
+        from .mode_editing import operating_mode_preview_model
+        return operating_mode_preview_model(self, preview)
+
+    def select_operating_mode(self, state_id):
+        from .mode_editing import select_operating_mode
+        return select_operating_mode(self, state_id)
+
+    def resolve_operating_mode_switch(self, switch_id):
+        from .mode_editing import resolve_operating_mode_switch
+        return resolve_operating_mode_switch(self, switch_id)
+
+    def resolve_operating_mode_equipment(self, object_id):
+        from .mode_editing import resolve_operating_mode_equipment
+        return resolve_operating_mode_equipment(self, object_id)
+
+    def compare_operating_modes(self, first_state_id, second_state_id):
+        from .mode_editing import compare_operating_modes
+        return compare_operating_modes(self, first_state_id, second_state_id)
+
+    def operating_mode_template(self, kind, *, base_state_id=None, equipment_id=None):
+        from .mode_editing import operating_mode_template
+        return operating_mode_template(self, kind, base_state_id=base_state_id, equipment_id=equipment_id)
 
     def equipment_parameter_snapshot(self, equipment_id, segment_id=None):
         from .parameter_editing import equipment_snapshot

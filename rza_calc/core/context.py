@@ -24,15 +24,42 @@ class FaultPoint:
 
 
 class Context:
-    def __init__(self, net: Network, meth: Methodology):
+    def __init__(self, net: Network, meth: Methodology, *, cancelled=None, progress=None,
+                 calculation_input=None):
         self.net, self.meth = net, meth
         self.solvers: dict[str, ShortCircuitSolver] = {}
         self.errors: dict[str, str] = {}
-        for mid, mode in net.modes.items():
+        from ..adapters.operating_parameters import network_for_mode, parallel_source_groups
+        from ..calculation.input import checkpoint
+        self.mode_networks = {}
+        self.mode_warnings = []
+        frames = {frame.mode_id: frame for frame in calculation_input.modes} if calculation_input is not None else {}
+        if frames and tuple(frames) != tuple(net.modes):
+            raise ValueError("Набор режимов не совпадает с подготовленным расчётным входом.")
+        for index, (mid, mode) in enumerate(net.modes.items()):
+            checkpoint(cancelled, progress, index, len(net.modes), "КЗ: " + mode.name)
             try:
-                self.solvers[mid] = ShortCircuitSolver(net, mode, meth)
+                if frames:
+                    from ..calculation.input import validate_mode_execution
+                    validate_mode_execution(frames[mid], net, calculation_input.trace)
+                effective_net = network_for_mode(net, mode)
+                self.mode_networks[mid] = effective_net
+                if ((calculation_input is not None and calculation_input.stamp.canonical)
+                        or any(item.operating_parameters for item in net.modes.values())):
+                    problems = effective_net.validate(effective_net.modes[mid])
+                    if problems:
+                        raise ValueError("; ".join(problems))
+                groups = parallel_source_groups(effective_net, effective_net.modes[mid])
+                if groups:
+                    permission = mode.operating_parameters.get("parallel_operation")
+                    if permission is False:
+                        raise ValueError("Параллельная работа соединённых источников запрещена параметрами режима.")
+                    if permission is None:
+                        self.mode_warnings.append("Режим «" + mode.name + "»: параллельная работа источников присутствует в прежней схеме; явное разрешение режима ещё не записано.")
+                self.solvers[mid] = ShortCircuitSolver(effective_net, effective_net.modes[mid], meth)
             except Exception as e:                       # режим может быть некорректным
                 self.errors[mid] = str(e)
+        checkpoint(cancelled)
 
     # ---------- режимы ----------
     @property

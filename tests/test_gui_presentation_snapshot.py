@@ -105,13 +105,14 @@ def test_reentrant_mutation_discards_presentation_input_and_result(vm, action):
     assert not vm.__dict__.get("_presentation")
 
 
-def test_direct_derived_mode_edit_is_stale_on_next_render(vm):
+def test_canonical_mode_edit_is_stale_on_next_render(vm):
     with vm.presentation_snapshot():
         network = vm.net
         assert vm.current_result is not None
-    branch = next(iter(network.branches.values()))
-    mode = network.modes[vm.mode_id]
-    mode.states[branch.id] = not mode.is_closed(branch)
+    mode = vm.selected_operating_mode()
+    draft = vm.mode_controller.operating_mode_draft(mode.state_id)
+    preview = vm.mode_controller.preview_operating_mode(replace(draft, description='Новое описание режима'))
+    vm.mode_controller.apply_operating_mode_preview(preview)
     with vm.presentation_snapshot():
         assert vm.current_result is None
 

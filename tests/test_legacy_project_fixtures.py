@@ -54,7 +54,7 @@ def test_cli_builtin_alias_selects_oilfield(alias, monkeypatch):
         seen.append(path)
         raise SelectedProject
 
-    monkeypatch.setattr(project_io, "load", inspect_load)
+    monkeypatch.setattr(project_io, "load_project", inspect_load)
     with pytest.raises(SelectedProject):
         cli.main([alias, "check"])
     assert seen == [ROOT / "rza_calc/examples/oilfield_gtes.json"]

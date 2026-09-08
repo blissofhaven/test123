@@ -11,12 +11,43 @@ from .trace import Step, Value, fmt, record
 SQRT3 = math.sqrt(3.0)
 
 
+def external_current_record(net: Network, br: Branch, mode: Mode):
+    """Only the exact recorded physical CT port may supply this scalar RMS A."""
+    rows = mode.operating_parameters.get("working_currents", {})
+    matches = [(pid, row) for pid, row in rows.items()
+               if br.id in row.get("applies_to", ())]
+    if len(matches) > 1:
+        raise ValueError("Рабочий ток неоднозначен: несколько значений для физического ТТ.")
+    return matches[0] if matches else None
+
+
 def working_current(net: Network, br: Branch, mode: Mode, m: Methodology) -> Value:
     """
-    Максимальный рабочий ток ветви = сумма нагрузок, питающихся через неё
-    в данном режиме. Именно поэтому нагрузку достаточно задать один раз
-    у КТП: программа сама поднимет её на фидер, ввод и трансформатор.
+    Заданный подтверждённый первичный ток относится к конкретному порту ТТ.
+    Без него допускается сумма нагрузок только радиального присоединения
+    или прежняя явно названная номинальная отстройка генератора/трансформатора.
+    Кольцевое и параллельное питание не заменяется суммой всей группы.
     """
+    external = external_current_record(net, br, mode)
+    if external is not None:
+        port_id, row = external
+        value = row.get("value")
+        if (row.get("confirmation") != "confirmed" or not isinstance(row.get("source"), str)
+                or not row["source"].strip() or isinstance(value, bool)
+                or not isinstance(value, (float, int)) or not math.isfinite(value) or value < 0):
+            raise ValueError("Заданный рабочий ток на физической стороне ТТ отсутствует или не подтверждён.")
+        if row.get("node_id") != net.protection_node_id(br):
+            raise ValueError("Заданный рабочий ток относится к прежней стороне ТТ.")
+        return Value(float(value), "А", "Iраб.max", Step(
+            what=f"Заданный рабочий ток присоединения «{br.name}»",
+            why="Первичный действующий рабочий ток на физической стороне ТТ задан независимо от радиального суммирования нагрузки.",
+            given={"Режим": mode.name, "Физический порт ТТ": port_id, "Источник": row["source"]},
+            formula="Iраб.max = Iзаданный", result=f"Iраб.max = {fmt(value)} А",
+            note="Скалярный действующий ток для отстройки МТЗ; фазные углы и потокораспределение этим вводом не рассчитываются."))
+    from ..adapters.operating_parameters import network_for_mode
+    effective = network_for_mode(net, mode)
+    if effective is not net:
+        net, br, mode = effective, effective.branches[br.id], effective.modes[mode.id]
     if isinstance(br, GeneratorBranch):
         s_gen = br.s_from_p
         i = s_gen / (SQRT3 * br.u_nom)
@@ -36,26 +67,25 @@ def working_current(net: Network, br: Branch, mode: Mode, m: Methodology) -> Val
         return Value(i, "А", "Iном генератора", step)
 
     src_end, load_end, ring = net.orient(br, mode)
+    if ring:
+        raise ValueError("Кольцо или параллельное питание: задайте подтверждённый первичный рабочий ток на физической стороне ТТ; радиальная сумма нагрузок здесь неприменима.")
     # Рабочий ток всегда приводится к физической стороне ТТ, а не к стороне,
     # которая случайно оказалась питающей в данном режиме.
     u_nom = net.protection_side_u(br) if br.has_protection_point else (
         net.node(load_end if src_end == GRID else src_end).u_nom
     )
     loads = net.downstream_loads(br, mode)
+    for load in loads:
+        params = mode.operating_parameters
+        for row in (params.get("load_factor"), params.get("load_factors", {}).get(load.id)):
+            if row is not None and (row.get("value") is None or row.get("confirmation") != "confirmed"
+                                     or not str(row.get("source", "")).strip()):
+                raise ValueError("Коэффициент нагрузки «" + load.name + "» отсутствует или не подтверждён в данном режиме.")
     group_note = None
     if not loads:
         zone, n_par = net.group_zone(br, mode)
         if n_par > 1:
-            loads = [
-                load for load in net.loads.values()
-                if load.node in zone and mode.is_available(load.id)
-            ]
-            group_note = (
-                f"Присоединение работает параллельно ещё с {n_par - 1} таким же. "
-                "Рабочий ток принят по всей нагрузке группы: это режим, когда "
-                "параллельный элемент выведен в ремонт и оставшийся несёт всё. "
-                "Если такой режим у вас невозможен, задайте нагрузку явно или "
-                "опишите отдельный режим сети.")
+            raise ValueError("Параллельная группа: задайте подтверждённый рабочий ток на физической стороне ТТ; сумма всей нагрузки группы не определяет ток этой ветви.")
 
     if loads:
         s_total = sum(l.s_kva * l.k_use for l in loads)

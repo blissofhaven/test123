@@ -1088,7 +1088,8 @@ class EditorWorkspaceWidget(QWidget):
         self.quick_editor.commandApplied.connect(self.canvas.commandCompleted.emit)
         self.bottom_panel.objectRequested.connect(self._diagnostic_object_requested)
         self.command_bar.set_tool_state(self.canvas.view.tool_state)
-        self.refresh()
+        # EditorCanvas has already synchronized the initial model and mode.
+        self.refresh(refresh_canvas=False)
 
     @property
     def scene(self):
@@ -1103,7 +1104,9 @@ class EditorWorkspaceWidget(QWidget):
         # EditorCanvas already synchronized its scene before this signal.
         # Rebuild the dependent panels once, preserving the selected routes.
         synchronized = (self.scene._document is self.controller.diagram
-                        and self.scene._model is self.controller.model)
+                        and self.scene._model is self.controller.model
+                        and self.scene._model_revision == self.controller.model.revision
+                        and self.scene._operating_state_id == self.controller.active_operating_state_id)
         self.refresh(refresh_canvas=not synchronized)
 
     def refresh(self, *, refresh_canvas: bool = True) -> None:
@@ -1356,12 +1359,11 @@ class EditorWorkspaceWidget(QWidget):
 
     def _update_bottom_panel(self) -> None:
         project = getattr(self.controller, "_project", None)
-        adapter_available = project is not None and hasattr(
-            project, "adapter_diagnostics"
-        )
-        adapter_diagnostics = tuple(
-            getattr(project, "adapter_diagnostics", ())
-        ) if adapter_available else ()
+        # The property refreshes the canonical calculation view. Read once:
+        # hasattr() followed by getattr() used to do the same full work twice.
+        raw_diagnostics = getattr(project, "adapter_diagnostics", None)
+        adapter_available = raw_diagnostics is not None
+        adapter_diagnostics = tuple(raw_diagnostics or ())
         issues = self._validation_service.validate(
             self.controller.model,
             self.controller.diagram,
@@ -1417,14 +1419,17 @@ class EditorWorkspaceWidget(QWidget):
         self.inspector.details_button.setVisible(equipment_id is not None)
         self.quick_editor.set_equipment(equipment_id)
         if equipment_id is not None:
-            # Main typed inputs are editable together in quick_editor. Keep
-            # only identity and geometry in the legacy tree below them.
+            # Nameplate inputs use the typed draft. Network classes remain
+            # separate semantic choices, guarded by the connection topology.
             general = [row for row in fields if row.key in {"equipment.name", "equipment.type", "line.kind", "legacy.line.kind"}]
             geometry = [row for row in fields if row.key in {"graphics.x", "graphics.y", "graphics.rotation_deg"}]
+            voltage = [row for row in fields if row.key.startswith(
+                ("equipment.voltage_class.", "equipment.port_voltage.")
+            )]
             fields = tuple(PropertyField(row.key, row.label, row.value, row.group,
                 unit=row.unit, source=row.source, required=row.required,
                 error=row.error, hint=row.hint, editable=False, choices=())
-                for row in general) + tuple(geometry)
+                for row in general) + tuple(voltage) + tuple(geometry)
         if self._selected_ids and not title.startswith("Выбрано:"):
             title = "Выбрано: " + title
         editable = str(getattr(getattr(self.controller, "mode", "edit"), "value", getattr(self.controller, "mode", "edit"))) == "edit"
@@ -1661,7 +1666,8 @@ class EditorWorkspaceWidget(QWidget):
         return fields
 
     def _edit_property(self, key: str, value: Any) -> None:
-        if key.startswith(("equipment.", "line.", "legacy.line.")):
+        semantic_voltage = key.startswith(("equipment.voltage_class.", "equipment.port_voltage."))
+        if key.startswith(("equipment.", "line.", "legacy.line.")) and not semantic_voltage:
             self.statusMessage.emit("Электрические параметры изменяются в полной карточке: источник и подтверждение сохраняются вместе со значением.")
             self._update_inspector()
             return
