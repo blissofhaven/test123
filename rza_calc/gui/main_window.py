@@ -1331,9 +1331,10 @@ class TextDialog(QDialog):
 
 class MainWindow(QMainWindow):
     _projectInputChanged = Signal()
+    _overviewChanged = Signal()
 
     @_presentation_render
-    def __init__(self, vm: ProjectViewModel, *, project_settings: ProjectSettings | None = None):
+    def __init__(self, vm: ProjectViewModel, *, project_settings: ProjectSettings | None = None, start_in_overview: bool = False):
         super().__init__()
         self.vm = vm
         # Only app.main opts into persistence. Embedded/test windows do not
@@ -1387,6 +1388,17 @@ class MainWindow(QMainWindow):
         self.workspace_tabs.setObjectName("workspaceTabs")
         self.workspace_tabs.addTab(self.editor_workspace, "Редактор схемы")
         self.workspace_tabs.addTab(root, "Анализ и расчёты")
+        # Keep established editor/analysis indices for embedded callers. The
+        # desktop entry point explicitly starts on the common overview.
+        from .overview_panel import NetworkOverviewWorkspace
+        self.overview_workspace = NetworkOverviewWorkspace(vm, self.editor_controller, self.editor_workspace.scene)
+        self.workspace_tabs.addTab(self.overview_workspace, "Обзор объекта")
+        self.overview_workspace.openRequested.connect(self._open_overview_target)
+        self.overview_workspace.message.connect(self.statusBar().showMessage)
+        self._overview_detail_views = {}
+        self._overviewChanged.connect(self.overview_workspace.invalidate, Qt.ConnectionType.QueuedConnection)
+        self._overviewChanged.connect(lambda: self.editor_workspace.command_bar.refresh(self.editor_controller),
+                                      Qt.ConnectionType.QueuedConnection)
         self.mode_toolbar = ModeToolbar(self)
         self.mode_toolbar.modeSelected.connect(self._choose_operating_mode)
         self.mode_toolbar.manageRequested.connect(self._open_mode_manager)
@@ -1406,6 +1418,25 @@ class MainWindow(QMainWindow):
         central_layout = QVBoxLayout(central)
         central_layout.setContentsMargins(0, 0, 0, 0)
         central_layout.addWidget(self.mode_toolbar)
+        navigation = QHBoxLayout()
+        navigation.setContentsMargins(8, 2, 10, 2)
+        self.overview_back_button = QPushButton("← Обзор объекта")
+        self.overview_back_button.clicked.connect(self.show_network_overview)
+        self.navigation_path = QLabel("Объект → подробная схема")
+        self.navigation_path.setObjectName('muted')
+        self.navigation_path.setTextFormat(Qt.TextFormat.PlainText)
+        self.overview_workspace.pathChanged.connect(self._overview_path_changed)
+        navigation.addWidget(self.overview_back_button)
+        self.navigation_path.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Preferred)
+        navigation.addWidget(self.navigation_path, 1)
+        from PySide6.QtWidgets import QToolButton
+        for action in (self.editor_workspace.command_bar.save_action,
+                       self.editor_workspace.command_bar.undo_action,
+                       self.editor_workspace.command_bar.redo_action):
+            button = QToolButton(self)
+            button.setDefaultAction(action)
+            navigation.addWidget(button)
+        central_layout.addLayout(navigation)
         central_layout.addWidget(self.workspace_tabs, 1)
         self.setCentralWidget(central)
         self.header.legacy_mode_frame.hide()
@@ -1496,8 +1527,52 @@ class MainWindow(QMainWindow):
 
         if vm.warnings():
             self.statusBar().showMessage(vm.warnings()[0])
+        if start_in_overview:
+            self.show_network_overview()
+
+    def _overview_path_changed(self, path):
+        self.navigation_path.setText(path)
+        self.navigation_path.setToolTip(path)
+
+    def show_network_overview(self):
+        canvas = self.editor_workspace.canvas
+        if self.workspace_tabs.currentWidget() is self.editor_workspace and canvas.page_id is not None:
+            self._overview_detail_views[canvas.page_id] = (
+                canvas.view.viewport_state(), canvas.scene.selected_representation_ids(), canvas.scene.selected_route_ids())
+        self.workspace_tabs.setCurrentWidget(self.overview_workspace)
+        self.overview_workspace.ensure_current()
+        self.overview_workspace.set_point_result(self.vm.current_point_fault_result)
+
+    def _open_overview_target(self, target):
+        if target.page_id not in self.editor_controller.diagram.pages:
+            self.statusBar().showMessage('Связанный лист больше не существует.')
+            return
+        canvas = self.editor_workspace.canvas
+        canvas.view.cancel_placement(announce=False)
+        canvas.scene.cancel_connection(announce=False)
+        canvas.scene.cancel_object_drag()
+        canvas.show_page(target.page_id)
+        self.workspace_tabs.setCurrentWidget(self.editor_workspace)
+        saved = self._overview_detail_views.get(target.page_id)
+        reps, routes = target.representation_ids, target.route_ids
+        explicit_focus = bool(reps or routes)
+        if saved is not None and not reps and not routes:
+            viewport, reps, routes = saved
+            canvas.view.restore_viewport(viewport)
+        elif not reps and not routes:
+            canvas.view.fit_all()
+        canvas.scene.select_representations(reps, ensure_visible=explicit_focus)
+        for route_id in routes:
+            item = canvas.scene._route_items_by_id.get(route_id)
+            if item is not None:
+                item.setSelected(True)
+                if explicit_focus or saved is None:
+                    canvas.view.ensureVisible(item, 60, 60)
+        canvas.view.setFocus()
+        self.statusBar().showMessage('Открыта подробная схема. Кнопка «Обзор объекта» вернёт к выбранной карточке.')
 
     def _editor_history_changed(self, event) -> None:
+        self._overviewChanged.emit()
         if event.change.electrical_changed or event.change.catalog_changed:
             self._projectInputChanged.emit()
 
@@ -1627,7 +1702,7 @@ class MainWindow(QMainWindow):
         replacement = None
         try:
             replacement = MainWindow(
-                ProjectViewModel.open(path, calculate=False), project_settings=self._project_settings
+                ProjectViewModel.open(path, calculate=False), project_settings=self._project_settings, start_in_overview=True
             )
             replacement.showMaximized()
         except Exception as exc:
@@ -1679,8 +1754,12 @@ class MainWindow(QMainWindow):
         self.inspector.tabs.setCurrentIndex(inspector_tab)
         self.bottom.tabs.setCurrentIndex(bottom_tab)
         self._refresh_point_fault_ui()
+        self.overview_workspace.invalidate()
 
     def _point_fault_for_selection(self):
+        if self.workspace_tabs.currentWidget() is self.overview_workspace:
+            self.statusBar().showMessage('Откройте подробную схему объекта и выберите физическую точку КЗ.')
+            return
         owner = (self.editor_workspace.canvas if self.workspace_tabs.currentIndex() == 0
                  else self.diagram_panel.view)
         items = [item for item in owner.scene.selectedItems()
@@ -1779,6 +1858,7 @@ class MainWindow(QMainWindow):
             self.mode_toolbar.progress.setVisible(True)
         current = self.vm.current_point_fault_result
         self.bottom.set_point_fault_result(current)
+        self.overview_workspace.set_point_result(current)
         self.inspector.fault_source_notice.setText('Точечный расчёт готов на схеме; эта таблица относится к полному расчёту проекта.'
             if current is not None else 'Полный расчёт проекта')
         for overlay in self._point_overlays:

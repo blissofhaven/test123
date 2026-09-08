@@ -114,7 +114,7 @@ def main(argv: list[str] | None = None) -> int:
                 if progress is not None:
                     progress.setLabelText(f"Подготавливаю схему…\n{project_path.name}")
                     app.processEvents()
-                window = MainWindow(vm, project_settings=project_settings)
+                window = MainWindow(vm, project_settings=project_settings, start_in_overview=True)
                 window.showMaximized()
                 if smoke_test and (
                     not window.isVisible() or window.centralWidget() is None
